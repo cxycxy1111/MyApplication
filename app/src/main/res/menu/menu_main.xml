@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/refresh_main"
+        android:title="Refresh" />
+    <item
+        android:id="@+id/add_new_trend_main"
+        android:title="Add New Trend" />
+    <item
+        android:id="@+id/add_new_story_main"
+        android:title="Add New Story" />
+    <item
+        android:id="@+id/view_personal_profile_main"
+        android:title="View My Profile" />
+</menu>

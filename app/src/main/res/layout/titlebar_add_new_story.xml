@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/bg_title">
+
+    <TextView
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/menu"
+        style="@style/menu_text"
+        android:gravity="left"
+        android:text="edit"/>
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/title"
+        style="@style/title"
+        android:text="Title" />
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/right"
+        style="@style/menu_text"
+        android:gravity="right"
+        android:text="Title" />
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">冯静霞是只猪</string>
+    <string name="main_website">tel:10086</string>
+    <string name="title_activity_sec">Add New Story</string>
+    <string name="title_activity_add_new_trend">Add New Trend</string>
+    <string name="title_activity_view_personal_profile">My Profile</string>
+    <string name="profile_name">Alfred Teng</string>
+    <string name="profile_age">Age</string>
+</resources>
