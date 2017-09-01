@@ -7,11 +7,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.dengweixiong.Activity.AddNewStoryActivity">
 
-    <TextView
-        android:id="@+id/sec_text"
-        android:layout_gravity="bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="你好"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/addNewStory_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:titleTextAppearance="@style/toobarTitleText">
+
+    </android.support.v7.widget.Toolbar>
 
 </RelativeLayout>

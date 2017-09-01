@@ -1,11 +1,10 @@
 package com.example.dengweixiong.Activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class ViewPersonalProfileActivity extends AppCompatActivity {
+public class ViewPersonalProfileActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,36 +1,30 @@
 package com.example.dengweixiong.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class AddNewStoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddNewStoryActivity extends BaseActivity implements View.OnClickListener {
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_story);
-        ActionBar actionBar = getSupportActionBar();
-        Intent intent = getIntent();
-        String str = intent.getStringExtra("intent");
-        TextView textView = (TextView)findViewById(R.id.sec_text);
-        textView.setText(str);
-        textView.setOnClickListener(this);
+        initToolbar();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sec_text:
-                Toast.makeText(this,"hello,world",Toast.LENGTH_SHORT).show();
-            default:
-                break;
-        }
+    }
+
+
+    public void initToolbar() {
+        toolbar = (Toolbar)findViewById(R.id.addNewStory_toobar);
+        toolbar.setTitle("Add a New Stroy");
+        setSupportActionBar(toolbar);
     }
 }

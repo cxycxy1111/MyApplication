@@ -17,26 +17,20 @@
         android:label="Trends"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <receiver android:name="com.example.dengweixiong.Util.MyBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.dengweixiong.MY_BROARSCAST"/>
-            </intent-filter>
-        </receiver>
+        android:theme="@style/AlfredTheme">
 
         <activity
             android:name="com.example.dengweixiong.Activity.MainActivity"
             android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="com.example.dengweixiong.myapplication.CLICKBUTTON"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.example.dengweixiong.Activity.AddNewStoryActivity"
+            android:exported="true"
             android:label="@string/title_activity_sec"
             android:theme="@style/AppTheme" />
         <activity
