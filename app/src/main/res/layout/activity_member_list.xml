@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Member.MemberListActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:title="会员列表"
+        android:id="@+id/toolbar_activity_member_list"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_activity_member_list"
+        android:layout_below="@id/toolbar_activity_member_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/distance16">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

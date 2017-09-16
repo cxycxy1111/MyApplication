@@ -1,44 +1,49 @@
 package com.example.dengweixiong.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Activity.MainActivity;
+import com.example.dengweixiong.Adapter.CourseListRVAdapter;
 import com.example.dengweixiong.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CourseFragment.OnFragmentInteractionListener} interface
+ * {@link CourseListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CourseFragment#newInstance} factory method to
+ * Use the {@link CourseListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment {
+public class CourseListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
-    private Activity activity;
-    private AppCompatActivity appCompatActivity;
-    private Toolbar toolbar;
 
     private OnFragmentInteractionListener mListener;
+    private MainActivity mainActivity = (MainActivity)getActivity();
+    private RecyclerView recyclerView;
+    private CourseListRVAdapter adapter;
+    private ArrayList<HashMap<String,String>> recyclerviewdata;
 
-    public CourseFragment() {
+    public CourseListFragment() {
         // Required empty public constructor
     }
 
@@ -47,15 +52,13 @@ public class CourseFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CourseFragment.
+     * @return A new instance of fragment CourseDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CourseFragment newInstance(String param1, String param2) {
-        CourseFragment fragment = new CourseFragment();
+    public static CourseListFragment newInstance(String param1) {
+        CourseListFragment fragment = new CourseListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,19 +66,39 @@ public class CourseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = getActivity();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        initToolbar();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_list,container,false);
+        initRecyclerView(view);
+        return view;
+    }
+
+    private void initRecyclerView (View view) {
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        adapter = new CourseListRVAdapter(initData());
+        recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_course_list);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private ArrayList<HashMap<String,String>> initData() {
+        recyclerviewdata = new ArrayList<>();
+        for (int i=0;i<10;i++) {
+            HashMap<String,String> map = new HashMap<>();
+            map.put("name","会员课1");
+            map.put("time","40分钟");
+            map.put("supportedcard","会员卡1，会员卡2");
+            recyclerviewdata.add(map);
+        }
+     return recyclerviewdata;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -102,12 +125,6 @@ public class CourseFragment extends Fragment {
         mListener = null;
     }
 
-    public void initToolbar() {
-        toolbar = (Toolbar)getView().findViewById(R.id.fragment_course_toolbar);
-        toolbar.setTitle("课程");
-        ((BaseActivity)getActivity()).setSupportActionBar(toolbar);
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -122,18 +139,4 @@ public class CourseFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    public Toolbar initToobar(String title) {
-        appCompatActivity = (AppCompatActivity)activity;
-        toolbar = (Toolbar)appCompatActivity.findViewById(R.id.fragment_course_toolbar);
-        toolbar.setTitle(title);
-        appCompatActivity.setSupportActionBar(toolbar);
-        ActionBar actionBar = appCompatActivity.getSupportActionBar();
-        if (actionBar !=null ) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-        return toolbar;
-    }
-
-
 }

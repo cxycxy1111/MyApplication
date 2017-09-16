@@ -2,45 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dengweixiong.myapplication">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="org.litepal.LitePalApplication"
-        tools:replace="label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Trends"
+        android:label="会员"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AlfredTheme">
-
+        android:theme="@style/AppTheme"
+        tools:replace="label">
         <activity
             android:name="com.example.dengweixiong.Activity.MainActivity"
             android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.example.dengweixiong.myapplication.CLICKBUTTON"/>
+                <action android:name="com.example.dengweixiong.myapplication.CLICKBUTTON" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.dengweixiong.Activity.AddNewStoryActivity"
-            android:exported="true"
-            android:label="@string/title_activity_sec"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.example.dengweixiong.Activity.AddNewTrendActivity"
-            android:label="@string/title_activity_add_new_trend"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.example.dengweixiong.Activity.ViewPersonalProfileActivity"
-            android:label="@string/title_activity_view_personal_profile"
-            android:theme="@style/AppTheme"/>
+            android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity"
+            android:exported="true" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCoursePlanActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.AddNewMemberActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.MemberListActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.MemberDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.ResetMemberPwdActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Message.MessageListActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.AddNewMemberCardActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.MemberCardListActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.MemberCardDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.ChargeActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.DeductionActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.CourseDetailActivity"></activity>
     </application>
 
 </manifest>

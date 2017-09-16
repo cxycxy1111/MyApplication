@@ -1,13 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dengweixiong.Fragment.MemberFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="match_parent"
+        android:layout_marginTop="72dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv1_fragment_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/distance16"
+            android:text="会员管理"/>
+
+        <com.example.dengweixiong.Util.ListViewForScrollView
+            android:id="@+id/fragment_member_lv_1"
+            android:orientation="vertical"
+            style="@style/ListViewText"
+            android:layout_below="@id/tv1_fragment_member"
+            android:layout_marginTop="@dimen/distance16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.example.dengweixiong.Util.ListViewForScrollView>
+
+        <TextView
+            android:id="@+id/tv2_fragment_member"
+            android:layout_below="@id/fragment_member_lv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:layout_marginLeft="@dimen/distance16"
+            android:text="会员卡管理" />
+
+        <com.example.dengweixiong.Util.ListViewForScrollView
+            android:id="@+id/fragment_member_lv_2"
+            android:orientation="vertical"
+            style="@style/ListViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:layout_below="@+id/tv2_fragment_member">
+        </com.example.dengweixiong.Util.ListViewForScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

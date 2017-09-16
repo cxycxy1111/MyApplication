@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Course.CourseDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_alignParentTop="true"
+        android:id="@+id/tb_a_course_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/lv_a_course_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_below="@id/tb_a_course_detail">
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_supportedcard_a_course_detail"
+        android:layout_below="@id/lv_a_course_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginLeft="@dimen/distance16"
+        android:text="受支持会员卡" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv_supportedcard_a_course_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_below="@id/tb_a_course_detail">
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

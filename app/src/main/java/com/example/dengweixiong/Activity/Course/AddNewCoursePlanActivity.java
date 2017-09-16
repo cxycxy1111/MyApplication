@@ -1,20 +1,21 @@
-package com.example.dengweixiong.Activity;
+package com.example.dengweixiong.Activity.Course;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
-import com.example.dengweixiong.Util.BaseActivity;
+
 import com.example.dengweixiong.myapplication.R;
 
-public class AddNewTrendActivity extends BaseActivity {
+public class AddNewCoursePlanActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_trend);
+        setContentView(R.layout.activity_add_new_course_plan);
         initToolbar();
     }
 
@@ -29,14 +30,17 @@ public class AddNewTrendActivity extends BaseActivity {
                 break;
             case R.id.send_add_new_trend:
                 break;
+            case android.R.id.home:
+                finish();
         }
         return true;
     }
 
     public void initToolbar () {
-        toolbar = (Toolbar)findViewById(R.id.addNewTrend_toobar);
-        toolbar.setTitle("Add New Trend");
+        toolbar = (Toolbar)findViewById(R.id.addNewCoursePlan_toobar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("添加排课");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

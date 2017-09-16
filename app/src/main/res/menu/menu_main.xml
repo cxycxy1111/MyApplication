@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search_main"
+        android:title="搜索"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/refresh_main"
-        android:title="Refresh" />
+        android:title="刷新" />
     <item
         android:id="@+id/add_new_trend_main"
-        android:title="Add New Trend" />
+        android:title="新增趋势" />
     <item
         android:id="@+id/add_new_story_main"
-        android:title="Add New Story" />
+        android:title="新增故事" />
     <item
         android:id="@+id/view_personal_profile_main"
-        android:title="View My Profile" />
+        android:title="查看我的账户" />
 </menu>

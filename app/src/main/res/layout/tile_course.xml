@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_marginTop="@dimen/distance8"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name_tile_course"
+            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginLeft="@dimen/distance16"
+            style="@style/plain_text"/>
+        <TextView
+            android:id="@+id/tv_time_tile_course"
+            android:layout_alignParentRight="true"
+            android:text="@string/hello_blank_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginRight="@dimen/distance16"
+            style="@style/plain_text_hint"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_supportedcard_tile_course"
+        android:text="@string/app_name"
+        style="@style/plain_text_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
+        android:layout_marginLeft="@dimen/distance16"/>
+
+</LinearLayout>

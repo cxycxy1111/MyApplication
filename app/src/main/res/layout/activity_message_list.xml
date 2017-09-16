@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dengweixiong.Activity.AddNewTrendActivity">
-
+    tools:context="com.example.dengweixiong.Activity.Message.MessageListActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/addNewTrend_toobar"
+        android:id="@+id/toolbar_activity_message_list"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:titleTextAppearance="@style/toobarTitleText">
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
 
     </android.support.v7.widget.Toolbar>
 

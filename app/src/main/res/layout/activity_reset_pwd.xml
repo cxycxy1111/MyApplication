@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Member.ResetMemberPwdActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_activity_reset_pwd_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_activity_reset_pwd"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbar_activity_reset_pwd_member"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:background="#fff">
+
+        <EditText
+            android:id="@+id/edittext_sn_activity_member_detail"
+            style="@style/plain_text"
+            android:hint="新密码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"/>
+        <EditText
+            android:id="@+id/edittext_name_activity_member_detail"
+            style="@style/plain_text"
+            android:hint="重复新密码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"
+            android:layout_marginBottom="@dimen/distance16"/>
+    </LinearLayout>
+
+</RelativeLayout>

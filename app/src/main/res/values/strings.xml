@@ -7,6 +7,18 @@
     <string name="profile_name">Alfred Teng</string>
     <string name="profile_age">Age</string>
 
+    <string name="fragment_member_str">会员</string>
+    <string name="fragment_message_str">消息</string>
+    <string name="fragment_profile_str">个人</string>
+    <string name="fragment_course_str">课程</string>
+
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Member</string>
+    <string name="message">message</string>
+    <string name="course">course</string>
+    <string name="person">person</string>
+
+
+    <string name="course_plan">排课</string>
+    <string name="course_list">课程</string>
 </resources>

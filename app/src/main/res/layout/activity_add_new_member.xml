@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Member.AddNewMemberActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:title="新增会员"
+        android:id="@+id/toolbar_activity_add_new_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar_activity_add_new_member"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edittext_name_activity_add_new_member"
+            style="@style/plain_text"
+            android:hint="姓名"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"/>
+        <EditText
+            android:id="@+id/edittext_birthday_activity_add_new_member"
+            style="@style/plain_text"
+            android:hint="出生日期"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"/>
+        <EditText
+            android:id="@+id/edittext_phone_activity_add_new_member"
+            style="@style/plain_text"
+            android:hint="手机号码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"/>
+        <EditText
+            android:id="@+id/edittext_im_activity_add_new_member"
+            style="@style/plain_text"
+            android:hint="即时通讯"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance8"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginRight="@dimen/distance16"
+            android:layout_marginBottom="@dimen/distance16"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
