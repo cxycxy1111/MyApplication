@@ -6,9 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class ResetMemberPwdActivity extends AppCompatActivity {
+public class ResetMemberPwdActivity
+        extends BaseActivity {
 
     private Toolbar toolbar;
 

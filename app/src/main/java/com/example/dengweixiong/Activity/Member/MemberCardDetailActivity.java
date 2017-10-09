@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MemberCardDetailActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements ListView.OnItemClickListener{
 
     private Toolbar toolbar;

@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.dengweixiong.Bean.Course;
 import com.example.dengweixiong.myapplication.R;
 
 public class AddNewCourseActivity
@@ -13,6 +14,7 @@ public class AddNewCourseActivity
             AppCompatActivity {
 
     private Toolbar toolbar;
+    private Course course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

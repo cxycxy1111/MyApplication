@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CourseDetailActivity extends AppCompatActivity {
+public class CourseDetailActivity
+        extends BaseActivity {
 
     private Toolbar toolbar;
     private ListView listView;

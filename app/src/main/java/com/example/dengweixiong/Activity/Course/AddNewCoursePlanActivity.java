@@ -6,9 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Menu;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class AddNewCoursePlanActivity extends AppCompatActivity {
+public class AddNewCoursePlanActivity extends BaseActivity {
 
     private Toolbar toolbar;
 

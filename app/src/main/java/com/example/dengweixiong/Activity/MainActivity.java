@@ -18,13 +18,14 @@ import com.example.dengweixiong.Fragment.CourseMainFragment;
 import com.example.dengweixiong.Fragment.CoursePlanFragment;
 import com.example.dengweixiong.Fragment.MemberFragment;
 import com.example.dengweixiong.Fragment.PersonFragment;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity
         extends
-        AppCompatActivity
+        BaseActivity
         implements BottomNavigationBar.OnTabSelectedListener,
             MemberFragment.OnFragmentInteractionListener,
             CourseMainFragment.OnFragmentInteractionListener,

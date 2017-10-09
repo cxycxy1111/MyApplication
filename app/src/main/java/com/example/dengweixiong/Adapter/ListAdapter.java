@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dengweixiong.Bean.Card;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private ArrayList<Country> arrayList;
+    private ArrayList<Card> arrayList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
@@ -26,7 +27,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-    public ListAdapter(ArrayList<Country> aArrayList) {
+    public ListAdapter(ArrayList<Card> aArrayList) {
         this.arrayList = aArrayList;
     }
 
@@ -43,8 +44,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public void onBindViewHolder(ViewHolder holder,int position) {
-        Country country = arrayList.get(position);
-        holder.name.setText(country.getCountryName());
+        Card country = arrayList.get(position);
+        holder.name.setText(country.getName());
     }
 
     public int getItemCount() {

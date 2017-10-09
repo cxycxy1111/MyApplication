@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class DeductionActivity extends AppCompatActivity {
+public class DeductionActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private Spinner spinner_member;

@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.dengweixiong.Adapter.SimpleRecylcerViewAdapter;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 public class MemberDetailActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements SimpleRecylcerViewAdapter.OnItemClickListener{
 
     Toolbar toolbar;

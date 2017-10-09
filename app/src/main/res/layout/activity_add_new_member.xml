@@ -26,44 +26,152 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edittext_name_activity_add_new_member"
-            style="@style/plain_text"
-            android:hint="姓名"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:text="姓名"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_name_activity_add_new_member"
+                style="@style/plain_text"
+                android:hint="姓名"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_name_a_add_new_member"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_login_name_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:text="登录名"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_login_name_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_login_name_a_add_new_member"
+                style="@style/plain_text"
+                android:hint="登录名"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance16"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"/>
-        <EditText
-            android:id="@+id/edittext_birthday_activity_add_new_member"
-            style="@style/plain_text"
-            android:hint="出生日期"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_password_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:text="密码"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_password_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_password_a_add_new_member"
+                style="@style/plain_text"
+                android:hint="密码"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance8"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"/>
-        <EditText
-            android:id="@+id/edittext_phone_activity_add_new_member"
-            style="@style/plain_text"
-            android:hint="手机号码"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_birthday_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:text="生日"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_birthday_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_birthday_a_add_new_member"
+                style="@style/plain_text"
+                android:hint="生日"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance8"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"/>
-        <EditText
-            android:id="@+id/edittext_im_activity_add_new_member"
-            style="@style/plain_text"
-            android:hint="即时通讯"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance8"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"
-            android:layout_marginBottom="@dimen/distance16"/>
+            android:layout_marginTop="0dp">
 
+            <TextView
+                android:id="@+id/tv_phone_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginTop="@dimen/distance16"
+                android:text="手机号码" />
+            <EditText
+                android:id="@+id/edittext_phone_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_phone_a_add_new_member"
+                style="@style/plain_text"
+                android:hint="手机号码"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_im_a_add_new_member"
+                style="@style/plain_text"
+                android:layout_width="@dimen/distance64"
+                android:text="即时通讯"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_im_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_im_a_add_new_member"
+                style="@style/plain_text"
+                android:hint="即时通讯"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginLeft="@dimen/distance16"
+                android:layout_marginRight="@dimen/distance16"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

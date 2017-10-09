@@ -6,9 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
-public class MessageListActivity extends AppCompatActivity {
+public class MessageListActivity extends BaseActivity {
 
     private Toolbar toolbar;
 

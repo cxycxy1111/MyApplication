@@ -13,6 +13,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.example.dengweixiong.Activity.MainActivity;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MemberCardListActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements Spinner.OnItemClickListener{
 
     private Toolbar toolbar;

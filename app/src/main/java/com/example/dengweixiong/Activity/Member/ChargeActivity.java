@@ -11,10 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 public class ChargeActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements Spinner.OnItemClickListener{
 
     private Toolbar toolbar;

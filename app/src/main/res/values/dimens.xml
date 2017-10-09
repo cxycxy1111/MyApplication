@@ -8,6 +8,9 @@
     <dimen name="distance8">8dp</dimen>
     <dimen name="distance16">16dp</dimen>
     <dimen name="distance32">32dp</dimen>
+    <dimen name="distance64">64dp</dimen>
+    <dimen name="distance72">72dp</dimen>
+
     <dimen name="distance4">4dp</dimen>
 
     <dimen name="group_text">10sp</dimen>

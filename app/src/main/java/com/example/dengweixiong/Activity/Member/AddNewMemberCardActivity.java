@@ -13,10 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.dengweixiong.Activity.MainActivity;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 public class AddNewMemberCardActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements Spinner.OnItemSelectedListener{
 
     private String [] str_member_card = {"余额卡","次卡","有效期卡"};
