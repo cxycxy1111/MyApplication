@@ -16,8 +16,8 @@
     <dimen name="group_text">10sp</dimen>
     <dimen name="simple_list_view_text">16sp</dimen>
 
-<!--NavigationBar的设置-->
-<!--FixMode-->
+    <!--NavigationBar的设置-->
+    <!--FixMode-->
     <dimen name="fixed_min_width">120dp</dimen>
     <dimen name="fixed_min_width_small_views">104dp</dimen>
     <dimen name="fixed_max_width">168dp</dimen>
@@ -36,7 +36,7 @@
     <!-- this adds 6 dp extra to top and bottom icon -->
     <dimen name="fixed_icon_badge_grid_width">48dp</dimen>
     <!-- this adds 6 dp extra to top and bottom icon -->
-<!--ShiftMode-->
+    <!--ShiftMode-->
     <dimen name="shifting_min_width_active">96dp</dimen>
     <dimen name="shifting_max_width_active">168dp</dimen>
     <dimen name="shifting_min_width_inactive">64dp</dimen>

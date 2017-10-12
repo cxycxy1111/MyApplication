@@ -2,8 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowBackgroundCoclor</item>
     </style>
 
@@ -11,12 +9,15 @@
         <item name="android:textColor">#111</item>
         <item name="android:textSize">@dimen/group_text</item>
     </style>
+
     <style name="ListViewText">
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">@dimen/simple_list_view_text</item>
     </style>
 
     <style name="Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:textColorPrimary">#fff</item>
         <item name="android:textColorSecondary">#fff</item>
         <item name="android:actionMenuTextColor">#fff</item>
@@ -42,7 +43,7 @@
         <item name="android:textColor">#3F51B5</item>
         <item name="android:textSize">18dp</item>
         <item name="android:textStyle">bold</item>
-    </style >
+    </style>
 
     <style name="title">
         <item name="android:layout_width">wrap_content</item>
@@ -77,9 +78,33 @@
     </style>
 
     <style name="plain_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">#000</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_margin">16dp</item>
+    </style>
+
+    <style name="plain_editText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginTop">@dimen/distance8</item>
+        <item name="android:layout_marginBottom">@dimen/distance8</item>
+        <item name="android:layout_marginRight">@dimen/distance8</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+    </style>
+
+    <style name="tv_input_area">
+        <item name="android:layout_width">@dimen/distance64</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

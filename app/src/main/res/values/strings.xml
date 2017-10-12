@@ -21,4 +21,6 @@
 
     <string name="course_plan">排课</string>
     <string name="course_list">课程</string>
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_regist_administraotr">RegistAdministraotrActivity</string>
 </resources>

@@ -11,24 +11,20 @@
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="会员"
+        android:label="Sailfish"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="label">
-        <activity
-            android:name="com.example.dengweixiong.Activity.MainActivity"
-            android:launchMode="standard">
+        <activity android:name="com.example.dengweixiong.Activity.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.example.dengweixiong.myapplication.CLICKBUTTON" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity"
-            android:exported="true" />
+        <activity android:name="com.example.dengweixiong.Activity.MainActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Login.RegistAdministraotrActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity" android:exported="true" />
         <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCoursePlanActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.AddNewMemberActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.MemberListActivity" />
@@ -40,7 +36,7 @@
         <activity android:name="com.example.dengweixiong.Activity.Member.MemberCardDetailActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.ChargeActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.DeductionActivity" />
-        <activity android:name="com.example.dengweixiong.Activity.Course.CourseDetailActivity"></activity>
+        <activity android:name="com.example.dengweixiong.Activity.Course.CourseDetailActivity" />
     </application>
 
 </manifest>

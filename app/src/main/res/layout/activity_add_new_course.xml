@@ -11,7 +11,7 @@
         android:id="@+id/addNewCourse_toobar"
         android:title="添加课程"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/toolbar_height"
         android:theme="@style/Toolbar"
         app:popupTheme="@style/AlfredOverlay">
 

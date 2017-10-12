@@ -7,11 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.dengweixiong.Bean.Course;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
 public class AddNewCourseActivity
         extends
-            AppCompatActivity {
+        BaseActivity {
 
     private Toolbar toolbar;
     private Course course;
