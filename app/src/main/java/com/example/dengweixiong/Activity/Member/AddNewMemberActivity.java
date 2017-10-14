@@ -21,6 +21,7 @@ import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class AddNewMemberActivity
@@ -67,7 +68,8 @@ public class AddNewMemberActivity
                     break;
                 } else {
                     String address = "/AddNewMember?shop_id=5&shop_member_id=1&name=邓伟雄&login_name=dengweixiong44&password=111&phone=13751729017&im=111&birthday=2017-01-01 00:00:00\n";
-                    NetUtil.sendHttpRequest(address,new okhttp3.Callback() {
+                    Call call = NetUtil.sendHttpRequest(AddNewMemberActivity.this,address);
+                    call.enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
 

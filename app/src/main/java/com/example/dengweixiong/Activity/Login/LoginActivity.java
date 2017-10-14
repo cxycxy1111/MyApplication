@@ -1,23 +1,14 @@
 package com.example.dengweixiong.Activity.Login;
 
-import android.app.Application;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Adapter.CourseViewPagerAdapter;
-import com.example.dengweixiong.Fragment.CoursePlanFragment;
-import com.example.dengweixiong.Fragment.RegistFragment;
+import com.example.dengweixiong.Fragment.RegistShopFragment;
 import com.example.dengweixiong.Fragment.SignInFragment;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
@@ -28,7 +19,7 @@ import java.util.List;
 public class LoginActivity
         extends BaseActivity
         implements TabLayout.OnTabSelectedListener,
-            RegistFragment.OnFragmentInteractionListener,
+            RegistShopFragment.OnFragmentInteractionListener,
             SignInFragment.OnFragmentInteractionListener {
 
     private TabLayout tabLayout;
@@ -74,7 +65,7 @@ public class LoginActivity
 
     private List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(RegistFragment.newInstance("注册新机构"));
+        fragments.add(RegistShopFragment.newInstance("注册新机构"));
         fragments.add(SignInFragment.newInstance("登录"));
         return fragments;
     }

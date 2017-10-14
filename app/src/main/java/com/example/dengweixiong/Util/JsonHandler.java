@@ -1,12 +1,17 @@
 package com.example.dengweixiong.Util;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.util.Log;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import okhttp3.Response;
 
 /**
  * Created by dengweixiong on 2017/10/8.
@@ -14,27 +19,37 @@ import java.util.List;
 
 public class JsonHandler {
 
-    public static List<HashMap<String,String>> getstr(String str) throws JSONException {
-        List<HashMap<String,String>> res = new ArrayList<HashMap<String,String>>();
+    public static final String TAG = "JSONHandler:";
+
+    public static List<HashMap<String,String>> strToListMap(String str,String keys[]) {
+        List<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
         if(str==null||str.equals("")||!str.startsWith("[")||!str.endsWith("]")){
-            return res;
+            return list;
         }
-        JSONArray ja = new JSONArray(str);
+        JSONArray ja = JSONArray.fromObject(str);
         JSONObject jo = null;
-        HashMap<String,String>map = null;
-        String pic = null;
-        String order = null;
-        for(int i=0;i<ja.length();i++) {
+        HashMap<String,String> map = null;
+        for(int i=0;i<ja.size();i++) {
             jo = ja.getJSONObject(i);
-            pic = jo.getString("pic");
-            order = jo.getString("order");
-            if (pic != null && !"".equals(pic) && order != null && !"".equals(order)) {
-                map = new HashMap<String, String>();
-                map.put("order", order);
-                map.put("pic", pic.indexOf(".jpg") != -1 ? pic : pic + ".jpg");
-                res.add(map);
+            for (int j = 0;j < keys.length;i++) {
+                str = jo.getString(keys[i]);
+                map.put(keys[i],str);
+                list.add(map);
             }
         }
-        return res;
+        return list;
+    }
+
+    public static HashMap<String,String> strToMap(Response response) throws IOException {
+        String str = response.body().string();
+        HashMap<String,String> hashMap = new HashMap<String,String>();
+        JSONObject jsonObject = JSONObject.fromObject(str);
+        Iterator<String> iterator = jsonObject.keys();
+        while (iterator.hasNext()) {
+            String key = iterator.next().toString();
+            String value = jsonObject.getString(key);
+            hashMap.put(key,value);
+        }
+        return hashMap;
     }
 }
