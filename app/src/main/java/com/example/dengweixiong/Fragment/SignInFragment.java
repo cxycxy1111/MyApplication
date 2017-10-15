@@ -1,9 +1,14 @@
 package com.example.dengweixiong.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
@@ -20,6 +27,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,10 +47,13 @@ public class SignInFragment
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String TAG = "SIGNINFRAGMENT :";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParam1,mParam2;
+    private static final int S_ID = 1;
+    private static final int SM_ID = 2;
+    private long sm_id,s_id;
     private EditText et_loginname_a_regist_admin,et_password_a_regist_admin;
     private String loginname,password;
     private Button btn_submit_a_regist_admin;
@@ -109,11 +120,15 @@ public class SignInFragment
         mListener = null;
     }
 
-
+    /**
+     * 初始化界面
+     * @param view
+     */
     private void initView(View view) {
         et_loginname_a_regist_admin = (EditText)view.findViewById(R.id.et_loginname_a_signin_admin);
         et_password_a_regist_admin = (EditText)view.findViewById(R.id.et_password_a_signin_admin);
         btn_submit_a_regist_admin = (Button)view.findViewById(R.id.btn_submit_a_signin_admin);
+        btn_submit_a_regist_admin.setOnClickListener(this);
     }
 
     @Override
@@ -122,49 +137,130 @@ public class SignInFragment
             case R.id.btn_submit_a_signin_admin :
                 loginname = et_loginname_a_regist_admin.getText().toString();
                 password = et_password_a_regist_admin.getText().toString();
-                if (loginname.equals("") | loginname.equals(null) | password.equals("") | password.equals(null)) {
+                if (loginname.equals("") || loginname.equals(null) || password.equals("") || password.equals(null)) {
                     Toast.makeText(getContext(),"登录名或密码不能为空",Toast.LENGTH_LONG).show();
                 }else {
-
+                    requestShopmember();
+                    jumpTo();
                 }
-
+                break;
+            default:
+                break;
         }
     }
 
-    private void request() {
+    /**
+     * 校验
+     */
+    private void requestShopmember() {
         String add = "/ShopMemberLogin?user_name=" + loginname + "&password=" + password;
-        Call call = NetUtil.sendHttpRequest(getContext(),add);
-        call.enqueue(new Callback() {
+        Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), Reference.CANT_CONNECT_INTERNET,Toast.LENGTH_LONG).show();
-                    }
-                });
+                MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response);
-                String value = map.get("stat");
-                if ()
-            }
-        });
+                String str = response.body().string();
+                map = JsonHandler.strToMap(str);
+                String key = null;
+                String value = null;
+                Set<String> set = map.keySet();
+                Iterator<String> iterator = set.iterator();
+                while (iterator.hasNext()) {
+                    key = iterator.next().toString();
+                    value = map.get(key);
+                }
+                if (key.equals("stat")) {
+                    if (value.equals("not_match")) {
+                        MethodTool.showToast(getActivity(),"登录名与密码不匹配");
+                    } else if (value.equals("no_such_record")){
+                        MethodTool.showToast(getActivity(),"登录名与密码不匹配");
+                    } else {
+                        MethodTool.showToast(getActivity(),Reference.UNKNOWN_ERROR);
+                    }
+                }else if (key.equals("data")) {
+                    sm_id = Long.parseLong(value);
+                    storeLoginMessage(loginname,password);
+                    requestShop();
+                }else {
 
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(getContext(),add,callback);
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * 查询机构ID
+     */
+    private void requestShop() {
+        String url = "/ShopIdQueryByShopMemberId?sm_id=" + sm_id;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Map<String,String> hashMap = new HashMap<>();
+                String string = response.body().string();
+                hashMap = JsonHandler.strToMap(string);
+                Set<String> set =hashMap.keySet();
+                Iterator<String> iterator = set.iterator();
+                String key,value;
+                while (iterator.hasNext()) {
+                    key = iterator.next().toString();
+                    value = hashMap.get(key);
+                    s_id = Long.parseLong(value);
+                }
+                //储存舞馆ID
+                storeShopAndShopMemberInfo("sasm","s_id",s_id);
+                //储存教师ID
+                storeShopAndShopMemberInfo("sasm","sm_id",sm_id);
+            }
+        };
+        NetUtil.sendHttpRequest(getContext(),url,callback);
+    }
+
+    /**
+     * 跳至主界面
+     */
+    private void jumpTo() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 储存登录信息
+     * @param l_name 登录名
+     * @param pwd 密码
+     */
+    private void storeLoginMessage(String l_name,String pwd) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
+        editor.putString("login_name",l_name);
+        editor.putString("password",pwd);
+        editor.apply();
+    }
+
+    /**
+     * 储存舞馆信息或教师信息
+     * @param file_name 文件名
+     * @param key 键
+     * @param value 值
+     */
+    private void storeShopAndShopMemberInfo(String file_name,String key,long value) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(file_name,Context.MODE_PRIVATE).edit();
+        editor.putLong(key,value);
+        editor.apply();
+    }
+
+
+    /**
+     *
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

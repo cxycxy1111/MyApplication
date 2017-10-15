@@ -40,8 +40,7 @@ public class JsonHandler {
         return list;
     }
 
-    public static HashMap<String,String> strToMap(Response response) throws IOException {
-        String str = response.body().string();
+    public static HashMap<String,String> strToMap(String str) throws IOException {
         HashMap<String,String> hashMap = new HashMap<String,String>();
         JSONObject jsonObject = JSONObject.fromObject(str);
         Iterator<String> iterator = jsonObject.keys();

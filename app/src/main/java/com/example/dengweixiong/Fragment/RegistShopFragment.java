@@ -2,6 +2,7 @@ package com.example.dengweixiong.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.mtp.MtpConstants;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.dengweixiong.Activity.Login.RegistAdministraotrActivity;
 import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
@@ -123,73 +125,55 @@ public class RegistShopFragment
     private void request() {
         String name = et_name.getText().toString();
         String intro = et_intro.getText().toString();
+
         String url_add_shop = "/RegisterShop?name=" + name + "&intro=" + intro;
         Log.d(TAG, url_add_shop);
-        Call call = NetUtil.sendHttpRequest(getContext(),url_add_shop);
-        call.enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), Reference.CANT_CONNECT_INTERNET,Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //打印得到的response
-                HashMap<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response);
-                //打印转化出来的map
-                Set<String> set = map.keySet();
-                Iterator iterator = set.iterator();
-                String key = null;
-                String value = null;
-
-                while (iterator.hasNext()) {
-                    key = iterator.next().toString();
-                    value = map.get(key);
+        if (name.equals("") | name.equals(null)) {
+            Toast.makeText(getContext(),"机构名不能为空",Toast.LENGTH_LONG).show();
+        }else {
+            Call call = NetUtil.sendHttpRequest(getContext(),url_add_shop);
+            call.enqueue(new okhttp3.Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
                 }
-                if (key.equals("stat")) {
-                    if (value.equals("exe_fail")) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(),"新增失败",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }else if (value.equals("duplicate")) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(),"舞馆名重复",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    } else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getContext(),Reference.UNKNOWN_ERROR,Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
 
-                }else if (key.equals("data")) {
-                    long id = Long.parseLong(value);
-                    Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
-                    intent.putExtra("s_id",id);
-                    getActivity().startActivity(intent);
-                }else if (key.equals(null)){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getContext(),Reference.NULL_POINTER_ERROR,Toast.LENGTH_LONG).show();
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    //打印得到的response
+                    HashMap<String,String> map = new HashMap<>();
+                    String str = response.body().string();
+                    map = JsonHandler.strToMap(str);
+                    //打印转化出来的map
+                    Set<String> set = map.keySet();
+                    Iterator iterator = set.iterator();
+                    String key = null;
+                    String value = null;
+
+                    while (iterator.hasNext()) {
+                        key = iterator.next().toString();
+                        value = map.get(key);
+                    }
+                    if (key.equals("stat")) {
+                        if (value.equals("exe_fail")) {
+                            MethodTool.showToast(getActivity(),"新增失败");
+                        }else if (value.equals("duplicate")) {
+                            MethodTool.showToast(getActivity(),"机构名重复");
+                        } else {
+                            MethodTool.showToast(getActivity(),Reference.UNKNOWN_ERROR);
                         }
-                    });
+
+                    }else if (key.equals("data")) {
+                        long id = Long.parseLong(value);
+                        Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
+                        intent.putExtra("s_id",id);
+                        getActivity().startActivity(intent);
+                    }else if (key.equals(null)){
+                        MethodTool.showToast(getActivity(),Reference.NULL_POINTER_ERROR);
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 }

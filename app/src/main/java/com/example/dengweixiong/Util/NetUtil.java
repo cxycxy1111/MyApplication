@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,12 +24,12 @@ public class NetUtil {
     private static final String REMOTE_PREFIX = "";
     private static OkHttpClient client;
 
-    public static Call sendHttpRequest(Context context,String address) {
+    public static void sendHttpRequest(Context context,String address,Callback callback) {
         String str = LOCAL_PREFIX + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);
-        return call;
+        call.enqueue(callback);
     }
 
     private static void initOkHttpClient(Context context) {

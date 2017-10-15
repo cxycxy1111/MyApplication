@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.myapplication.R;
 
@@ -81,8 +82,7 @@ public class RegistAdministraotrActivity
         loginname = et_loginname.getText().toString();
         password = et_password.getText().toString();
         String url_add_shopmember = "/ShopMemberRegister?login_name=" + loginname + "&pwd=" + password + "&name=" + name + "&s_id=" + s_id;
-        Call call = NetUtil.sendHttpRequest(RegistAdministraotrActivity.this,url_add_shopmember);
-        call.enqueue(new Callback() {
+        Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
@@ -95,10 +95,12 @@ public class RegistAdministraotrActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 HashMap<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response);
+                String str = response.body().string();
+                map = JsonHandler.strToMap(str);
                 String value = map.get("stat");
                 if (value.equals("exe_suc")) {
-                    Intent intent = new Intent(RegistAdministraotrActivity.this,MainActivity.class);
+                    MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
+                    Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);
                     startActivity(intent);
                 } else if (value.equals("exe_fail")) {
                     RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
@@ -116,6 +118,8 @@ public class RegistAdministraotrActivity
                     });
                 }
             }
-        });
+        };
+
+        NetUtil.sendHttpRequest(RegistAdministraotrActivity.this,url_add_shopmember,callback);
     }
 }

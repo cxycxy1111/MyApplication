@@ -1,5 +1,8 @@
 package com.example.dengweixiong.Activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,6 +51,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         initToolBar();
         initBottomNavigationBar();
+        delWithIntent();
     }
 
     //toolbar初始化
@@ -153,4 +157,9 @@ public class MainActivity
     public boolean onMenuItemClick(MenuItem item) {
         return false;
     }
+
+    private void delWithIntent() {
+
+    }
+
 }
