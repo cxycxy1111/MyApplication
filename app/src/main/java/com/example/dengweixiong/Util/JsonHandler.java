@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Response;
 
@@ -21,26 +22,34 @@ public class JsonHandler {
 
     public static final String TAG = "JSONHandler:";
 
-    public static List<HashMap<String,String>> strToListMap(String str,String keys[]) {
-        List<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
-        if(str==null||str.equals("")||!str.startsWith("[")||!str.endsWith("]")){
-            return list;
-        }
+    /**
+     * String转为List<HashMap<String>>
+     * @param response
+     * @param keys
+     * @return
+     */
+    public static ArrayList<Map<String,String>> strToListMap(Response response,String keys[]) throws IOException {
+        String str = response.body().string();
+        ArrayList<Map<String,String>> list = new ArrayList<>();
         JSONArray ja = JSONArray.fromObject(str);
-        JSONObject jo = null;
-        HashMap<String,String> map = null;
         for(int i=0;i<ja.size();i++) {
-            jo = ja.getJSONObject(i);
-            for (int j = 0;j < keys.length;i++) {
-                str = jo.getString(keys[i]);
-                map.put(keys[i],str);
-                list.add(map);
-            }
+            JSONObject jo = ja.getJSONObject(i);
+            Map<String,String> map = new HashMap<>();
+            map = jo;
+
+            list.add(map);
         }
         return list;
     }
 
-    public static HashMap<String,String> strToMap(String str) throws IOException {
+    /**
+     * string转HashMap
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static HashMap<String,String> strToMap(Response response) throws IOException {
+        String str = response.body().string();
         HashMap<String,String> hashMap = new HashMap<String,String>();
         JSONObject jsonObject = JSONObject.fromObject(str);
         Iterator<String> iterator = jsonObject.keys();
@@ -51,4 +60,6 @@ public class JsonHandler {
         }
         return hashMap;
     }
+
+
 }

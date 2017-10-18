@@ -5,14 +5,13 @@
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="tabbar_height">40dp</dimen>
+    <dimen name="distance2">2dp</dimen>
+    <dimen name="distance4">4dp</dimen>
     <dimen name="distance8">8dp</dimen>
     <dimen name="distance16">16dp</dimen>
     <dimen name="distance32">32dp</dimen>
     <dimen name="distance64">64dp</dimen>
     <dimen name="distance72">72dp</dimen>
-
-    <dimen name="distance4">4dp</dimen>
-
     <dimen name="group_text">10sp</dimen>
     <dimen name="simple_list_view_text">16sp</dimen>
 

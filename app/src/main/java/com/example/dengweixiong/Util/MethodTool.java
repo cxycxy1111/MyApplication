@@ -1,11 +1,19 @@
 package com.example.dengweixiong.Util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dengweixiong on 2017/10/14.
@@ -13,6 +21,25 @@ import android.widget.Toast;
 
 public class MethodTool {
 
+    /**
+     * 隐藏View
+     * @param targetActivity
+     * @param view
+     */
+    public static void hideView(final Activity targetActivity, final View view) {
+        targetActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                view.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * 显示Toast
+     * @param targetActivity
+     * @param string
+     */
     public static void showToast(final Activity targetActivity, final String string) {
         targetActivity.runOnUiThread(new Runnable() {
             @Override
@@ -22,6 +49,12 @@ public class MethodTool {
         });
     }
 
+    /**
+     * 显示提示框
+     * @param targetActivity
+     * @param title
+     * @param content
+     */
     public static void showAlert(final Activity targetActivity, final String title,final String content) {
         targetActivity.runOnUiThread(new Runnable() {
             @Override
@@ -43,6 +76,68 @@ public class MethodTool {
                 dialog.show();
             }
         });
+    }
+
+    public static void hideProgressBar(final Activity activity, final ProgressBar progressBar) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * 获取long类型的preferenceShare
+     * @param context
+     * @param fileName
+     * @param key
+     * @return
+     */
+    public static long preGetLong(Context context,String fileName, String key) {
+        SharedPreferences preferences = context.getSharedPreferences(fileName,context.MODE_PRIVATE);
+        return preferences.getLong(key,0);
+    }
+
+    /**
+     * 获取String类型的preferenceShare
+     * @param context
+     * @param fileName
+     * @param key
+     * @return
+     */
+    public static String preGetString(Context context,String fileName,String key) {
+        SharedPreferences preferences = context.getSharedPreferences(fileName,context.MODE_PRIVATE);
+        return preferences.getString(key,null);
+    }
+
+    /**
+     * 跳转至其他活动
+     * @param context
+     * @param c
+     */
+    public static void jumpToActivity(Context context,Class<?> c) {
+        Intent intent = new Intent(context,c);
+        context.startActivity(intent);
+    }
+
+    public static ArrayList<String> getKeys(Map<String,String> map) {
+        ArrayList<String> list = new ArrayList<>();
+        Set<String> set = map.keySet();
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext()) {
+            list.add(iterator.next().toString());
+        }
+        return list;
+    }
+
+    public static ArrayList<String> getValues(Map<String,String> map,ArrayList keys) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0;i < keys.size();i++) {
+            String value = map.get(keys.get(i));
+            list.add(value);
+        }
+        return list;
     }
 
 }

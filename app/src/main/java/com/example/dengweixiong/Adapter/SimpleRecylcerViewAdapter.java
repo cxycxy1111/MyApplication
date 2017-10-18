@@ -7,17 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.dengweixiong.myapplication.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by dengweixiong on 2017/9/7.
  */
 
 public class SimpleRecylcerViewAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
-    private String[] strings = null;
+    private ArrayList<String> strings = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;
 
     //构造器
-    public SimpleRecylcerViewAdapter(String[] strings) {
+    public SimpleRecylcerViewAdapter(ArrayList<String> strings) {
         this.strings = strings;
     }
 
@@ -59,13 +61,13 @@ public class SimpleRecylcerViewAdapter extends RecyclerView.Adapter implements V
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ViewHolder holder1 = (ViewHolder)holder;
-        holder1.textView.setText(strings[position]);
+        holder1.textView.setText(strings.get(position));
         holder1.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return strings.length;
+        return strings.size();
     }
 
 }

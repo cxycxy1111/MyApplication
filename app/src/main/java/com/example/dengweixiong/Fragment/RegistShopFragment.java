@@ -21,10 +21,12 @@ import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class RegistShopFragment
@@ -131,8 +133,7 @@ public class RegistShopFragment
         if (name.equals("") | name.equals(null)) {
             Toast.makeText(getContext(),"机构名不能为空",Toast.LENGTH_LONG).show();
         }else {
-            Call call = NetUtil.sendHttpRequest(getContext(),url_add_shop);
-            call.enqueue(new okhttp3.Callback() {
+            Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
@@ -140,39 +141,31 @@ public class RegistShopFragment
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    //打印得到的response
-                    HashMap<String,String> map = new HashMap<>();
-                    String str = response.body().string();
-                    map = JsonHandler.strToMap(str);
+                    HashMap<String,String> map = JsonHandler.strToMap(response);
                     //打印转化出来的map
+                    ArrayList<String> keys = MethodTool.getKeys(map);
+                    ArrayList<String> values = MethodTool.getValues(map,keys);
                     Set<String> set = map.keySet();
-                    Iterator iterator = set.iterator();
-                    String key = null;
-                    String value = null;
-
-                    while (iterator.hasNext()) {
-                        key = iterator.next().toString();
-                        value = map.get(key);
-                    }
-                    if (key.equals("stat")) {
-                        if (value.equals("exe_fail")) {
+                    if (keys.get(0).equals("stat")) {
+                        if (values.get(0).equals("exe_fail")) {
                             MethodTool.showToast(getActivity(),"新增失败");
-                        }else if (value.equals("duplicate")) {
+                        }else if (values.get(0).equals("duplicate")) {
                             MethodTool.showToast(getActivity(),"机构名重复");
                         } else {
                             MethodTool.showToast(getActivity(),Reference.UNKNOWN_ERROR);
                         }
 
-                    }else if (key.equals("data")) {
-                        long id = Long.parseLong(value);
+                    }else if (keys.get(0).equals("data")) {
+                        long id = Long.parseLong(values.get(0));
                         Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
                         intent.putExtra("s_id",id);
                         getActivity().startActivity(intent);
-                    }else if (key.equals(null)){
+                    }else if (keys.get(0).equals(null)){
                         MethodTool.showToast(getActivity(),Reference.NULL_POINTER_ERROR);
                     }
                 }
-            });
+            };
+            NetUtil.sendHttpRequest(getContext(),url_add_shop,callback);
         }
 
     }

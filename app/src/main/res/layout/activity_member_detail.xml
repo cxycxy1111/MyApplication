@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_activity_member_detail">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearlayout_1_activity_member_detail"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -34,52 +34,73 @@
                 android:layout_marginTop="@dimen/distance16"
                 android:background="#fff">
 
-                <EditText
-                    android:id="@+id/edittext_sn_activity_member_detail"
-                    style="@style/plain_text"
-                    android:hint="会员编号(不可修改)"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distance16"
-                    android:layout_marginLeft="@dimen/distance16"
-                    android:layout_marginRight="@dimen/distance16"/>
-                <EditText
-                    android:id="@+id/edittext_name_activity_member_detail"
-                    style="@style/plain_text"
-                    android:hint="姓名"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_sn_a_member_detail"
+                        style="@style/tv_input_area"
+                        android:text="会员编号" />
+                    <EditText
+                        android:id="@+id/edittext_sn_activity_member_detail"
+                        android:layout_toRightOf="@id/tv_sn_a_member_detail"
+                        style="@style/plain_editText"
+                        android:hint="会员编号(不可修改)" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distance8"
-                    android:layout_marginLeft="@dimen/distance16"
-                    android:layout_marginRight="@dimen/distance16"/>
-                <EditText
-                    android:id="@+id/edittext_birthday_activity_member_detail"
-                    style="@style/plain_text"
-                    android:hint="出生日期"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_a_member_detail"
+                        style="@style/tv_input_area"
+                        android:text="姓名" />
+                    <EditText
+                        android:id="@+id/edittext_name_activity_member_detail"
+                        android:layout_toRightOf="@id/tv_name_a_member_detail"
+                        style="@style/plain_editText"
+                        android:hint="姓名" />
+
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distance8"
-                    android:layout_marginLeft="@dimen/distance16"
-                    android:layout_marginRight="@dimen/distance16"/>
-                <EditText
-                    android:id="@+id/edittext_phone_activity_member_detail"
-                    style="@style/plain_text"
-                    android:hint="手机号码"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_birthday_a_member_detail"
+                        style="@style/tv_input_area"
+                        android:text="出生日期" />
+                    <EditText
+                        android:id="@+id/edittext_birthday_activity_member_detail"
+                        android:layout_toRightOf="@id/tv_birthday_a_member_detail"
+                        style="@style/plain_editText"
+                        android:hint="出生日期" />
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distance8"
-                    android:layout_marginLeft="@dimen/distance16"
-                    android:layout_marginRight="@dimen/distance16"/>
-                <EditText
-                    android:id="@+id/edittext_im_activity_member_detail"
-                    style="@style/plain_text"
-                    android:hint="即时通讯"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_phone_a_member_detail"
+                        style="@style/tv_input_area"
+                        android:text="手机号码" />
+                    <EditText
+                        android:id="@+id/edittext_phone_activity_member_detail"
+                        android:layout_toRightOf="@id/tv_phone_a_member_detail"
+                        style="@style/plain_editText"
+                        android:hint="手机号码" />
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/distance8"
-                    android:layout_marginLeft="@dimen/distance16"
-                    android:layout_marginRight="@dimen/distance16"
-                    android:layout_marginBottom="@dimen/distance8"/>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_im_a_member_detail"
+                        style="@style/tv_input_area"
+                        android:text="即时通讯" />
+                    <EditText
+                        android:id="@+id/edittext_im_activity_member_detail"
+                        android:layout_toRightOf="@id/tv_im_a_member_detail"
+                        style="@style/plain_editText"
+                        android:hint="即时通讯" />
+                </RelativeLayout>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -89,7 +110,7 @@
                 android:layout_below="@id/linearlayout_activity_member_detail">
             </android.support.v7.widget.RecyclerView>
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </ScrollView>

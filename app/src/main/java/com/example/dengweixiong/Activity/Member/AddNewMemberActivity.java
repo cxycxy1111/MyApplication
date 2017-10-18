@@ -1,9 +1,11 @@
 package com.example.dengweixiong.Activity.Member;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -14,11 +16,22 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.dengweixiong.Activity.MainActivity;
+import com.example.dengweixiong.Bean.Classroom;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,6 +48,7 @@ public class AddNewMemberActivity
     private int year,month,day;
     private EditText et_name,et_birthday,et_phone,et_login_name,et_password,et_im;
     private String name,phone,im,login_name,password,birthday;
+    private long s_id,sm_id;
     private static final String TAG = "ADD NEW MEMBER PRINT:";
 
     @Override
@@ -55,36 +69,58 @@ public class AddNewMemberActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_member_list:
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                s_id = MethodTool.preGetLong(getApplicationContext(),"sasm","s_id");
+                sm_id = MethodTool.preGetLong(getApplicationContext(),"sasm","sm_id");
                 name = et_name.getText().toString();
                 phone = et_phone.getText().toString();
                 im = et_im.getText().toString();
                 login_name = et_login_name.getText().toString();
                 password = et_password.getText().toString();
-                if (!birthday.equals("")) {
-                    birthday = et_birthday.getText().toString() + " 00:00:00";
+                birthday = et_birthday.getText().toString();
+                if (birthday.equals("")) {
+                    birthday = sdf.format(new Date());
                 }
                 if (name.equals("") || login_name.equals("") || password.equals("")) {
                     initAlertDialog("必填字段为空","姓名、登录名或密码为空，请补充完整","确定","取消");
                     break;
-                } else {
-                    String address = "/AddNewMember?shop_id=5&shop_member_id=1&name=邓伟雄&login_name=dengweixiong44&password=111&phone=13751729017&im=111&birthday=2017-01-01 00:00:00\n";
-                    Call call = NetUtil.sendHttpRequest(AddNewMemberActivity.this,address);
-                    call.enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-
-                        }
-                    });
-                    Intent intent = new Intent(AddNewMemberActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    break;
                 }
+                String address = "/AddNewMember?shop_id=" + String.valueOf(s_id) +
+                    "&shop_member_id=" + String.valueOf(sm_id) +
+                    "&name=" + name +
+                    "&login_name=" +login_name +
+                    "&password=" +password +
+                    "&phone=" +phone +
+                    "&im=" + im +
+                    "&birthday=" + birthday;
+                Callback callback = new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        MethodTool.showToast(AddNewMemberActivity.this, Reference.CANT_CONNECT_INTERNET);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Map<String,String> map = JsonHandler.strToMap(response);
+                        switch (MethodTool.getValues(map,MethodTool.getKeys(map)).get(0)) {
+                            case "exe_suc":
+                                MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
+                                MethodTool.jumpToActivity(AddNewMemberActivity.this,MainActivity.class);
+                                finish();
+                                break;
+                            case "duplicate":
+                                MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
+                                break;
+                            case "exe_fail" :
+                                MethodTool.showToast(AddNewMemberActivity.this,"新增失败");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                NetUtil.sendHttpRequest(AddNewMemberActivity.this,address,callback);
+                break;
             case android.R.id.home:
                 finish();
                 break;
@@ -139,13 +175,8 @@ public class AddNewMemberActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
-                if (v.hasFocus()) {
-                    DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
-                    dialog.show();
-                } else {
-                    DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
-                    dialog.show();
-                }
+                DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
+                dialog.show();
                 break;
             default:
                 break;
@@ -170,6 +201,7 @@ public class AddNewMemberActivity
                 if (hasFocus == true) {
                     DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
                     dialog.show();
+                }else {
                 }
                 break;
             default:

@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -57,6 +61,8 @@ public class SignInFragment
     private EditText et_loginname_a_regist_admin,et_password_a_regist_admin;
     private String loginname,password;
     private Button btn_submit_a_regist_admin;
+    private Context context;
+    private Activity activity;
 
     private OnFragmentInteractionListener mListener;
 
@@ -106,6 +112,7 @@ public class SignInFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -163,30 +170,23 @@ public class SignInFragment
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
-                String str = response.body().string();
-                map = JsonHandler.strToMap(str);
-                String key = null;
-                String value = null;
-                Set<String> set = map.keySet();
-                Iterator<String> iterator = set.iterator();
-                while (iterator.hasNext()) {
-                    key = iterator.next().toString();
-                    value = map.get(key);
-                }
-                if (key.equals("stat")) {
-                    if (value.equals("not_match")) {
+                map = JsonHandler.strToMap(response);
+                ArrayList<String> keys = MethodTool.getKeys(map);
+                ArrayList<String> values = MethodTool.getValues(map,keys);
+                if (keys.get(0).equals("stat")) {
+                    if (values.get(0).equals("not_match")) {
                         MethodTool.showToast(getActivity(),"登录名与密码不匹配");
-                    } else if (value.equals("no_such_record")){
+                    } else if (values.get(0).equals("no_such_record")){
                         MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                     } else {
                         MethodTool.showToast(getActivity(),Reference.UNKNOWN_ERROR);
                     }
-                }else if (key.equals("data")) {
-                    sm_id = Long.parseLong(value);
+                }else if (keys.get(0).equals("data")) {
+                    sm_id = Long.parseLong(values.get(0));
                     storeLoginMessage(loginname,password);
                     requestShop();
                 }else {
-
+                    MethodTool.showToast(getActivity(),"内部错误，无法完成请求");
                 }
             }
         };
@@ -206,21 +206,14 @@ public class SignInFragment
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> hashMap = new HashMap<>();
-                String string = response.body().string();
-                hashMap = JsonHandler.strToMap(string);
-                Set<String> set =hashMap.keySet();
-                Iterator<String> iterator = set.iterator();
-                String key,value;
-                while (iterator.hasNext()) {
-                    key = iterator.next().toString();
-                    value = hashMap.get(key);
-                    s_id = Long.parseLong(value);
-                }
+                Map<String,String> hashMap = JsonHandler.strToMap(response);
+                ArrayList<String> keys = MethodTool.getKeys(hashMap);
+                ArrayList<String> values = MethodTool.getValues(hashMap,keys);
                 //储存舞馆ID
-                storeShopAndShopMemberInfo("sasm","s_id",s_id);
+                storeShopAndShopMemberInfo("sasm","s_id", Long.parseLong(values.get(0)));
                 //储存教师ID
                 storeShopAndShopMemberInfo("sasm","sm_id",sm_id);
+                getActivity().finish();
             }
         };
         NetUtil.sendHttpRequest(getContext(),url,callback);
@@ -240,7 +233,8 @@ public class SignInFragment
      * @param pwd 密码
      */
     private void storeLoginMessage(String l_name,String pwd) {
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
+        FragmentActivity activity = getActivity();
+        SharedPreferences.Editor editor = activity.getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
         editor.putString("login_name",l_name);
         editor.putString("password",pwd);
         editor.apply();

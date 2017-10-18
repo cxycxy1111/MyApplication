@@ -20,6 +20,7 @@ import okhttp3.Response;
 public class NetUtil {
 
     private static final String LOCAL_PREFIX = "http://192.168.1.3:8080/Sailfish";
+    private static final String FJX_PREFIX = "http://192.168.1.104:8080/Sailfish";
     private static final String MOBILE_PREFIX = "http://10.167.151.237:8080/Sailfish";
     private static final String REMOTE_PREFIX = "";
     private static OkHttpClient client;

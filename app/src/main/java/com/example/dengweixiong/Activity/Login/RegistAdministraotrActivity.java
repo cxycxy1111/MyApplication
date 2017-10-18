@@ -95,8 +95,7 @@ public class RegistAdministraotrActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 HashMap<String,String> map = new HashMap<>();
-                String str = response.body().string();
-                map = JsonHandler.strToMap(str);
+                map = JsonHandler.strToMap(response);
                 String value = map.get("stat");
                 if (value.equals("exe_suc")) {
                     MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");

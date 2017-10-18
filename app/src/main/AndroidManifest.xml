@@ -27,7 +27,8 @@
         <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity" android:exported="true" />
         <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCoursePlanActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.AddNewMemberActivity" />
-        <activity android:name="com.example.dengweixiong.Activity.Member.MemberListActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Member.MemberListActivity"
+            android:launchMode="singleTop"/>
         <activity android:name="com.example.dengweixiong.Activity.Member.MemberDetailActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.ResetMemberPwdActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Message.MessageListActivity" />
