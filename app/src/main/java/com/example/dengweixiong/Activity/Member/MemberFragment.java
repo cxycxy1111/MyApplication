@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Fragment;
+package com.example.dengweixiong.Activity.Member;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,14 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-import com.example.dengweixiong.Activity.Member.AddNewMemberActivity;
-import com.example.dengweixiong.Activity.Member.AddNewMemberCardActivity;
+
 import com.example.dengweixiong.Activity.MainActivity;
-import com.example.dengweixiong.Activity.Member.ChargeActivity;
-import com.example.dengweixiong.Activity.Member.DeductionActivity;
-import com.example.dengweixiong.Activity.Member.MemberCardListActivity;
-import com.example.dengweixiong.Activity.Member.MemberListActivity;
 import com.example.dengweixiong.Activity.Message.MessageListActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;

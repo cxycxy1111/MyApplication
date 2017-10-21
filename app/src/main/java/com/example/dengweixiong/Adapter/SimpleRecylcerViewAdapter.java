@@ -24,9 +24,9 @@ public class SimpleRecylcerViewAdapter extends RecyclerView.Adapter implements V
     }
 
     //内部类
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    private static class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             textView = (TextView)view.findViewById(R.id.simple_list_view_with_icon_text);
         }
@@ -34,10 +34,6 @@ public class SimpleRecylcerViewAdapter extends RecyclerView.Adapter implements V
     //内部接口
     public interface OnItemClickListener {
         void onItemClick(View view,int position);
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

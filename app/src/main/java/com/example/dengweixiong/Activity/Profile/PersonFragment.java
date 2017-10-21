@@ -1,49 +1,44 @@
-package com.example.dengweixiong.Fragment;
+package com.example.dengweixiong.Activity.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.example.dengweixiong.Activity.MainActivity;
+import com.example.dengweixiong.Activity.Profile.Card.CardTypeListActivity;
 import com.example.dengweixiong.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PersonFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PersonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PersonFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class PersonFragment
+        extends Fragment
+        implements ListView.OnItemClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String TAG = "Nothing to Tell";
-    // TODO: Rename and change types of parameters
     private String mParam1;
-
+    private ListView listView;
+    private int [] icons = {R.mipmap.icon,R.mipmap.icon,R.mipmap.icon};
+    private String [] values = {"会员卡类型管理","教师管理","课室管理"};
+    private String [] map = {"icon","name"};
+    private int [] id = {R.id.simple_list_view_img,R.id.simple_list_view_text};
     private OnFragmentInteractionListener mListener;
 
     public PersonFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment PersonFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PersonFragment newInstance(String param1) {
         PersonFragment fragment = new PersonFragment();
         Bundle args = new Bundle();
@@ -64,16 +59,54 @@ public class PersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
-        MainActivity mainActivity = (MainActivity)getActivity();
-        mainActivity.getSupportActionBar().setTitle(mParam1);
+        initToolbar();
         setHasOptionsMenu(true);
+        initListView(view);
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private void initToolbar() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(mParam1);
+    }
+
+    private void initListView(View view) {
+        listView = (ListView)view.findViewById(R.id.lv_f_person);
+        SimpleAdapter adapter = new SimpleAdapter(view.getContext(),initData(),R.layout.tile_simple_list_view_with_icon,map,id);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    private List<Map<String,Object>> initData() {
+        List<Map<String,Object>> list = new ArrayList<>();
+        for (int i = 0;i < icons.length;i++) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("icon",icons[i]);
+            map.put("name",values[i]);
+            list.add(map);
+        }
+        return list;
+    }
+
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(getActivity(),CardTypeListActivity.class);
+                startActivity(intent);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                break;
         }
     }
 
@@ -94,16 +127,6 @@ public class PersonFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

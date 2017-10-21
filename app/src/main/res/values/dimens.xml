@@ -12,6 +12,7 @@
     <dimen name="distance32">32dp</dimen>
     <dimen name="distance64">64dp</dimen>
     <dimen name="distance72">72dp</dimen>
+    <dimen name="distance96">96dp</dimen>
     <dimen name="group_text">10sp</dimen>
     <dimen name="simple_list_view_text">16sp</dimen>
 

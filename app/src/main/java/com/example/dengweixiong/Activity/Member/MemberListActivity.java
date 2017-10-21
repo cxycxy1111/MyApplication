@@ -12,10 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Adapter.SimpleRecylcerViewAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
@@ -35,7 +38,7 @@ import okhttp3.Response;
 
 public class MemberListActivity
         extends
-        BaseActivity
+            BaseActivity
         implements
             SimpleRecylcerViewAdapter.OnItemClickListener{
 
@@ -157,7 +160,8 @@ public class MemberListActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                Intent intent = new Intent(MemberListActivity.this, MainActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

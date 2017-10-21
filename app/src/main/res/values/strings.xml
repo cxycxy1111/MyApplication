@@ -23,4 +23,5 @@
     <string name="course_list">课程</string>
     <string name="title_activity_login">登录</string>
     <string name="title_activity_regist_administraotr">RegistAdministraotrActivity</string>
+    <string name="title_activity_add_new_card">AddNewCardActivity</string>
 </resources>

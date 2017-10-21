@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Profile.Card.CardDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_a_card_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/tb_a_card_detail"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_a_card_detail"
+                style="@style/tv_input_area"
+                android:text="卡名"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_name_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="卡名"
+                android:layout_toRightOf="@id/tv_name_a_card_detail" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_price_a_card_detail"
+                style="@style/tv_input_area"
+                android:text="售价"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_price_a_card_detail"
+                android:layout_toRightOf="@id/tv_price_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="售价"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_balance_a_card_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_balance_a_card_detail"
+                style="@style/tv_input_area"
+                android:text="卡内金额"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_balance_a_card_detail"
+                android:layout_toRightOf="@id/tv_balance_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="卡内金额"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_times_a_card_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_times_a_card_detail"
+                style="@style/tv_input_area"
+                android:layout_width="@dimen/distance64"
+                android:text="卡内次数"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_times_a_card_detail"
+                android:layout_toRightOf="@id/tv_times_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="卡内次数"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_invalidtime_a_card_detail"
+                style="@style/tv_input_area"
+                android:layout_alignParentLeft="true"
+                android:text="有效期至" />
+            <EditText
+                android:id="@+id/et_invalidtime_activity_card_detail"
+                android:layout_toRightOf="@id/tv_invalidtime_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="有效期至"
+                android:maxLines="1"
+                android:inputType="datetime" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_starttime_a_card_detail"
+                style="@style/tv_input_area"
+                android:text="生效时间"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_starttime_a_card_detail"
+                android:layout_toRightOf="@id/tv_starttime_a_card_detail"
+                style="@style/plain_editText"
+                android:hint="生效时间"
+                android:maxLines="1"
+                android:inputType="datetime"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

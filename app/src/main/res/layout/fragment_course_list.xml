@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/distance16"
-    tools:context="com.example.dengweixiong.Fragment.CourseListFragment">
+    tools:context="com.example.dengweixiong.Activity.Course.CourseListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_f_course_list"

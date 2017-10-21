@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Fragment;
+package com.example.dengweixiong.Activity.Course;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.dengweixiong.Activity.Course.AddNewCourseActivity;
-import com.example.dengweixiong.Activity.Course.AddNewCoursePlanActivity;
+
 import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.myapplication.R;
@@ -97,7 +96,7 @@ public class CourseMainFragment
 
     private List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(com.example.dengweixiong.Fragment.CourseListFragment.newInstance("课程列表"));
+        fragments.add(CourseListFragment.newInstance("课程列表"));
         fragments.add(CoursePlanFragment.newInstance("排课列表"));
         return fragments;
     }

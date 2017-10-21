@@ -8,7 +8,7 @@
     tools:context="com.example.dengweixiong.Activity.Member.ResetMemberPwdActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_activity_reset_pwd_member"
+        android:id="@+id/tb_activity_reset_pwd_member"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:layout_alignParentTop="true"
@@ -17,33 +17,43 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/linearlayout_activity_reset_pwd"
+        android:id="@+id/ll_activity_reset_pwd"
+        android:layout_below="@id/tb_activity_reset_pwd_member"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_below="@id/toolbar_activity_reset_pwd_member"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/distance16"
         android:background="#fff">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_newpwd_a_reset_pwd"
+            style="@style/tv_input_area"
+            android:layout_width="@dimen/distance96"
+            android:text="新密码" />
         <EditText
-            android:id="@+id/edittext_sn_activity_member_detail"
-            style="@style/plain_text"
-            android:hint="新密码"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance16"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"/>
-        <EditText
-            android:id="@+id/edittext_name_activity_member_detail"
-            style="@style/plain_text"
-            android:hint="重复新密码"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance8"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginRight="@dimen/distance16"
-            android:layout_marginBottom="@dimen/distance16"/>
-    </LinearLayout>
+            android:id="@+id/et_newpwd_a_reset_pwd"
+            android:layout_toRightOf="@id/tv_newpwd_a_reset_pwd"
+            style="@style/plain_editText"
+            android:hint="新密码" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_repeat_newpwd_a_reset_pwd"
+            style="@style/tv_input_area"
+            android:layout_width="@dimen/distance96"
+            android:text="重复新密码" />
+        <EditText
+            android:id="@+id/et_repeat_newpwd_a_reset_pwd"
+            android:layout_toRightOf="@id/tv_repeat_newpwd_a_reset_pwd"
+            style="@style/plain_editText"
+            android:hint="新密码" />
+    </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

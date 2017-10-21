@@ -149,7 +149,7 @@ public class MemberDetailActivity
     private void dealWithIntent() {
         Map<String,String> map = new HashMap<>();
         Intent intent = getIntent();
-        map.put("position",String.valueOf(getIntent().getLongExtra("position",0)));
+        map.put("position",String.valueOf(intent.getIntExtra("position",0)));
         position = intent.getIntExtra("position",0);
         m_id = Long.parseLong(intent.getStringExtra("m_id"));
     }
@@ -207,6 +207,7 @@ public class MemberDetailActivity
                 break;
             case 1:
                 intent = new Intent(MemberDetailActivity.this,ResetMemberPwdActivity.class);
+                intent.putExtra("m_id",m_id);
                 startActivity(intent);
                 break;
             case 2:
@@ -250,8 +251,8 @@ public class MemberDetailActivity
                 String m_phone = et_phone.getText().toString();
                 String m_im = et_im.getText().toString();
                 long sm_id = MethodTool.preGetLong(MemberDetailActivity.this,"sasm","sm_id");
-                String url = "/ModifyMember?member_id=" + sm_id +
-                        "&shopmember_id=" + sn +
+                String url = "/ModifyMember?member_id=" + m_id +
+                        "&shopmember_id=" + sm_id +
                         "&name=" + m_name +
                         "&birthday=" + m_birthday +
                         "&phone=" + m_phone +
