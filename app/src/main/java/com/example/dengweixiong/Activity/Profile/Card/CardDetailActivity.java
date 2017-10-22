@@ -107,7 +107,7 @@ public class CardDetailActivity extends BaseActivity {
             @Override
             public void onResponse(final Call call, Response response) throws IOException {
                 String [] key = new String[] {"name","type","price","balance","start_time","expired_time"};
-                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(response.body().toString(),key);
+                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(response.body().string(),key);
                 map = list.get(0);
                 runOnUiThread(new Runnable() {
                     @Override

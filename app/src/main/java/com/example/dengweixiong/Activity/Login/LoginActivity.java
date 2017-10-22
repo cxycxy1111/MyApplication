@@ -83,7 +83,8 @@ public class LoginActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response.body().toString());
+                String resp = response.body().string();
+                map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
                 if (keys.get(0).equals("stat")) {

@@ -17,9 +17,11 @@ import com.example.dengweixiong.Adapter.CardListAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,13 +98,16 @@ public class CardTypeListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
                 Map<String,String> map = new HashMap<>();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                map.put("type","1");
-                list.add(map);
-                arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
-                for (int i = 0;i < arrayList.size();i++) {
-                    list.add(arrayList.get(i));
+                if (!resp.contains(Reference.STATUS)) {
+                    map.put("type","1");
+                    list.add(map);
+                    arrayList = JsonHandler.strToListMap(resp,keys);
+                    for (int i = 0;i < arrayList.size();i++) {
+                        list.add(arrayList.get(i));
+                    }
                 }
                 initTimesCard();
             }
@@ -120,13 +125,16 @@ public class CardTypeListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 Map<String,String> map = new HashMap<>();
-                map.put("type","2");
-                list.add(map);
-                arrayList = JsonHandler.strToListMap(response.body().string(),keys);
-                for (int i = 0;i < arrayList.size();i++) {
-                    list.add(arrayList.get(i));
+                if (!resp.contains(Reference.STATUS)) {
+                    map.put("type","2");
+                    list.add(map);
+                    arrayList = JsonHandler.strToListMap(resp,keys);
+                    for (int i = 0;i < arrayList.size();i++) {
+                        list.add(arrayList.get(i));
+                    }
                 }
                 initTimeCard();
             }
@@ -144,15 +152,17 @@ public class CardTypeListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                String resp = response.body().string();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                Map<String,String> map = new HashMap<>();
-                String s = "";
-                map.put("type","3");
-                arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
-                list.add(map);
-                for (int i = 0;i < arrayList.size();i++) {
-                    list.add(arrayList.get(i));
+                if (!resp.contains(Reference.STATUS)) {
+                    Map<String,String> map = new HashMap<>();
+
+                    map.put("type","3");
+                    arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
+                    list.add(map);
+                    for (int i = 0;i < arrayList.size();i++) {
+                        list.add(arrayList.get(i));
+                    }
                 }
                 initRecyclerView();
             }
