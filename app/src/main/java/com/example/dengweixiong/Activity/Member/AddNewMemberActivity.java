@@ -57,6 +57,7 @@ public class AddNewMemberActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_member);
         initToolbar();
+        initDate();
         initEditext();
     }
 
