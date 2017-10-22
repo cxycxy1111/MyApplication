@@ -34,15 +34,11 @@ public class AddNewMemberCardActivity
 
     private long s_id,sm_id;
     private long selected_m_id,selected_c_id;
-    private String [] str_member_card = {"余额卡","次卡","有效期卡"};
-    private String [] str_member = {"邓伟雄","张三","李四"};
     private List<Map<String,String>> full_name_list = new ArrayList<>();
     private List<Map<String,String>> card_full_list = new ArrayList<>();
     private List<String> name_list = new ArrayList<>();
     private List<String> card_list = new ArrayList<>();
-    private ArrayAdapter<String> adapter,adapter_2;
     private String source;
-    private Toolbar toolbar;
     private Spinner spinner_member,spinner_member_card;
     private LinearLayout linearlayout_num,linearlayout_balance,linearlayout_time;
     private static final String TOOLBAR_TITLE_NEW = "新增会员卡";
@@ -60,7 +56,7 @@ public class AddNewMemberCardActivity
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_a_add_new_member_card);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_a_add_new_member_card);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE_NEW);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -89,8 +85,9 @@ public class AddNewMemberCardActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
                 String [] keys = new String[] {"id","name"};
-                full_name_list = JsonHandler.strToListMap(response,keys);
+                full_name_list = JsonHandler.strToListMap(resp,keys);
                 for (int i = 0;i < full_name_list.size();i++) {
                     name_list.add(full_name_list.get(i).get("name"));
                 }
@@ -108,7 +105,7 @@ public class AddNewMemberCardActivity
 
     private void initMemberSpinner() {
         spinner_member = (Spinner)findViewById(R.id.spinner_member_a_add_new_member);
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,name_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,name_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_member.setAdapter(adapter);
         spinner_member.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -133,8 +130,9 @@ public class AddNewMemberCardActivity
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
                 String [] keys = new String[] {"id","type","name"};
-                card_full_list = JsonHandler.strToListMap(response,keys);
+                card_full_list = JsonHandler.strToListMap(resp,keys);
                 for (int i = 0;i < card_full_list.size();i++) {
                     card_list.add(card_full_list.get(i).get("name"));
                 }
@@ -151,9 +149,9 @@ public class AddNewMemberCardActivity
 
     private void initCardSpinner() {
         spinner_member_card = (Spinner)findViewById(R.id.spinner_member_carld_a_add_new_member);
-        adapter_2 = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,card_list);
-        adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_member_card.setAdapter(adapter_2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,card_list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_member_card.setAdapter(adapter);
         spinner_member_card.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

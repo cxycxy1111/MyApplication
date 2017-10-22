@@ -164,7 +164,7 @@ public class SignInFragment
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response);
+                map = JsonHandler.strToMap(response.body().toString());
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
                 if (keys.get(0).equals("stat")) {
@@ -200,7 +200,7 @@ public class SignInFragment
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> hashMap = JsonHandler.strToMap(response);
+                Map<String,String> hashMap = JsonHandler.strToMap(response.body().toString());
                 ArrayList<String> keys = MethodTool.getKeys(hashMap);
                 ArrayList<String> values = MethodTool.getValues(hashMap,keys);
                 //储存舞馆ID

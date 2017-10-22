@@ -101,7 +101,7 @@ public class AddNewMemberActivity
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Map<String,String> map = JsonHandler.strToMap(response);
+                        Map<String,String> map = JsonHandler.strToMap(response.body().toString());
                         switch (MethodTool.getValues(map,MethodTool.getKeys(map)).get(0)) {
                             case "exe_suc":
                                 MethodTool.showToast(AddNewMemberActivity.this,"新增成功");

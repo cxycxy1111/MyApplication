@@ -34,6 +34,7 @@ public class CardTypeListActivity extends BaseActivity {
     private long s_id;
     private List<Map<String, String>> list = new ArrayList<>();
     private String [] keys = new String[] {"id","name","type"};
+    private CardListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,14 @@ public class CardTypeListActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int delete_position = data.getIntExtra("position",-1);
+        list.remove(delete_position);
+        adapter.notifyDataSetChanged();
+    }
+
     private void initToolBar() {
         Toolbar toolbar = (Toolbar)findViewById(R.id.tb_a_cardtype_list);
         setSupportActionBar(toolbar);
@@ -91,7 +100,7 @@ public class CardTypeListActivity extends BaseActivity {
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 map.put("type","1");
                 list.add(map);
-                arrayList = JsonHandler.strToListMap(response,keys);
+                arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
                 for (int i = 0;i < arrayList.size();i++) {
                     list.add(arrayList.get(i));
                 }
@@ -115,7 +124,7 @@ public class CardTypeListActivity extends BaseActivity {
                 Map<String,String> map = new HashMap<>();
                 map.put("type","2");
                 list.add(map);
-                arrayList = JsonHandler.strToListMap(response,keys);
+                arrayList = JsonHandler.strToListMap(response.body().string(),keys);
                 for (int i = 0;i < arrayList.size();i++) {
                     list.add(arrayList.get(i));
                 }
@@ -135,10 +144,12 @@ public class CardTypeListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 Map<String,String> map = new HashMap<>();
+                String s = "";
                 map.put("type","3");
-                arrayList = JsonHandler.strToListMap(response,keys);
+                arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
                 list.add(map);
                 for (int i = 0;i < arrayList.size();i++) {
                     list.add(arrayList.get(i));
@@ -155,7 +166,7 @@ public class CardTypeListActivity extends BaseActivity {
             public void run() {
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_cardtype_list);
                 LinearLayoutManager llm = new LinearLayoutManager(CardTypeListActivity.this,LinearLayoutManager.VERTICAL,false);
-                CardListAdapter adapter = new CardListAdapter(list,CardTypeListActivity.this);
+                adapter = new CardListAdapter(list,CardTypeListActivity.this);
                 adapter.setOnItemClickListener(new CardListAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -164,6 +175,7 @@ public class CardTypeListActivity extends BaseActivity {
                         String name = String.valueOf(list.get(position).get("name"));
                         Intent intent = new Intent(CardTypeListActivity.this,CardDetailActivity.class);
                         intent.putExtra("c_id",id);
+                        intent.putExtra("position",position);
                         intent.putExtra("c_name",name);
                         intent.putExtra("type",type);
                         startActivity(intent);

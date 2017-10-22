@@ -114,7 +114,8 @@ public class ResetMemberPwdActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> map = JsonHandler.strToMap(response);
+                String resp = response.body().string();
+                Map<String,String> map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
                 if (values.get(0).equals("no_such_record")) {

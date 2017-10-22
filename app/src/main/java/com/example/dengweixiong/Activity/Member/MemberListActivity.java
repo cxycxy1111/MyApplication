@@ -108,7 +108,8 @@ public class MemberListActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String [] keys = new String[] {"id","name"};
-                list = JsonHandler.strToListMap(response,keys);
+                String resp = response.body().string();
+                list = JsonHandler.strToListMap(resp,keys);
                 Log.d(TAG, String.valueOf(list.size()));
                 for (int i = 0;i < list.size();i++) {
                     name_list.add(list.get(i).get("name"));

@@ -100,8 +100,9 @@ public class MemberDetailActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
                 String [] keys = new String[] {"id","name","login_name","birthday","phone","im"};
-                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(response,keys);
+                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
                 ArrayList<String> values = new ArrayList<String>();
                 for (int i = 0;i < list.size();i++) {
                     map = list.get(0);
@@ -266,7 +267,8 @@ public class MemberDetailActivity
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         Map<String,String> map = new HashMap<>();
-                        map = JsonHandler.strToMap(response);
+                        String resp = response.body().string();
+                        map = JsonHandler.strToMap(resp);
                         ArrayList<String> keys = MethodTool.getKeys(map);
                         ArrayList<String> values = MethodTool.getValues(map,keys);
                         if (keys.get(0).equals("stat")) {
@@ -321,8 +323,9 @@ public class MemberDetailActivity
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        String resp = response.body().string();
                         Map<String,String> map = new HashMap<String, String>();
-                        map = JsonHandler.strToMap(response);
+                        map = JsonHandler.strToMap(resp);
                         ArrayList<String> keys = MethodTool.getKeys(map);
                         ArrayList<String> values = MethodTool.getValues(map,keys);
                         switch (keys.get(0)) {

@@ -24,14 +24,13 @@ public class JsonHandler {
 
     /**
      * String转为List<HashMap<String>>
-     * @param response
+     * @param resp 由响应体转化而来的字符串
      * @param keys
      * @return
      */
-    public static ArrayList<Map<String,String>> strToListMap(Response response,String keys[]) throws IOException {
-        String str = response.body().string();
+    public static ArrayList<Map<String,String>> strToListMap(String resp,String keys[]) throws IOException {
         ArrayList<Map<String,String>> list = new ArrayList<>();
-        JSONArray ja = JSONArray.fromObject(str);
+        JSONArray ja = JSONArray.fromObject(resp);
         for(int i=0;i<ja.size();i++) {
             JSONObject jo = ja.getJSONObject(i);
             Map<String,String> map = new HashMap<>();
@@ -44,12 +43,11 @@ public class JsonHandler {
 
     /**
      * string转HashMap
-     * @param response
+     * @param str
      * @return
      * @throws IOException
      */
-    public static HashMap<String,String> strToMap(Response response) throws IOException {
-        String str = response.body().string();
+    public static HashMap<String,String> strToMap(String str) throws IOException {
         HashMap<String,String> hashMap = new HashMap<String,String>();
         JSONObject jsonObject = JSONObject.fromObject(str);
         Iterator<String> iterator = jsonObject.keys();
