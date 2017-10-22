@@ -27,6 +27,7 @@ import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +46,7 @@ public class AddNewMemberActivity
 
     private Toolbar toolbar;
     private static final String TOOLBAR_TITLE = "新增会员";
-    private int year,month,day;
+    private int current_year,current_month,current_date;
     private EditText et_name,et_birthday,et_phone,et_login_name,et_password,et_im;
     private String name,phone,im,login_name,password,birthday;
     private long s_id,sm_id;
@@ -151,6 +152,13 @@ public class AddNewMemberActivity
 
     }
 
+    private void initDate() {
+        Calendar calendar = Calendar.getInstance();
+        this.current_year = calendar.get(Calendar.YEAR);
+        this.current_month = calendar.get(Calendar.MONTH);
+        this.current_date = calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
     private void initAlertDialog(String title,String content,String confirm,String cancle) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(AddNewMemberActivity.this);
         dialog.setTitle(title);
@@ -175,7 +183,7 @@ public class AddNewMemberActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
-                DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, current_year, current_month, current_date);
                 dialog.show();
                 break;
             default:
@@ -186,9 +194,9 @@ public class AddNewMemberActivity
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        this.year = year;
-        this.month = month;
-        this.day = dayOfMonth;
+        this.current_year = year;
+        this.current_month = month;
+        this.current_date = dayOfMonth;
         et_birthday.setText(new StringBuffer()
                 .append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
 
@@ -198,8 +206,8 @@ public class AddNewMemberActivity
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
-                if (hasFocus == true) {
-                    DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, year, month, day);
+                if (hasFocus) {
+                    DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, current_year, current_month, current_date);
                     dialog.show();
                 }else {
                 }

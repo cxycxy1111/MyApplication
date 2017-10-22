@@ -25,6 +25,12 @@ public class NetUtil {
     private static final String REMOTE_PREFIX = "";
     private static OkHttpClient client;
 
+    /**
+     *
+     * @param context Activity
+     * @param address URL
+     * @param callback 回调
+     */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
         String str = LOCAL_PREFIX + address;
         initOkHttpClient(context);
@@ -33,6 +39,10 @@ public class NetUtil {
         call.enqueue(callback);
     }
 
+    /**
+     *
+     * @param context Activity
+     */
     private static void initOkHttpClient(Context context) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)

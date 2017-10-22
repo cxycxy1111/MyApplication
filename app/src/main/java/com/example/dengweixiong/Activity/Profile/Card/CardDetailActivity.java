@@ -147,60 +147,10 @@ public class CardDetailActivity extends BaseActivity {
                 this.finish();
                 break;
             case R.id.remove_card_detail:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("删除\"" + c_name + "\"");
-                builder.setMessage("确定要删除\"" + c_name + "\"吗？");
-                builder.setCancelable(false);
-                builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-
-                        String url = "/RemoveCard?card_id=" + c_id + "&shopmember_id=" +sm_id;
-                        Callback callback = new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
-                                MethodTool.showToast(CardDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
-                            }
-
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {
-                                Map<String,String> map = JsonHandler.strToMap(response.body().toString());
-                                ArrayList<String> keys = MethodTool.getKeys(map);
-                                ArrayList<String> values = MethodTool.getValues(map,keys);
-                                switch (keys.get(0)) {
-                                    case "stat" :
-                                        switch (values.get(0)) {
-                                            case "exe_suc" :
-                                                MethodTool.showToast(CardDetailActivity.this,"卡类型已被删除");
-                                                Intent intent = new Intent(CardDetailActivity.this,CardTypeListActivity.class);
-                                                intent.putExtra("position",position);
-                                                int requestCode = 0;
-                                                startActivityForResult(intent,requestCode);
-                                                break;
-                                            case "exe_fail" :
-                                                MethodTool.showToast(CardDetailActivity.this,"删除失败");
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                    default:
-                                        break;
-                                }
-                            }
-                        };
-                        NetUtil.sendHttpRequest(CardDetailActivity.this,url,callback);
-                    }
-                });
-                builder.setNegativeButton("不删除", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        delete_confirm.dismiss();
-                    }
-                });
-                delete_confirm = builder.show();
+                deleteCardTypeExe();
                 break;
             case R.id.save_card_detail:
+                saveChange();
                 break;
             default:
                 break;
@@ -209,6 +159,114 @@ public class CardDetailActivity extends BaseActivity {
     }
 
     private void deleteCardTypeExe() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("删除\"" + c_name + "\"");
+        builder.setMessage("确定要删除\"" + c_name + "\"吗？");
+        builder.setCancelable(false);
+        builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String url = "/RemoveCard?card_id=" + c_id + "&shopmember_id=" +sm_id;
+                Callback callback = new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        MethodTool.showToast(CardDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                    }
 
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Map<String,String> map = JsonHandler.strToMap(response.body().toString());
+                        ArrayList<String> keys = MethodTool.getKeys(map);
+                        ArrayList<String> values = MethodTool.getValues(map,keys);
+                        switch (keys.get(0)) {
+                            case "stat" :
+                                switch (values.get(0)) {
+                                    case "exe_suc" :
+                                        MethodTool.showToast(CardDetailActivity.this,"卡类型已被删除");
+                                        Intent intent = new Intent(CardDetailActivity.this,CardTypeListActivity.class);
+                                        intent.putExtra("position",position);
+                                        int requestCode = 0;
+                                        startActivityForResult(intent,requestCode);
+                                        break;
+                                    case "exe_fail" :
+                                        MethodTool.showToast(CardDetailActivity.this,"删除失败");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                };
+                NetUtil.sendHttpRequest(CardDetailActivity.this,url,callback);
+            }
+        });
+        builder.setNegativeButton("不删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                delete_confirm.dismiss();
+            }
+        });
+        delete_confirm = builder.show();
+    }
+
+    private void saveChange() {
+        String price = et_price.getText().toString();
+        String name = et_name.getText().toString();
+        String balance = null;
+        switch (type) {
+            case 1 :
+                balance = et_balance.getText().toString();
+                break;
+            case 2:
+                balance = et_times.getText().toString();
+                break;
+            case 3:
+                balance = "0";
+                break;
+            default:
+                break;
+        }
+        String start_time = et_starttime.getText().toString();
+        String invalid_time = et_invalidtime.getText().toString();
+        String url = "/ModifyCard?id=" + c_id +
+                "&shopmember_id=" + sm_id +
+                "&name=" + name +
+                "&price=" + price +
+                "&balance=" + balance +
+                "&start_time=" + start_time +
+                "&expired_time=" + invalid_time;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(CardDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                HashMap<String,String> map = JsonHandler.strToMap(resp);
+                String value = map.get("stat");
+                switch (value) {
+                    case "no_such_record":
+                        MethodTool.showToast(CardDetailActivity.this,"无法修改");
+                        break;
+                    case "duplicate" :
+                        MethodTool.showToast(CardDetailActivity.this,"卡名重复，请重试");
+                        break;
+                    case "exe_suc" :
+                        MethodTool.showToast(CardDetailActivity.this,"修改成功");
+                        CardDetailActivity.this.finish();
+                        break;
+                    case "exe_fail" :
+                        MethodTool.showToast(CardDetailActivity.this,"修改失败");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(CardDetailActivity.this,url,callback);
     }
 }
