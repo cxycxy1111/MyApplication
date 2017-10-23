@@ -1,19 +1,16 @@
 package com.example.dengweixiong.Activity.Member;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
-import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.NetUtil;
@@ -21,7 +18,6 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +36,7 @@ public class AddNewMemberCardActivity
     private List<String> card_list = new ArrayList<>();
     private String source;
     private Spinner spinner_member,spinner_member_card;
-    private LinearLayout linearlayout_num,linearlayout_balance,linearlayout_time;
+    private RelativeLayout rl_num,rl_balance;
     private static final String TOOLBAR_TITLE_NEW = "新增会员卡";
     private static final String TOOLBAR_TITLE_ORIGIN = "会员卡详情";
 
@@ -56,18 +52,15 @@ public class AddNewMemberCardActivity
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_a_add_new_member_card);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_a_AddNewMemberCard);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE_NEW);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initLinearLayout() {
-        linearlayout_balance = (LinearLayout)findViewById(R.id.linearlayout_balance_a_add_new_member_card);
-        linearlayout_num = (LinearLayout)findViewById(R.id.linearlayout_num_a_add_new_member_card);
-        linearlayout_time = (LinearLayout)findViewById(R.id.linearlayout_time_a_add_new_member_card);
-        linearlayout_num.setVisibility(linearlayout_num.INVISIBLE);
-        linearlayout_time.setVisibility(linearlayout_time.INVISIBLE);
+        rl_balance = (RelativeLayout)findViewById(R.id.rl_balance_a_AddNewMemberCard);
+        rl_num = (RelativeLayout)findViewById(R.id.rl_num_a_AddNewMemberCard);
     }
 
     private void initShopAndShopmember() {
@@ -162,19 +155,16 @@ public class AddNewMemberCardActivity
                     int type = Integer.parseInt(String.valueOf(card_full_list.get(position).get("type")));
                     switch (type) {
                         case 1:
-                            linearlayout_balance.setVisibility(linearlayout_balance.VISIBLE);
-                            linearlayout_num.setVisibility(linearlayout_num.GONE);
-                            linearlayout_time.setVisibility(linearlayout_time.GONE);
+                            rl_num.setVisibility(View.GONE);
+                            rl_balance.setVisibility(View.VISIBLE);
                             break;
                         case 2:
-                            linearlayout_balance.setVisibility(linearlayout_balance.GONE);
-                            linearlayout_num.setVisibility(linearlayout_num.VISIBLE);
-                            linearlayout_time.setVisibility(linearlayout_time.GONE);
+                            rl_num.setVisibility(View.VISIBLE);
+                            rl_balance.setVisibility(View.GONE);
                             break;
                         case 3:
-                            linearlayout_num.setVisibility(linearlayout_num.GONE);
-                            linearlayout_balance.setVisibility(linearlayout_balance.GONE);
-                            linearlayout_time.setVisibility(linearlayout_time.VISIBLE);
+                            rl_num.setVisibility(View.GONE);
+                            rl_balance.setVisibility(View.GONE);
                             break;
                         default:
                             break;

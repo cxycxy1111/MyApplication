@@ -16,6 +16,7 @@ import android.widget.SimpleAdapter;
 
 import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Activity.Profile.Card.CardTypeListActivity;
+import com.example.dengweixiong.Activity.Profile.Classroom.ClassroomListActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -96,18 +97,22 @@ public class PersonFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent;
         switch (position) {
             case 0:
-                Intent intent = new Intent(getActivity(),CardTypeListActivity.class);
-                startActivity(intent);
+                intent = new Intent(getActivity(),CardTypeListActivity.class);
                 break;
             case 1:
+                intent = new Intent(getActivity(), getActivity().getClass());
                 break;
             case 2:
+                intent = new Intent(getActivity(),ClassroomListActivity.class);
                 break;
             default:
+                intent = new Intent(getActivity(),getActivity().getClass());
                 break;
         }
+        startActivity(intent);
     }
 
     @Override

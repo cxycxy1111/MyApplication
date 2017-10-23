@@ -156,9 +156,8 @@ public class CardTypeListActivity extends BaseActivity {
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 if (!resp.contains(Reference.STATUS)) {
                     Map<String,String> map = new HashMap<>();
-
                     map.put("type","3");
-                    arrayList = JsonHandler.strToListMap(response.body().toString(),keys);
+                    arrayList = JsonHandler.strToListMap(resp,keys);
                     list.add(map);
                     for (int i = 0;i < arrayList.size();i++) {
                         list.add(arrayList.get(i));

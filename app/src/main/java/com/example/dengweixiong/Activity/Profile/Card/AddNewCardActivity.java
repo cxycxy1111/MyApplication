@@ -1,12 +1,8 @@
 package com.example.dengweixiong.Activity.Profile.Card;
 
 import android.app.DatePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
@@ -20,12 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Activity.Member.AddNewMemberActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -39,8 +33,7 @@ import okhttp3.Response;
 
 public class AddNewCardActivity
         extends BaseActivity
-        implements View.OnClickListener,DatePickerDialog.OnDateSetListener,
-            EditText.OnFocusChangeListener{
+        implements View.OnClickListener, EditText.OnFocusChangeListener{
 
     ArrayList<String> type = new ArrayList<>();
     private Spinner spinner_type;
@@ -50,7 +43,6 @@ public class AddNewCardActivity
     private int year,month,date;
     private int current_year,current_month,current_date;
     private DatePickerDialog dpd_starttime,dpd_invalidtime;
-    private int dpd_starttime_id,dpd_invalidtime_id;
     private EditText et_name,et_price,et_balance,et_times,et_starttime,et_invalidtime;
 
     @Override
@@ -62,6 +54,7 @@ public class AddNewCardActivity
         initView();
         initSpinner();
         initCurrentDate();
+        initDatePicker();
     }
 
     private void initToolbar() {
@@ -86,7 +79,7 @@ public class AddNewCardActivity
         et_balance = (EditText)findViewById(R.id.et_balance_a_add_new_card);
         et_times = (EditText)findViewById(R.id.et_times_a_add_new_card);
         et_starttime = (EditText)findViewById(R.id.et_starttime_a_add_new_card);
-        et_invalidtime = (EditText)findViewById(R.id.et_invalidtime_activity_add_new_card);
+        et_invalidtime = (EditText)findViewById(R.id.et_invalidtime_a_add_new_card);
         spinner_type = (Spinner)findViewById(R.id.sp_type_a_add_new_card);
         //处理日期输入框
         et_starttime.setOnClickListener(this);
@@ -108,17 +101,17 @@ public class AddNewCardActivity
                     case 0:
                         rl_times.setVisibility(View.GONE);
                         rl_balance.setVisibility(View.VISIBLE);
-                        selected_type = 0;
+                        selected_type = 1;
                         break;
                     case 1:
                         rl_balance.setVisibility(View.GONE);
                         rl_times.setVisibility(View.VISIBLE);
-                        selected_type = 1;
+                        selected_type = 2;
                         break;
                     case 2:
                         rl_balance.setVisibility(View.GONE);
                         rl_times.setVisibility(View.GONE);
-                        selected_type = 2;
+                        selected_type = 3;
                         break;
                     default:
                         break;
@@ -139,9 +132,26 @@ public class AddNewCardActivity
         current_date = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener listener_starttime = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                et_starttime.setText(new StringBuffer().append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
+            }
+        };
+        DatePickerDialog.OnDateSetListener listener_invalidtime = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                et_invalidtime.setText(new StringBuffer().append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
+            }
+        };
+        dpd_starttime = new DatePickerDialog(AddNewCardActivity.this,listener_starttime,current_year,current_month,current_date);
+        dpd_invalidtime = new DatePickerDialog(AddNewCardActivity.this,listener_invalidtime,current_year,current_month,current_date);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add_new_card,menu);
+        getMenuInflater().inflate(R.menu.menu_classroom_list,menu);
         return true;
     }
 
@@ -163,13 +173,9 @@ public class AddNewCardActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_starttime_a_add_new_card:
-                dpd_starttime = new DatePickerDialog(AddNewCardActivity.this,AddNewCardActivity.this,year,month,date);
-                dpd_starttime_id = dpd_starttime.getDatePicker().getId();
                 dpd_starttime.show();
                 break;
-            case R.id.et_invalidtime_activity_add_new_card:
-                dpd_invalidtime = new DatePickerDialog(AddNewCardActivity.this,AddNewCardActivity.this,year,month,date);
-                dpd_invalidtime_id = dpd_invalidtime.getDatePicker().getId();
+            case R.id.et_invalidtime_a_add_new_card:
                 dpd_invalidtime.show();
                 break;
             default:
@@ -178,31 +184,17 @@ public class AddNewCardActivity
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        if (view.getId() == dpd_starttime_id) {
-            et_starttime.setText(new StringBuffer().append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
-        } else if (view.getId() == dpd_invalidtime_id) {
-            et_invalidtime.setText(new StringBuffer().append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
-        } else {
-            Toast.makeText(this, Reference.UNKNOWN_ERROR,Toast.LENGTH_SHORT);
-        }
-
-    }
-
-    @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
             case R.id.et_starttime_a_add_new_card:
                 if (hasFocus) {
-                    dpd_starttime = new DatePickerDialog(AddNewCardActivity.this, AddNewCardActivity.this, current_year, current_month, current_date);
                     dpd_starttime.show();
                 }else {
 
                 }
                 break;
-            case R.id.et_invalidtime_activity_add_new_card:
+            case R.id.et_invalidtime_a_add_new_card:
                 if (hasFocus) {
-                    dpd_invalidtime = new DatePickerDialog(AddNewCardActivity.this, AddNewCardActivity.this, current_year, current_month, current_date);
                     dpd_invalidtime.show();
                 }else {
 
@@ -241,9 +233,9 @@ public class AddNewCardActivity
             Toast.makeText(AddNewCardActivity.this,"必要信息不能为空",Toast.LENGTH_LONG).show();
         }else {
             String url = "/AddNewCard?shop_id=" + s_id +
-                    "&shopmember_id=1" +
-                    "&name=余额卡" +
-                    "&type=" +
+                    "&shopmember_id=" + sm_id +
+                    "&name=" + name +
+                    "&type=" + selected_type +
                     "&price=" + price +
                     "&balance=" + balance +
                     "&start_time=" + starttime +

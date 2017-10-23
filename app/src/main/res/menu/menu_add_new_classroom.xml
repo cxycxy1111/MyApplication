@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/save_add_new_card"
+        android:id="@+id/add_a_add_new_classroom"
         android:title="保存"
         app:showAsAction="always" />
 

@@ -114,8 +114,12 @@ public class CardDetailActivity extends BaseActivity {
                     public void run() {
                         et_name.setText(map.get("name"));
                         et_price.setText(String.valueOf(map.get("price")));
-                        et_starttime.setText(String.valueOf(map.get("start_time")));
-                        et_invalidtime.setText(String.valueOf(map.get("expired_time")));
+                        String st = String.valueOf(map.get("start_time"));
+                        String it = String.valueOf(map.get("expired_time"));
+                        String strs_st [] = st.split(" ");
+                        String strs_it [] = it.split(" ");
+                        et_starttime.setText(strs_st[0]);
+                        et_invalidtime.setText(strs_it[0]);
                         switch (Integer.parseInt(String.valueOf(map.get("type")))) {
                             case 1:
                                 et_balance.setText(String.valueOf(map.get("balance")));

@@ -6,15 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.dengweixiong.Activity.Profile.Card.AddNewCardActivity">
 
-    <android.support.v7.widget.Toolbar
+    <include
         android:id="@+id/tb_a_add_new_card"
-        android:title="添加卡"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:theme="@style/Toolbar"
-        app:popupTheme="@style/AlfredOverlay">
-
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/tile_toolbar" />
 
     <RelativeLayout
         android:id="@+id/rl_cardtype_a_add_new_card"
@@ -128,23 +122,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp">
             <TextView
-                android:id="@+id/tv_invalidtime_a_add_new_card"
-                style="@style/tv_input_area"
-                android:layout_alignParentLeft="true"
-                android:text="有效期至" />
-            <EditText
-                android:id="@+id/et_invalidtime_activity_add_new_card"
-                android:layout_toRightOf="@id/tv_invalidtime_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="有效期至"
-                android:maxLines="1"
-                android:inputType="datetime" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
-            <TextView
                 android:id="@+id/tv_starttime_a_add_new_card"
                 style="@style/tv_input_area"
                 android:text="生效时间"
@@ -155,9 +132,25 @@
                 style="@style/plain_editText"
                 android:hint="生效时间"
                 android:maxLines="1"
-                android:inputType="datetime"/>
+                android:inputType="date"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_invalidtime_a_add_new_card"
+                style="@style/tv_input_area"
+                android:layout_alignParentLeft="true"
+                android:text="有效期至" />
+            <EditText
+                android:id="@+id/et_invalidtime_a_add_new_card"
+                android:layout_toRightOf="@id/tv_invalidtime_a_add_new_card"
+                style="@style/plain_editText"
+                android:hint="有效期至"
+                android:maxLines="1"
+                android:inputType="date" />
         </RelativeLayout>
     </LinearLayout>
-
 
 </RelativeLayout>

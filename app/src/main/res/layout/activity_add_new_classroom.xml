@@ -2,13 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dengweixiong.Activity.Course.AddNewCourseActivity">
+    tools:context="com.example.dengweixiong.Activity.Profile.Classroom.AddNewClassroomActivity">
 
     <include
-        android:id="@+id/addNewCourse_toobar"
-        layout="@layout/tile_toolbar" />
+        android:id="@+id/tb_a_addNewClassroom"
+        layout="@layout/tile_toolbar"/>
 
 </RelativeLayout>

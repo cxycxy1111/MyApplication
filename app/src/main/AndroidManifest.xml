@@ -45,7 +45,10 @@
             android:name="com.example.dengweixiong.Activity.Profile.Card.AddNewCardActivity"
             android:label="@string/title_activity_add_new_card"
             android:theme="@style/AppTheme" />
-        <activity android:name="com.example.dengweixiong.Activity.Profile.Card.CardDetailActivity"></activity>
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Card.CardDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomListActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.AddNewClassroomActivity"></activity>
     </application>
 
 </manifest>

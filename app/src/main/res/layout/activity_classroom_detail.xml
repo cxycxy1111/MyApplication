@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomDetailActivity">
+    
+    <include
+        android:id="@+id/tb_a_classroom_detail"
+        layout="@layout/tile_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_name_a_classroom_detail"
+        android:layout_below="@id/tb_a_classroom_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/distance16">
+        <TextView
+            android:id="@+id/tv_name_a_classroom_detail"
+            style="@style/tv_input_area"
+            android:text="课室名"
+            android:layout_alignParentLeft="true" />
+        <EditText
+            android:id="@+id/et_name_a_classroom_detail"
+            android:layout_toRightOf="@id/tv_name_a_classroom_detail"
+            style="@style/plain_editText"
+            android:hint="课室名"
+            android:maxLines="1"
+            android:inputType="number" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -41,7 +41,6 @@ import okhttp3.Response;
 public class AddNewMemberActivity
         extends BaseActivity
         implements View.OnClickListener,
-            DatePickerDialog.OnDateSetListener,
             EditText.OnFocusChangeListener{
 
     private Toolbar toolbar;
@@ -49,6 +48,7 @@ public class AddNewMemberActivity
     private int current_year,current_month,current_date;
     private EditText et_name,et_birthday,et_phone,et_login_name,et_password,et_im;
     private String name,phone,im,login_name,password,birthday;
+    private DatePickerDialog dpd_birthday;
     private long s_id,sm_id;
     private static final String TAG = "ADD NEW MEMBER PRINT:";
 
@@ -58,6 +58,7 @@ public class AddNewMemberActivity
         setContentView(R.layout.activity_add_new_member);
         initToolbar();
         initDate();
+        initDatePicker();
         initEditext();
     }
 
@@ -160,6 +161,16 @@ public class AddNewMemberActivity
         this.current_date = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                et_birthday.setText(new StringBuffer().append(year).append("-").append(month+1).append("-").append(dayOfMonth));
+            }
+        };
+        dpd_birthday = new DatePickerDialog(AddNewMemberActivity.this,listener,current_year,current_month,current_date);
+    }
+
     private void initAlertDialog(String title,String content,String confirm,String cancle) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(AddNewMemberActivity.this);
         dialog.setTitle(title);
@@ -184,8 +195,7 @@ public class AddNewMemberActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
-                DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, current_year, current_month, current_date);
-                dialog.show();
+                dpd_birthday.show();
                 break;
             default:
                 break;
@@ -194,22 +204,11 @@ public class AddNewMemberActivity
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        this.current_year = year;
-        this.current_month = month;
-        this.current_date = dayOfMonth;
-        et_birthday.setText(new StringBuffer()
-                .append(year).append("-").append(month + 1).append("-").append(dayOfMonth));
-
-    }
-
-    @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
                 if (hasFocus) {
-                    DatePickerDialog dialog = new DatePickerDialog(AddNewMemberActivity.this, AddNewMemberActivity.this, current_year, current_month, current_date);
-                    dialog.show();
+                    dpd_birthday.show();
                 }else {
                 }
                 break;
