@@ -37,6 +37,7 @@
             android:id="@+id/et_newpwd_a_reset_pwd"
             android:layout_toRightOf="@id/tv_newpwd_a_reset_pwd"
             style="@style/plain_editText"
+            android:inputType="textVisiblePassword"
             android:hint="新密码" />
     </RelativeLayout>
 
@@ -52,6 +53,7 @@
             android:id="@+id/et_repeat_newpwd_a_reset_pwd"
             android:layout_toRightOf="@id/tv_repeat_newpwd_a_reset_pwd"
             style="@style/plain_editText"
+            android:inputType="textVisiblePassword"
             android:hint="新密码" />
     </RelativeLayout>
 

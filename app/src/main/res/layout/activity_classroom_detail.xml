@@ -27,7 +27,7 @@
             style="@style/plain_editText"
             android:hint="课室名"
             android:maxLines="1"
-            android:inputType="number" />
+            android:inputType="text" />
 
     </RelativeLayout>
 

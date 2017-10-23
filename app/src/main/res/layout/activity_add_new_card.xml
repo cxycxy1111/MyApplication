@@ -61,6 +61,7 @@
                 android:id="@+id/et_name_a_add_new_card"
                 style="@style/plain_editText"
                 android:hint="卡名"
+                android:inputType="text"
                 android:layout_toRightOf="@id/tv_name_a_add_new_card" />
         </RelativeLayout>
         <RelativeLayout

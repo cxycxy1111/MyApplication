@@ -39,6 +39,7 @@
                 android:id="@+id/edittext_name_activity_add_new_member"
                 style="@style/plain_editText"
                 android:hint="姓名"
+                android:inputType="text"
                 android:layout_toRightOf="@id/tv_name_a_add_new_member" />
         </RelativeLayout>
         <RelativeLayout

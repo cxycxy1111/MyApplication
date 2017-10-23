@@ -59,6 +59,7 @@
                         android:id="@+id/edittext_name_activity_member_detail"
                         android:layout_toRightOf="@id/tv_name_a_member_detail"
                         style="@style/plain_editText"
+                        android:inputType="text"
                         android:hint="姓名" />
 
                 </RelativeLayout>
@@ -73,6 +74,7 @@
                         android:id="@+id/edittext_birthday_activity_member_detail"
                         android:layout_toRightOf="@id/tv_birthday_a_member_detail"
                         style="@style/plain_editText"
+                        android:inputType="date"
                         android:hint="出生日期" />
                 </RelativeLayout>
                 <RelativeLayout
@@ -86,6 +88,7 @@
                         android:id="@+id/edittext_phone_activity_member_detail"
                         android:layout_toRightOf="@id/tv_phone_a_member_detail"
                         style="@style/plain_editText"
+                        android:inputType="phone"
                         android:hint="手机号码" />
                 </RelativeLayout>
                 <RelativeLayout
@@ -99,6 +102,7 @@
                         android:id="@+id/edittext_im_activity_member_detail"
                         android:layout_toRightOf="@id/tv_im_a_member_detail"
                         style="@style/plain_editText"
+                        android:inputType="text"
                         android:hint="即时通讯" />
                 </RelativeLayout>
             </LinearLayout>

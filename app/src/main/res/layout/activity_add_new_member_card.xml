@@ -79,7 +79,7 @@
                 style="@style/plain_editText"
                 android:hint="元"
                 android:maxLines="1"
-                android:inputType="date"/>
+                android:inputType="number"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rl_balance_a_AddNewMemberCard"
@@ -98,7 +98,7 @@
                 style="@style/plain_editText"
                 android:hint="元"
                 android:maxLines="1"
-                android:inputType="date"/>
+                android:inputType="number"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rl_num_a_AddNewMemberCard"
@@ -117,7 +117,7 @@
                 style="@style/plain_editText"
                 android:hint="次"
                 android:maxLines="1"
-                android:inputType="date"/>
+                android:inputType="number"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rl_starttime_a_AddNewMemberCard"
