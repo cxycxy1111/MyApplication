@@ -16,6 +16,7 @@ import com.example.dengweixiong.Activity.Login.LoginActivity;
 import com.example.dengweixiong.Adapter.CardListAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
@@ -37,6 +38,9 @@ public class CardTypeListActivity extends BaseActivity {
     private List<Map<String, String>> list = new ArrayList<>();
     private String [] keys = new String[] {"id","name","type"};
     private CardListAdapter adapter;
+    private List<Map<String,String>> balanceList = new ArrayList<>();
+    private List<Map<String,String>> timesList = new ArrayList<>();
+    private List<Map<String,String>> timeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class CardTypeListActivity extends BaseActivity {
                 break;
             case R.id.add_a_add_new_card:
                 Intent intent = new Intent(this,AddNewCardActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             default:
                 break;
         }
@@ -71,8 +75,69 @@ public class CardTypeListActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int delete_position = data.getIntExtra("position",-1);
-        list.remove(delete_position);
+        int p,t;
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Reference.RESULTCODE_DELETE) {
+                    p = data.getIntExtra("pos",-1);
+                    list.remove(p);
+                }else if (requestCode == Reference.RESULTCODE_UPDATE) {
+                    p = data.getIntExtra("pos",-1);
+                    t = data.getIntExtra("type",0);
+                    long id = data.getLongExtra("id",0);
+                    String n = data.getStringExtra("name");
+                    Map<String,String> m = new HashMap<>();
+                    m.put("id", String.valueOf(id));
+                    m.put("name",n);
+                    m.put("type",String.valueOf(t));
+                    list.set(p,m);
+                }else {
+                }
+                break;
+            case 2:
+                if (resultCode == Reference.RESULTCODE_ADD) {
+                    t = data.getIntExtra("type",0);
+                    String id = data.getStringExtra("id");
+                    String name = data.getStringExtra("name");
+                    Map<String,String> m = new HashMap<>();
+                    m.put("id",id);
+                    m.put("name",name);
+                    m.put("type",String.valueOf(t));
+                    if (t == 1) {
+                        balanceList.add(m);
+                        MethodTool.sortListMap(balanceList);
+                    }else if (t == 2) {
+                        timesList.add(m);
+                        MethodTool.sortListMap(timesList);
+                    }else if (t == 3) {
+                        timeList.add(m);
+                        MethodTool.sortListMap(timeList);
+                    }
+                    list.clear();
+                    Map<String,String> b_map = new HashMap<>();
+                    b_map.put("type","1");
+                    list.add(b_map);
+                    for (int i = 0;i < balanceList.size();i++) {
+                        list.add(balanceList.get(i));
+                    }
+                    Map<String,String> ts_map = new HashMap<>();
+                    ts_map.put("type","1");
+                    list.add(ts_map);
+                    for (int i = 0;i < timesList.size();i++) {
+                        list.add(timesList.get(i));
+                    }
+                    Map<String,String> t_map = new HashMap<>();
+                    t_map.put("type","1");
+                    list.add(t_map);
+                    for (int i = 0;i < timeList.size();i++) {
+                        list.add(timeList.get(i));
+                    }
+                }
+                break;
+            default:
+                break;
+
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -107,6 +172,7 @@ public class CardTypeListActivity extends BaseActivity {
                     arrayList = JsonHandler.strToListMap(resp,keys);
                     for (int i = 0;i < arrayList.size();i++) {
                         list.add(arrayList.get(i));
+                        balanceList.add(arrayList.get(i));
                     }
                 }
                 initTimesCard();
@@ -134,6 +200,7 @@ public class CardTypeListActivity extends BaseActivity {
                     arrayList = JsonHandler.strToListMap(resp,keys);
                     for (int i = 0;i < arrayList.size();i++) {
                         list.add(arrayList.get(i));
+                        timesList.add(arrayList.get(i));
                     }
                 }
                 initTimeCard();
@@ -161,6 +228,7 @@ public class CardTypeListActivity extends BaseActivity {
                     list.add(map);
                     for (int i = 0;i < arrayList.size();i++) {
                         list.add(arrayList.get(i));
+                        timeList.add(arrayList.get(i));
                     }
                 }
                 initRecyclerView();
@@ -187,7 +255,7 @@ public class CardTypeListActivity extends BaseActivity {
                         intent.putExtra("position",position);
                         intent.putExtra("c_name",name);
                         intent.putExtra("type",type);
-                        startActivity(intent);
+                        startActivityForResult(intent,1);
                     }
                 });
                 recyclerView.setAdapter(adapter);

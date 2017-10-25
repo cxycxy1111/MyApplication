@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Adapter.CardListAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -37,7 +38,7 @@ public class CardDetailActivity extends BaseActivity {
 
     private long c_id,s_id,sm_id;
     private int type,position;
-    private String c_name;
+    private String c_name,new_name;
     private EditText et_name,et_price,et_balance,et_times,et_invalidtime,et_starttime;
     private RelativeLayout rl_balance,rl_times;
     private Dialog delete_confirm;
@@ -59,6 +60,7 @@ public class CardDetailActivity extends BaseActivity {
         c_name = intent.getStringExtra("c_name");
         type = intent.getIntExtra("type",0);
         position = intent.getIntExtra("position",0);
+
         SharedPreferences preferences = getSharedPreferences("sasm",MODE_PRIVATE);
         s_id = preferences.getLong("s_id",0);
         sm_id = preferences.getLong("sm_id",0);
@@ -148,7 +150,7 @@ public class CardDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                finish();
                 break;
             case R.id.remove_card_detail:
                 deleteCardTypeExe();
@@ -188,9 +190,9 @@ public class CardDetailActivity extends BaseActivity {
                                     case "exe_suc" :
                                         MethodTool.showToast(CardDetailActivity.this,"卡类型已被删除");
                                         Intent intent = new Intent(CardDetailActivity.this,CardTypeListActivity.class);
-                                        intent.putExtra("position",position);
-                                        int requestCode = 0;
-                                        startActivityForResult(intent,requestCode);
+                                        intent.putExtra("pos",position);
+                                        setResult(Reference.RESULTCODE_DELETE,intent);
+                                        finish();
                                         break;
                                     case "exe_fail" :
                                         MethodTool.showToast(CardDetailActivity.this,"删除失败");
@@ -217,7 +219,7 @@ public class CardDetailActivity extends BaseActivity {
 
     private void saveChange() {
         String price = et_price.getText().toString();
-        String name = et_name.getText().toString();
+        new_name = et_name.getText().toString();
         String balance = null;
         switch (type) {
             case 1 :
@@ -236,7 +238,7 @@ public class CardDetailActivity extends BaseActivity {
         String invalid_time = et_invalidtime.getText().toString();
         String url = "/ModifyCard?id=" + c_id +
                 "&shopmember_id=" + sm_id +
-                "&name=" + name +
+                "&name=" + new_name +
                 "&price=" + price +
                 "&balance=" + balance +
                 "&start_time=" + start_time +
@@ -251,7 +253,7 @@ public class CardDetailActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 HashMap<String,String> map = JsonHandler.strToMap(resp);
-                String value = map.get("stat");
+                String value = map.get(Reference.STATUS);
                 switch (value) {
                     case "no_such_record":
                         MethodTool.showToast(CardDetailActivity.this,"无法修改");
@@ -261,7 +263,13 @@ public class CardDetailActivity extends BaseActivity {
                         break;
                     case "exe_suc" :
                         MethodTool.showToast(CardDetailActivity.this,"修改成功");
-                        CardDetailActivity.this.finish();
+                        Intent intent = new Intent(CardDetailActivity.this, CardTypeListActivity.class);
+                        intent.putExtra("name",new_name);
+                        intent.putExtra("pos",position);
+                        intent.putExtra("type",type);
+                        intent.putExtra("id",c_id);
+                        setResult(Reference.RESULTCODE_UPDATE,intent);
+                        finish();
                         break;
                     case "exe_fail" :
                         MethodTool.showToast(CardDetailActivity.this,"修改失败");

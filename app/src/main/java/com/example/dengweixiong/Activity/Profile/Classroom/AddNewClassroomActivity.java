@@ -18,6 +18,7 @@ import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -61,7 +62,6 @@ public class AddNewClassroomActivity extends BaseActivity {
         et_name = (EditText)findViewById(R.id.et_name_a_addNewClassroom);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_new_classroom,menu);
@@ -72,10 +72,10 @@ public class AddNewClassroomActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                finish();
                 break;
             case R.id.add_a_add_new_classroom :
-                String cr_name = et_name.getText().toString();
+                final String cr_name = et_name.getText().toString();
                 String url = "/ClassroomAdd?s_id=" + s_id + "&name=" + cr_name;
                 Callback callback = new Callback() {
                     @Override
@@ -86,25 +86,34 @@ public class AddNewClassroomActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String resp = response.body().string();
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        switch (map.get("stat")) {
-                            case "exe_suc" :
-                                MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
-                                AddNewClassroomActivity.this.finish();
-                                break;
-                            case "duplicate" :
-                                MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
-                                break;
-                            case "exe_fail" :
-                                MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
-                                break;
-                            case "no_such_record" :
-                                MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
-                                AddNewClassroomActivity.this.finish();
-                                break;
-                            default:
-                                break;
+                        if (resp.contains(Reference.STATUS)) {
+                            Map<String,String> map = JsonHandler.strToMap(resp);
+                            switch (map.get("stat")) {
+                                case "duplicate" :
+                                    MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
+                                    break;
+                                case "exe_fail" :
+                                    MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
+                                    break;
+                                case "no_such_record" :
+                                    MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
+                                    finish();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }else if (resp.contains("id")) {
+                            MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
+                            String [] k = new String[]{"id"};
+                            List<Map<String,String>> list = JsonHandler.strToListMap(resp,k);
+                            cr_id = Long.parseLong(String.valueOf(list.get(0).get(k[0])));
+                            Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
+                            intent.putExtra("cr_id",cr_id);
+                            intent.putExtra("cr_name",cr_name);
+                            setResult(Reference.RESULTCODE_ADD,intent);
+                            finish();
                         }
+
                     }
                 };
                 NetUtil.sendHttpRequest(AddNewClassroomActivity.this,url,callback);

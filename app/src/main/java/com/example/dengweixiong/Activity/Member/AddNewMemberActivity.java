@@ -108,7 +108,6 @@ public class AddNewMemberActivity
                         switch (MethodTool.getValues(map,MethodTool.getKeys(map)).get(0)) {
                             case "exe_suc":
                                 MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
-                                MethodTool.jumpToActivity(AddNewMemberActivity.this,MainActivity.class);
                                 finish();
                                 break;
                             case "duplicate":

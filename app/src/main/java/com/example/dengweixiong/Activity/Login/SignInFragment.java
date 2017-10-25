@@ -167,7 +167,7 @@ public class SignInFragment
                 map = JsonHandler.strToMap(response.body().toString());
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals("stat")) {
+                if (keys.get(0).equals(Reference.STATUS)) {
                     if (values.get(0).equals("not_match")) {
                         MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                     } else if (values.get(0).equals("no_such_record")){

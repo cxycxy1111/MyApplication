@@ -24,10 +24,13 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,13 +75,42 @@ public class MemberListActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int i = data.getIntExtra("m_id",-1);
-        list.remove(i);
-        name_list.remove(i);
+        String temp_m_name;
+        int p;
+        //处理来自MemberDetailActivity的调用
+        if(requestCode == 1) {
+            if (resultCode == Reference.RESULTCODE_DELETE) {
+                p = data.getIntExtra("pos",-1);
+                list.remove(p);
+                name_list.remove(p);
+            } else if (resultCode == Reference.RESULTCODE_UPDATE) {
+                p = data.getIntExtra("pos",-1);
+                Map<String,String> map = new HashMap<>();
+                map.put("id",String.valueOf(data.getLongExtra("m_id",0)));
+                map.put("name",data.getStringExtra("m_name"));
+                list.set(p,map);
+                name_list.set(p,data.getStringExtra("m_name"));
+                MethodTool.sortListMap(list);
+                MethodTool.sort(name_list);
+            }else if (resultCode == Reference.RESULTCODE_NULL) {
+
+            }else {
+                
+            }
+        }
+        //处理来自AddNewMemberActivity的调用
+        else if (requestCode == 2) {
+        }
+
+        else {
+
+        }
         adapter.notifyDataSetChanged();
     }
 
-    //初始化toolbar
+    /**
+     * 初始化toolbar
+     */
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_activity_member_list);
         setSupportActionBar(toolbar);
@@ -86,7 +118,10 @@ public class MemberListActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-//初始化recyclerview
+    /**
+     * 初始化recyclerview
+     * @param context
+     */
     private void initRecyclerView(Context context) {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_list);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -96,6 +131,9 @@ public class MemberListActivity
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
         long shop_id = MethodTool.preGetLong(MemberListActivity.this,"sasm","s_id");
         String url = "/QueryMemberList?shop_id=" + shop_id;
@@ -110,7 +148,7 @@ public class MemberListActivity
                 String [] keys = new String[] {"id","name"};
                 String resp = response.body().string();
                 list = JsonHandler.strToListMap(resp,keys);
-                Log.d(TAG, String.valueOf(list.size()));
+                MethodTool.sortListMap(list);
                 for (int i = 0;i < list.size();i++) {
                     name_list.add(list.get(i).get("name"));
                 }
@@ -131,7 +169,7 @@ public class MemberListActivity
         intent.putExtra("toolbar_title",name_list.get(position));
         intent.putExtra("m_id",String.valueOf(list.get(position).get("id")));
         intent.putExtra("position",position);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     //创建菜单
@@ -169,4 +207,5 @@ public class MemberListActivity
         }
         return true;
     }
+
 }

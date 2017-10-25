@@ -10,8 +10,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,7 +23,7 @@ import java.util.Set;
  * Created by dengweixiong on 2017/10/14.
  */
 
-public class MethodTool {
+public class MethodTool{
 
     /**
      * 隐藏View
@@ -138,6 +142,30 @@ public class MethodTool {
             list.add(value);
         }
         return list;
+    }
+
+    public static void sortListMap(List<Map<String,String>> list) {
+        if (null != list&& list.size()>0) {
+            Collections.sort(list,new Comparator<Map>() {
+                @Override
+                public int compare(Map o1, Map o2) {
+                    Collator collator = Collator.getInstance();
+                    return collator.getCollationKey(o1.get("name").toString()).compareTo(collator.getCollationKey(o2.get("name").toString()));
+                }
+            });
+        }
+    }
+
+    public static void sort(List<String> list) {
+        if (list != null && list.size() > 0) {
+            Collections.sort(list, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    Collator collator = Collator.getInstance();
+                    return  collator.getCollationKey(o1.toString()).compareTo(collator.getCollationKey(o2.toString()));
+                }
+            });
+        }
     }
 
 }

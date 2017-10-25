@@ -235,7 +235,8 @@ public class MemberDetailActivity
                 builder.setNegativeButton("不保存", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MemberDetailActivity.this.finish();
+                        setResult(Reference.RESULTCODE_NULL,null);
+                        finish();
                     }
                 });
                 builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
@@ -247,7 +248,7 @@ public class MemberDetailActivity
                 builder.show();
                 break;
             case R.id.save_member_detail:
-                String m_name = et_name.getText().toString();
+                final String m_name = et_name.getText().toString();
                 String m_birthday = et_birthday.getText().toString();
                 String m_phone = et_phone.getText().toString();
                 String m_im = et_im.getText().toString();
@@ -271,12 +272,16 @@ public class MemberDetailActivity
                         map = JsonHandler.strToMap(resp);
                         ArrayList<String> keys = MethodTool.getKeys(map);
                         ArrayList<String> values = MethodTool.getValues(map,keys);
-                        if (keys.get(0).equals("stat")) {
+                        if (keys.get(0).equals(Reference.STATUS)) {
                             switch (String.valueOf(values.get(0))) {
                                 case "exe_suc":
                                     MethodTool.showToast(MemberDetailActivity.this,"已保存");
-                                    MethodTool.jumpToActivity(MemberDetailActivity.this,MemberListActivity.class);
-                                    MemberDetailActivity.this.finish();
+                                    Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
+                                    intent.putExtra("pos",position);
+                                    intent.putExtra("m_id",m_id);
+                                    intent.putExtra("m_name",m_name);
+                                    setResult(Reference.RESULTCODE_UPDATE,intent);
+                                    finish();
                                     break;
                                 case "exe_fail":
                                     MethodTool.showToast(MemberDetailActivity.this,"更新失败");
@@ -334,9 +339,9 @@ public class MemberDetailActivity
                                     case "exe_suc" :
                                         MethodTool.showToast(MemberDetailActivity.this,"删除成功");
                                         Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
-                                        intent.putExtra("m_id",position);
-                                        int req = 0;
-                                        startActivityForResult(intent,req);
+                                        intent.putExtra("pos",position);
+                                        setResult(Reference.RESULTCODE_DELETE,intent);
+                                        finish();
                                         break;
                                     case "exe_fail" :
                                         MethodTool.showToast(MemberDetailActivity.this,"删除失败");

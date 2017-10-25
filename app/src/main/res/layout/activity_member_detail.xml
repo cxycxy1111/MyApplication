@@ -45,6 +45,7 @@
                         android:id="@+id/edittext_sn_activity_member_detail"
                         android:layout_toRightOf="@id/tv_sn_a_member_detail"
                         style="@style/plain_editText"
+                        android:maxLines="1"
                         android:hint="会员编号(不可修改)" />
                 </RelativeLayout>
 
@@ -60,6 +61,7 @@
                         android:layout_toRightOf="@id/tv_name_a_member_detail"
                         style="@style/plain_editText"
                         android:inputType="text"
+                        android:maxLines="1"
                         android:hint="姓名" />
 
                 </RelativeLayout>

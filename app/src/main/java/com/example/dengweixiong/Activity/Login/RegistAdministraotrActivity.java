@@ -13,6 +13,7 @@ import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 
@@ -96,7 +97,7 @@ public class RegistAdministraotrActivity
             public void onResponse(Call call, Response response) throws IOException {
                 HashMap<String,String> map = new HashMap<>();
                 map = JsonHandler.strToMap(response.body().toString());
-                String value = map.get("stat");
+                String value = map.get(Reference.STATUS);
                 if (value.equals("exe_suc")) {
                     MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
                     Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);

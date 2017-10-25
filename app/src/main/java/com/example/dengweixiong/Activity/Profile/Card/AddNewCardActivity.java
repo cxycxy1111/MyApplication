@@ -1,6 +1,7 @@
 package com.example.dengweixiong.Activity.Profile.Card;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,12 +21,14 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -58,7 +61,7 @@ public class AddNewCardActivity
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_a_add_new_card);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("添加卡");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -151,7 +154,7 @@ public class AddNewCardActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_classroom_list,menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_card,menu);
         return true;
     }
 
@@ -206,17 +209,17 @@ public class AddNewCardActivity
     }
 
     private void addNewCard() {
-        String name = et_name.getText().toString();
+        final String name = et_name.getText().toString();
         String price = et_price.getText().toString();
         String balance = null;
         switch (selected_type) {
-            case 0:
+            case 1:
                 balance = et_balance.getText().toString();
                 break;
-            case 1:
+            case 2:
                 balance = et_times.getText().toString();
                 break;
-            case 2:
+            case 3:
                 balance = "0";
                 break;
             default:
@@ -249,21 +252,32 @@ public class AddNewCardActivity
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    HashMap<String,String> map = JsonHandler.strToMap(resp);
-                    switch (map.get("stat")) {
-                        case "exe_suc":
-                            MethodTool.showToast(AddNewCardActivity.this,"新增成功");
-                            AddNewCardActivity.this.finish();
-                            break;
-                        case "duplicate":
-                            MethodTool.showToast(AddNewCardActivity.this,"卡名重复");
-                            break;
-                        case "exe_fail":
-                            MethodTool.showToast(AddNewCardActivity.this,"新增失败");
-                            break;
-                        default:
-                            break;
+                    if (resp.contains(Reference.ID)) {
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);
+                        intent.putExtra("type",selected_type);
+                        intent.putExtra("id",map.get("id"));
+                        intent.putExtra("name",name);
+                        setResult(Reference.RESULTCODE_ADD,intent);
+                        finish();
+                    }else if (resp.contains(Reference.STATUS)) {
+                        HashMap<String,String> map = JsonHandler.strToMap(resp);
+                        switch (map.get("stat")) {
+                            case "exe_suc":
+                                MethodTool.showToast(AddNewCardActivity.this,"新增成功");
+                                finish();
+                                break;
+                            case "duplicate":
+                                MethodTool.showToast(AddNewCardActivity.this,"卡名重复");
+                                break;
+                            case "exe_fail":
+                                MethodTool.showToast(AddNewCardActivity.this,"新增失败");
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
                 }
             };
             NetUtil.sendHttpRequest(AddNewCardActivity.this,url,callback);

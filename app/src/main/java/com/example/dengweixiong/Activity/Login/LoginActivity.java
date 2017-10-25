@@ -87,7 +87,7 @@ public class LoginActivity
                 map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals("stat")) {
+                if (keys.get(0).equals(Reference.STATUS)) {
                     if (values.get(0).equals("not_match")) {
                         MethodTool.hideView(LoginActivity.this,progressBar);
                         MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
