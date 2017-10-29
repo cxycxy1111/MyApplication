@@ -24,4 +24,9 @@
     <string name="title_activity_login">登录</string>
     <string name="title_activity_regist_administraotr">RegistAdministraotrActivity</string>
     <string name="title_activity_add_new_card">AddNewCardActivity</string>
+    <string name="title_activity_shopmember_detail">ShopmemberDetailActivity</string>
+
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="add">新增</string>
 </resources>

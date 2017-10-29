@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/save_add_new_card"
-        android:title="保存"
+        android:title="@string/save"
         app:showAsAction="always" />
 
 </menu>

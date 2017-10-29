@@ -1,11 +1,7 @@
 package com.example.dengweixiong.Activity.Profile.Classroom;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.TimeZoneNames;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Adapter.SimpleRecylcerViewAdapter;
-import com.example.dengweixiong.Bean.Classroom;
+import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -25,12 +20,8 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.RunnableFuture;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +34,7 @@ public class ClassroomListActivity extends BaseActivity {
     private String [] keys = {"id","name"};
     private Map<String,String> tempMap = new HashMap<>();
     private static final int CLASSROOMLIST = 1;
-    SimpleRecylcerViewAdapter adapter;
+    RecylcerViewSimpleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +94,8 @@ public class ClassroomListActivity extends BaseActivity {
             public void run() {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(ClassroomListActivity.this,LinearLayoutManager.VERTICAL,false);
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_ClassroomList);
-                adapter = new SimpleRecylcerViewAdapter(strings);
-                adapter.setOnItemClickListener(new SimpleRecylcerViewAdapter.OnItemClickListener() {
+                adapter = new RecylcerViewSimpleAdapter(strings);
+                adapter.setOnItemClickListener(new RecylcerViewSimpleAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(ClassroomListActivity.this,ClassroomDetailActivity.class);

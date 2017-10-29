@@ -1,25 +1,19 @@
 package com.example.dengweixiong.Activity.Member;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.dengweixiong.Activity.MainActivity;
-import com.example.dengweixiong.Adapter.SimpleRecylcerViewAdapter;
+import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -29,8 +23,6 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,14 +35,14 @@ public class MemberListActivity
         extends
             BaseActivity
         implements
-            SimpleRecylcerViewAdapter.OnItemClickListener{
+            RecylcerViewSimpleAdapter.OnItemClickListener{
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private List<Map<String,String>> list = new ArrayList<>();
     private ArrayList<String> name_list = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
-    private SimpleRecylcerViewAdapter adapter;
+    private RecylcerViewSimpleAdapter adapter;
     private static final String TOOLBAR_TITLE = "会员管理";
     private static final String TAG = "MemberListActivity:";
 
@@ -95,7 +87,7 @@ public class MemberListActivity
             }else if (resultCode == Reference.RESULTCODE_NULL) {
 
             }else {
-                
+
             }
         }
         //处理来自AddNewMemberActivity的调用
@@ -125,7 +117,7 @@ public class MemberListActivity
     private void initRecyclerView(Context context) {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_list);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        adapter = new SimpleRecylcerViewAdapter(name_list);
+        adapter = new RecylcerViewSimpleAdapter(name_list);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);

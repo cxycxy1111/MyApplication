@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.dengweixiong.myapplication.R;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,16 +20,15 @@ import java.util.Map;
  * Created by dengweixiong on 2017/10/20.
  */
 
-public class CardListAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class RecyclerViewSectionAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_CONTENT = 2;
     private List<Map<String, String>> list = new ArrayList<>();
-    //private static String[] catagory = new String[] {"余额卡","次卡","有效期卡"};
     private Context context;
     private OnItemClickListener onItemClickListener = null;
 
-    public CardListAdapter(List<Map<String, String>> list,Context context) {
+    public RecyclerViewSectionAdapter(List<Map<String, String>> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -54,19 +55,7 @@ public class CardListAdapter extends RecyclerView.Adapter implements View.OnClic
             case TYPE_HEADER:
                 final HeaderViewHolder headerViewHolder = (HeaderViewHolder)holder;
                 headerViewHolder.itemView.setTag(position);
-                switch (Integer.parseInt(list.get(position).get("type"))) {
-                    case 1:
-                        headerViewHolder.textView.setText("余额卡");
-                        break;
-                    case 2:
-                        headerViewHolder.textView.setText("次卡");
-                        break;
-                    case 3:
-                        headerViewHolder.textView.setText("有效期卡");
-                        break;
-                    default:
-                        headerViewHolder.textView.setText("");
-                }
+                headerViewHolder.textView.setText(list.get(position).get("type"));
                 break;
             case TYPE_CONTENT:
                 final ContentViewHolder contentViewHolder = (ContentViewHolder)holder;
@@ -78,12 +67,10 @@ public class CardListAdapter extends RecyclerView.Adapter implements View.OnClic
 
     @Override
     public int getItemViewType(int position) {
-        int i = list.get(position).size();
-        if (i == 1) {
-            return 1;
-        }else {
+        if (NumberUtils.isNumber(String.valueOf(list.get(position).get("type")))) {
             return 2;
         }
+        return 1;
     }
 
     @Override

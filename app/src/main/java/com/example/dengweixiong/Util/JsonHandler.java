@@ -35,7 +35,6 @@ public class JsonHandler {
             JSONObject jo = ja.getJSONObject(i);
             Map<String,String> map = new HashMap<>();
             map = jo;
-
             list.add(map);
         }
         return list;

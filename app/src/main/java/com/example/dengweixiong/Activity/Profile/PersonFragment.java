@@ -17,6 +17,7 @@ import android.widget.SimpleAdapter;
 import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Activity.Profile.Card.CardTypeListActivity;
 import com.example.dengweixiong.Activity.Profile.Classroom.ClassroomListActivity;
+import com.example.dengweixiong.Activity.Profile.Shopmember.ShopmemberListActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class PersonFragment
                 intent = new Intent(getActivity(),CardTypeListActivity.class);
                 break;
             case 1:
-                intent = new Intent(getActivity(), getActivity().getClass());
+                intent = new Intent(getActivity(), ShopmemberListActivity.class);
                 break;
             case 2:
                 intent = new Intent(getActivity(),ClassroomListActivity.class);

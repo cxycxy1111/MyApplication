@@ -2,7 +2,6 @@ package com.example.dengweixiong.Activity.Profile.Card;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.dengweixiong.Activity.Login.LoginActivity;
-import com.example.dengweixiong.Adapter.CardListAdapter;
+import com.example.dengweixiong.Adapter.RecyclerViewSectionAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -22,7 +19,6 @@ import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +33,7 @@ public class CardTypeListActivity extends BaseActivity {
     private long s_id;
     private List<Map<String, String>> list = new ArrayList<>();
     private String [] keys = new String[] {"id","name","type"};
-    private CardListAdapter adapter;
+    private RecyclerViewSectionAdapter adapter;
     private List<Map<String,String>> balanceList = new ArrayList<>();
     private List<Map<String,String>> timesList = new ArrayList<>();
     private List<Map<String,String>> timeList = new ArrayList<>();
@@ -81,7 +77,7 @@ public class CardTypeListActivity extends BaseActivity {
                 if (resultCode == Reference.RESULTCODE_DELETE) {
                     p = data.getIntExtra("pos",-1);
                     list.remove(p);
-                }else if (requestCode == Reference.RESULTCODE_UPDATE) {
+                }else if (resultCode == Reference.RESULTCODE_UPDATE) {
                     p = data.getIntExtra("pos",-1);
                     t = data.getIntExtra("type",0);
                     long id = data.getLongExtra("id",0);
@@ -91,7 +87,8 @@ public class CardTypeListActivity extends BaseActivity {
                     m.put("name",n);
                     m.put("type",String.valueOf(t));
                     list.set(p,m);
-                }else {
+                }else if (resultCode == Reference.RESULTCODE_NULL){
+
                 }
                 break;
             case 2:
@@ -115,19 +112,19 @@ public class CardTypeListActivity extends BaseActivity {
                     }
                     list.clear();
                     Map<String,String> b_map = new HashMap<>();
-                    b_map.put("type","1");
+                    b_map.put("type","余额卡");
                     list.add(b_map);
                     for (int i = 0;i < balanceList.size();i++) {
                         list.add(balanceList.get(i));
                     }
                     Map<String,String> ts_map = new HashMap<>();
-                    ts_map.put("type","1");
+                    ts_map.put("type","次卡");
                     list.add(ts_map);
                     for (int i = 0;i < timesList.size();i++) {
                         list.add(timesList.get(i));
                     }
                     Map<String,String> t_map = new HashMap<>();
-                    t_map.put("type","1");
+                    t_map.put("type","有效期卡");
                     list.add(t_map);
                     for (int i = 0;i < timeList.size();i++) {
                         list.add(timeList.get(i));
@@ -167,7 +164,7 @@ public class CardTypeListActivity extends BaseActivity {
                 Map<String,String> map = new HashMap<>();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 if (!resp.contains(Reference.STATUS)) {
-                    map.put("type","1");
+                    map.put("type","余额卡");
                     list.add(map);
                     arrayList = JsonHandler.strToListMap(resp,keys);
                     for (int i = 0;i < arrayList.size();i++) {
@@ -195,7 +192,7 @@ public class CardTypeListActivity extends BaseActivity {
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 Map<String,String> map = new HashMap<>();
                 if (!resp.contains(Reference.STATUS)) {
-                    map.put("type","2");
+                    map.put("type","次卡");
                     list.add(map);
                     arrayList = JsonHandler.strToListMap(resp,keys);
                     for (int i = 0;i < arrayList.size();i++) {
@@ -223,7 +220,7 @@ public class CardTypeListActivity extends BaseActivity {
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 if (!resp.contains(Reference.STATUS)) {
                     Map<String,String> map = new HashMap<>();
-                    map.put("type","3");
+                    map.put("type","有效期卡");
                     arrayList = JsonHandler.strToListMap(resp,keys);
                     list.add(map);
                     for (int i = 0;i < arrayList.size();i++) {
@@ -243,8 +240,8 @@ public class CardTypeListActivity extends BaseActivity {
             public void run() {
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_cardtype_list);
                 LinearLayoutManager llm = new LinearLayoutManager(CardTypeListActivity.this,LinearLayoutManager.VERTICAL,false);
-                adapter = new CardListAdapter(list,CardTypeListActivity.this);
-                adapter.setOnItemClickListener(new CardListAdapter.OnItemClickListener() {
+                adapter = new RecyclerViewSectionAdapter(list,CardTypeListActivity.this);
+                adapter.setOnItemClickListener(new RecyclerViewSectionAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         long id = Long.parseLong(String.valueOf(list.get(position).get("id")));

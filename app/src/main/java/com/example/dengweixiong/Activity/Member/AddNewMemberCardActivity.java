@@ -52,7 +52,7 @@ public class AddNewMemberCardActivity
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_a_AddNewMemberCard);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE_NEW);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

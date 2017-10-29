@@ -4,9 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.TimeZoneNames;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,9 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.dengweixiong.Adapter.CardListAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -27,7 +23,6 @@ import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -150,6 +145,7 @@ public class CardDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(Reference.RESULTCODE_NULL,null);
                 finish();
                 break;
             case R.id.remove_card_detail:
@@ -211,7 +207,7 @@ public class CardDetailActivity extends BaseActivity {
         builder.setNegativeButton("不删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                delete_confirm.dismiss();
+            delete_confirm.dismiss();
             }
         });
         delete_confirm = builder.show();

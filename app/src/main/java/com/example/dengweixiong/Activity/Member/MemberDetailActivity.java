@@ -1,12 +1,9 @@
 package com.example.dengweixiong.Activity.Member;
 
 import android.app.DatePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,10 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Adapter.SimpleRecylcerViewAdapter;
+import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -39,7 +35,7 @@ import okhttp3.Response;
 
 public class MemberDetailActivity
         extends BaseActivity
-        implements SimpleRecylcerViewAdapter.OnItemClickListener,
+        implements RecylcerViewSimpleAdapter.OnItemClickListener,
             View.OnClickListener,
             DatePickerDialog.OnDateSetListener,
             EditText.OnFocusChangeListener{
@@ -83,7 +79,7 @@ public class MemberDetailActivity
         list.add("删除会员卡");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_detail);
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        SimpleRecylcerViewAdapter simpleRecylcerViewAdapter = new SimpleRecylcerViewAdapter(list);
+        RecylcerViewSimpleAdapter simpleRecylcerViewAdapter = new RecylcerViewSimpleAdapter(list);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(simpleRecylcerViewAdapter);
         simpleRecylcerViewAdapter.setOnItemClickListener(this);

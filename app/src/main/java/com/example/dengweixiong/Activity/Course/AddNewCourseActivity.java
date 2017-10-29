@@ -27,7 +27,7 @@ public class AddNewCourseActivity
     }
 
     public void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.addNewCourse_toobar);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         toolbar.setTitle("添加排课");
         setSupportActionBar(toolbar);
     }

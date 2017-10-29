@@ -19,12 +19,15 @@
         <activity android:name="com.example.dengweixiong.Activity.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.dengweixiong.Activity.MainActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Login.RegistAdministraotrActivity" />
-        <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity" android:exported="true" />
+        <activity
+            android:name="com.example.dengweixiong.Activity.Course.AddNewCourseActivity"
+            android:exported="true" />
         <activity android:name="com.example.dengweixiong.Activity.Course.AddNewCoursePlanActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.AddNewMemberActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Member.MemberListActivity" />
@@ -43,6 +46,12 @@
         <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomListActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomDetailActivity" />
         <activity android:name="com.example.dengweixiong.Activity.Profile.Classroom.AddNewClassroomActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Shopmember.ShopmemberListActivity" />
+        <activity
+            android:name="com.example.dengweixiong.Activity.Profile.Shopmember.ShopmemberDetailActivity"
+            android:label="@string/title_activity_shopmember_detail"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Shopmember.AddNewShopmemberActivity"></activity>
     </application>
 
 </manifest>
