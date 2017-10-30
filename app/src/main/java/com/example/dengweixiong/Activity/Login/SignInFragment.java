@@ -164,7 +164,8 @@ public class SignInFragment
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
-                map = JsonHandler.strToMap(response.body().toString());
+                String resp = response.body().string();
+                map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
                 if (keys.get(0).equals(Reference.STATUS)) {
@@ -195,19 +196,19 @@ public class SignInFragment
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> hashMap = JsonHandler.strToMap(response.body().toString());
+                String resp = response.body().string();
+                Map<String,String> hashMap = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(hashMap);
                 ArrayList<String> values = MethodTool.getValues(hashMap,keys);
                 //储存舞馆ID
                 storeShopAndShopMemberInfo("sasm","s_id", Long.parseLong(values.get(0)));
                 //储存教师ID
                 storeShopAndShopMemberInfo("sasm","sm_id",sm_id);
-                getActivity().finish();
             }
         };
         NetUtil.sendHttpRequest(getContext(),url,callback);
@@ -244,6 +245,7 @@ public class SignInFragment
         SharedPreferences.Editor editor = getActivity().getSharedPreferences(file_name,Context.MODE_PRIVATE).edit();
         editor.putLong(key,value);
         editor.apply();
+        getActivity().finish();
     }
 
 

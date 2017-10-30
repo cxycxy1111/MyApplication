@@ -1,7 +1,5 @@
 package com.example.dengweixiong.Util;
 
-import android.util.Log;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -9,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Response;

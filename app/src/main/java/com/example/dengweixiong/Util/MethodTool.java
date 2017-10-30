@@ -9,9 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.example.dengweixiong.Activity.Profile.Shopmember.ShopmemberDetailActivity;
-
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -22,6 +22,7 @@ public class NetUtil {
     private static final String LOCAL_PREFIX = "http://192.168.1.3:8080/Sailfish";
     private static final String FJX_PREFIX = "http://192.168.1.104:8080/Sailfish";
     private static final String MOBILE_PREFIX = "http://10.167.151.237:8080/Sailfish";
+    private static final String IPHONE_PREFIX = "http://172.20.10.3:8080/Sailfish";
     private static final String REMOTE_PREFIX = "";
     private static OkHttpClient client;
 
@@ -32,7 +33,7 @@ public class NetUtil {
      * @param callback 回调
      */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
-        String str = LOCAL_PREFIX + address;
+        String str = MOBILE_PREFIX + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);
