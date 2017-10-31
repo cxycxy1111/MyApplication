@@ -23,12 +23,11 @@ public class AddNewCourseActivity
         setContentView(R.layout.activity_add_new_course);
         initToolbar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     public void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_general);
-        toolbar.setTitle("添加排课");
+        toolbar.setTitle("添加课程");
         setSupportActionBar(toolbar);
     }
 

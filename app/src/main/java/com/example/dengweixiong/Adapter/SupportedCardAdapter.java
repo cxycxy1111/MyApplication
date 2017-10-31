@@ -33,9 +33,9 @@ public class SupportedCardAdapter extends RecyclerView.Adapter implements View.O
         EditText editText_num;
         public ViewHolder(View view) {
             super(view);
-            checkBox = (CheckBox)view.findViewById(R.id.cb_t_supportedcard);
-            editText_balance = (EditText) view.findViewById(R.id.et_balance_t_supportedcard);
-            editText_num = (EditText)view.findViewById(R.id.et_num_t_supportedcard);
+            checkBox = (CheckBox)view.findViewById(R.id.cb_t_balance_card);
+            editText_balance = (EditText) view.findViewById(R.id.et_t_balance_card);
+            editText_num = (EditText)view.findViewById(R.id.et_t_balance_card);
         }
 
     }
@@ -59,7 +59,7 @@ public class SupportedCardAdapter extends RecyclerView.Adapter implements View.O
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile_supportedcard,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile_supportedcard_balance,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
         view.setOnClickListener(this);
         return null;

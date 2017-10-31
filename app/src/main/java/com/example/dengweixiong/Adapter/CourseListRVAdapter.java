@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,10 +24,12 @@ public class CourseListRVAdapter
         extends RecyclerView.Adapter
         implements View.OnClickListener{
 
-    private ArrayList<HashMap<String,String>> mapList = new ArrayList<>();
+    private List<Map<String,String>> mapList = new ArrayList<>();
+    private Activity activity;
 
-    public CourseListRVAdapter(ArrayList<HashMap<String,String>> mapList) {
+    public CourseListRVAdapter(List<Map<String,String>> mapList,Activity activity) {
         this.mapList = mapList;
+        this.activity = activity;
     }
 
     @Override
@@ -35,12 +39,12 @@ public class CourseListRVAdapter
         holder.courseView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                HashMap<String,String> map = mapList.get(position);
-                String string = map.get("name");
-                Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
-                intent.putExtra("name",string);
-                parent.getContext().startActivity(intent);
+            int position = holder.getAdapterPosition();
+            Map<String,String> map = mapList.get(position);
+            Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
+            intent.putExtra("name",map.get("name"));
+            intent.putExtra("id",map.get("id"));
+            activity.startActivityForResult(intent,1);
             }
         });
         return holder;

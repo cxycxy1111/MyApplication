@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cb_t_time_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        style="@style/plain_text"
+        android:text="卡名"/>
+    <EditText
+        android:id="@+id/et_t_time_card"
+        android:layout_toLeftOf="@id/tv_t_time_card"
+        android:layout_width="@dimen/distance64"
+        android:layout_height="wrap_content"
+        android:hint="次"
+        android:gravity="center"
+        style="@style/plain_editText"/>
+    <TextView
+        android:id="@+id/tv_t_time_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/distance16"
+        android:gravity="center"
+        style="@style/plain_text"
+        android:text="次"/>
+
+</RelativeLayout>

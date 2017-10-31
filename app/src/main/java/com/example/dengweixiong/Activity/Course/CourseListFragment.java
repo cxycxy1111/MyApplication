@@ -1,21 +1,35 @@
 package com.example.dengweixiong.Activity.Course;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Adapter.CourseListRVAdapter;
+import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
+import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +48,14 @@ public class CourseListFragment extends Fragment {
     private String mParam1;
 
     private OnFragmentInteractionListener mListener;
+    private long s_id,sm_id;
+    private String [] keys = {"id","name","last_time","supportedcard"};
+    private View view;
     private MainActivity mainActivity = (MainActivity)getActivity();
     private RecyclerView recyclerView;
     private CourseListRVAdapter adapter;
-    private ArrayList<HashMap<String,String>> recyclerviewdata;
+    private List<Map<String,String>> recyclerviewdata = new ArrayList<>();
+    private List<Map<String,String>> regional_list = new ArrayList<>();
 
     public CourseListFragment() {
         // Required empty public constructor
@@ -70,34 +88,76 @@ public class CourseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course_list,container,false);
-        initRecyclerView(view);
+        view = inflater.inflate(R.layout.fragment_course_list,container,false);
+        initShopData();
+        initRecyclerView();
         return view;
     }
 
+    /**
+     * 初始化舞馆及当前登陆者的ID
+     */
+    private void initShopData() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("sasm", Activity.MODE_PRIVATE);
+        s_id = preferences.getLong("s_id",0);
+        sm_id = preferences.getLong("sm_id",0);
+    }
+
+
+    /**
+     * 获取recyclerview的数据模型
+     * @return
+     */
+    private void initRecyclerView() {
+        recyclerviewdata = new ArrayList<>();
+        String url = "/CourseListQuery?s_id=" + s_id;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(getActivity(), Reference.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                regional_list = JsonHandler.strToListMap(resp,keys);
+                for (int i = 0;i < regional_list.size();i++) {
+                    Map<String,String> temp_map = regional_list.get(i);
+                    Map<String,String> new_map = new HashMap<>();
+                    String supportedcard = temp_map.get("supportedcard");
+                    supportedcard = supportedcard.substring(0,supportedcard.length()-1);
+                    new_map.put("id",temp_map.get("id"));
+                    new_map.put("name",temp_map.get("name"));
+                    new_map.put("last_time",temp_map.get("last_time"));
+                    new_map.put("supportedcard","支持" + supportedcard);
+                    recyclerviewdata.add(new_map);
+                }
+                adapter = new CourseListRVAdapter(recyclerviewdata,getActivity());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    initRecyclerView(view);
+                    }
+                });
+            }
+        };
+        NetUtil.sendHttpRequest(getActivity(),url,callback);
+    }
+
+    /**
+     * 初始化recyclerview
+     * @param view
+     */
     private void initRecyclerView (View view) {
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
-        adapter = new CourseListRVAdapter(initData());
         recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_course_list);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    private ArrayList<HashMap<String,String>> initData() {
-        recyclerviewdata = new ArrayList<>();
-        for (int i=0;i<10;i++) {
-            HashMap<String,String> map = new HashMap<>();
-            map.put("name","会员课1");
-            map.put("time","40分钟");
-            map.put("supportedcard","会员卡1，会员卡2");
-            recyclerviewdata.add(map);
-        }
-     return recyclerviewdata;
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
