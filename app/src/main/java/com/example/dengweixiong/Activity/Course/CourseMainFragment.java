@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -33,13 +37,14 @@ public class CourseMainFragment
     private String mParam1;
     private static final String TAG = "Nothing to Tell";
     private OnFragmentInteractionListener mListener;
+    private ViewPager viewPager;
+    CourseViewPagerAdapter adapter_vp;
     private List<Fragment> fragments = new ArrayList<>();
     private View view1,view2;
     private List<View> viewList = new ArrayList<>();
     private String [] str_title = {"课程列表","排课列表"};
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private CourseViewPagerAdapter adapter_vp;
+    private TabLayout tabLayout = null;
+    private FragmentManager manager;
 
     public CourseMainFragment() {
     }
@@ -70,8 +75,11 @@ public class CourseMainFragment
 
     private void initView(MainActivity m,View view) {
         initToolbar(m);
+        initFragments();
+        initFragmentManager();
         initTabLayout(view);
         initViewPager(view);
+
     }
 
     private void initToolbar(MainActivity m) {
@@ -79,26 +87,35 @@ public class CourseMainFragment
         setHasOptionsMenu(true);
     }
 
-    private void initTabLayout(View view) {
-        tabLayout = (TabLayout)view.findViewById(R.id.tl_f_courseMain);
-        tabLayout.addTab(tabLayout.newTab().setText("课程列表"));
-        tabLayout.addTab(tabLayout.newTab().setText("排课列表"));
-        tabLayout.addOnTabSelectedListener(this);
+    private void initFragments() {
+        fragments.add(CourseListFragment.newInstance("课程列表"));
+        fragments.add(CoursePlanFragment.newInstance("排课列表"));
+    }
 
+    private void initFragmentManager() {
+        manager = getChildFragmentManager();
+    }
+
+    private void initTabLayout(View view) {
+        if (tabLayout == null) {
+            tabLayout = (TabLayout)view.findViewById(R.id.tl_f_courseMain);
+            tabLayout.addTab(tabLayout.newTab().setText("课程列表"));
+            tabLayout.addTab(tabLayout.newTab().setText("排课列表"));
+            tabLayout.addOnTabSelectedListener(this);
+        }
     }
 
     private void initViewPager(View view) {
-        viewPager = (ViewPager) view.findViewById(R.id.vp_f_courseMain);
-        adapter_vp = new CourseViewPagerAdapter(getChildFragmentManager(),str_title,getFragments());
-        viewPager.setAdapter(adapter_vp);
-        tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private List<Fragment> getFragments() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(CourseListFragment.newInstance("课程列表"));
-        fragments.add(CoursePlanFragment.newInstance("排课列表"));
-        return fragments;
+        if (viewPager == null) {
+            viewPager = (ViewPager) view.findViewById(R.id.vp_f_courseMain);
+        }
+        if (adapter_vp == null) {
+            adapter_vp = new CourseViewPagerAdapter(manager, str_title, fragments);
+        }
+        if (viewPager.getAdapter() == null) {
+            viewPager.setAdapter(adapter_vp);
+            tabLayout.setupWithViewPager(viewPager,true);
+        }
     }
 
 
@@ -163,7 +180,7 @@ public class CourseMainFragment
         }
         return true;
     }
-//处理TabLayout的点击事件
+    //处理TabLayout的点击事件
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
     }

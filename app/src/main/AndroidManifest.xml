@@ -51,7 +51,8 @@
             android:name="com.example.dengweixiong.Activity.Profile.Shopmember.ShopmemberDetailActivity"
             android:label="@string/title_activity_shopmember_detail"
             android:theme="@style/AppTheme" />
-        <activity android:name="com.example.dengweixiong.Activity.Profile.Shopmember.AddNewShopmemberActivity"></activity>
+        <activity android:name="com.example.dengweixiong.Activity.Profile.Shopmember.AddNewShopmemberActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.AddSupportedCardActivity"></activity>
     </application>
 
 </manifest>

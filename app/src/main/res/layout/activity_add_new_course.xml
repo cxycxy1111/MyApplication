@@ -12,7 +12,7 @@
         layout="@layout/tile_toolbar" />
 
     <RelativeLayout
-        android:id="@+id/rl_cardtype_a_addNewCourse"
+        android:id="@+id/rl_coursetype_a_addNewCourse"
         android:layout_below="@id/toolbar_a_addNewCourse"
         android:background="#fff"
         android:layout_width="match_parent"
@@ -21,10 +21,6 @@
 
         <TextView
             android:id="@+id/tv2_a_addNewCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginTop="@dimen/distance16"
             style="@style/tv_input_area"
             android:text="类型"/>
 
@@ -43,8 +39,7 @@
     <LinearLayout
         android:id="@+id/ll_basicInfo_a_addNewCourse"
         android:orientation="vertical"
-        android:layout_below="@id/rl_cardtype_a_addNewCourse"
-        android:background="#fff"
+        android:layout_below="@id/rl_coursetype_a_addNewCourse"
         android:layout_marginTop="@dimen/distance16"
         android:layout_marginBottom="@dimen/distance16"
         android:layout_width="match_parent"
@@ -52,7 +47,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fff">
             <TextView
                 android:id="@+id/tv_name_a_addNewCourse"
                 style="@style/tv_input_area"
@@ -68,7 +64,8 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fff">
             <TextView
                 android:id="@+id/tv_timesperclass_a_addNewCourse"
                 style="@style/tv_input_area"
@@ -88,6 +85,7 @@
             android:id="@+id/rl_balance_a_addNewCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#fff"
             android:layout_marginTop="0dp">
             <TextView
                 android:id="@+id/tv_maxbooknum_a_addNewCourse"
@@ -104,13 +102,132 @@
                 android:inputType="number" />
         </RelativeLayout>
 
+        <Button
+            android:id="@+id/btn_addNewCourse"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/plain_button"
+            android:text="下一步添加受支持的卡"/>
+
+
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_supportedcard_a_addNewCourse"
-        android:layout_below="@id/ll_basicInfo_a_addNewCourse"
+    <LinearLayout
+        android:id="@+id/ll_Personal_basicInfo_a_addNewCourse"
+        android:orientation="vertical"
+        android:layout_below="@id/rl_coursetype_a_addNewCourse"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_name_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="课程名称"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_Personal_name_a_addNewCourse"
+                style="@style/plain_editText"
+                android:hint="课程名称"
+                android:inputType="text"
+                android:layout_toRightOf="@id/tv_Personal_name_a_addNewCourse" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_Personal_balance_a_addNewCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_maxbooknum_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="总次数"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_Personal_maxbooknum_a_addNewCourse"
+                android:layout_toRightOf="@id/tv_Personal_maxbooknum_a_addNewCourse"
+                style="@style/plain_editText"
+                android:hint="次"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_Personal_invaliddate_a_addNewCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_invaliddate_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="失效时间"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_Personal_invaliddate_a_addNewCourse"
+                android:layout_toRightOf="@id/tv_Personal_invaliddate_a_addNewCourse"
+                style="@style/plain_editText"
+                android:hint="失效时间"
+                android:maxLines="1"
+                android:inputType="datetime" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_teacher_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="教练"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/sp_teacher_a_addNewCourse"
+                android:layout_toRightOf="@id/tv_Personal_teacher_a_addNewCourse"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/distance16"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:dropDownWidth="130dp">
+            </Spinner>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance16"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_stu_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="学生"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/sp_stu_a_addNewCourse"
+                android:layout_toRightOf="@id/tv_Personal_stu_a_addNewCourse"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/distance16"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:dropDownWidth="130dp">
+            </Spinner>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_person_addNewCourse"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/plain_button"
+            android:text="下一步添加受支持的卡"/>
+
+    </LinearLayout>
 </RelativeLayout>

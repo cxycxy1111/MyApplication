@@ -70,11 +70,11 @@ public class MainActivity
                 .addItem(new BottomNavigationItem(R.mipmap.icon,"课程").setActiveColorResource(R.color.colorPrimaryDark))
                 .addItem(new BottomNavigationItem(R.mipmap.icon,"个人中心").setActiveColorResource(R.color.colorPrimaryDark))
                 .setFirstSelectedPosition(lastPosition).initialise();
-        fragments = getFragments();
+        fragments = initFragments();
         setDefaultFragment();
     }
 
-    private List<Fragment> getFragments() {
+    private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(MemberFragment.newInstance("会员"));
         fragments.add(CourseMainFragment.newInstance("课程"));
@@ -85,8 +85,7 @@ public class MainActivity
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        MemberFragment memberFragment = MemberFragment.newInstance("会员");
-        ft.add(R.id.fragment,memberFragment);
+        ft.add(R.id.fragment,fragments.get(0));
         ft.commit();
     }
 
@@ -101,7 +100,6 @@ public class MainActivity
 
     @Override
     public void onTabUnselected(int i) {
-
     }
 
     @Override

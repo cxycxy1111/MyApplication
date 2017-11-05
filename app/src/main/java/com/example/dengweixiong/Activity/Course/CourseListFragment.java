@@ -51,7 +51,6 @@ public class CourseListFragment extends Fragment {
     private long s_id,sm_id;
     private String [] keys = {"id","name","last_time","supportedcard"};
     private View view;
-    private MainActivity mainActivity = (MainActivity)getActivity();
     private RecyclerView recyclerView;
     private CourseListRVAdapter adapter;
     private List<Map<String,String>> recyclerviewdata = new ArrayList<>();
@@ -98,7 +97,7 @@ public class CourseListFragment extends Fragment {
      * 初始化舞馆及当前登陆者的ID
      */
     private void initShopData() {
-        SharedPreferences preferences = getActivity().getSharedPreferences("sasm", Activity.MODE_PRIVATE);
+        SharedPreferences preferences = getParentFragment().getActivity().getSharedPreferences("sasm", Activity.MODE_PRIVATE);
         s_id = preferences.getLong("s_id",0);
         sm_id = preferences.getLong("sm_id",0);
     }
@@ -114,34 +113,39 @@ public class CourseListFragment extends Fragment {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getActivity(), Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(getParentFragment().getActivity(), Reference.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                regional_list = JsonHandler.strToListMap(resp,keys);
-                for (int i = 0;i < regional_list.size();i++) {
-                    Map<String,String> temp_map = regional_list.get(i);
-                    Map<String,String> new_map = new HashMap<>();
-                    String supportedcard = temp_map.get("supportedcard");
-                    supportedcard = supportedcard.substring(0,supportedcard.length()-1);
-                    new_map.put("id",temp_map.get("id"));
-                    new_map.put("name",temp_map.get("name"));
-                    new_map.put("last_time",temp_map.get("last_time"));
-                    new_map.put("supportedcard","支持" + supportedcard);
-                    recyclerviewdata.add(new_map);
-                }
-                adapter = new CourseListRVAdapter(recyclerviewdata,getActivity());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    initRecyclerView(view);
+                if (!resp.contains(Reference.STATUS)) {
+                    regional_list = JsonHandler.strToListMap(resp,keys);
+                    for (int i = 0;i < regional_list.size();i++) {
+                        Map<String,String> temp_map = regional_list.get(i);
+                        Map<String,String> new_map = new HashMap<>();
+                        String supportedcard = temp_map.get("supportedcard");
+                        supportedcard = supportedcard.substring(0,supportedcard.length()-1);
+                        new_map.put("id",temp_map.get("id"));
+                        new_map.put("name",temp_map.get("name"));
+                        new_map.put("last_time",temp_map.get("last_time"));
+                        new_map.put("supportedcard","支持" + supportedcard);
+                        recyclerviewdata.add(new_map);
                     }
-                });
+                    adapter = new CourseListRVAdapter(recyclerviewdata,getParentFragment().getActivity());
+                    getParentFragment().getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initRecyclerView(view);
+                        }
+                    });
+                }else {
+                    MethodTool.showToast(getParentFragment().getActivity(),Reference.NSR);
+                }
+
             }
         };
-        NetUtil.sendHttpRequest(getActivity(),url,callback);
+        NetUtil.sendHttpRequest(getParentFragment().getActivity(),url,callback);
     }
 
     /**

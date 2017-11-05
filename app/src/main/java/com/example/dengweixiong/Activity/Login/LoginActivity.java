@@ -1,11 +1,14 @@
 package com.example.dengweixiong.Activity.Login;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -44,6 +47,7 @@ public class LoginActivity
     private static final String TOOLBAR_TITLE = "注册新机构与登录";
     private ViewPager viewPager;
     private List<Fragment> fragments = new ArrayList<>();
+    private FragmentManager manager;
     private CourseViewPagerAdapter adapter_vp;
     private String [] str_title = {"注册新机构","登录"};
     private String login_name,password;
@@ -53,8 +57,14 @@ public class LoginActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        initFragments();
+        initFragmentManager();
         initLoginnameAndPassword();
         initView();
+    }
+
+    private void initFragmentManager() {
+        manager = getSupportFragmentManager();
     }
 
     private void initLoginnameAndPassword() {
@@ -125,16 +135,14 @@ public class LoginActivity
 
     private void initViewPager() {
         viewPager = (ViewPager)findViewById(R.id.vp_a_login);
-        adapter_vp = new CourseViewPagerAdapter(getSupportFragmentManager(),str_title,getFragments());
+        adapter_vp = new CourseViewPagerAdapter(manager,str_title,fragments);
         viewPager.setAdapter(adapter_vp);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private List<Fragment> getFragments() {
-        List<Fragment> fragments = new ArrayList<>();
+    private void initFragments() {
         fragments.add(RegistShopFragment.newInstance("注册新机构"));
         fragments.add(SignInFragment.newInstance("登录"));
-        return fragments;
     }
 
     /**
