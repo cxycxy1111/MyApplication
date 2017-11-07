@@ -125,11 +125,15 @@ public class CourseListFragment extends Fragment {
                         Map<String,String> temp_map = regional_list.get(i);
                         Map<String,String> new_map = new HashMap<>();
                         String supportedcard = temp_map.get("supportedcard");
-                        supportedcard = supportedcard.substring(0,supportedcard.length()-1);
                         new_map.put("id",temp_map.get("id"));
                         new_map.put("name",temp_map.get("name"));
                         new_map.put("last_time",temp_map.get("last_time"));
-                        new_map.put("supportedcard","支持" + supportedcard);
+                        if (supportedcard.equals("") | supportedcard.equals(null)) {
+                            new_map.put("supportedcard","未设置所支持的卡");
+                        }else {
+                            supportedcard = supportedcard.substring(0,supportedcard.length()-1);
+                            new_map.put("supportedcard","支持" + supportedcard);
+                        }
                         recyclerviewdata.add(new_map);
                     }
                     adapter = new CourseListRVAdapter(recyclerviewdata,getParentFragment().getActivity());

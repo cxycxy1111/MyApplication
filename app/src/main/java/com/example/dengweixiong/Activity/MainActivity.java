@@ -40,6 +40,7 @@ public class MainActivity
     private BottomNavigationBar bottomNavigationBar;
     private Toolbar toolbar;
     private static final String TAG = "current is:";
+    FragmentManager fm = this.getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +84,18 @@ public class MainActivity
     }
 
     private void setDefaultFragment() {
-        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.fragment,fragments.get(0));
+        MemberFragment memberFragment = MemberFragment.newInstance("会员");
+        ft.add(R.id.fragment,memberFragment);
         ft.commit();
     }
 
     //BottomNavigationBar事件
     @Override
     public void onTabSelected(int i) {
-        FragmentManager fm = this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment,fragments.get(i));
-        ft.commitAllowingStateLoss();
+        ft.commitNowAllowingStateLoss();
     }
 
     @Override
@@ -104,7 +104,9 @@ public class MainActivity
 
     @Override
     public void onTabReselected(int i) {
-
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment,fragments.get(i));
+        ft.commitNowAllowingStateLoss();
     }
 
     //Fragment事件处理

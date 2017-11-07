@@ -2,6 +2,7 @@ package com.example.dengweixiong.Activity.Course;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.opengl.ETC1;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ScrollingTabContainerView;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -40,20 +42,17 @@ public class AddNewCourseActivity
             View.OnClickListener{
 
     private Toolbar toolbar;
-    private Spinner tea_spinner;
-    private Spinner course_spinner;
-    private Spinner stu_spinner;
-    private LinearLayout basicInfo_linearlayout;
-    private LinearLayout person_linearlayout;
+    private Spinner tea_spinner,course_spinner,stu_spinner;
+    private EditText et_course_name,et_last_time,et_max_num,et_person_course_name,et_max_times,et_invalidetime,et_actual_cost;
+    private LinearLayout basicInfo_linearlayout,person_linearlayout;
     private List<String> course_type = new ArrayList<>();
     private List<String> tea = new ArrayList<>();
     private List<String> stu = new ArrayList<>();
     private List<Map<String,String>> origin_teacher = new ArrayList<>();
     private List<Map<String,String>> origin_student = new ArrayList<>();
-    private long shop_id;
-    private long selected_tea;
-    private long selected_course;
-    private long selected_stu;
+    private String course_name,last_time,max_book_num,total_times,invalidtime;
+    private long shop_id,shopmember_id,selected_tea,selected_course,selected_stu;
+    private int actual_cost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +66,7 @@ public class AddNewCourseActivity
         course_type.add("会员课");course_type.add("教练班");course_type.add("集训课");course_type.add("私教课");
         SharedPreferences preferences = getSharedPreferences("sasm",MODE_PRIVATE);
         shop_id = preferences.getLong("s_id",0);
+        shopmember_id = preferences.getLong("sm_id",0);
     }
 
     /**
@@ -188,12 +188,9 @@ public class AddNewCourseActivity
 
     private void initViews() {
         initToolbar();
-        basicInfo_linearlayout = (LinearLayout)findViewById(R.id.ll_basicInfo_a_addNewCourse);
-        person_linearlayout = (LinearLayout)findViewById(R.id.ll_Personal_basicInfo_a_addNewCourse);
-        Button btn = (Button)findViewById(R.id.btn_addNewCourse);
-        Button btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
-        btn.setOnClickListener(this);
-        btn_person.setOnClickListener(this);
+        initLinearLayout();
+        initButtons();
+        initEditText();
         initCourseSpinner();
 
     }
@@ -243,12 +240,45 @@ public class AddNewCourseActivity
         });
     }
 
+    /**
+     * 初始化EditText
+     */
+    private void initEditText() {
+        et_course_name = (EditText)findViewById(R.id.et_name_a_addNewCourse);
+        et_person_course_name = (EditText)findViewById(R.id.et_Personal_name_a_addNewCourse);
+        et_last_time = (EditText)findViewById(R.id.et_timesperclass_a_addNewCourse);
+        et_max_num = (EditText)findViewById(R.id.et_maxbooknum_a_addNewCourse);
+        et_max_times = (EditText)findViewById(R.id.et_Personal_maxbooknum_a_addNewCourse);
+        et_invalidetime = (EditText)findViewById(R.id.et_Personal_invaliddate_a_addNewCourse);
+        et_actual_cost = (EditText)findViewById(R.id.et_Personal_actual_cost_a_addNewCourse);
+    }
 
+    /**
+     * 初始化Toolbar
+     */
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         toolbar.setTitle("添加课程");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * 初始化LinearLayout
+     */
+    private void initLinearLayout() {
+        basicInfo_linearlayout = (LinearLayout)findViewById(R.id.ll_basicInfo_a_addNewCourse);
+        person_linearlayout = (LinearLayout)findViewById(R.id.ll_Personal_basicInfo_a_addNewCourse);
+    }
+
+    /**
+     * 初始化Button
+     */
+    private void initButtons() {
+        Button btn = (Button)findViewById(R.id.btn_addNewCourse);
+        Button btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
+        btn.setOnClickListener(this);
+        btn_person.setOnClickListener(this);
     }
 
     @Override
@@ -265,18 +295,67 @@ public class AddNewCourseActivity
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
         switch (v.getId()) {
             case R.id.btn_addNewCourse:
+                Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
+                course_name = et_course_name.getText().toString();
+                last_time = et_last_time.getText().toString();
+                max_book_num = et_max_num.getText().toString();
+                intent.putExtra("course_name",course_name);
+                intent.putExtra("last_time",last_time);
+                intent.putExtra("max_book_num",max_book_num);
                 intent.putExtra("selected_course",selected_course);
+                startActivity(intent);
                 break;
             case R.id.btn_person_addNewCourse :
-                intent.putExtra("selected_course",selected_course);
-                intent.putExtra("selected_tea",selected_tea);
-                intent.putExtra("selected_stu",selected_stu);
+                course_name = et_person_course_name.getText().toString();
+                total_times = et_max_times.getText().toString();
+                invalidtime = et_invalidetime.getText().toString();
+                actual_cost = Integer.valueOf(et_actual_cost.getText().toString());
+                submitPrivateCourse();
                 break;
             default:break;
         }
-        startActivity(intent);
+    }
+
+    /**
+     * 提交
+     */
+    private void submitPrivateCourse() {
+        String url = "/CourseAddPrivate?s_id=" + shop_id + "&lmu_id=" + shopmember_id + "&sm_id=" + selected_tea
+                + "&m_id=" + selected_stu + "&name=" + course_name + "&type=" + selected_course + "&total_times=" + total_times
+                + "&e_time=" + invalidtime + "&actual_cost=" + actual_cost;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(AddNewCourseActivity.this,Reference.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String mResp = response.body().string();
+                Map<String,String> mResponseMap = JsonHandler.strToMap(mResp);
+                String mValue = mResponseMap.get("stat");
+                switch (mValue) {
+                    case "not_match" :
+                        MethodTool.showToast(AddNewCourseActivity.this,"课程类型不匹配");
+                        break;
+                    case "institution_not_match" :
+                        MethodTool.showToast(AddNewCourseActivity.this,"机构不匹配");
+                        break;
+                    case "exe_fail" :
+                        MethodTool.showToast(AddNewCourseActivity.this,"新增失败");
+                        break;
+                    case "exe_suc" :
+                        MethodTool.showToast(AddNewCourseActivity.this,"新增成功");
+                        AddNewCourseActivity.this.finish();
+                        break;
+                    default:
+                        MethodTool.showToast(AddNewCourseActivity.this,Reference.UNKNOWN_ERROR);
+                        break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
     }
 }

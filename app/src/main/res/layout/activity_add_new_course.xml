@@ -158,6 +158,25 @@
                 android:inputType="number" />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_Personal_actual_cost_a_addNewCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff">
+            <TextView
+                android:id="@+id/tv_Personal_actual_cost_a_addNewCourse"
+                style="@style/tv_input_area"
+                android:text="收费"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_Personal_actual_cost_a_addNewCourse"
+                android:layout_toRightOf="@id/tv_Personal_actual_cost_a_addNewCourse"
+                style="@style/plain_editText"
+                android:hint="收费"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/rl_Personal_invaliddate_a_addNewCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -227,7 +246,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/plain_button"
-            android:text="下一步添加受支持的卡"/>
+            android:text="新增"/>
 
     </LinearLayout>
 </RelativeLayout>
