@@ -43,7 +43,7 @@ public class CourseListRVAdapter
             Map<String,String> map = mapList.get(position);
             Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
             intent.putExtra("name",map.get("name"));
-            intent.putExtra("id",map.get("id"));
+            intent.putExtra("id",String.valueOf(map.get("id")));
             activity.startActivityForResult(intent,1);
             }
         });

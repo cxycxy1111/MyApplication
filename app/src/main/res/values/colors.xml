@@ -5,4 +5,5 @@
     <color name="textColorPrimary">#fff</color>
     <color name="windowBackgroundCoclor">#eee</color>
     <color name="colorPrimaryLight">#e8eaf6</color>
+    <color name="bottomNavigationbarBackgroundColor">#fff</color>
 </resources>

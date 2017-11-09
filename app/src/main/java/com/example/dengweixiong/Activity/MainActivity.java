@@ -2,21 +2,22 @@ package com.example.dengweixiong.Activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.dengweixiong.Activity.Course.CourseListFragment;
 import com.example.dengweixiong.Activity.Course.CourseMainFragment;
 import com.example.dengweixiong.Activity.Course.CoursePlanFragment;
 import com.example.dengweixiong.Activity.Member.MemberFragment;
 import com.example.dengweixiong.Activity.Profile.PersonFragment;
+import com.example.dengweixiong.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
@@ -25,21 +26,18 @@ import java.util.List;
 public class MainActivity
         extends
         BaseActivity
-        implements BottomNavigationBar.OnTabSelectedListener,
-            MemberFragment.OnFragmentInteractionListener,
+        implements MemberFragment.OnFragmentInteractionListener,
             CourseMainFragment.OnFragmentInteractionListener,
             PersonFragment.OnFragmentInteractionListener,
-            Toolbar.OnMenuItemClickListener,
-            MenuItem.OnActionExpandListener,
             CourseListFragment.OnFragmentInteractionListener,
             CoursePlanFragment.OnFragmentInteractionListener{
 
-
-    int lastPosition = 0;
+    private String [] title = new String[] {"会员","课程","我的"};
     private List<Fragment> fragments = new ArrayList<>();
-    private BottomNavigationBar bottomNavigationBar;
     private Toolbar toolbar;
-    private static final String TAG = "current is:";
+    private ViewPager viewPager;
+    private BottomNavigationView bottomNavigationView;
+    private CourseViewPagerAdapter adapter;
     FragmentManager fm = this.getSupportFragmentManager();
 
     @Override
@@ -47,32 +45,44 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolBar();
+        initViewPager();
         initBottomNavigationBar();
         delWithIntent();
     }
 
-    //toolbar初始化
-
+//toolbar初始化
     private void initToolBar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_main);
-        toolbar.setOnMenuItemClickListener(this);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("会员");
     }
 
 //BottomNavigationBar初始化
     private void initBottomNavigationBar() {
-        bottomNavigationBar = (BottomNavigationBar)findViewById(R.id.bottom_navigation_bar);
-        bottomNavigationBar.setTabSelectedListener(this);
-        bottomNavigationBar.clearAll();
-        bottomNavigationBar.setBackgroundResource(R.color.colorPrimary);
-        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
-        bottomNavigationBar.addItem(
-                new BottomNavigationItem(R.mipmap.icon,"会员").setActiveColorResource(R.color.colorPrimaryDark))
-                .addItem(new BottomNavigationItem(R.mipmap.icon,"课程").setActiveColorResource(R.color.colorPrimaryDark))
-                .addItem(new BottomNavigationItem(R.mipmap.icon,"个人中心").setActiveColorResource(R.color.colorPrimaryDark))
-                .setFirstSelectedPosition(lastPosition).initialise();
-        fragments = initFragments();
-        setDefaultFragment();
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bnb_a_main);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.member_a_main:
+                        viewPager.setCurrentItem(0);
+                        toolbar.setTitle("会员");
+                        break;
+                    case R.id.course_a_main:
+                        viewPager.setCurrentItem(1);
+                        toolbar.setTitle("课程");
+                        break;
+                    case R.id.person_a_main:
+                        viewPager.setCurrentItem(2);
+                        toolbar.setTitle("个人中心");
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private List<Fragment> initFragments() {
@@ -83,30 +93,33 @@ public class MainActivity
         return fragments;
     }
 
-    private void setDefaultFragment() {
-        FragmentTransaction ft = fm.beginTransaction();
-        MemberFragment memberFragment = MemberFragment.newInstance("会员");
-        ft.add(R.id.fragment,memberFragment);
-        ft.commit();
-    }
+    private void initViewPager() {
+        fragments = initFragments();
+        if (viewPager == null) {
+            viewPager = (ViewPager)findViewById(R.id.vp_a_main);
+        }
+        if (adapter == null) {
+            adapter = new CourseViewPagerAdapter(fm,title,fragments);
+        }
+        if (viewPager.getAdapter() == null) {
+            viewPager.setAdapter(adapter);
+        }
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    //BottomNavigationBar事件
-    @Override
-    public void onTabSelected(int i) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment,fragments.get(i));
-        ft.commitNowAllowingStateLoss();
-    }
+            }
 
-    @Override
-    public void onTabUnselected(int i) {
-    }
+            @Override
+            public void onPageSelected(int position) {
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+            }
 
-    @Override
-    public void onTabReselected(int i) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment,fragments.get(i));
-        ft.commitNowAllowingStateLoss();
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     //Fragment事件处理
@@ -119,39 +132,7 @@ public class MainActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
-        MenuItem menuItem = menu.findItem(R.id.search_main);
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView(menuItem);
-        MenuItemCompat.setOnActionExpandListener(menuItem,expandListener);
         return true;
-    }
-
-    MenuItemCompat.OnActionExpandListener expandListener = new MenuItemCompat.OnActionExpandListener() {
-        @Override
-        public boolean onMenuItemActionExpand(MenuItem item) {
-            bottomNavigationBar.hide(true);
-            return true;
-        }
-
-        @Override
-        public boolean onMenuItemActionCollapse(MenuItem item) {
-            bottomNavigationBar.show(true);
-            return true;
-        }
-    };
-
-    @Override
-    public boolean onMenuItemActionExpand(MenuItem item) {
-        return false;
-    }
-
-    @Override
-    public boolean onMenuItemActionCollapse(MenuItem item) {
-        return false;
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        return false;
     }
 
     private void delWithIntent() {

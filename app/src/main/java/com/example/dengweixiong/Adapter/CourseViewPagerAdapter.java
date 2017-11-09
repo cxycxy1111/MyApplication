@@ -20,7 +20,6 @@ public class CourseViewPagerAdapter extends FragmentStatePagerAdapter{
     private FragmentManager fm;
     private String [] title;
     private List<Fragment> fragments;
-    private static final String TAG = "CourseMain Page:";
 
     public CourseViewPagerAdapter(FragmentManager fm, String [] title, List<Fragment> fragments) {
         super(fm);
@@ -52,6 +51,7 @@ public class CourseViewPagerAdapter extends FragmentStatePagerAdapter{
     @SuppressLint("RestrictedApi")
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
+
         return fragments.get(position);
     }
 

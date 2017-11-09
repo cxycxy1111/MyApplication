@@ -16,20 +16,24 @@
         android:theme="@style/Toolbar"
         app:popupTheme="@style/AlfredOverlay">
     </android.support.v7.widget.Toolbar>
-    <FrameLayout
-        android:orientation="vertical"
-        android:id="@+id/fragment"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_a_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom">
+    </android.support.v4.view.ViewPager>
 
-    </com.ashokvarma.bottomnavigation.BottomNavigationBar>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bnb_a_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/bottomNavigationbarBackgroundColor"
+        app:itemTextColor="@color/colorPrimary"
+        app:itemIconTint="#7a7a7a"
+        app:menu="@menu/menu_bnb">
+
+    </android.support.design.widget.BottomNavigationView>
 
 </RelativeLayout>
