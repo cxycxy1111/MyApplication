@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:hint="次"
         android:gravity="center"
+        android:inputType="number"
         style="@style/plain_editText"/>
     <TextView
         android:id="@+id/tv_t_times_card"

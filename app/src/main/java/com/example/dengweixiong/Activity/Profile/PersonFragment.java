@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Activity.Profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -37,11 +39,13 @@ public class PersonFragment
     private String [] map = {"icon","name"};
     private int [] id = {R.id.simple_list_view_img,R.id.simple_list_view_text};
     private OnFragmentInteractionListener mListener;
+    private static MainActivity context;
 
     public PersonFragment() {
     }
 
-    public static PersonFragment newInstance(String param1) {
+    public static PersonFragment newInstance(String param1,MainActivity mainActivity) {
+        context = mainActivity;
         PersonFragment fragment = new PersonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -55,6 +59,7 @@ public class PersonFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -62,13 +67,12 @@ public class PersonFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         initToolbar();
-        setHasOptionsMenu(true);
         initListView(view);
         return view;
     }
 
     private void initToolbar() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(mParam1);
+        context.getSupportActionBar().setTitle("个人中心");
     }
 
     private void initListView(View view) {
@@ -133,14 +137,18 @@ public class PersonFragment
         mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_person,menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_person,menu);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
     }
 }

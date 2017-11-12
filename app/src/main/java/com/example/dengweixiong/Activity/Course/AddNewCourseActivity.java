@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.dengweixiong.Adapter.CourseListRVAdapter;
 import com.example.dengweixiong.Bean.Course;
@@ -25,7 +26,10 @@ import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +45,12 @@ public class AddNewCourseActivity
         implements
             View.OnClickListener{
 
+    private int actual_cost;
+    private static final int REQEST_CODE_ADD = 1;
+    private static final int RESULT_CODE_SUC = 1;
+    private static final int RESULT_CODE_FAIL = 2;
+    private long shop_id,shopmember_id,selected_tea,selected_course,selected_stu,course_id;
+    private String course_name,last_time,max_book_num,total_times,invalidtime;
     private Toolbar toolbar;
     private Spinner tea_spinner,course_spinner,stu_spinner;
     private EditText et_course_name,et_last_time,et_max_num,et_person_course_name,et_max_times,et_invalidetime,et_actual_cost;
@@ -50,9 +60,6 @@ public class AddNewCourseActivity
     private List<String> stu = new ArrayList<>();
     private List<Map<String,String>> origin_teacher = new ArrayList<>();
     private List<Map<String,String>> origin_student = new ArrayList<>();
-    private String course_name,last_time,max_book_num,total_times,invalidtime;
-    private long shop_id,shopmember_id,selected_tea,selected_course,selected_stu;
-    private int actual_cost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +301,17 @@ public class AddNewCourseActivity
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQEST_CODE_ADD:
+                AddNewCourseActivity.this.finish();
+                break;
+            default:break;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_addNewCourse:
@@ -301,17 +319,50 @@ public class AddNewCourseActivity
                 course_name = et_course_name.getText().toString();
                 last_time = et_last_time.getText().toString();
                 max_book_num = et_max_num.getText().toString();
-                intent.putExtra("course_name",course_name);
-                intent.putExtra("last_time",last_time);
-                intent.putExtra("max_book_num",max_book_num);
-                intent.putExtra("selected_course",selected_course);
-                startActivity(intent);
+                if (course_name.equals("") || course_name.equals(null)) {
+                    Toast.makeText(this,"课程名称不能为空",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (last_time.equals(null) || last_time.equals("")) {
+                    Toast.makeText(this,"每节课时长不能为空",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (!NumberUtils.isNumber(last_time)) {
+                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (max_book_num.equals("")||max_book_num.equals(null)) {
+                    Toast.makeText(this,"最高预约人数不能为空",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (!NumberUtils.isNumber(max_book_num)) {
+                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                submitCourse();
                 break;
             case R.id.btn_person_addNewCourse :
                 course_name = et_person_course_name.getText().toString();
                 total_times = et_max_times.getText().toString();
                 invalidtime = et_invalidetime.getText().toString();
-                actual_cost = Integer.valueOf(et_actual_cost.getText().toString());
+                String str_actual_cost = et_actual_cost.getText().toString();
+                if (course_name.equals("")||course_name.equals(null)) {
+                    Toast.makeText(this,"课程名称不能为空",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (total_times.equals("") || total_times.equals(null)) {
+                    Toast.makeText(this,"总次数不能为空",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (!NumberUtils.isNumber(total_times)) {
+                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (!NumberUtils.isNumber(str_actual_cost)) {
+                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                actual_cost = Integer.valueOf(str_actual_cost);
                 submitPrivateCourse();
                 break;
             default:break;
@@ -319,7 +370,7 @@ public class AddNewCourseActivity
     }
 
     /**
-     * 提交
+     * 提交新增私教课程
      */
     private void submitPrivateCourse() {
         String url = "/CourseAddPrivate?s_id=" + shop_id + "&lmu_id=" + shopmember_id + "&sm_id=" + selected_tea
@@ -335,27 +386,84 @@ public class AddNewCourseActivity
             public void onResponse(Call call, Response response) throws IOException {
                 String mResp = response.body().string();
                 Map<String,String> mResponseMap = JsonHandler.strToMap(mResp);
-                String mValue = mResponseMap.get("stat");
-                switch (mValue) {
-                    case "not_match" :
-                        MethodTool.showToast(AddNewCourseActivity.this,"课程类型不匹配");
-                        break;
-                    case "institution_not_match" :
-                        MethodTool.showToast(AddNewCourseActivity.this,"机构不匹配");
-                        break;
-                    case "exe_fail" :
-                        MethodTool.showToast(AddNewCourseActivity.this,"新增失败");
-                        break;
-                    case "exe_suc" :
-                        MethodTool.showToast(AddNewCourseActivity.this,"新增成功");
-                        AddNewCourseActivity.this.finish();
-                        break;
-                    default:
-                        MethodTool.showToast(AddNewCourseActivity.this,Reference.UNKNOWN_ERROR);
-                        break;
+                if (mResp.contains(Reference.STATUS)) {
+                    String mValue = String.valueOf(mResponseMap.get("stat"));
+                    switch (mValue) {
+                        case "not_match":
+                            MethodTool.showToast(AddNewCourseActivity.this, "课程类型不匹配");
+                            break;
+                        case "institution_not_match":
+                            MethodTool.showToast(AddNewCourseActivity.this, "机构不匹配");
+                            break;
+                        case "exe_fail":
+                            MethodTool.showToast(AddNewCourseActivity.this, "新增失败");
+                            setResult(RESULT_CODE_FAIL);
+                            AddNewCourseActivity.this.finish();
+                            break;
+                        case "exe_suc":
+                            MethodTool.showToast(AddNewCourseActivity.this, "新增成功");
+                            setResult(RESULT_CODE_SUC);
+                            AddNewCourseActivity.this.finish();
+                            break;
+                        default:
+                            MethodTool.showToast(AddNewCourseActivity.this, Reference.UNKNOWN_ERROR);
+                            setResult(RESULT_CODE_FAIL);
+                            AddNewCourseActivity.this.finish();
+                            break;
+                    }
+                }else if (mResp.contains(Reference.DATA)) {
+                    MethodTool.showToast(AddNewCourseActivity.this,"新增成功");
+                }
+
+            }
+        };
+        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
+    }
+
+    private void submitCourse() {
+        String url = "/courseAdd?s_id=" + shop_id + "&lmu_id="
+                + shopmember_id + "&name=" + course_name + "&type="
+                + selected_course + "&last_time=" + last_time + "&max_book_num="
+                + max_book_num + "&summary=";
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(AddNewCourseActivity.this, Reference.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                if (resp.contains(Reference.STATUS)) {
+                    Map<String,String> r = JsonHandler.strToMap(resp);
+                    switch (r.get(Reference.STATUS)) {
+                        case "not_match":
+                            MethodTool.showToast(AddNewCourseActivity.this,"课程类型不匹配");
+                            break;
+                        case "institution_not_match":
+                            MethodTool.showToast(AddNewCourseActivity.this,Reference.INST_NOT_MATCH);
+                            break;
+                        case "exe_fail":
+                            MethodTool.showToast(AddNewCourseActivity.this,"新增失败");
+                            break;
+                        case "duplicate" :
+                            MethodTool.showToast(AddNewCourseActivity.this,"课程名称重复");
+                            break;
+                        default:break;
+                    }
+                }else if (resp.contains(Reference.DATA)) {
+                    HashMap<String,String> temp_map = JsonHandler.strToMap(resp);
+                    String s = temp_map.get(Reference.DATA);
+                    course_id = Long.valueOf(s);
+                    Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
+                    intent.putExtra("course_id",course_id);
+                    startActivityForResult(intent,REQEST_CODE_ADD);
+                }else {
+                    MethodTool.showToast(AddNewCourseActivity.this,Reference.UNKNOWN_ERROR);
                 }
             }
         };
         NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
     }
+
 }

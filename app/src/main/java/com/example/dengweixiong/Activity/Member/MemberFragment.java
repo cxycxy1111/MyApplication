@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Activity.Member;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,13 +41,15 @@ public class MemberFragment
     private SimpleAdapter adapter_2;
     private ListView listView_1;
     private ListView listView_2;
+    private static MainActivity context;
     //自建变量
 
     public MemberFragment() {
     }
 
 
-    public static MemberFragment newInstance(String param1) {
+    public static MemberFragment newInstance(String param1,MainActivity mContext) {
+        context = mContext;
         MemberFragment fragment = new MemberFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -57,10 +60,10 @@ public class MemberFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -69,12 +72,11 @@ public class MemberFragment
         final View view = inflater.inflate(R.layout.fragment_member, container, false);
         initToolbar();
         initListView(view);
-        setHasOptionsMenu(true);
         return view;
     }
 
     private void initToolbar() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(mParam1);
+        context.getSupportActionBar().setTitle("会员");
     }
 
     private void initListView(View view) {
@@ -143,27 +145,22 @@ public class MemberFragment
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
         inflater.inflate(R.menu.menu_fragment_member,menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        MainActivity mainActivity = (MainActivity)getActivity();
         switch (item.getItemId()) {
             case R.id.menu_message_fragment_member:
-                Intent intent = new Intent(mainActivity, MessageListActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
+                return true;
+            default:return super.onOptionsItemSelected(item);
         }
-        return true;
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
     }
 }

@@ -3,20 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search_main"
-        android:title="搜索"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView"/>
+        android:id="@+id/message_main"
+        android:title="查看消息"
+        app:showAsAction="never" />
     <item
-        android:id="@+id/refresh_main"
-        android:title="刷新" />
+        android:id="@+id/add_new_course_main"
+        android:title="新增课程"
+        app:showAsAction="never"/>
     <item
-        android:id="@+id/add_new_trend_main"
-        android:title="新增趋势" />
-    <item
-        android:id="@+id/add_new_story_main"
-        android:title="新增故事" />
-    <item
-        android:id="@+id/view_personal_profile_main"
-        android:title="查看我的账户" />
+        android:id="@+id/add_new_courseplan_main"
+        android:title="新增排课"
+        app:showAsAction="never"/>
 </menu>

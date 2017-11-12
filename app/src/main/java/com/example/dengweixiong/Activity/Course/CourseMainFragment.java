@@ -38,18 +38,20 @@ public class CourseMainFragment
     private static final String TAG = "Nothing to Tell";
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
-    CourseViewPagerAdapter adapter_vp;
+    private CourseViewPagerAdapter adapter_vp;
     private List<Fragment> fragments = new ArrayList<>();
     private View view1,view2;
     private List<View> viewList = new ArrayList<>();
     private String [] str_title = {"课程列表","排课列表"};
     private TabLayout tabLayout = null;
     private FragmentManager manager;
+    private static MainActivity context;
 
     public CourseMainFragment() {
     }
 
-    public static CourseMainFragment newInstance(String param1) {
+    public static CourseMainFragment newInstance(String param1,MainActivity mainActivity) {
+        context = mainActivity;
         CourseMainFragment fragment = new CourseMainFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -68,23 +70,21 @@ public class CourseMainFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course,container,false);
-        MainActivity m = (MainActivity)getActivity();
-        initView(m,view);
+        initView(view);
+//        setHasOptionsMenu(true);
         return view;
     }
 
-    private void initView(MainActivity m,View view) {
-        initToolbar(m);
+    private void initView(View view) {
+        initToolbar();
         initFragments();
         initFragmentManager();
         initTabLayout(view);
         initViewPager(view);
-
     }
 
-    private void initToolbar(MainActivity m) {
-        m.getSupportActionBar().setTitle("课程");
-        setHasOptionsMenu(true);
+    private void initToolbar() {
+        context.getSupportActionBar().setTitle("课程");
     }
 
     private void initFragments() {
@@ -153,33 +153,27 @@ public class CourseMainFragment
         mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
-    //处理Toolbar Menu事件
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
         inflater.inflate(R.menu.menu_fragment_course,menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        MainActivity mainActivity = (MainActivity)getActivity();
         switch (item.getItemId()) {
             case R.id.menu_fragment_course_add_new_course:
-                Intent intent = new Intent(mainActivity, AddNewCourseActivity.class);
-                mainActivity.startActivity(intent);
-                break;
+                return true;
             case R.id.menu_fragment_course_add_new_course_plan:
-                Intent intent1 = new Intent(mainActivity, AddNewCoursePlanActivity.class);
-                mainActivity.startActivity(intent1);
-                break;
-            default:
-                break;
+                return true;
+            default:return super.onOptionsItemSelected(item);
         }
-        return true;
     }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
+
     //处理TabLayout的点击事件
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
