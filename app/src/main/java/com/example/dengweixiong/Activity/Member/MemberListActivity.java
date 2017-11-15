@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.dengweixiong.Activity.MainActivity;
-import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
+import com.example.dengweixiong.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -35,14 +35,14 @@ public class MemberListActivity
         extends
             BaseActivity
         implements
-            RecylcerViewSimpleAdapter.OnItemClickListener{
+            RVSimpleAdapter.OnItemClickListener{
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private List<Map<String,String>> list = new ArrayList<>();
     private ArrayList<String> name_list = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
-    private RecylcerViewSimpleAdapter adapter;
+    private RVSimpleAdapter adapter;
     private static final String TOOLBAR_TITLE = "会员管理";
     private static final String TAG = "MemberListActivity:";
 
@@ -117,7 +117,7 @@ public class MemberListActivity
     private void initRecyclerView(Context context) {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_list);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        adapter = new RecylcerViewSimpleAdapter(name_list);
+        adapter = new RVSimpleAdapter(name_list);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);

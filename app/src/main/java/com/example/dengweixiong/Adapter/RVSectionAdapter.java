@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by dengweixiong on 2017/10/20.
  */
 
-public class RecyclerViewSectionAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnClickListener {
 
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_CONTENT = 2;
@@ -28,7 +28,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter implements 
     private Context context;
     private OnItemClickListener onItemClickListener = null;
 
-    public RecyclerViewSectionAdapter(List<Map<String, String>> list, Context context) {
+    public RVSectionAdapter(List<Map<String, String>> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -44,8 +44,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter implements 
                 ViewGroup vgContent = (ViewGroup)inflater.inflate(R.layout.tile_simple_list_view_no_icon,parent,false);
                 vgContent.setOnClickListener(this);
                 return new ContentViewHolder(vgContent);
-            default:
-                return null;
+            default:return null;
         }
     }
 
@@ -62,6 +61,7 @@ public class RecyclerViewSectionAdapter extends RecyclerView.Adapter implements 
                 contentViewHolder.tv.setText(list.get(position).get("name"));
                 contentViewHolder.itemView.setTag(position);
                 break;
+            default:break;
         }
     }
 

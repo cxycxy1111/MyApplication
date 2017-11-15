@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dengweixiong.Activity.MainActivity;
-import com.example.dengweixiong.Adapter.CourseListRVAdapter;
+import com.example.dengweixiong.Adapter.RVCourseListAdapter;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -52,7 +50,7 @@ public class CourseListFragment extends Fragment {
     private String [] keys = {"id","name","last_time","supportedcard"};
     private View view;
     private RecyclerView recyclerView;
-    private CourseListRVAdapter adapter;
+    private RVCourseListAdapter adapter;
     private List<Map<String,String>> recyclerviewdata = new ArrayList<>();
     private List<Map<String,String>> regional_list = new ArrayList<>();
 
@@ -128,6 +126,7 @@ public class CourseListFragment extends Fragment {
                         new_map.put("id",temp_map.get("id"));
                         new_map.put("name",temp_map.get("name"));
                         new_map.put("last_time",temp_map.get("last_time"));
+                        new_map.put("type",temp_map.get("type"));
                         if (supportedcard.equals("") | supportedcard.equals(null)) {
                             new_map.put("supportedcard","未设置所支持的卡");
                         }else {
@@ -136,7 +135,7 @@ public class CourseListFragment extends Fragment {
                         }
                         recyclerviewdata.add(new_map);
                     }
-                    adapter = new CourseListRVAdapter(recyclerviewdata,getParentFragment().getActivity());
+                    adapter = new RVCourseListAdapter(recyclerviewdata,getParentFragment().getActivity());
                     getParentFragment().getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

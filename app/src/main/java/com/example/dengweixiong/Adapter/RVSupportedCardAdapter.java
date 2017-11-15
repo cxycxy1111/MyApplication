@@ -26,7 +26,7 @@ import java.util.Map;
  * Created by dengweixiong on 2017/9/14.
  */
 
-public class SupportedCardAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class RVSupportedCardAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
     private static final int CARD_TYPE_BALANCE = 1;
     private static final int CARD_TYPE_TIMES = 2;
@@ -37,7 +37,7 @@ public class SupportedCardAdapter extends RecyclerView.Adapter implements View.O
     private Map<Integer,String> valueMap;
     private OnItemClickListener listener;
 
-    public SupportedCardAdapter(List<Map<String,String>> mapList,Context context) {
+    public RVSupportedCardAdapter(List<Map<String,String>> mapList, Context context) {
         this.context = context;
         this.mapList = mapList;
         initCheckStatusMap();

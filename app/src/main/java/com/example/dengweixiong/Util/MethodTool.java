@@ -9,6 +9,12 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -191,5 +197,52 @@ public class MethodTool{
         }
 
     }
+
+    public static <T> List<T> deepCopy(List<T> src) {
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(byteOut);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            out.writeObject(src);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
+        ObjectInputStream in = null;
+        try {
+            in = new ObjectInputStream(byteIn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        @SuppressWarnings("unchecked")
+        List<T> dest = null;
+        try {
+            dest = (List<T>) in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return dest;
+    }
+
+    public static String getSharePreferenceValue(Context context,String fileName,String key,int dataType) {
+        SharedPreferences preferences = context.getSharedPreferences(fileName,Context.MODE_PRIVATE);
+        switch (dataType) {
+            case 1:
+                return String.valueOf(preferences.getInt(key,0));
+            case 2:
+                return String.valueOf(preferences.getLong(key,0));
+            case 3:
+                return String.valueOf(preferences.getString(key,null));
+            default:return null;
+        }
+    }
+
 
 }

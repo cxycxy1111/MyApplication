@@ -49,4 +49,8 @@ public abstract class Reference {
     public static final String TEACHER_INNER = "2";
     public static final String TEACHER_OUTER = "3";
 
+    public static final int DATA_TYPE_INT = 1;
+    public static final int DATA_TYPE_LONG = 2;
+    public static final int DATA_TYPE_STRING = 3;
+
 }

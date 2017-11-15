@@ -2,8 +2,6 @@ package com.example.dengweixiong.Activity.Profile.Shopmember;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.IntegerRes;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Adapter.RecyclerViewSectionAdapter;
+import com.example.dengweixiong.Adapter.RVSectionAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -21,7 +19,6 @@ import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +30,7 @@ import okhttp3.Response;
 
 public class ShopmemberListActivity extends BaseActivity {
 
-    private RecyclerViewSectionAdapter adapter;
+    private RVSectionAdapter adapter;
     private long s_id,sm_id;
     private List<Map<String,String>> full_list = new ArrayList<>();
     private List<Map<String,String>> admin_list = new ArrayList<>();
@@ -154,12 +151,12 @@ public class ShopmemberListActivity extends BaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            adapter = new RecyclerViewSectionAdapter(full_list,ShopmemberListActivity.this);
+            adapter = new RVSectionAdapter(full_list,ShopmemberListActivity.this);
             RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_shopmember_list);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ShopmemberListActivity.this,LinearLayoutManager.VERTICAL,false);
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new RecyclerViewSectionAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new RVSectionAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     Intent intent = new Intent(ShopmemberListActivity.this,ShopmemberDetailActivity.class);

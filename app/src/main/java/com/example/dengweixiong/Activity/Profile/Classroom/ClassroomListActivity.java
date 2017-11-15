@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
+import com.example.dengweixiong.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -34,7 +34,7 @@ public class ClassroomListActivity extends BaseActivity {
     private String [] keys = {"id","name"};
     private Map<String,String> tempMap = new HashMap<>();
     private static final int CLASSROOMLIST = 1;
-    RecylcerViewSimpleAdapter adapter;
+    RVSimpleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +94,8 @@ public class ClassroomListActivity extends BaseActivity {
             public void run() {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(ClassroomListActivity.this,LinearLayoutManager.VERTICAL,false);
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_ClassroomList);
-                adapter = new RecylcerViewSimpleAdapter(strings);
-                adapter.setOnItemClickListener(new RecylcerViewSimpleAdapter.OnItemClickListener() {
+                adapter = new RVSimpleAdapter(strings);
+                adapter.setOnItemClickListener(new RVSimpleAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(ClassroomListActivity.this,ClassroomDetailActivity.class);

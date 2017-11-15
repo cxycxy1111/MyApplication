@@ -2,10 +2,7 @@ package com.example.dengweixiong.Activity.Course;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.opengl.ETC1;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ScrollingTabContainerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Adapter.CourseListRVAdapter;
-import com.example.dengweixiong.Bean.Course;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -29,7 +24,6 @@ import com.example.dengweixiong.myapplication.R;
 import org.apache.commons.lang.math.NumberUtils;
 
 import java.io.IOException;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

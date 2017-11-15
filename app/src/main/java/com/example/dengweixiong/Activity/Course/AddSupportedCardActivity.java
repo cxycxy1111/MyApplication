@@ -8,10 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.widget.Toast;
 
-import com.example.dengweixiong.Adapter.SupportedCardAdapter;
+import com.example.dengweixiong.Adapter.RVSupportedCardAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -20,12 +18,9 @@ import com.example.dengweixiong.Util.Reference;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,7 +32,7 @@ public class AddSupportedCardActivity extends BaseActivity {
     private static final int RESULT_CODE_FAIL = 1;
     private static final int RESULT_CODE_SUC = 2;
     private String course_name,last_time,max_book_num,selected_course;
-    private SupportedCardAdapter adapter;
+    private RVSupportedCardAdapter adapter;
     private List<Map<String,String>> origin_cards;
 
 
@@ -96,7 +91,7 @@ public class AddSupportedCardActivity extends BaseActivity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_AddSupportedCard);
-        adapter = new SupportedCardAdapter(origin_cards,AddSupportedCardActivity.this);
+        adapter = new RVSupportedCardAdapter(origin_cards,AddSupportedCardActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(AddSupportedCardActivity.this,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
     }

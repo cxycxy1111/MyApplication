@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by dengweixiong on 2017/9/9.
  */
 
-public class AdapterForListView extends BaseAdapter {
+public class LVAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
     private int resource;
@@ -22,8 +22,8 @@ public class AdapterForListView extends BaseAdapter {
     private String[] from;
     private int[] to;
 
-    public AdapterForListView(Context context, List<? extends Map<String,?>> data, int resource,
-                              String[] from, int[] to) {
+    public LVAdapter(Context context, List<? extends Map<String,?>> data, int resource,
+                     String[] from, int[] to) {
         this.data = data;
         this.resource = resource;
         this.from = from;

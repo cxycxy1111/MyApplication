@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.dengweixiong.Adapter.AdapterForListView;
+import com.example.dengweixiong.Adapter.LVAdapter;
 
 /**
  * Created by dengweixiong on 2017/9/9.
@@ -13,7 +13,7 @@ import com.example.dengweixiong.Adapter.AdapterForListView;
 
 public class LinearLayoutForListView extends LinearLayout {
 
-    private AdapterForListView adapter;
+    private LVAdapter adapter;
     private OnClickListener onClickListener = null;
 
     public LinearLayoutForListView(Context context) {
@@ -43,14 +43,14 @@ public class LinearLayoutForListView extends LinearLayout {
     /*
     获取adapter
      */
-    public AdapterForListView getAdapter() {
+    public LVAdapter getAdapter() {
         return adapter;
     }
 
     /*
     设置adapter
     */
-    public void setAdapter(AdapterForListView adapter) {
+    public void setAdapter(LVAdapter adapter) {
         this.adapter = adapter;
         bindLinearLayout();
     }

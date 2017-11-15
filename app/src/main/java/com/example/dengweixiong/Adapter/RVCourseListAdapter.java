@@ -20,14 +20,14 @@ import java.util.Map;
  * Created by dengweixiong on 2017/9/13.
  */
 
-public class CourseListRVAdapter
+public class RVCourseListAdapter
         extends RecyclerView.Adapter
         implements View.OnClickListener{
 
     private List<Map<String,String>> mapList = new ArrayList<>();
     private Activity activity;
 
-    public CourseListRVAdapter(List<Map<String,String>> mapList,Activity activity) {
+    public RVCourseListAdapter(List<Map<String,String>> mapList, Activity activity) {
         this.mapList = mapList;
         this.activity = activity;
     }
@@ -44,6 +44,7 @@ public class CourseListRVAdapter
             Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
             intent.putExtra("name",map.get("name"));
             intent.putExtra("id",String.valueOf(map.get("id")));
+            intent.putExtra("type",String.valueOf(map.get("type")));
             activity.startActivityForResult(intent,1);
             }
         });

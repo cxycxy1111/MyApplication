@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Adapter.RecyclerViewSectionAdapter;
+import com.example.dengweixiong.Adapter.RVSectionAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -33,7 +33,7 @@ public class CardTypeListActivity extends BaseActivity {
     private long s_id;
     private List<Map<String, String>> list = new ArrayList<>();
     private String [] keys = new String[] {"id","name","type"};
-    private RecyclerViewSectionAdapter adapter;
+    private RVSectionAdapter adapter;
     private List<Map<String,String>> balanceList = new ArrayList<>();
     private List<Map<String,String>> timesList = new ArrayList<>();
     private List<Map<String,String>> timeList = new ArrayList<>();
@@ -240,8 +240,8 @@ public class CardTypeListActivity extends BaseActivity {
             public void run() {
                 RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv_a_cardtype_list);
                 LinearLayoutManager llm = new LinearLayoutManager(CardTypeListActivity.this,LinearLayoutManager.VERTICAL,false);
-                adapter = new RecyclerViewSectionAdapter(list,CardTypeListActivity.this);
-                adapter.setOnItemClickListener(new RecyclerViewSectionAdapter.OnItemClickListener() {
+                adapter = new RVSectionAdapter(list,CardTypeListActivity.this);
+                adapter.setOnItemClickListener(new RVSectionAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         long id = Long.parseLong(String.valueOf(list.get(position).get("id")));

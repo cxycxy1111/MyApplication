@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by dengweixiong on 2017/8/21.
  */
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+public class RVWithLeftIconsAdapter extends RecyclerView.Adapter<RVWithLeftIconsAdapter.ViewHolder> {
 
     private ArrayList<Card> arrayList;
 
@@ -27,7 +27,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-    public ListAdapter(ArrayList<Card> aArrayList) {
+    public RVWithLeftIconsAdapter(ArrayList<Card> aArrayList) {
         this.arrayList = aArrayList;
     }
 

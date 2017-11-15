@@ -16,7 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Adapter.RecylcerViewSimpleAdapter;
+import com.example.dengweixiong.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -35,7 +35,7 @@ import okhttp3.Response;
 
 public class MemberDetailActivity
         extends BaseActivity
-        implements RecylcerViewSimpleAdapter.OnItemClickListener,
+        implements RVSimpleAdapter.OnItemClickListener,
             View.OnClickListener,
             DatePickerDialog.OnDateSetListener,
             EditText.OnFocusChangeListener{
@@ -79,7 +79,7 @@ public class MemberDetailActivity
         list.add("删除会员卡");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_detail);
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        RecylcerViewSimpleAdapter simpleRecylcerViewAdapter = new RecylcerViewSimpleAdapter(list);
+        RVSimpleAdapter simpleRecylcerViewAdapter = new RVSimpleAdapter(list);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(simpleRecylcerViewAdapter);
         simpleRecylcerViewAdapter.setOnItemClickListener(this);

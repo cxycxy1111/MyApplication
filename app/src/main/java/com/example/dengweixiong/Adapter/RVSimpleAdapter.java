@@ -13,13 +13,13 @@ import java.util.ArrayList;
  * Created by dengweixiong on 2017/9/7.
  */
 
-public class RecylcerViewSimpleAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class RVSimpleAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
     private ArrayList<String> strings = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;
 
     //构造器
-    public RecylcerViewSimpleAdapter(ArrayList<String> strings) {
+    public RVSimpleAdapter(ArrayList<String> strings) {
         this.strings = strings;
     }
 
