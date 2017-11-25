@@ -76,19 +76,19 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
         LayoutInflater inflater = LayoutInflater.from(context);
         switch (viewType) {
             case HEADER:
-                ViewGroup vgHeader = (ViewGroup)inflater.inflate(R.layout.tile_recyclerview_header,parent);
+                ViewGroup vgHeader = (ViewGroup)inflater.inflate(R.layout.tile_recyclerview_header,parent,false);
                 return new HeaderViewHolder(vgHeader);
             case COURSE_CONTENT:
-                ViewGroup vgContent= (ViewGroup)inflater.inflate(R.layout.tile_with_editext,parent);
+                ViewGroup vgContent= (ViewGroup)inflater.inflate(R.layout.tile_with_editext,parent,false);
                 return new CourseViewHolder(vgContent);
             case SUPPORTEDCARD_BALANCE:
-                ViewGroup vgBalance = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_balance,parent);
+                ViewGroup vgBalance = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_balance,parent,false);
                 return new BalanceViewHolder(vgBalance);
             case SUPPORTEDCARD_TIMES :
-                ViewGroup vgTimes = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_times,parent);
+                ViewGroup vgTimes = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_times,parent,false);
                 return new TimesViewHolder(vgTimes);
             case SUPPORTEDCARD_TIME:
-                ViewGroup vgTime = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_time,parent);
+                ViewGroup vgTime = (ViewGroup)inflater.inflate(R.layout.tile_supportedcard_time,parent,false);
                 return new TimeViewHolder(vgTime);
             default:return null;
         }
@@ -106,7 +106,7 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
                 CourseViewHolder courseViewHolder = (CourseViewHolder)holder;
                 courseViewHolder.itemView.setTag(position);
                 courseViewHolder.textView_main.setText(mapList.get(position).get("main"));
-                courseViewHolder.editText_hint.setText(mapList.get(position).get("hint"));
+                courseViewHolder.editText_hint.setText(String.valueOf(mapList.get(position).get("hint")));
                 courseViewHolder.editText_hint.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -130,8 +130,18 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_BALANCE:
                 BalanceViewHolder balanceViewHolder = (BalanceViewHolder)holder;
                 balanceViewHolder.itemView.setTag(position);
-                balanceViewHolder.checkBox.setText(mapList.get(position).get("card_name"));
-                balanceViewHolder.editText.setText(mapList.get(position).get("balance"));
+                Map<String,String> map = new HashMap<>();
+                map = mapList.get(position);
+                if (map.get("checked").equals("1")) {
+                    balanceViewHolder.checkBox.setChecked(true);
+                }else {
+                    balanceViewHolder.checkBox.setChecked(false);
+                }
+                balanceViewHolder.checkBox.setText(map.get("name"));
+                String s = map.get("balance");
+                if (!s.equals("n")) {
+                    balanceViewHolder.editText.setText(map.get("balance"));
+                }
                 balanceViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -164,8 +174,15 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_TIMES:
                 TimesViewHolder timesViewHolder = (TimesViewHolder)holder;
                 timesViewHolder.itemView.setTag(position);
-                timesViewHolder.checkBox.setText(mapList.get(position).get("card_name"));
-                timesViewHolder.editText.setText(mapList.get(position).get("times"));
+                timesViewHolder.checkBox.setText(mapList.get(position).get("name"));
+                if (mapList.get(position).get("checked").equals("1")) {
+                    timesViewHolder.checkBox.setChecked(true);
+                }else {
+                    timesViewHolder.checkBox.setChecked(false);
+                }
+                if (!mapList.get(position).get("balance").equals("n")) {
+                    timesViewHolder.editText.setText(mapList.get(position).get("balance"));
+                }
                 timesViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -199,7 +216,12 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_TIME:
                 TimeViewHolder timeViewHolder = (TimeViewHolder)holder;
                 timeViewHolder.itemView.setTag(position);
-                timeViewHolder.checkBox.setText(mapList.get(position).get("card_name"));
+                timeViewHolder.checkBox.setText(mapList.get(position).get("name"));
+                if (mapList.get(position).get("checked").equals("1")) {
+                    timeViewHolder.checkBox.setChecked(true);
+                }else {
+                    timeViewHolder.checkBox.setChecked(false);
+                }
                 timeViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -215,6 +237,9 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemViewType(int position) {
+
+        Map<String,String> map = mapList.get(position);
+
         return Integer.parseInt(String.valueOf(mapList.get(position).get("viewType")));
     }
 

@@ -9,7 +9,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
 
     }
     buildTypes {
@@ -35,9 +35,11 @@ dependencies {
     compile('com.android.support:appcompat-v7:25.3.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:design:25.4.0'
     compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'net.sf.json-lib:json-lib:2.4:jdk15'
     compile 'org.litepal.android:core:1.6.0'
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test:rules:1.0.1'
 }
