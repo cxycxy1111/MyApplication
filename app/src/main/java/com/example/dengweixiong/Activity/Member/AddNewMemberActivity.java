@@ -1,11 +1,8 @@
 package com.example.dengweixiong.Activity.Member;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -15,24 +12,18 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.example.dengweixiong.Activity.MainActivity;
-import com.example.dengweixiong.Bean.Classroom;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -99,7 +90,7 @@ public class AddNewMemberActivity
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(AddNewMemberActivity.this, Reference.CANT_CONNECT_INTERNET);
+                        MethodTool.showToast(AddNewMemberActivity.this, Ref.CANT_CONNECT_INTERNET);
                     }
 
                     @Override

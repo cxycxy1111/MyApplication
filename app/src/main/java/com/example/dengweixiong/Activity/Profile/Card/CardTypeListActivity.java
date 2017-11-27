@@ -15,7 +15,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -74,10 +74,10 @@ public class CardTypeListActivity extends BaseActivity {
         int p,t;
         switch (requestCode) {
             case 1:
-                if (resultCode == Reference.RESULTCODE_DELETE) {
+                if (resultCode == Ref.RESULTCODE_DELETE) {
                     p = data.getIntExtra("pos",-1);
                     list.remove(p);
-                }else if (resultCode == Reference.RESULTCODE_UPDATE) {
+                }else if (resultCode == Ref.RESULTCODE_UPDATE) {
                     p = data.getIntExtra("pos",-1);
                     t = data.getIntExtra("type",0);
                     long id = data.getLongExtra("id",0);
@@ -87,12 +87,12 @@ public class CardTypeListActivity extends BaseActivity {
                     m.put("name",n);
                     m.put("type",String.valueOf(t));
                     list.set(p,m);
-                }else if (resultCode == Reference.RESULTCODE_NULL){
+                }else if (resultCode == Ref.RESULTCODE_NULL){
 
                 }
                 break;
             case 2:
-                if (resultCode == Reference.RESULTCODE_ADD) {
+                if (resultCode == Ref.RESULTCODE_ADD) {
                     t = data.getIntExtra("type",0);
                     String id = data.getStringExtra("id");
                     String name = data.getStringExtra("name");
@@ -163,7 +163,7 @@ public class CardTypeListActivity extends BaseActivity {
                 String resp = response.body().string();
                 Map<String,String> map = new HashMap<>();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                if (!resp.contains(Reference.STATUS)) {
+                if (!resp.contains(Ref.STATUS)) {
                     map.put("type","余额卡");
                     list.add(map);
                     arrayList = JsonHandler.strToListMap(resp,keys);
@@ -191,7 +191,7 @@ public class CardTypeListActivity extends BaseActivity {
                 String resp = response.body().string();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
                 Map<String,String> map = new HashMap<>();
-                if (!resp.contains(Reference.STATUS)) {
+                if (!resp.contains(Ref.STATUS)) {
                     map.put("type","次卡");
                     list.add(map);
                     arrayList = JsonHandler.strToListMap(resp,keys);
@@ -218,7 +218,7 @@ public class CardTypeListActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                if (!resp.contains(Reference.STATUS)) {
+                if (!resp.contains(Ref.STATUS)) {
                     Map<String,String> map = new HashMap<>();
                     map.put("type","有效期卡");
                     arrayList = JsonHandler.strToListMap(resp,keys);

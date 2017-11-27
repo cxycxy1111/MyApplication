@@ -2,6 +2,7 @@ package com.example.dengweixiong.Activity.Course;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import com.example.dengweixiong.Adapter.RVCourseListAdapter;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -111,13 +112,13 @@ public class CourseListFragment extends Fragment {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getParentFragment().getActivity(), Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(getParentFragment().getActivity(), Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (!resp.contains(Reference.STATUS)) {
+                if (!resp.contains(Ref.STATUS)) {
                     regional_list = JsonHandler.strToListMap(resp,keys);
                     for (int i = 0;i < regional_list.size();i++) {
                         Map<String,String> temp_map = regional_list.get(i);
@@ -143,7 +144,7 @@ public class CourseListFragment extends Fragment {
                         }
                     });
                 }else {
-                    MethodTool.showToast(getParentFragment().getActivity(),Reference.NSR);
+                    MethodTool.showToast(getParentFragment().getActivity(), Ref.NSR);
                 }
 
             }
@@ -164,6 +165,10 @@ public class CourseListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

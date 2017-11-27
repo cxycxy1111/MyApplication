@@ -15,7 +15,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class ShopmemberListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberListActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ShopmemberListActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -96,7 +96,7 @@ public class ShopmemberListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberListActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ShopmemberListActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -164,7 +164,7 @@ public class ShopmemberListActivity extends BaseActivity {
                     intent.putExtra("name",full_list.get(position).get("name"));
                     intent.putExtra("type",String.valueOf(full_list.get(position).get("type")));
                     intent.putExtra("pos",position);
-                    startActivityForResult(intent, Reference.REQCODE_QUERYDETAIL);
+                    startActivityForResult(intent, Ref.REQCODE_QUERYDETAIL);
                 }
             });
             }
@@ -214,7 +214,7 @@ public class ShopmemberListActivity extends BaseActivity {
                 break;
             case R.id.add_a_shopmember_list :
                 Intent intent = new Intent(ShopmemberListActivity.this,AddNewShopmemberActivity.class);
-                startActivityForResult(intent,Reference.REQCODE_ADD);
+                startActivityForResult(intent, Ref.REQCODE_ADD);
                 break;
             default:
                 break;
@@ -226,8 +226,8 @@ public class ShopmemberListActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         int pos;
         //处理教师姓名更新
-        if (requestCode == Reference.REQCODE_QUERYDETAIL) {
-            if (resultCode == Reference.RESULTCODE_UPDATE) {
+        if (requestCode == Ref.REQCODE_QUERYDETAIL) {
+            if (resultCode == Ref.RESULTCODE_UPDATE) {
                 pos = data.getIntExtra("pos", -1);
                 full_list.clear();
                 String type = String.valueOf(data.getIntExtra("type", 0));
@@ -238,48 +238,48 @@ public class ShopmemberListActivity extends BaseActivity {
                 map.put("name", new_name);
                 map.put("type", type);
                 //处理内部教师更新
-                if (type.equals(Reference.TEACHER_ADMIN)) {
+                if (type.equals(Ref.TEACHER_ADMIN)) {
                     admin_list.set(pos - 1,map);
                     MethodTool.sortListMap(admin_list);
                     fullListReorder();
                 }
-                if (type.equals(Reference.TEACHER_INNER)) {
+                if (type.equals(Ref.TEACHER_INNER)) {
                     inner_list.set(pos -admin_list.size() - 2, map);
                     MethodTool.sortListMap(inner_list);
                     fullListReorder();
                 //处理外聘教师更新
-                } else if (type.equals(Reference.TEACHER_OUTER)) {
+                } else if (type.equals(Ref.TEACHER_OUTER)) {
                     outer_list.set(pos - admin_list.size() - inner_list.size() - 3, map);
                     MethodTool.sortListMap(outer_list);
                     fullListReorder();
                 }
             //处理教师删除
-            } else if (resultCode == Reference.RESULTCODE_DELETE) {
+            } else if (resultCode == Ref.RESULTCODE_DELETE) {
                 pos = data.getIntExtra("pos", -1);
                 full_list.remove(pos);
-            }else if (resultCode == Reference.RESULTCODE_NULL) {
+            }else if (resultCode == Ref.RESULTCODE_NULL) {
 
             }
-        }else if (requestCode == Reference.REQCODE_ADD) {
-            if (resultCode == Reference.RESULTCODE_ADD) {
+        }else if (requestCode == Ref.REQCODE_ADD) {
+            if (resultCode == Ref.RESULTCODE_ADD) {
                 full_list.clear();
                 String name = data.getStringExtra("name");
                 String id = data.getStringExtra("id");
                 int type = data.getIntExtra("type",0);
                 Map<String,String> map = new HashMap<>();
                 map.put("name",name);map.put("id",id);map.put("type",String.valueOf(type));
-                if (String.valueOf(type).equals(Reference.TEACHER_ADMIN)) {
+                if (String.valueOf(type).equals(Ref.TEACHER_ADMIN)) {
                     admin_list.add(map);
                     MethodTool.sortListMap(admin_list);
-                }else if (String.valueOf(type).equals(Reference.TEACHER_INNER)) {
+                }else if (String.valueOf(type).equals(Ref.TEACHER_INNER)) {
                     inner_list.add(map);
                     MethodTool.sortListMap(inner_list);
-                }else if (String.valueOf(type).equals(Reference.TEACHER_OUTER)) {
+                }else if (String.valueOf(type).equals(Ref.TEACHER_OUTER)) {
                     outer_list.add(map);
                     MethodTool.sortListMap(outer_list);
                 }
                 fullListReorder();
-            }else if (resultCode == Reference.RESULTCODE_NULL) {
+            }else if (resultCode == Ref.RESULTCODE_NULL) {
 
             }
         }

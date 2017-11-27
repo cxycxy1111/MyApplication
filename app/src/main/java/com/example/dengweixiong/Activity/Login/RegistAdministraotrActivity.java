@@ -9,11 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 
@@ -89,7 +88,7 @@ public class RegistAdministraotrActivity
                 RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(RegistAdministraotrActivity.this,"无法连接服务器",Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistAdministraotrActivity.this,Ref.CANT_CONNECT_INTERNET,Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -97,7 +96,7 @@ public class RegistAdministraotrActivity
             public void onResponse(Call call, Response response) throws IOException {
                 HashMap<String,String> map = new HashMap<>();
                 map = JsonHandler.strToMap(response.body().toString());
-                String value = map.get(Reference.STATUS);
+                String value = map.get(Ref.STATUS);
                 if (value.equals("exe_suc")) {
                     MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
                     Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);
@@ -106,7 +105,7 @@ public class RegistAdministraotrActivity
                     RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(RegistAdministraotrActivity.this,"新增失败",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistAdministraotrActivity.this,Ref.OP_ADD_FAIL,Toast.LENGTH_LONG).show();
                         }
                     });
                 }else if (value.equals("duplicate")) {

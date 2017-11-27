@@ -15,7 +15,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -62,18 +62,18 @@ public class ClassroomListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ClassroomListActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ClassroomListActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 HashMap<String,String> m = new HashMap<>();
-                if (resp.contains(Reference.STATUS)) {
+                if (resp.contains(Ref.STATUS)) {
                     if (m.get("stat") == "no_such_record"){
                         MethodTool.showToast(ClassroomListActivity.this,"没有课室");
                     }else {
-                        MethodTool.showToast(ClassroomListActivity.this,Reference.UNKNOWN_ERROR);
+                        MethodTool.showToast(ClassroomListActivity.this, Ref.UNKNOWN_ERROR);
                     }
                 }else {
                     list = JsonHandler.strToListMap(resp,keys);
@@ -117,7 +117,7 @@ public class ClassroomListActivity extends BaseActivity {
         int p;
         switch (requestCode) {
             case 1 :
-                if (resultCode == Reference.RESULTCODE_UPDATE) {
+                if (resultCode == Ref.RESULTCODE_UPDATE) {
                     p = data.getIntExtra("pos",-1);
                     Map<String,String> map = new HashMap<>();
                     map.put("name",data.getStringExtra("new_name"));
@@ -126,7 +126,7 @@ public class ClassroomListActivity extends BaseActivity {
                     strings.set(p,data.getStringExtra("new_name"));
                     MethodTool.sort(strings);
                     break;
-                } else if (resultCode == Reference.RESULTCODE_DELETE) {
+                } else if (resultCode == Ref.RESULTCODE_DELETE) {
                     p = data.getIntExtra("pos",-1);
                     list.remove(p);
                     strings.remove(p);
@@ -134,7 +134,7 @@ public class ClassroomListActivity extends BaseActivity {
                 }
                 break;
             case 2:
-                if (resultCode == Reference.RESULTCODE_ADD) {
+                if (resultCode == Ref.RESULTCODE_ADD) {
                     long new_cr_id = data.getLongExtra("cr_id",0);
                     String new_cr_name = data.getStringExtra("cr_name");
                     Map<String,String> map = new HashMap<>();

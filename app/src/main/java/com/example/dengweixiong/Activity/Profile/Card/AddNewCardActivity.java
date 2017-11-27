@@ -21,7 +21,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -233,7 +233,7 @@ public class AddNewCardActivity
                 balance.equals("") | balance.equals(null) |
                 starttime.equals("") | starttime.equals(null) |
                 invalidtime.equals("") | invalidtime.equals(null)) {
-            Toast.makeText(AddNewCardActivity.this,"必要信息不能为空",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddNewCardActivity.this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_LONG).show();
         }else {
             String url = "/AddNewCard?shop_id=" + s_id +
                     "&shopmember_id=" + sm_id +
@@ -252,26 +252,26 @@ public class AddNewCardActivity
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    if (resp.contains(Reference.ID)) {
+                    if (resp.contains(Ref.ID)) {
                         Map<String,String> map = JsonHandler.strToMap(resp);
                         Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);
                         intent.putExtra("type",selected_type);
                         intent.putExtra("id",map.get("id"));
                         intent.putExtra("name",name);
-                        setResult(Reference.RESULTCODE_ADD,intent);
+                        setResult(Ref.RESULTCODE_ADD,intent);
                         finish();
-                    }else if (resp.contains(Reference.STATUS)) {
+                    }else if (resp.contains(Ref.STATUS)) {
                         HashMap<String,String> map = JsonHandler.strToMap(resp);
                         switch (map.get("stat")) {
                             case "exe_suc":
-                                MethodTool.showToast(AddNewCardActivity.this,"新增成功");
+                                MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_SUCCESS);
                                 finish();
                                 break;
                             case "duplicate":
                                 MethodTool.showToast(AddNewCardActivity.this,"卡名重复");
                                 break;
                             case "exe_fail":
-                                MethodTool.showToast(AddNewCardActivity.this,"新增失败");
+                                MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_FAIL);
                                 break;
                             default:
                                 break;

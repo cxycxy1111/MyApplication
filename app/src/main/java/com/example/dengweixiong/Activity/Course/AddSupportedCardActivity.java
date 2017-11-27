@@ -14,7 +14,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -69,7 +69,7 @@ public class AddSupportedCardActivity extends BaseActivity {
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddSupportedCardActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddSupportedCardActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -152,22 +152,22 @@ public class AddSupportedCardActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddSupportedCardActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddSupportedCardActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Reference.STATUS)) {
+                if (resp.contains(Ref.STATUS)) {
                     Map<String,String> map = JsonHandler.strToMap(resp);
-                    switch (map.get(Reference.STATUS)) {
+                    switch (map.get(Ref.STATUS)) {
                         case "no_such_record":
                             MethodTool.showToast(AddSupportedCardActivity.this,"课程或卡不存在");
                             setResult(RESULT_CODE_FAIL);
                             AddSupportedCardActivity.this.finish();
                             break;
                         case "institution_not_match" :
-                            MethodTool.showToast(AddSupportedCardActivity.this,"机构不匹配");
+                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.INST_NOT_MATCH);
                             setResult(RESULT_CODE_FAIL);
                             AddSupportedCardActivity.this.finish();
                             break;
@@ -177,12 +177,12 @@ public class AddSupportedCardActivity extends BaseActivity {
                             AddSupportedCardActivity.this.finish();
                             break;
                         case "exe_suc":
-                            MethodTool.showToast(AddSupportedCardActivity.this,"操作成功");
+                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_SUCCESS);
                             setResult(RESULT_CODE_SUC);
                             AddSupportedCardActivity.this.finish();
                             break;
                         case "exe_fail":
-                            MethodTool.showToast(AddSupportedCardActivity.this,"操作失败");
+                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_FAIL);
                             setResult(RESULT_CODE_FAIL);
                             AddSupportedCardActivity.this.finish();
                             break;

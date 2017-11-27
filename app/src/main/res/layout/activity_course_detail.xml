@@ -34,6 +34,7 @@
                     android:id="@+id/tv_main_type_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
                     android:text="课程类型" />
                 <TextView
                     android:id="@+id/tv_hint_type_a_course_detial"
@@ -52,6 +53,7 @@
                     android:id="@+id/tv_main_course_name_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
                     android:text="课程名称" />
                 <EditText
                     android:id="@+id/et_hint_course_name_a_course_detial"
@@ -70,10 +72,11 @@
                     android:id="@+id/tv_main_teacher_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
                     android:text="教师" />
-                <Spinner
-                    android:id="@+id/sp_hint_teacher_a_course_detial"
-                    style="@style/plain_spinner"
+                <TextView
+                    android:id="@+id/tv_hint_teacher_a_course_detial"
+                    style="@style/plain_text_hint"
                     android:gravity="right"
                     android:layout_toRightOf="@id/tv_main_teacher_a_course_detail" />
             </RelativeLayout>
@@ -87,10 +90,11 @@
                     android:id="@+id/tv_main_student_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
                     android:text="学生" />
-                <Spinner
-                    android:id="@+id/sp_hint_student_a_course_detial"
-                    style="@style/plain_spinner"
+                <TextView
+                    android:id="@+id/tv_hint_student_a_course_detial"
+                    style="@style/plain_text_hint"
                     android:gravity="right"
                     android:layout_toRightOf="@id/tv_main_student_a_course_detail" />
             </RelativeLayout>
@@ -104,12 +108,13 @@
                     android:id="@+id/tv_main_total_times_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
-                    android:layout_width="90dp"
+                    android:layout_width="@dimen/distance96"
                     android:text="总次数" />
-                <TextView
+                <EditText
                     android:id="@+id/et_hint_total_times_a_course_detial"
-                    style="@style/plain_text_hint"
+                    style="@style/plain_editText"
                     android:gravity="right"
+                    android:inputType="number"
                     android:layout_toRightOf="@id/tv_main_total_times_a_course_detail"
                     android:hint="次" />
             </RelativeLayout>
@@ -123,12 +128,13 @@
                     android:id="@+id/tv_rest_times_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
-                    android:layout_width="90dp"
+                    android:layout_width="@dimen/distance96"
                     android:text="剩余次数" />
                 <EditText
                     android:id="@+id/et_rest_times_a_course_detial"
                     style="@style/plain_editText"
                     android:gravity="right"
+                    android:inputType="number"
                     android:layout_toRightOf="@id/tv_rest_times_a_course_detail"
                     android:hint="次" />
             </RelativeLayout>
@@ -142,14 +148,35 @@
                     android:id="@+id/tv_invalidtime_a_course_detail"
                     style="@style/plain_text"
                     android:layout_alignParentLeft="true"
-                    android:layout_width="90dp"
+                    android:layout_width="@dimen/distance96"
                     android:text="失效日期" />
                 <EditText
                     android:id="@+id/et_invalidtime_a_course_detial"
                     style="@style/plain_editText"
                     android:gravity="right"
+                    android:inputType="datetime"
                     android:layout_toRightOf="@id/tv_invalidtime_a_course_detail"
                     android:hint="失效日期" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_total_cost_a_course_detial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_invalidtime_a_course_detial"
+                android:background="#fff">
+                <TextView
+                    android:id="@+id/tv_total_cost_a_course_detail"
+                    style="@style/plain_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
+                    android:text="费用" />
+                <EditText
+                    android:id="@+id/et_total_cost_a_course_detial"
+                    style="@style/plain_editText"
+                    android:gravity="right"
+                    android:inputType="datetime"
+                    android:layout_toRightOf="@id/tv_total_cost_a_course_detail"
+                    android:hint="费用" />
             </RelativeLayout>
         </RelativeLayout>
 

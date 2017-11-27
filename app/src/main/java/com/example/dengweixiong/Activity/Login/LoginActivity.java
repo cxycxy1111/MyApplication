@@ -1,6 +1,5 @@
 package com.example.dengweixiong.Activity.Login;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -23,7 +21,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -87,7 +85,7 @@ public class LoginActivity
             @Override
             public void onFailure(Call call, IOException e) {
                 MethodTool.hideView(LoginActivity.this,progressBar);
-                MethodTool.showToast(LoginActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(LoginActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -97,7 +95,7 @@ public class LoginActivity
                 map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals(Reference.STATUS)) {
+                if (keys.get(0).equals(Ref.STATUS)) {
                     if (values.get(0).equals("not_match")) {
                         MethodTool.hideView(LoginActivity.this,progressBar);
                         MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
@@ -106,14 +104,14 @@ public class LoginActivity
                         MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
                     } else {
                         MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.showToast(LoginActivity.this,Reference.UNKNOWN_ERROR);
+                        MethodTool.showToast(LoginActivity.this, Ref.UNKNOWN_ERROR);
                     }
                 }else if (keys.get(0).equals("data")) {
                     MethodTool.hideView(LoginActivity.this,progressBar);
                     MethodTool.jumpToActivity(LoginActivity.this,MainActivity.class);
                 }else {
                     MethodTool.hideView(LoginActivity.this,progressBar);
-                    MethodTool.showToast(LoginActivity.this,"内部错误，无法完成请求");
+                    MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
                 }
             }
         };

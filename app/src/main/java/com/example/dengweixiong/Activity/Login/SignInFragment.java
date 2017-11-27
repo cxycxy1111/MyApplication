@@ -19,7 +19,7 @@ import com.example.dengweixiong.Activity.MainActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -158,7 +158,7 @@ public class SignInFragment
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(getActivity(), Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -168,13 +168,13 @@ public class SignInFragment
                 map = JsonHandler.strToMap(resp);
                 ArrayList<String> keys = MethodTool.getKeys(map);
                 ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals(Reference.STATUS)) {
+                if (keys.get(0).equals(Ref.STATUS)) {
                     if (values.get(0).equals("not_match")) {
                         MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                     } else if (values.get(0).equals("no_such_record")){
                         MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                     } else {
-                        MethodTool.showToast(getActivity(),Reference.UNKNOWN_ERROR);
+                        MethodTool.showToast(getActivity(), Ref.UNKNOWN_ERROR);
                     }
                 }else if (keys.get(0).equals("data")) {
                     sm_id = Long.parseLong(values.get(0));
@@ -196,7 +196,7 @@ public class SignInFragment
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getActivity(),Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(getActivity(), Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override

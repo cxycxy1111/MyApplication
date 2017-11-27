@@ -18,7 +18,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -78,7 +78,7 @@ public class AddNewCourseActivity
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -135,7 +135,7 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -341,19 +341,19 @@ public class AddNewCourseActivity
                 invalidtime = et_invalidetime.getText().toString();
                 String str_actual_cost = et_actual_cost.getText().toString();
                 if (course_name.equals("")||course_name.equals(null)) {
-                    Toast.makeText(this,"课程名称不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (total_times.equals("") || total_times.equals(null)) {
-                    Toast.makeText(this,"总次数不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!NumberUtils.isNumber(total_times)) {
-                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!NumberUtils.isNumber(str_actual_cost)) {
-                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 actual_cost = Integer.valueOf(str_actual_cost);
@@ -373,40 +373,40 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mResp = response.body().string();
                 Map<String,String> mResponseMap = JsonHandler.strToMap(mResp);
-                if (mResp.contains(Reference.STATUS)) {
+                if (mResp.contains(Ref.STATUS)) {
                     String mValue = String.valueOf(mResponseMap.get("stat"));
                     switch (mValue) {
                         case "not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this, "课程类型不匹配");
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.INST_NOT_MATCH);
                             break;
                         case "institution_not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this, "机构不匹配");
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.INST_NOT_MATCH);
                             break;
                         case "exe_fail":
-                            MethodTool.showToast(AddNewCourseActivity.this, "新增失败");
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.OP_ADD_FAIL);
                             setResult(RESULT_CODE_FAIL);
                             AddNewCourseActivity.this.finish();
                             break;
                         case "exe_suc":
-                            MethodTool.showToast(AddNewCourseActivity.this, "新增成功");
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.OP_ADD_SUCCESS);
                             setResult(RESULT_CODE_SUC);
                             AddNewCourseActivity.this.finish();
                             break;
                         default:
-                            MethodTool.showToast(AddNewCourseActivity.this, Reference.UNKNOWN_ERROR);
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.UNKNOWN_ERROR);
                             setResult(RESULT_CODE_FAIL);
                             AddNewCourseActivity.this.finish();
                             break;
                     }
-                }else if (mResp.contains(Reference.DATA)) {
-                    MethodTool.showToast(AddNewCourseActivity.this,"新增成功");
+                }else if (mResp.contains(Ref.DATA)) {
+                    MethodTool.showToast(AddNewCourseActivity.this,Ref.OP_ADD_SUCCESS);
                 }
 
             }
@@ -422,38 +422,38 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Reference.STATUS)) {
+                if (resp.contains(Ref.STATUS)) {
                     Map<String,String> r = JsonHandler.strToMap(resp);
-                    switch (r.get(Reference.STATUS)) {
+                    switch (r.get(Ref.STATUS)) {
                         case "not_match":
                             MethodTool.showToast(AddNewCourseActivity.this,"课程类型不匹配");
                             break;
                         case "institution_not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this,Reference.INST_NOT_MATCH);
+                            MethodTool.showToast(AddNewCourseActivity.this, Ref.INST_NOT_MATCH);
                             break;
                         case "exe_fail":
-                            MethodTool.showToast(AddNewCourseActivity.this,"新增失败");
+                            MethodTool.showToast(AddNewCourseActivity.this,Ref.OP_ADD_SUCCESS);
                             break;
                         case "duplicate" :
                             MethodTool.showToast(AddNewCourseActivity.this,"课程名称重复");
                             break;
                         default:break;
                     }
-                }else if (resp.contains(Reference.DATA)) {
+                }else if (resp.contains(Ref.DATA)) {
                     HashMap<String,String> temp_map = JsonHandler.strToMap(resp);
-                    String s = temp_map.get(Reference.DATA);
+                    String s = temp_map.get(Ref.DATA);
                     course_id = Long.valueOf(s);
                     Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
                     intent.putExtra("course_id",course_id);
                     startActivityForResult(intent,REQEST_CODE_ADD);
                 }else {
-                    MethodTool.showToast(AddNewCourseActivity.this,Reference.UNKNOWN_ERROR);
+                    MethodTool.showToast(AddNewCourseActivity.this, Ref.UNKNOWN_ERROR);
                 }
             }
         };

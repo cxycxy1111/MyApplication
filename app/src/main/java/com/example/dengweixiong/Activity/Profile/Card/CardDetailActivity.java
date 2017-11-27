@@ -17,7 +17,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class CardDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(CardDetailActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(CardDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -145,7 +145,7 @@ public class CardDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(Reference.RESULTCODE_NULL,null);
+                setResult(Ref.RESULTCODE_NULL,null);
                 finish();
                 break;
             case R.id.remove_card_detail:
@@ -172,7 +172,7 @@ public class CardDetailActivity extends BaseActivity {
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(CardDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                        MethodTool.showToast(CardDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
                     }
 
                     @Override
@@ -187,7 +187,7 @@ public class CardDetailActivity extends BaseActivity {
                                         MethodTool.showToast(CardDetailActivity.this,"卡类型已被删除");
                                         Intent intent = new Intent(CardDetailActivity.this,CardTypeListActivity.class);
                                         intent.putExtra("pos",position);
-                                        setResult(Reference.RESULTCODE_DELETE,intent);
+                                        setResult(Ref.RESULTCODE_DELETE,intent);
                                         finish();
                                         break;
                                     case "exe_fail" :
@@ -242,14 +242,14 @@ public class CardDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(CardDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(CardDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 HashMap<String,String> map = JsonHandler.strToMap(resp);
-                String value = map.get(Reference.STATUS);
+                String value = map.get(Ref.STATUS);
                 switch (value) {
                     case "no_such_record":
                         MethodTool.showToast(CardDetailActivity.this,"无法修改");
@@ -264,7 +264,7 @@ public class CardDetailActivity extends BaseActivity {
                         intent.putExtra("pos",position);
                         intent.putExtra("type",type);
                         intent.putExtra("id",c_id);
-                        setResult(Reference.RESULTCODE_UPDATE,intent);
+                        setResult(Ref.RESULTCODE_UPDATE,intent);
                         finish();
                         break;
                     case "exe_fail" :

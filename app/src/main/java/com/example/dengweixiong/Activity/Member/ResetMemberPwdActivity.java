@@ -1,7 +1,5 @@
 package com.example.dengweixiong.Activity.Member;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,14 +11,12 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -109,7 +105,7 @@ public class ResetMemberPwdActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ResetMemberPwdActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ResetMemberPwdActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -125,7 +121,7 @@ public class ResetMemberPwdActivity
                 }else if (values.get(0).equals("exe_fail")) {
                     MethodTool.showToast(ResetMemberPwdActivity.this,"修改失败");
                 }else {
-                    MethodTool.showToast(ResetMemberPwdActivity.this, Reference.UNKNOWN_ERROR);
+                    MethodTool.showToast(ResetMemberPwdActivity.this, Ref.UNKNOWN_ERROR);
                 }
             }
         };

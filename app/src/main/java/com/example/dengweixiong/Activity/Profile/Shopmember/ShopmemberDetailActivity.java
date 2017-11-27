@@ -1,26 +1,22 @@
 package com.example.dengweixiong.Activity.Profile.Shopmember;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.TimeZoneNames;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -115,7 +111,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberDetailActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ShopmemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -145,7 +141,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(Reference.RESULTCODE_NULL,null);
+                setResult(Ref.RESULTCODE_NULL,null);
                 this.finish();
                 break;
             case R.id.save_shopmember_detail:
@@ -161,31 +157,31 @@ public class ShopmemberDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ShopmemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 if(resp.equals("") | resp.equals(null)) {
-                    MethodTool.showToast(ShopmemberDetailActivity.this,Reference.UNKNOWN_ERROR);
+                    MethodTool.showToast(ShopmemberDetailActivity.this, Ref.UNKNOWN_ERROR);
                 } else {
                     Map<String,String> map = JsonHandler.strToMap(resp);
                     String value = map.get("stat");
-                    if (value.equals(Reference.INST_NOT_MATCH)) {
+                    if (value.equals(Ref.INST_NOT_MATCH)) {
                         MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
-                    }else if (value.equals(Reference.EXE_SUC)) {
+                    }else if (value.equals(Ref.EXE_SUC)) {
                         MethodTool.showToast(ShopmemberDetailActivity.this,"保存成功");
                         Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
                         intent.putExtra("name",new_name);
                         intent.putExtra("id",id);
                         intent.putExtra("type",type);
                         intent.putExtra("pos",position);
-                        setResult(Reference.RESULTCODE_UPDATE,intent);
+                        setResult(Ref.RESULTCODE_UPDATE,intent);
                         finish();
-                    }else if (value.equals(Reference.EXE_FAIL)) {
+                    }else if (value.equals(Ref.EXE_FAIL)) {
                         MethodTool.showToast(ShopmemberDetailActivity.this,"保存失败");
-                    }else if (value.equals(Reference.NSR)) {
+                    }else if (value.equals(Ref.NSR)) {
                         MethodTool.showToast(ShopmemberDetailActivity.this,"记录不存在");
                     }
                 }
@@ -199,7 +195,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
         final Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ShopmemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -214,7 +210,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
                         MethodTool.showToast(ShopmemberDetailActivity.this,"删除成功");
                         Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
                         intent.putExtra("pos",position);
-                        setResult(Reference.RESULTCODE_DELETE,intent);
+                        setResult(Ref.RESULTCODE_DELETE,intent);
                         finish();
                         break;
                     case "exe_fail" :

@@ -18,7 +18,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -71,11 +71,11 @@ public class MemberListActivity
         int p;
         //处理来自MemberDetailActivity的调用
         if(requestCode == 1) {
-            if (resultCode == Reference.RESULTCODE_DELETE) {
+            if (resultCode == Ref.RESULTCODE_DELETE) {
                 p = data.getIntExtra("pos",-1);
                 list.remove(p);
                 name_list.remove(p);
-            } else if (resultCode == Reference.RESULTCODE_UPDATE) {
+            } else if (resultCode == Ref.RESULTCODE_UPDATE) {
                 p = data.getIntExtra("pos",-1);
                 Map<String,String> map = new HashMap<>();
                 map.put("id",String.valueOf(data.getLongExtra("m_id",0)));
@@ -84,7 +84,7 @@ public class MemberListActivity
                 name_list.set(p,data.getStringExtra("m_name"));
                 MethodTool.sortListMap(list);
                 MethodTool.sort(name_list);
-            }else if (resultCode == Reference.RESULTCODE_NULL) {
+            }else if (resultCode == Ref.RESULTCODE_NULL) {
 
             }else {
 

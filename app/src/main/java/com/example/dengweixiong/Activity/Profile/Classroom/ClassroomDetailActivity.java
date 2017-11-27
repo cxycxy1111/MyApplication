@@ -1,21 +1,18 @@
 package com.example.dengweixiong.Activity.Profile.Classroom;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.example.dengweixiong.Activity.Profile.Card.CardDetailActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -68,14 +65,14 @@ public class ClassroomDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ClassroomDetailActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ClassroomDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Reference.STATUS)) {
-                    MethodTool.showToast(ClassroomDetailActivity.this,Reference.UNKNOWN_ERROR);
+                if (resp.contains(Ref.STATUS)) {
+                    MethodTool.showToast(ClassroomDetailActivity.this, Ref.UNKNOWN_ERROR);
                 }else {
                     ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
                     req_cr_name = list.get(0).get("name");
@@ -125,14 +122,14 @@ public class ClassroomDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ClassroomDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ClassroomDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 Map<String,String> map = JsonHandler.strToMap(resp);
-                switch (map.get(Reference.STATUS)) {
+                switch (map.get(Ref.STATUS)) {
                     case "no_such_record" :
                         MethodTool.showToast(ClassroomDetailActivity.this,"机构或课室不存在");
                         break;
@@ -141,7 +138,7 @@ public class ClassroomDetailActivity extends BaseActivity {
                         intent.putExtra("new_name",new_name);
                         intent.putExtra("pos",position);
                         intent.putExtra("cr_id",cr_id);
-                        setResult(Reference.RESULTCODE_UPDATE,intent);
+                        setResult(Ref.RESULTCODE_UPDATE,intent);
                         finish();
                         break;
                     case "exe_fail":
@@ -158,19 +155,19 @@ public class ClassroomDetailActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ClassroomDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(ClassroomDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 HashMap<String,String> map = JsonHandler.strToMap(resp);
-                switch (map.get(Reference.STATUS)) {
+                switch (map.get(Ref.STATUS)) {
                     case "exe_suc" :
                         Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
                         int i = position;
                         intent.putExtra("pos",i);
-                        setResult(Reference.RESULTCODE_DELETE,intent);
+                        setResult(Ref.RESULTCODE_DELETE,intent);
                         finish();
                         break;
                     case "exe_fail" :

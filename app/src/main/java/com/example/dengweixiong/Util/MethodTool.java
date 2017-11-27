@@ -174,25 +174,25 @@ public class MethodTool{
     }
 
     public static void dealWithStatResponse(String value,Activity activity,int action) {
-        if (value == Reference.INST_NOT_MATCH) {
+        if (value == Ref.INST_NOT_MATCH) {
             showToast(activity,"机构不匹配");
-        }else if (value == Reference.EXE_SUC) {
-            if (action == Reference.ACTION_SAVE) {
+        }else if (value == Ref.EXE_SUC) {
+            if (action == Ref.ACTION_SAVE) {
                 showToast(activity,"保存成功");
-            }else if (action == Reference.ACTION_ADD) {
+            }else if (action == Ref.ACTION_ADD) {
                 showToast(activity,"新增成功");
-            }else if (action == Reference.ACTION_DELETE) {
+            }else if (action == Ref.ACTION_DELETE) {
                 showToast(activity,"删除成功");
             }
-        }else if (value == Reference.EXE_FAIL) {
-            if (action == Reference.ACTION_SAVE) {
+        }else if (value == Ref.EXE_FAIL) {
+            if (action == Ref.ACTION_SAVE) {
                 showToast(activity,"保存失败");
-            }else if (action == Reference.ACTION_ADD) {
+            }else if (action == Ref.ACTION_ADD) {
                 showToast(activity,"新增失败");
-            }else if (action == Reference.ACTION_DELETE) {
+            }else if (action == Ref.ACTION_DELETE) {
                 showToast(activity,"删除失败");
             }
-        }else if (value == Reference.NSR) {
+        }else if (value == Ref.NSR) {
             showToast(activity,"记录不存在");
         }
 

@@ -2,7 +2,6 @@ package com.example.dengweixiong.Activity.Profile.Shopmember;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,19 +10,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,7 +110,7 @@ public class AddNewShopmemberActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home :
-                setResult(Reference.RESULTCODE_NULL);
+                setResult(Ref.RESULTCODE_NULL);
                 finish();
                 break;
             case R.id.save_add_new_shopmember :
@@ -138,33 +135,33 @@ public class AddNewShopmemberActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewShopmemberActivity.this,Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddNewShopmemberActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Reference.STATUS)) {
+                if (resp.contains(Ref.STATUS)) {
                     Map<String,String> map =JsonHandler.strToMap(resp);
-                    String v = map.get(Reference.STATUS);
-                    if (map.get("stat").equals(Reference.EXE_FAIL)) {
+                    String v = map.get(Ref.STATUS);
+                    if (map.get("stat").equals(Ref.EXE_FAIL)) {
                         MethodTool.showToast(AddNewShopmemberActivity.this,"新增失败");
-                    }else if (map.get("stat").equals(Reference.DUPLICATE)) {
+                    }else if (map.get("stat").equals(Ref.DUPLICATE)) {
                         MethodTool.showToast(AddNewShopmemberActivity.this,"登录名重复");
                     }else {
 
                     }
-                }else if (resp.contains(Reference.DATA)) {
+                }else if (resp.contains(Ref.DATA)) {
                     Map<String,String> map =JsonHandler.strToMap(resp);
-                    String v = map.get(Reference.DATA);
+                    String v = map.get(Ref.DATA);
                     Intent intent = new Intent(AddNewShopmemberActivity.this,ShopmemberListActivity.class);
                     intent.putExtra("id",v);
                     intent.putExtra("name",name);
                     intent.putExtra("type",selectedType);
-                    setResult(Reference.RESULTCODE_ADD,intent);
+                    setResult(Ref.RESULTCODE_ADD,intent);
                     finish();
                 }else {
-                    MethodTool.showToast(AddNewShopmemberActivity.this,Reference.UNKNOWN_ERROR);
+                    MethodTool.showToast(AddNewShopmemberActivity.this, Ref.UNKNOWN_ERROR);
                 }
             }
         };

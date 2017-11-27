@@ -21,7 +21,7 @@ import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -91,7 +91,7 @@ public class MemberDetailActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(MemberDetailActivity.this, Reference.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(MemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -231,7 +231,7 @@ public class MemberDetailActivity
                 builder.setNegativeButton("不保存", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setResult(Reference.RESULTCODE_NULL,null);
+                        setResult(Ref.RESULTCODE_NULL,null);
                         finish();
                     }
                 });
@@ -268,19 +268,19 @@ public class MemberDetailActivity
                         map = JsonHandler.strToMap(resp);
                         ArrayList<String> keys = MethodTool.getKeys(map);
                         ArrayList<String> values = MethodTool.getValues(map,keys);
-                        if (keys.get(0).equals(Reference.STATUS)) {
+                        if (keys.get(0).equals(Ref.STATUS)) {
                             switch (String.valueOf(values.get(0))) {
                                 case "exe_suc":
-                                    MethodTool.showToast(MemberDetailActivity.this,"已保存");
+                                    MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
                                     Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
                                     intent.putExtra("pos",position);
                                     intent.putExtra("m_id",m_id);
                                     intent.putExtra("m_name",m_name);
-                                    setResult(Reference.RESULTCODE_UPDATE,intent);
+                                    setResult(Ref.RESULTCODE_UPDATE,intent);
                                     finish();
                                     break;
                                 case "exe_fail":
-                                    MethodTool.showToast(MemberDetailActivity.this,"更新失败");
+                                    MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_FAIL);
                                     break;
                                 case "no_such_record":
                                     MethodTool.showToast(MemberDetailActivity.this,"会员已被删除");
@@ -289,7 +289,7 @@ public class MemberDetailActivity
                                     break;
                             }
                         }else {
-                            MethodTool.showToast(MemberDetailActivity.this,"内部错误");
+                            MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
                         }
                     }
                 };
@@ -319,7 +319,7 @@ public class MemberDetailActivity
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(MemberDetailActivity.this,Reference.CANT_CONNECT_INTERNET);
+                        MethodTool.showToast(MemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
                     }
 
                     @Override
@@ -333,21 +333,21 @@ public class MemberDetailActivity
                             case "stat" :
                                 switch (values.get(0)) {
                                     case "exe_suc" :
-                                        MethodTool.showToast(MemberDetailActivity.this,"删除成功");
+                                        MethodTool.showToast(MemberDetailActivity.this,Ref.OP_DELETE_SUCCESS);
                                         Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
                                         intent.putExtra("pos",position);
-                                        setResult(Reference.RESULTCODE_DELETE,intent);
+                                        setResult(Ref.RESULTCODE_DELETE,intent);
                                         finish();
                                         break;
                                     case "exe_fail" :
-                                        MethodTool.showToast(MemberDetailActivity.this,"删除失败");
+                                        MethodTool.showToast(MemberDetailActivity.this,Ref.OP_DELETE_FAIL);
                                         break;
                                     case "no_such_record" :
                                         MethodTool.showToast(MemberDetailActivity.this,"该会员已被删除");
                                         MemberDetailActivity.this.finish();
                                         break;
                                     default:
-                                        MethodTool.showToast(MemberDetailActivity.this,Reference.UNKNOWN_ERROR);
+                                        MethodTool.showToast(MemberDetailActivity.this, Ref.UNKNOWN_ERROR);
                                         break;
                                 }
                             default:

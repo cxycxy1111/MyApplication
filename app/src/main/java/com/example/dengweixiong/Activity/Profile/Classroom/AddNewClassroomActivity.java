@@ -2,19 +2,17 @@ package com.example.dengweixiong.Activity.Profile.Classroom;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.example.dengweixiong.Activity.Member.AddNewMemberActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
-import com.example.dengweixiong.Util.Reference;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -80,13 +78,13 @@ public class AddNewClassroomActivity extends BaseActivity {
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(AddNewClassroomActivity.this,Reference.CANT_CONNECT_INTERNET);
+                        MethodTool.showToast(AddNewClassroomActivity.this, Ref.CANT_CONNECT_INTERNET);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String resp = response.body().string();
-                        if (resp.contains(Reference.STATUS)) {
+                        if (resp.contains(Ref.STATUS)) {
                             Map<String,String> map = JsonHandler.strToMap(resp);
                             switch (map.get("stat")) {
                                 case "duplicate" :
@@ -110,7 +108,7 @@ public class AddNewClassroomActivity extends BaseActivity {
                             Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
                             intent.putExtra("cr_id",cr_id);
                             intent.putExtra("cr_name",cr_name);
-                            setResult(Reference.RESULTCODE_ADD,intent);
+                            setResult(Ref.RESULTCODE_ADD,intent);
                             finish();
                         }
 

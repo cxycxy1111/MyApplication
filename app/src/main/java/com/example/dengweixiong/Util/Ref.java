@@ -4,7 +4,7 @@ package com.example.dengweixiong.Util;
  * Created by dengweixiong on 2017/10/14.
  */
 
-public abstract class Reference {
+public abstract class Ref {
 
     public static final String CANT_CONNECT_INTERNET = "无法连接服务器";
     public static final String UNKNOWN_ERROR = "未知错误";
@@ -12,6 +12,18 @@ public abstract class Reference {
     public static final String STATUS = "stat";
     public static final String ID = "id";
     public static final String DATA = "data";
+
+    public static final String OP_ADD_SUCCESS = "新增成功";
+    public static final String OP_ADD_FAIL = "新增失败";
+    public static final String OP_DELETE_SUCCESS = "删除成功";
+    public static final String OP_DELETE_FAIL = "删除失败";
+    public static final String OP_MODIFY_SUCCESS = "修改成功";
+    public static final String OP_MODIFY_FAIL = "修改失败";
+    public static final String OP_SUCCESS = "操作成功";
+    public static final String OP_FAIL = "操作失败";
+    public static final String OP_INST_NOT_MATCH = "机构匹配失败";
+    public static final String OP_WRONG_NUMBER_FORMAT = "数字格式错误";
+    public static final String OP_EMPTY_ESSENTIAL_INFO = "必要信息不能为空";
 
     /**
      * 结果码
