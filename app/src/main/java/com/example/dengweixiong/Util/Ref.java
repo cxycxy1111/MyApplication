@@ -21,6 +21,7 @@ public abstract class Ref {
     public static final String OP_MODIFY_FAIL = "修改失败";
     public static final String OP_SUCCESS = "操作成功";
     public static final String OP_FAIL = "操作失败";
+    public static final String OP_PARTLY_FAIL = "部分操作失败";
     public static final String OP_INST_NOT_MATCH = "机构匹配失败";
     public static final String OP_WRONG_NUMBER_FORMAT = "数字格式错误";
     public static final String OP_EMPTY_ESSENTIAL_INFO = "必要信息不能为空";
@@ -44,6 +45,8 @@ public abstract class Ref {
     public static final String EXE_SUC = "exe_suc";
     public static final String DUPLICATE = "duplicate";
     public static final String INST_NOT_MATCH = "institution_not_match";
+    public static final String EMPTY_RESULT = "empty_result";
+    public static final String STAT_PARTYLY_FAIL = "exe_partly_fail";
 
     /**
      * 操作类型
@@ -61,8 +64,21 @@ public abstract class Ref {
     public static final String TEACHER_INNER = "2";
     public static final String TEACHER_OUTER = "3";
 
+    public static final int RESP_TYPE_MAPLIST = 1;
+    public static final int RESP_TYPE_MAP = 2;
+    public static final int RESP_TYPE_LIST = 3;
+    public static final int RESP_TYPE_STAT = 4;
+    public static final int RESP_TYPE_ERROR = 5;
+    public static final int RESP_TYPE_DATA = 6;
+
     public static final int DATA_TYPE_INT = 1;
     public static final int DATA_TYPE_LONG = 2;
     public static final int DATA_TYPE_STRING = 3;
+
+    public static final int COURSE_TYPE_MEMBER = 1;
+    public static final int COURSE_TYPE_TEACHER = 2;
+    public static final int COURSE_TYPE_COLLECT = 3;
+    public static final int COURSE_TYPE_PERSON = 4;
+
 
 }

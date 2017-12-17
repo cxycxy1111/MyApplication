@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dengweixiong on 2017/9/7.
@@ -15,11 +16,11 @@ import java.util.ArrayList;
 
 public class RVSimpleAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
-    private ArrayList<String> strings = new ArrayList<>();
+    private List<String> strings = new ArrayList<>();
     private OnItemClickListener onItemClickListener = null;
 
     //构造器
-    public RVSimpleAdapter(ArrayList<String> strings) {
+    public RVSimpleAdapter(List<String> strings) {
         this.strings = strings;
     }
 

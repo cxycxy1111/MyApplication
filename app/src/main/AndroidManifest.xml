@@ -52,7 +52,9 @@
             android:label="@string/title_activity_shopmember_detail"
             android:theme="@style/AppTheme" />
         <activity android:name="com.example.dengweixiong.Activity.Profile.Shopmember.AddNewShopmemberActivity" />
-        <activity android:name="com.example.dengweixiong.Activity.Course.AddSupportedCardActivity"></activity>
+        <activity android:name="com.example.dengweixiong.Activity.Course.AddSupportedCardActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.CoursePlanDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Activity.Course.AddCoursePlanTeacherActivity"></activity>
     </application>
 
 </manifest>

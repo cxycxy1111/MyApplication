@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import okhttp3.Response;
+
 /**
  * Created by dengweixiong on 2017/10/14.
  */
@@ -56,6 +58,11 @@ public class MethodTool{
                 Toast.makeText(targetActivity.getApplicationContext(),string,Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public static void showToastAndFinish(final Activity targetActivity,final String string) {
+        showToast(targetActivity,string);
+        targetActivity.finish();
     }
 
     /**
@@ -244,5 +251,20 @@ public class MethodTool{
         }
     }
 
+    public static int dealWithResponse(String resp) {
+        if (resp.startsWith("[")) {
+            return Ref.RESP_TYPE_MAPLIST;
+        }else if (resp.startsWith("{")) {
+            if (resp.contains(Ref.STATUS)) {
+                return Ref.RESP_TYPE_STAT;
+            }else if (resp.contains(Ref.DATA)){
+                return Ref.RESP_TYPE_DATA;
+            } else {
+                return Ref.RESP_TYPE_MAP;
+            }
+        }else {
+            return Ref.RESP_TYPE_ERROR;
+        }
+    }
 
 }

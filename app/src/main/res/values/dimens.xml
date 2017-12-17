@@ -5,6 +5,7 @@
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="tabbar_height">40dp</dimen>
+    <dimen name="distance1">1dp</dimen>
     <dimen name="distance2">2dp</dimen>
     <dimen name="distance4">4dp</dimen>
     <dimen name="distance8">8dp</dimen>

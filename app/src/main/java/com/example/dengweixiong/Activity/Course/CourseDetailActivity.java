@@ -515,7 +515,7 @@ public class CourseDetailActivity
     }
 
     /**
-     * 保存会员课程
+     * 保存会员课程所支持的卡类型及价格
      */
     private void saveSupportCardModifation() {
         StringBuilder builder = new StringBuilder();

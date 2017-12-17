@@ -314,23 +314,23 @@ public class AddNewCourseActivity
                 last_time = et_last_time.getText().toString();
                 max_book_num = et_max_num.getText().toString();
                 if (course_name.equals("") || course_name.equals(null)) {
-                    Toast.makeText(this,"课程名称不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (last_time.equals(null) || last_time.equals("")) {
-                    Toast.makeText(this,"每节课时长不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!NumberUtils.isNumber(last_time)) {
-                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (max_book_num.equals("")||max_book_num.equals(null)) {
-                    Toast.makeText(this,"最高预约人数不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!NumberUtils.isNumber(max_book_num)) {
-                    Toast.makeText(this,"数字格式错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 submitCourse();
