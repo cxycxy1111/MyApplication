@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Shopmember.ShopmemberMainActivity;
+import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;

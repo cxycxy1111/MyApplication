@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Profile;
+package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.dengweixiong.Shopmember.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Profile.Card.CardTypeListActivity;
 import com.example.dengweixiong.Shopmember.Profile.Classroom.ClassroomListActivity;
 import com.example.dengweixiong.Shopmember.Profile.Shopmember.ShopmemberListActivity;

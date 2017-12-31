@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
-import com.example.dengweixiong.Shopmember.ShopmemberMainActivity;
+import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 

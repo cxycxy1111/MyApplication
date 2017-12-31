@@ -19,11 +19,10 @@
         <activity android:name="com.example.dengweixiong.Shopmember.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.dengweixiong.Shopmember.ShopmemberMainActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Login.RegistAdministraotrActivity" />
         <activity
             android:name="com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity"

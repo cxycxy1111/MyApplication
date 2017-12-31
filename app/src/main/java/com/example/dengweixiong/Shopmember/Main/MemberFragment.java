@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Member;
+package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,7 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.dengweixiong.Shopmember.ShopmemberMainActivity;
+import com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity;
+import com.example.dengweixiong.Shopmember.Member.AddNewMemberCardActivity;
+import com.example.dengweixiong.Shopmember.Member.ChargeActivity;
+import com.example.dengweixiong.Shopmember.Member.DeductionActivity;
+import com.example.dengweixiong.Shopmember.Member.MemberCardListActivity;
+import com.example.dengweixiong.Shopmember.Member.MemberListActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
 import java.util.HashMap;

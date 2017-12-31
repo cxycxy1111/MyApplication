@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember;
+package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,12 +14,7 @@ import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity;
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddNewCoursePlanActivity;
-import com.example.dengweixiong.Shopmember.Course.Course.CourseListFragment;
-import com.example.dengweixiong.Shopmember.Course.Course.CourseMainFragment;
-import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanFragment;
-import com.example.dengweixiong.Shopmember.Member.MemberFragment;
 import com.example.dengweixiong.Shopmember.Message.MessageListActivity;
-import com.example.dengweixiong.Shopmember.Profile.PersonFragment;
 import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;

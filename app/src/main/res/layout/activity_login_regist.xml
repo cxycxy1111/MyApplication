@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackgroundCoclor"
-    tools:context="com.example.dengweixiong.Shopmember.Login.Login.RegistShopFragment">
+    tools:context="com.example.dengweixiong.Shopmember.Login.RegistShopFragment">
 
     <RelativeLayout
         android:id="@+id/rl_nameblock_f_regist"
