@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Profile.Shopmember.AddNewShopmemberActivity">
+
+    <include android:id="@+id/tb_a_add_new_shopmember"
+        layout="@layout/tile_toolbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_type_add_new_shopmember"
+        android:layout_below="@id/tb_a_add_new_shopmember"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16">
+
+        <TextView
+            android:id="@+id/tv2_add_new_shopmember"
+            style="@style/tv_input_area"
+            android:text="类型"/>
+
+        <Spinner
+            android:id="@+id/sp_type_add_new_shopmember"
+            android:layout_toRightOf="@id/tv2_add_new_shopmember"
+            style="@style/plain_spinner">
+        </Spinner>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/rl_type_add_new_shopmember"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_add_new_shopmember"
+                style="@style/tv_input_area"
+                android:text="姓名"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_name_add_new_shopmember"
+                style="@style/plain_editText"
+                android:hint="姓名"
+                android:inputType="text"
+                android:layout_toRightOf="@id/tv_name_add_new_shopmember" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_user_name_add_new_shopmember"
+                style="@style/tv_input_area"
+                android:text="用户名"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_user_name_add_new_shopmember"
+                android:layout_toRightOf="@id/tv_user_name_add_new_shopmember"
+                style="@style/plain_editText"
+                android:hint="用户名"
+                android:maxLines="1"
+                android:inputType="textVisiblePassword" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_pwd_add_new_shopmember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_pwd_add_new_shopmember"
+                style="@style/tv_input_area"
+                android:text="初始密码"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_pwd_add_new_shopmember"
+                android:layout_toRightOf="@id/tv_pwd_add_new_shopmember"
+                style="@style/plain_editText"
+                android:hint="初始密码"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

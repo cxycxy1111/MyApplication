@@ -9,6 +9,7 @@ public abstract class Ref {
     public static final String CANT_CONNECT_INTERNET = "无法连接服务器";
     public static final String UNKNOWN_ERROR = "未知错误";
     public static final String NULL_POINTER_ERROR = "空指针";
+
     public static final String STATUS = "stat";
     public static final String ID = "id";
     public static final String DATA = "data";
@@ -40,12 +41,12 @@ public abstract class Ref {
     /**
      * 从服务器中返回的stat的值类型
      */
-    public static final String NSR = "no_such_record";
-    public static final String EXE_FAIL = "exe_fail";
-    public static final String EXE_SUC = "exe_suc";
-    public static final String DUPLICATE = "duplicate";
-    public static final String INST_NOT_MATCH = "institution_not_match";
-    public static final String EMPTY_RESULT = "empty_result";
+    public static final String STAT_NSR = "no_such_record";
+    public static final String STAT_EXE_FAIL = "exe_fail";
+    public static final String STAT_EXE_SUC = "exe_suc";
+    public static final String STAT_DUPLICATE = "duplicate";
+    public static final String STAT_INST_NOT_MATCH = "institution_not_match";
+    public static final String STAT_EMPTY_RESULT = "empty_result";
     public static final String STAT_PARTYLY_FAIL = "exe_partly_fail";
 
     /**

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Member.AddNewMemberCardActivity">
+
+    <include
+        android:id="@+id/toolbar_a_AddNewMemberCard"
+        layout="@layout/tile_toolbar" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_a_AddNewMemberCard"
+        android:layout_marginTop="@dimen/distance16">
+
+        <TextView
+            android:id="@+id/tv1_a_AddNewMemberCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginBottom="@dimen/distance16"
+            android:text="会员姓名"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/distance16"
+            android:background="#fff">
+
+            <Spinner
+                android:id="@+id/spinner_member_a_add_new_member"
+                android:layout_margin="@dimen/distance16"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dropDownWidth="130dp">
+            </Spinner>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv2_a_AddNewMemberCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/distance16"
+            android:layout_marginBottom="@dimen/distance16"
+            android:text="会员卡类型"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/distance16"
+            android:background="#fff">
+
+            <Spinner
+                android:id="@+id/spinner_member_carld_a_add_new_member"
+                android:layout_margin="@dimen/distance16"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dropDownWidth="130dp">
+            </Spinner>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_price_a_AddNewMemberCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_price_a_AddNewMemberCard"
+                style="@style/tv_input_area"
+                android:text="售价"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_price_a_AddNewMemberCard"
+                android:layout_toRightOf="@id/tv_price_a_AddNewMemberCard"
+                style="@style/plain_editText"
+                android:hint="元"
+                android:maxLines="1"
+                android:inputType="number"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_balance_a_AddNewMemberCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_balance_a_AddNewMemberCard"
+                style="@style/tv_input_area"
+                android:text="卡内余额"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_balance_a_AddNewMemberCard"
+                android:layout_toRightOf="@id/tv_balance_a_AddNewMemberCard"
+                style="@style/plain_editText"
+                android:hint="元"
+                android:maxLines="1"
+                android:inputType="number"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_num_a_AddNewMemberCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_num_a_AddNewMemberCard"
+                style="@style/tv_input_area"
+                android:text="卡内次数"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_num_a_AddNewMemberCard"
+                android:layout_toRightOf="@id/tv_num_a_AddNewMemberCard"
+                style="@style/plain_editText"
+                android:hint="次"
+                android:maxLines="1"
+                android:inputType="number"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_starttime_a_AddNewMemberCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_starttime_a_AddNewMemberCard"
+                style="@style/tv_input_area"
+                android:text="生效时间"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_starttime_a_AddNewMemberCard"
+                android:layout_toRightOf="@id/tv_starttime_a_AddNewMemberCard"
+                style="@style/plain_editText"
+                android:hint="生效时间"
+                android:maxLines="1"
+                android:inputType="date"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_invalidtime_a_AddNewMemberCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_invalidtime_a_AddNewMemberCard"
+                style="@style/tv_input_area"
+                android:text="失效时间"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/et_invalidtime_a_AddNewMemberCard"
+                android:layout_toRightOf="@id/tv_invalidtime_a_AddNewMemberCard"
+                style="@style/plain_editText"
+                android:hint="失效时间"
+                android:maxLines="1"
+                android:inputType="date"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

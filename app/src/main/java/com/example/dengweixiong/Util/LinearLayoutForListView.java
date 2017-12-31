@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.dengweixiong.Adapter.LVAdapter;
+import com.example.dengweixiong.Shopmember.Adapter.LVAdapter;
 
 /**
  * Created by dengweixiong on 2017/9/9.

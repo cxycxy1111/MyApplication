@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Member.ResetMemberPwdActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_activity_reset_pwd_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_activity_reset_pwd"
+        android:layout_below="@id/tb_activity_reset_pwd_member"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16"
+        android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_newpwd_a_reset_pwd"
+            style="@style/tv_input_area"
+            android:layout_width="@dimen/distance96"
+            android:text="新密码" />
+        <EditText
+            android:id="@+id/et_newpwd_a_reset_pwd"
+            android:layout_toRightOf="@id/tv_newpwd_a_reset_pwd"
+            style="@style/plain_editText"
+            android:inputType="textVisiblePassword"
+            android:hint="新密码" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_repeat_newpwd_a_reset_pwd"
+            style="@style/tv_input_area"
+            android:layout_width="@dimen/distance96"
+            android:text="重复新密码" />
+        <EditText
+            android:id="@+id/et_repeat_newpwd_a_reset_pwd"
+            android:layout_toRightOf="@id/tv_repeat_newpwd_a_reset_pwd"
+            style="@style/plain_editText"
+            android:inputType="textVisiblePassword"
+            android:hint="新密码" />
+    </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

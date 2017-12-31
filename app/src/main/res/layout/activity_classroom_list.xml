@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dengweixiong.Activity.Profile.Classroom.ClassroomListActivity">
+    tools:context="com.example.dengweixiong.Shopmember.Profile.Classroom.ClassroomListActivity">
 
     <include
         android:id="@+id/toolbar_a_ClassroomList"

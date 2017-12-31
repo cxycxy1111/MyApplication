@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Login.Login.RegistAdministraotrActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_a_regist_admin"
+        android:theme="@style/Toolbar"
+        style="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay" >
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/rl_nameblock_a_regist_admin"
+        android:layout_below="@id/tb_a_regist_admin"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance16">
+
+        <RelativeLayout
+            android:id="@+id/rl_name_a_regist_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_a_regist_admin"
+                style="@style/tv_input_area"
+                android:text="姓名" />
+            <EditText
+                android:id="@+id/et_name_a_regist_admin"
+                style="@style/plain_editText"
+                android:hint="姓名"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_toRightOf="@id/tv_name_a_regist_admin" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_loginname_a_regist_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_name_a_regist_admin">
+            <TextView
+                android:id="@+id/tv_loginname_a_regist_admin"
+                style="@style/tv_input_area"
+                android:text="登录名"
+                android:layout_marginLeft="@dimen/distance16" />
+            <EditText
+                android:id="@+id/et_loginname_a_regist_admin"
+                style="@style/plain_editText"
+                android:hint="登录名"
+                android:inputType="textVisiblePassword"
+                android:maxLines="3"
+                android:layout_toRightOf="@id/tv_loginname_a_regist_admin" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_password_a_regist_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_loginname_a_regist_admin">
+            <TextView
+                android:id="@+id/tv_password_a_regist_admin"
+                style="@style/tv_input_area"
+                android:text="密码"
+                android:layout_marginLeft="@dimen/distance16" />
+            <EditText
+                android:id="@+id/et_password_a_regist_admin"
+                style="@style/plain_editText"
+                android:hint="密码"
+                android:inputType="textVisiblePassword"
+                android:maxLines="3"
+                android:layout_toRightOf="@id/tv_password_a_regist_admin" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_submit_a_regist_admin"
+        android:text="注册"
+        style="@style/plain_button"
+        android:layout_below="@id/rl_nameblock_a_regist_admin"/>
+
+</RelativeLayout>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:title="新增会员"
+        android:id="@+id/toolbar_activity_add_new_member"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_alignParentTop="true"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/AlfredOverlay">
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar_activity_add_new_member"
+        android:background="#fff"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_marginBottom="@dimen/distance16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_a_add_new_member"
+                style="@style/tv_input_area"
+                android:text="姓名"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_name_activity_add_new_member"
+                style="@style/plain_editText"
+                android:hint="姓名"
+                android:inputType="text"
+                android:layout_toRightOf="@id/tv_name_a_add_new_member" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_login_name_a_add_new_member"
+                style="@style/tv_input_area"
+                android:text="登录名"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edittext_login_name_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_login_name_a_add_new_member"
+                style="@style/plain_editText"
+                android:hint="登录名"
+                android:maxLines="1"
+                android:inputType="textVisiblePassword" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_password_a_add_new_member"
+                style="@style/tv_input_area"
+                android:text="密码"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/edittext_password_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_password_a_add_new_member"
+                style="@style/plain_editText"
+                android:hint="密码"
+                android:maxLines="1"
+                android:inputType="textVisiblePassword" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_birthday_a_add_new_member"
+                style="@style/tv_input_area"
+                android:layout_width="@dimen/distance64"
+                android:text="生日"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/edittext_birthday_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_birthday_a_add_new_member"
+                style="@style/plain_editText"
+                android:hint="生日"
+                android:maxLines="1"
+                android:inputType="datetime" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/tv_phone_a_add_new_member"
+                style="@style/tv_input_area"
+                android:layout_alignParentLeft="true"
+                android:text="手机号码" />
+            <EditText
+                android:id="@+id/edittext_phone_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_phone_a_add_new_member"
+                style="@style/plain_editText"
+                android:hint="手机号码"
+                android:maxLines="1"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:id="@+id/tv_im_a_add_new_member"
+                style="@style/tv_input_area"
+                android:text="即时通讯"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/edittext_im_activity_add_new_member"
+                android:layout_toRightOf="@id/tv_im_a_add_new_member"
+                style="@style/plain_editText"
+                android:hint="即时通讯"
+                android:maxLines="1" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
