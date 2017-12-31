@@ -66,7 +66,7 @@ public class CourseMainFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course,container,false);
+        View view = inflater.inflate(R.layout.activity_main_course,container,false);
         initView(view);
 //        setHasOptionsMenu(true);
         return view;

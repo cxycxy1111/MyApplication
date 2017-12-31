@@ -67,7 +67,7 @@ public class MemberFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_member, container, false);
+        final View view = inflater.inflate(R.layout.activity_main_member, container, false);
         initToolbar();
         initListView(view);
         return view;

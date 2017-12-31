@@ -71,7 +71,7 @@ public class RegistShopFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_regist, container, false);
+        View view = inflater.inflate(R.layout.activity_login_regist, container, false);
         btn_register = (Button)view.findViewById(R.id.btn_submit_f_regist);
         et_name = (EditText) view.findViewById(R.id.et_name_f_regist);
         et_intro = (EditText) view.findViewById(R.id.et_intro_f_regist);

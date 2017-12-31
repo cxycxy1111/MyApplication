@@ -86,7 +86,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_course_list,container,false);
+        view = inflater.inflate(R.layout.activity_main_course_list,container,false);
         initShopData();
         initRecyclerView();
         return view;

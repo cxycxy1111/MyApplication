@@ -60,7 +60,7 @@ public class CoursePlanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         initData();
-        view = inflater.inflate(R.layout.fragment_course_plan_list, container, false);
+        view = inflater.inflate(R.layout.activity_main_course_plan_list, container, false);
         initCoursePlanData();
         return view;
     }
