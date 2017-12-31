@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="label">
-        <activity android:name="com.example.dengweixiong.Shopmember.Login.Login.LoginActivity">
+        <activity android:name="com.example.dengweixiong.Shopmember.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.dengweixiong.Shopmember.ShopmemberMainActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Login.Login.RegistAdministraotrActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.Login.RegistAdministraotrActivity" />
         <activity
             android:name="com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity"
             android:exported="true" />

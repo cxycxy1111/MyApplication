@@ -204,6 +204,7 @@ public class AddNewMemberActivity
                 break;
             default:
                 break;
+
         }
 
     }
