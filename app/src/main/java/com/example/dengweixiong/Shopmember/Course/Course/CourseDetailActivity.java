@@ -25,6 +25,7 @@ import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.w3c.dom.CDATASection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -579,6 +580,7 @@ public class CourseDetailActivity
                                 break;
                             case "exe_suc":
                                 MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                CourseDetailActivity.this.finish();
                             default:break;
                         }
                     }else {

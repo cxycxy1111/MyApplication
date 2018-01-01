@@ -41,7 +41,7 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
         vh.tv_time.setText(mapList.get(position).get("start_time"));
         vh.tv_name.setText(mapList.get(position).get("course_name"));
         vh.tv_classroom.setText(mapList.get(position).get("classroom_name"));
-        vh.tv_last_time.setText(mapList.get(position).get("last_time"));
+        vh.tv_last_time.setText(String.valueOf(mapList.get(position).get("last_time")));
         vh.tv_teachers.setText(mapList.get(position).get("teachers"));
     }
 

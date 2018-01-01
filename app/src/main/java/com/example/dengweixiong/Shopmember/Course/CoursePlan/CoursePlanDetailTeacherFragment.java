@@ -4,51 +4,53 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
+import com.example.dengweixiong.Shopmember.Adapter.RVPureCheckBoxAdapter;
+import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
+import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CoursePlanDetailTeacherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CoursePlanDetailTeacherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CoursePlanDetailTeacherFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
+
+public class CoursePlanDetailTeacherFragment extends Fragment implements View.OnClickListener {
+
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private String sm_id,s_id,cp_id,course_name;
+    private String[] strs_keys_teacher = new String[] {"id","name","type"};
+    private String[] strs_keys_supported_teacher = new String[] {"sm_id","tea_name"};
+    private List<Map<String,String>> mapList_recyclerview_data = new ArrayList<>();
+    private List<Map<String,String>> mapList_teacher_origin = new ArrayList<>();
+    private List<Map<String,String>> mapList_supported_teacher_origin = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
-
+    private Button btn_save;
     public CoursePlanDetailTeacherFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CoursePlanDetailTeacherFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CoursePlanDetailTeacherFragment newInstance(String param1, String param2) {
+    public static CoursePlanDetailTeacherFragment newInstance(Map<String,String> map) {
         CoursePlanDetailTeacherFragment fragment = new CoursePlanDetailTeacherFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        for (Map.Entry<String,String> entry:map.entrySet()) {
+            bundle.putString(entry.getKey(),entry.getValue());
+        }
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -56,16 +58,21 @@ public class CoursePlanDetailTeacherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            s_id = getArguments().getString("s_id");
+            sm_id = getArguments().getString("sm_id");
+            course_name = getArguments().getString("course_name");
+            cp_id = getArguments().getString("cp_id");
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_course_plan_detail_teacherF, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_course_plan_detail_teacher_f, container, false);
+        recyclerView = (RecyclerView)view.findViewById(R.id.rv_a_add_course_plan_teacher);
+        btn_save = (Button)view.findViewById(R.id.btn_save_f_course_plan_detail_teacher);
+        btn_save.setOnClickListener(this);
+        initCoursePlanTeacher();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -92,18 +99,105 @@ public class CoursePlanDetailTeacherFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_save_f_course_plan_detail_basic:
+                saveCoursePlanTeacherModify();
+                break;
+            default:break;
+        }
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    //初始化排课计划中的教师
+    private void initCoursePlanTeacher() {
+        String url = "/CoursePlanTeacherQuery?cp_id=" + cp_id;
+        okhttp3.Callback callback = new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(getActivity(),Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                int int_resp_type = MethodTool.dealWithResponse(resp);
+                if (int_resp_type == Ref.RESP_TYPE_MAPLIST) {
+                    mapList_supported_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_supported_teacher);
+                    initShopmember();
+                }else if (int_resp_type == Ref.RESP_TYPE_STAT) {
+                    Map<String,String> map = JsonHandler.strToMap(resp);
+                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
+                        MethodTool.showToast(getActivity(),Ref.STAT_NSR);
+                    }else {
+                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                    }
+                }else if (int_resp_type == Ref.RESP_TYPE_ERROR) {
+                    MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(getActivity(),url,callback);
+    }
+
+    //初始化舞馆中存量的所有教师
+    private void initShopmember() {
+        String  url = "/QueryShopmemberList?s_id=" + s_id + "&type=0";
+        okhttp3.Callback callback = new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(getActivity(), Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                int int_type_resp = MethodTool.dealWithResponse(resp);
+                if (int_type_resp == Ref.RESP_TYPE_MAPLIST) {
+                    mapList_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_teacher);
+                    for (int i = 0;i < mapList_teacher_origin.size();i++) {
+                        Map<String,String> map_origin = mapList_teacher_origin.get(i);
+                        Map<String,String> map_temp = new HashMap<>();
+                        map_temp.put("teacherId",map_origin.get("id"));
+                        map_temp.put("teacherName",map_origin.get("name"));
+                        String c = "0";
+                        for (int j = 0;j < mapList_supported_teacher_origin.size();j++) {
+                            if (map_origin.get("id").equals(mapList_supported_teacher_origin.get(j).get("sm_id"))) {
+                                c = "1";
+                            }
+                        }
+                        map_temp.put("isChecked",c);
+                        mapList_recyclerview_data.add(map_temp);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView();
+                            }
+                        });
+                    }
+                }else if (int_type_resp == Ref.RESP_TYPE_STAT) {
+                    Map<String,String> map = JsonHandler.strToMap(resp);
+                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
+                        MethodTool.showToast(getActivity(),Ref.STAT_NSR);
+                    }
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(getActivity(),url,callback);
+    }
+
+    private void initRecyclerView() {
+        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        RVPureCheckBoxAdapter adapter = new RVPureCheckBoxAdapter(mapList_recyclerview_data,getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    private void saveCoursePlanTeacherModify() {
+        String url = "";
     }
 }

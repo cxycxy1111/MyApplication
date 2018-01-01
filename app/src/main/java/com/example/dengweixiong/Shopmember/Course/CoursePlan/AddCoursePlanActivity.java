@@ -33,6 +33,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class AddNewCoursePlanActivity
+public class AddCoursePlanActivity
         extends BaseActivity
         implements View.OnClickListener,EditText.OnFocusChangeListener{
 
@@ -109,7 +110,8 @@ public class AddNewCoursePlanActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
+        getMenuInflater().inflate(R.menu.menu_add_new_course_plan,menu);
+        return true;
     }
 
     @Override
@@ -133,7 +135,7 @@ public class AddNewCoursePlanActivity
             case Ref.REQCODE_ADD:
                 switch (resultCode) {
                     case Ref.RESULTCODE_ADD:
-                        AddNewCoursePlanActivity.this.finish();
+                        AddCoursePlanActivity.this.finish();
                         break;
                     default:break;
                 }
@@ -143,8 +145,8 @@ public class AddNewCoursePlanActivity
     }
 
     private void initData() {
-        sm_id = MethodTool.getSharePreferenceValue(AddNewCoursePlanActivity.this,"sasm","sm_id",2);
-        s_id = MethodTool.getSharePreferenceValue(AddNewCoursePlanActivity.this,"sasm","s_id",2);
+        sm_id = MethodTool.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","sm_id",2);
+        s_id = MethodTool.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","s_id",2);
 
         Calendar calendar = Calendar.getInstance();
         this.current_year = calendar.get(Calendar.YEAR);
@@ -188,7 +190,7 @@ public class AddNewCoursePlanActivity
                 et_date.setText(new StringBuffer().append(year).append("-").append(month+1).append("-").append(dayOfMonth));
             }
         };
-        dpd_date = new DatePickerDialog(AddNewCoursePlanActivity.this,listener,current_year,current_month,current_date);
+        dpd_date = new DatePickerDialog(AddCoursePlanActivity.this,listener,current_year,current_month,current_date);
     }
 
     private void initStartTimePickerDialog() {
@@ -198,7 +200,7 @@ public class AddNewCoursePlanActivity
                 et_time.setText(String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
             }
         };
-        tpd_time = new TimePickerDialog(AddNewCoursePlanActivity.this,listener,current_hour,current_minute,true);
+        tpd_time = new TimePickerDialog(AddCoursePlanActivity.this,listener,current_hour,current_minute,true);
     }
 
     private void initCourses() {
@@ -206,7 +208,7 @@ public class AddNewCoursePlanActivity
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToastAndFinish(AddNewCoursePlanActivity.this, Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToastAndFinish(AddCoursePlanActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -228,21 +230,21 @@ public class AddNewCoursePlanActivity
                     Map<String,String> map_status = new HashMap<>();
                     map_status = JsonHandler.strToMap(resp);
                     if (map_status.get(Ref.STATUS) == Ref.STAT_NSR) {
-                        MethodTool.showToast(AddNewCoursePlanActivity.this,"暂无此舞馆");
+                        MethodTool.showToast(AddCoursePlanActivity.this,"暂无此舞馆");
                     }else if (map_status.get(Ref.STATUS) == Ref.STAT_EMPTY_RESULT) {
-                        MethodTool.showToast(AddNewCoursePlanActivity.this,"舞馆尚未安排课程");
+                        MethodTool.showToast(AddCoursePlanActivity.this,"舞馆尚未安排课程");
                     }
-                    AddNewCoursePlanActivity.this.finish();
+                    AddCoursePlanActivity.this.finish();
                 }else if (s == Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(AddNewCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
                 }
             }
         };
-        NetUtil.sendHttpRequest(AddNewCoursePlanActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCoursePlanActivity.this,url,callback);
     }
 
     private void initCourseSpinner() {
-        ArrayAdapter<String> adapter_course_name = new ArrayAdapter<String>(AddNewCoursePlanActivity.this,android.R.layout.simple_spinner_item,list_course_name);
+        ArrayAdapter<String> adapter_course_name = new ArrayAdapter<String>(AddCoursePlanActivity.this,android.R.layout.simple_spinner_item,list_course_name);
         adapter_course_name.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_course.setAdapter(adapter_course_name);
         sp_course.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -276,7 +278,7 @@ public class AddNewCoursePlanActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToastAndFinish(AddNewCoursePlanActivity.this,Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToastAndFinish(AddCoursePlanActivity.this,Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -297,17 +299,17 @@ public class AddNewCoursePlanActivity
                 }else if (stat == Ref.RESP_TYPE_STAT) {
                     Map<String,String> map_stat = JsonHandler.strToMap(resp);
                 }else if (stat == Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(AddNewCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
                 }else {
 
                 }
             }
         };
-        NetUtil.sendHttpRequest(AddNewCoursePlanActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCoursePlanActivity.this,url,callback);
     }
 
     private void initClassroomSpinner() {
-        ArrayAdapter<String> adapter_classroom_name = new ArrayAdapter<String>(AddNewCoursePlanActivity.this,android.R.layout.simple_spinner_item,list_classroom_name);
+        ArrayAdapter<String> adapter_classroom_name = new ArrayAdapter<String>(AddCoursePlanActivity.this,android.R.layout.simple_spinner_item,list_classroom_name);
         adapter_classroom_name.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_classroom.setAdapter(adapter_classroom_name);
         sp_classroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -322,27 +324,6 @@ public class AddNewCoursePlanActivity
             }
         });
     }
-/*
-
-
-
-    private void initTeacherSpinner() {
-        ArrayAdapter<String> adapter_teacher = new ArrayAdapter<String>(AddNewCoursePlanActivity.this,android.R.layout.simple_spinner_item,list_teacher_name);
-        adapter_teacher.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_teacher.setAdapter(adapter_teacher);
-        sp_teacher.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_teacher = String.valueOf(mapList_teacher_full.get(position).get(keys_teacher_list[0]));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selected_teacher = String.valueOf(mapList_teacher_full.get(0).get(keys_teacher_list[0]));
-            }
-        });
-    }
-    */
 
     private void saveCoursePlan() {
         String str_date = et_date.getText().toString();
@@ -352,16 +333,17 @@ public class AddNewCoursePlanActivity
         if (str_date.equals("") || str_date.equals(null) ||
                 str_time.equals("")|| str_time.equals(null)||
                 str_last_time.equals("")||str_last_time.equals(null)) {
-            Toast.makeText(AddNewCoursePlanActivity.this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddCoursePlanActivity.this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
         }else {
-            String datetime = str_date + " " + str_date + ":00";
+            String datetime = str_date + " " + str_time + ":00";
             //判断持续时间是否为数字
             if (NumberUtils.isNumber(str_last_time)) {
                 int int_last_time = Integer.parseInt(str_last_time);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Calendar calendar = Calendar.getInstance();
                 try {
-                    calendar.setTime(sdf.parse(datetime));
+                    Date date = sdf.parse(datetime);
+                    calendar.setTime(date);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -377,7 +359,7 @@ public class AddNewCoursePlanActivity
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        MethodTool.showToastAndFinish(AddNewCoursePlanActivity.this,Ref.CANT_CONNECT_INTERNET);
+                        MethodTool.showToastAndFinish(AddCoursePlanActivity.this,Ref.CANT_CONNECT_INTERNET);
                     }
 
                     @Override
@@ -391,20 +373,20 @@ public class AddNewCoursePlanActivity
                             current_courseplan = String.valueOf(map.get(Ref.DATA));
                             switch (selected_course_type) {
                                 case "4":
-                                    AddNewCoursePlanActivity.this.finish();
+                                    AddCoursePlanActivity.this.finish();
                                     break;
                                 default:
-                                    Intent intent = new Intent(AddNewCoursePlanActivity.this,AddCoursePlanTeacherActivity.class);
+                                    Intent intent = new Intent(AddCoursePlanActivity.this,AddCoursePlanTeacherActivity.class);
                                     intent.putExtra("cp_id",current_courseplan);
                                     //启动新界面
-                                    AddNewCoursePlanActivity.this.startActivityForResult(intent,Ref.REQCODE_ADD);
-                                    AddNewCoursePlanActivity.this.finish();
+                                    AddCoursePlanActivity.this.startActivityForResult(intent,Ref.REQCODE_ADD);
+                                    AddCoursePlanActivity.this.finish();
                                     break;
                             }
                         }
                         //响应中包含错误
                         else if (s == Ref.RESP_TYPE_ERROR) {
-                            MethodTool.showToast(AddNewCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                            MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
                         }
                         //响应中包含状态
                         else if (s == Ref.RESP_TYPE_STAT) {
@@ -412,22 +394,22 @@ public class AddNewCoursePlanActivity
                             map = JsonHandler.strToMap(resp);
                             switch (map.get(Ref.STATUS)) {
                                 case "institution_not_match":
-                                    MethodTool.showToast(AddNewCoursePlanActivity.this,Ref.OP_INST_NOT_MATCH);
+                                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.OP_INST_NOT_MATCH);
                                     break;
                                 case "duplicate":
-                                    MethodTool.showToast(AddNewCoursePlanActivity.this,"排课重复");
+                                    MethodTool.showToast(AddCoursePlanActivity.this,"排课重复");
                                     break;
                                 case "no_such_record":
-                                    MethodTool.showToast(AddNewCoursePlanActivity.this,"未发现课程");
+                                    MethodTool.showToast(AddCoursePlanActivity.this,"未发现课程");
                                     break;
                                 default:break;
                             }
                         }
                     }
                 };
-                NetUtil.sendHttpRequest(AddNewCoursePlanActivity.this,url,callback);
+                NetUtil.sendHttpRequest(AddCoursePlanActivity.this,url,callback);
             }else {
-                Toast.makeText(AddNewCoursePlanActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCoursePlanActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
             }
         }
     }

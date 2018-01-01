@@ -91,7 +91,7 @@ public class SignInFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_login_sign_in, container, false);
+        View view = inflater.inflate(R.layout.activity_login_sign_in_f, container, false);
         initView(view);
         return view;
     }

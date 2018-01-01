@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity;
-import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddNewCoursePlanActivity;
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.Shopmember.Message.MessageListActivity;
 import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
@@ -155,7 +155,7 @@ public class ShopmemberMainActivity
                 startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
                 break;
             case R.id.add_new_courseplan_main:
-                intent = new Intent(ShopmemberMainActivity.this,AddNewCoursePlanActivity.class);
+                intent = new Intent(ShopmemberMainActivity.this,AddCoursePlanActivity.class);
                 startActivity(intent);
                 break;
             default:break;

@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailBasicFragment">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_f_course_plan_detail_basic"
+                android:orientation="vertical"
+                android:background="#fff"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginBottom="@dimen/distance16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_course_name_f_course_plan_detail_basic"
+                        style="@style/tv_input_area"
+                        android:text="课程名称"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_name_f_course_plan_detail_basic"
+                        style="@style/plain_editText"
+                        android:inputType="text"
+                        android:hint="课程名称"
+                        android:layout_toRightOf="@id/tv_course_name_f_course_plan_detail_basic" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_classroom_name_f_course_plan_detail_basic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_classroom_name_f_course_plan_detail_basic"
+                        style="@style/tv_input_area"
+                        android:text="课室"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content" />
+                    <Spinner
+                        android:id="@+id/sp_classroom_f_course_plan_detail_basic"
+                        android:layout_toRightOf="@id/tv_classroom_name_f_course_plan_detail_basic"
+                        style="@style/plain_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </Spinner>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_balance_f_course_plan_detail_basic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_start_time_f_course_plan_detail_basic"
+                        style="@style/tv_input_area"
+                        android:text="开始时间"
+                        android:layout_alignParentLeft="true" />
+                    <EditText
+                        android:id="@+id/et_start_date_f_course_plan_detail_basic"
+                        android:layout_toRightOf="@id/tv_start_time_f_course_plan_detail_basic"
+                        style="@style/plain_editText"
+                        android:layout_width="120dp"
+                        android:hint="日期"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                    <EditText
+                        android:id="@+id/et_start_time_f_course_plan_detail_basic"
+                        android:layout_toRightOf="@id/et_start_date_f_course_plan_detail_basic"
+                        style="@style/plain_editText"
+                        android:hint="时间"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_last_time_f_course_plan_detail_basic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_last_time_f_course_plan_detail_basic"
+                        style="@style/tv_input_area"
+                        android:layout_width="@dimen/distance64"
+                        android:text="上课时长"
+                        android:layout_alignParentLeft="true" />
+                    <EditText
+                        android:id="@+id/et_last_time_f_course_plan_detail_basic"
+                        android:layout_toRightOf="@id/tv_last_time_f_course_plan_detail_basic"
+                        style="@style/plain_editText"
+                        android:hint="分钟"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_remark_f_course_plan_detail_basic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <EditText
+                        android:id="@+id/et_remark_activity_card_detail"
+                        style="@style/plain_editText"
+                        android:hint="备注"
+                        android:maxLines="3"
+                        android:inputType="datetime" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_f_course_plan_detail_basic"
+                style="@style/plain_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="保存"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

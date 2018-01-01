@@ -27,7 +27,7 @@
         <activity
             android:name="com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity"
             android:exported="true" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.AddNewCoursePlanActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Member.MemberListActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Member.MemberDetailActivity" />
