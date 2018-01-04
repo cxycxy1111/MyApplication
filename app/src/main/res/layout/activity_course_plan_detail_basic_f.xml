@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp">
                     <EditText
-                        android:id="@+id/et_remark_activity_card_detail"
+                        android:id="@+id/et_remark_f_course_plan_detail_basic"
                         style="@style/plain_editText"
                         android:hint="备注"
                         android:maxLines="3"

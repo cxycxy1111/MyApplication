@@ -33,7 +33,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class AddNewCourseActivity
+public class AddCourseActivity
         extends
             BaseActivity
         implements
@@ -78,7 +78,7 @@ public class AddNewCourseActivity
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -99,7 +99,7 @@ public class AddNewCourseActivity
                 });
             }
         };
-        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
     }
 
     /**
@@ -135,7 +135,7 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -156,7 +156,7 @@ public class AddNewCourseActivity
                 });
             }
         };
-        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
     }
 
     /**
@@ -168,7 +168,7 @@ public class AddNewCourseActivity
         for (int i = 0;i < origin_student.size();i++) {
             list.add(origin_student.get(i).get("name"));
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddNewCourseActivity.this,R.layout.tile_spinner,R.id.tile_spinner_text,list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this,R.layout.tile_spinner,R.id.tile_spinner_text,list);
         arrayAdapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
         stu_spinner.setAdapter(arrayAdapter);
         stu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -299,7 +299,7 @@ public class AddNewCourseActivity
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQEST_CODE_ADD:
-                AddNewCourseActivity.this.finish();
+                AddCourseActivity.this.finish();
                 break;
             default:break;
         }
@@ -309,7 +309,7 @@ public class AddNewCourseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_addNewCourse:
-                Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
+                Intent intent = new Intent(AddCourseActivity.this,AddSupportedCardActivity.class);
                 course_name = et_course_name.getText().toString();
                 last_time = et_last_time.getText().toString();
                 max_book_num = et_max_num.getText().toString();
@@ -373,7 +373,7 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -384,34 +384,34 @@ public class AddNewCourseActivity
                     String mValue = String.valueOf(mResponseMap.get("stat"));
                     switch (mValue) {
                         case "not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
                             break;
                         case "institution_not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
                             break;
                         case "exe_fail":
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.OP_ADD_FAIL);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_FAIL);
                             setResult(RESULT_CODE_FAIL);
-                            AddNewCourseActivity.this.finish();
+                            AddCourseActivity.this.finish();
                             break;
                         case "exe_suc":
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.OP_ADD_SUCCESS);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_SUCCESS);
                             setResult(RESULT_CODE_SUC);
-                            AddNewCourseActivity.this.finish();
+                            AddCourseActivity.this.finish();
                             break;
                         default:
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.UNKNOWN_ERROR);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
                             setResult(RESULT_CODE_FAIL);
-                            AddNewCourseActivity.this.finish();
+                            AddCourseActivity.this.finish();
                             break;
                     }
                 }else if (mResp.contains(Ref.DATA)) {
-                    MethodTool.showToast(AddNewCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                    MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
                 }
 
             }
         };
-        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
     }
 
     private void submitCourse() {
@@ -422,7 +422,7 @@ public class AddNewCourseActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(AddNewCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
+                MethodTool.showToast(AddCourseActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
@@ -432,16 +432,16 @@ public class AddNewCourseActivity
                     Map<String,String> r = JsonHandler.strToMap(resp);
                     switch (r.get(Ref.STATUS)) {
                         case "not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this,"课程类型不匹配");
+                            MethodTool.showToast(AddCourseActivity.this,"课程类型不匹配");
                             break;
                         case "institution_not_match":
-                            MethodTool.showToast(AddNewCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
                             break;
                         case "exe_fail":
-                            MethodTool.showToast(AddNewCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                            MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
                             break;
                         case "duplicate" :
-                            MethodTool.showToast(AddNewCourseActivity.this,"课程名称重复");
+                            MethodTool.showToast(AddCourseActivity.this,"课程名称重复");
                             break;
                         default:break;
                     }
@@ -449,15 +449,15 @@ public class AddNewCourseActivity
                     HashMap<String,String> temp_map = JsonHandler.strToMap(resp);
                     String s = temp_map.get(Ref.DATA);
                     course_id = Long.valueOf(s);
-                    Intent intent = new Intent(AddNewCourseActivity.this,AddSupportedCardActivity.class);
+                    Intent intent = new Intent(AddCourseActivity.this,AddSupportedCardActivity.class);
                     intent.putExtra("course_id",course_id);
                     startActivityForResult(intent,REQEST_CODE_ADD);
                 }else {
-                    MethodTool.showToast(AddNewCourseActivity.this, Ref.UNKNOWN_ERROR);
+                    MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
                 }
             }
         };
-        NetUtil.sendHttpRequest(AddNewCourseActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
     }
 
 }

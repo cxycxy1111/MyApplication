@@ -68,14 +68,13 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_course_plan_detail_teacher_f, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.rv_a_add_course_plan_teacher);
+        recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_course_plan_detail_teacher);
         btn_save = (Button)view.findViewById(R.id.btn_save_f_course_plan_detail_teacher);
         btn_save.setOnClickListener(this);
         initCoursePlanTeacher();
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -166,7 +165,10 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         map_temp.put("teacherName",map_origin.get("name"));
                         String c = "0";
                         for (int j = 0;j < mapList_supported_teacher_origin.size();j++) {
-                            if (map_origin.get("id").equals(mapList_supported_teacher_origin.get(j).get("sm_id"))) {
+                            Map<String,String> map_supported_origin = mapList_supported_teacher_origin.get(j);
+                            String left = String.valueOf(map_origin.get("id"));
+                            String right = String.valueOf(map_supported_origin.get("sm_id"));
+                            if ( left.equals(right)) {
                                 c = "1";
                             }
                         }

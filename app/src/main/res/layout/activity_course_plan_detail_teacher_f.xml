@@ -6,7 +6,7 @@
     tools:context="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailTeacherFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_a_course_plan_detail_teacher"
+        android:id="@+id/rv_f_course_plan_detail_teacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>

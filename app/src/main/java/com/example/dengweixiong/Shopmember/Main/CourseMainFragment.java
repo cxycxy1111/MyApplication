@@ -84,7 +84,7 @@ public class CourseMainFragment
 
     private void initFragments() {
         fragments.add(CourseListFragment.newInstance("课程列表"));
-        fragments.add(CoursePlanFragment.newInstance("排课列表"));
+        fragments.add(CoursePlanListFragment.newInstance("排课列表"));
     }
 
     private void initFragmentManager() {

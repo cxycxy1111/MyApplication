@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.dengweixiong.Shopmember.Course.Course.AddNewCourseActivity;
+import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.Shopmember.Message.MessageListActivity;
 import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
@@ -28,7 +28,7 @@ public class ShopmemberMainActivity
             CourseMainFragment.OnFragmentInteractionListener,
             PersonFragment.OnFragmentInteractionListener,
             CourseListFragment.OnFragmentInteractionListener,
-            CoursePlanFragment.OnFragmentInteractionListener{
+            CoursePlanListFragment.OnFragmentInteractionListener{
 
     private String [] title = new String[] {"会员","课程","个人中心"};
     private List<Fragment> fragments = new ArrayList<>();
@@ -151,7 +151,7 @@ public class ShopmemberMainActivity
                 startActivity(intent);
                 break;
             case R.id.add_new_course_main:
-                intent = new Intent(ShopmemberMainActivity.this,AddNewCourseActivity.class);
+                intent = new Intent(ShopmemberMainActivity.this,AddCourseActivity.class);
                 startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
                 break;
             case R.id.add_new_courseplan_main:

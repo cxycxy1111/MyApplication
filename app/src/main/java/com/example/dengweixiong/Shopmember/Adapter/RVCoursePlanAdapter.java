@@ -1,12 +1,14 @@
 package com.example.dengweixiong.Shopmember.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -28,10 +30,23 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        ViewGroup vg = (ViewGroup)inflater.inflate(R.layout.tile_course_plan,parent,false);
-        return new VH(vg);
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.tile_course_plan,parent,false);
+        final VH viewHolder = new VH(view);
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int p = viewHolder.getAdapterPosition();
+                Map<String,String> map = mapList.get(p);
+                Intent intent = new Intent(parent.getContext(), CoursePlanDetailActivity.class);
+                intent.putExtra("cp_id",String.valueOf(map.get("courseplan_id")));
+                intent.putExtra("course_name",map.get("course_name"));
+                intent.putExtra("time",map.get("start_time"));
+                context.startActivity(intent);
+            }
+        });
+        return viewHolder;
     }
 
     @Override
@@ -50,11 +65,12 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
         return mapList.size();
     }
 
-    private static class VH extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private static class VH extends RecyclerView.ViewHolder{
         TextView tv_time,tv_classroom,tv_name,tv_teachers,tv_last_time;
-
+        View view;
         private VH (View view) {
             super(view);
+            this.view = view;
             tv_time = (TextView)view.findViewById(R.id.tv_time_t_course_plan);
             tv_classroom = (TextView)view.findViewById(R.id.tv_classroom_t_course_plan);
             tv_name = (TextView)view.findViewById(R.id.tv_name_t_course_plan);
@@ -62,10 +78,5 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
             tv_last_time = (TextView)view.findViewById(R.id.tv_last_time_t_course_plan);
         }
 
-        @Override
-        public void onClick(View v) {
-
-        }
     }
-
 }

@@ -1,6 +1,7 @@
 package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -26,22 +28,22 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CoursePlanFragment extends Fragment {
+public class CoursePlanListFragment extends Fragment {
 
     private String s_id,sm_id,mParam1;
     private static final String ARG_PARAM1 = "param1";
-    private String[] strs_keys = new String[] {};
+    private String[] strs_keys = new String[] {"courseplan_id","course_name","course_type","classroom_name","last_time","start_time"};
     private RecyclerView rv_course_plan;
     private View view;
     private List<Map<String,String>> mapList_data = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
 
-    public CoursePlanFragment() {
+    public CoursePlanListFragment() {
 
     }
 
-    public static CoursePlanFragment newInstance(String param1) {
-        CoursePlanFragment fragment = new CoursePlanFragment();
+    public static CoursePlanListFragment newInstance(String param1) {
+        CoursePlanListFragment fragment = new CoursePlanListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -130,7 +132,8 @@ public class CoursePlanFragment extends Fragment {
             public void run() {
                 rv_course_plan = (RecyclerView)view.findViewById(R.id.rv_f_course_plan);
                 LinearLayoutManager llm_rv = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                rv_course_plan.setAdapter(new RVCoursePlanAdapter(mapList_data,getParentFragment().getActivity()));
+                RVCoursePlanAdapter adapter = new RVCoursePlanAdapter(mapList_data,getParentFragment().getActivity());
+                rv_course_plan.setAdapter(adapter);
                 rv_course_plan.setLayoutManager(llm_rv);
             }
         });

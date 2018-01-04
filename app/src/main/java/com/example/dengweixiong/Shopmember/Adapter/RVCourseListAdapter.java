@@ -20,8 +20,7 @@ import java.util.Map;
  */
 
 public class RVCourseListAdapter
-        extends RecyclerView.Adapter
-        implements View.OnClickListener{
+        extends RecyclerView.Adapter {
 
     private List<Map<String,String>> mapList = new ArrayList<>();
     private Activity activity;
@@ -38,13 +37,13 @@ public class RVCourseListAdapter
         holder.courseView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            int position = holder.getAdapterPosition();
-            Map<String,String> map = mapList.get(position);
-            Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
-            intent.putExtra("name",map.get("name"));
-            intent.putExtra("id",String.valueOf(map.get("id")));
-            intent.putExtra("type",String.valueOf(map.get("type")));
-            activity.startActivityForResult(intent,1);
+                int position = holder.getAdapterPosition();
+                Map<String,String> map = mapList.get(position);
+                Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
+                intent.putExtra("name",map.get("name"));
+                intent.putExtra("id",String.valueOf(map.get("id")));
+                intent.putExtra("type",String.valueOf(map.get("type")));
+                activity.startActivityForResult(intent,1);
             }
         });
         return holder;
@@ -61,9 +60,7 @@ public class RVCourseListAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         View courseView;
-        TextView tv_name;
-        TextView tv_time;
-        TextView tv_supportedcard;
+        TextView tv_name,tv_time,tv_supportedcard;
         public ViewHolder(View view) {
             super(view);
             courseView = view;
@@ -81,11 +78,6 @@ public class RVCourseListAdapter
     @Override
     public int getItemCount() {
         return mapList.size();
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
 }

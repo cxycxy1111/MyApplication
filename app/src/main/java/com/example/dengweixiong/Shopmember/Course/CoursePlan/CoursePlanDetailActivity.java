@@ -1,6 +1,7 @@
 package com.example.dengweixiong.Shopmember.Course.CoursePlan;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
@@ -25,14 +29,17 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class CoursePlanDetailActivity extends AppCompatActivity {
+public class CoursePlanDetailActivity
+        extends BaseActivity
+        implements CoursePlanDetailBasicFragment.OnFragmentInteractionListener,
+        CoursePlanDetailTeacherFragment.OnFragmentInteractionListener{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CourseViewPagerAdapter adapter;
-    private FragmentManager fm;
+    private FragmentManager fm = this.getSupportFragmentManager();
     private String str_sm_id,str_s_id,str_course_name,str_time,str_cp_id;
-    private String[] strs_title = new String[]{};
+    private String[] strs_title = new String[]{"排课详情","教授教师"};
     private List<Fragment> fragments = new ArrayList<>();
 
     @Override
@@ -45,9 +52,14 @@ public class CoursePlanDetailActivity extends AppCompatActivity {
         initViewPager();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
     private void initData(){
         str_s_id = MethodTool.getSharePreferenceValue(this,"sasm","s_id",2);
-        str_s_id = MethodTool.getSharePreferenceValue(this,"sasm","sm_id",2);
+        str_sm_id = MethodTool.getSharePreferenceValue(this,"sasm","sm_id",2);
         Intent intent = getIntent();
         str_course_name = intent.getStringExtra("course_name");
         str_time = intent.getStringExtra("time");
@@ -102,19 +114,18 @@ public class CoursePlanDetailActivity extends AppCompatActivity {
         fragments.add(CoursePlanDetailTeacherFragment.newInstance(map));
     }
 
-    private void initCoursePlanData() {
-        String url = "";
-        Callback callback = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(CoursePlanDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
-            }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-            }
-        };
-        NetUtil.sendHttpRequest(CoursePlanDetailActivity.this,url,callback);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();break;
+            default:break;
+        }
+        return true;
     }
 }
