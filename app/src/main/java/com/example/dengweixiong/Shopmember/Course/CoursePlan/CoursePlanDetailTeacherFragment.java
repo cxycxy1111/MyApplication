@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
 import com.example.dengweixiong.Shopmember.Adapter.RVPureCheckBoxAdapter;
-import com.example.dengweixiong.Util.Enum.EnumReqCodeType;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
@@ -106,7 +104,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_save_f_course_plan_detail_basic:
+            case R.id.btn_save_f_course_plan_detail_teacher:
                 saveCoursePlanTeacherModify();
                 break;
             default:break;
@@ -129,19 +127,24 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int int_resp_type = MethodTool.dealWithResponse(resp);
-                if (int_resp_type == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_supported_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_supported_teacher);
-                    initShopmember();
-                }else if (int_resp_type == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map = JsonHandler.strToMap(resp);
-                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
-                        MethodTool.showToast(getActivity(),Ref.STAT_NSR);
-                    }else {
+                EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
+                switch (enumRespType) {
+                    case RESP_MAPLIST:
+                        mapList_supported_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_supported_teacher);
+                        initShopmember();
+                        break;
+                    case RESP_STAT:
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(map);
+                        switch (enumRespStatType) {
+                            case NSR:MethodTool.showToast(getActivity(),Ref.STAT_NSR);break;
+                            default:MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);break;
+                        }
+                        break;
+                    case RESP_ERROR:
                         MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
-                    }
-                }else if (int_resp_type == Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };
@@ -221,50 +224,54 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
             if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("0")) {
 
             }else if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("1")) {
-                builder.append("1").append("_").append(cp_id).append("_").append(map_temp_after.get("teacherId")).append("-");
+                builder.append("1").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
             }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("0")) {
-                builder.append("2").append("_").append(cp_id).append("_").append(map_temp_after.get("teacherId")).append("-");
+                builder.append("2").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
             }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("1")) {
 
             }
         }
         String req = builder.toString();
-        req = req.substring(0,req.length()-1);
-
-        String url = "/CoursePlanTeacherModify?m=" + req;
-        Callback callback = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getActivity(),Ref.CANT_CONNECT_INTERNET);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-                EnumRespType intRespType = EnumRespType.dealWithResponse(resp);
-                switch (intRespType) {
-                    case RESP_ERROR:
-                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
-                        break;
-                    case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType type = EnumRespStatType.dealWithRespStat(map);
-                        switch (type) {
-                            case EXE_SUC:
-                                MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
-                                break;
-                            case EXE_FAIL:
-                                MethodTool.showToast(getActivity(),Ref.OP_MODIFY_FAIL);
-                                break;
-                            case PARTYLY_FAIL:
-                                MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
-                                break;
-                            default:break;
-                        }
-                        getActivity().finish();
+        if (req.length() == 0) {
+            MethodTool.showToast(getActivity(),"您暂未作任何更改，无需保存");
+        }else {
+            req = req.substring(0,req.length()-1);
+            String url = "/CoursePlanTeacherModify?m=" + req;
+            Callback callback = new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    MethodTool.showToast(getActivity(),Ref.CANT_CONNECT_INTERNET);
                 }
-            }
-        };
-        NetUtil.sendHttpRequest(getActivity(),url,callback);
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().string();
+                    EnumRespType intRespType = EnumRespType.dealWithResponse(resp);
+                    switch (intRespType) {
+                        case RESP_ERROR:
+                            MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                            break;
+                        case RESP_STAT:
+                            Map<String,String> map = JsonHandler.strToMap(resp);
+                            EnumRespStatType type = EnumRespStatType.dealWithRespStat(map);
+                            switch (type) {
+                                case EXE_SUC:
+                                    MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(getActivity(),Ref.OP_MODIFY_FAIL);
+                                    break;
+                                case PARTYLY_FAIL:
+                                    MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
+                                    break;
+                                default:break;
+                            }
+                            getActivity().finish();
+                    }
+                }
+            };
+            NetUtil.sendHttpRequest(getActivity(),url,callback);
+        }
+
     }
 }

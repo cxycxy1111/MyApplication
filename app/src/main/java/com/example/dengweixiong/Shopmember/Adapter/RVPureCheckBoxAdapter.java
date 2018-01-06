@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class RVPureCheckBoxAdapter extends RecyclerView.Adapter {
     public RVPureCheckBoxAdapter(List<Map<String,String>> original_listMap, Context context) {
         this.listmap_original = original_listMap;
         this.context = context;
-        this.listmap_after = original_listMap;
+        listmap_after = MethodTool.deepCopy(listmap_original);
     }
 
     @Override
