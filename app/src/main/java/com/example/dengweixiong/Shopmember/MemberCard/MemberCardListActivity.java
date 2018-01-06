@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Member;
+package com.example.dengweixiong.Shopmember.MemberCard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
+import com.example.dengweixiong.Shopmember.Member.MemberDetailActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 

@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#fff"
-    android:layout_marginTop="@dimen/distance2"
+    android:layout_marginTop="@dimen/distance1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

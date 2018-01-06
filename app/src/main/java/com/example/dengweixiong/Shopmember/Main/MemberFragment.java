@@ -15,10 +15,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity;
-import com.example.dengweixiong.Shopmember.Member.AddNewMemberCardActivity;
-import com.example.dengweixiong.Shopmember.Member.ChargeActivity;
-import com.example.dengweixiong.Shopmember.Member.DeductionActivity;
-import com.example.dengweixiong.Shopmember.Member.MemberCardListActivity;
+import com.example.dengweixiong.Shopmember.MemberCard.AddNewMemberCardActivity;
+import com.example.dengweixiong.Shopmember.MemberCard.ChargeActivity;
+import com.example.dengweixiong.Shopmember.MemberCard.DeductionActivity;
+import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
 import com.example.dengweixiong.Shopmember.Member.MemberListActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;

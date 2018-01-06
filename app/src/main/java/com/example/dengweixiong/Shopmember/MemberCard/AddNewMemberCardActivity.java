@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Member;
+package com.example.dengweixiong.Shopmember.MemberCard;
 
 import android.content.Intent;
 import android.os.Bundle;

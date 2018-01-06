@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
+import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;

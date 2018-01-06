@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Member;
+package com.example.dengweixiong.Shopmember.MemberCard;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

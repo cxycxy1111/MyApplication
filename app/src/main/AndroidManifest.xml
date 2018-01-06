@@ -33,11 +33,11 @@
         <activity android:name="com.example.dengweixiong.Shopmember.Member.MemberDetailActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Member.ResetMemberPwdActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Message.MessageListActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Member.AddNewMemberCardActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Member.MemberCardListActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Member.MemberCardDetailActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Member.ChargeActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Member.DeductionActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.MemberCard.AddNewMemberCardActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.MemberCard.MemberCardDetailActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.MemberCard.ChargeActivity" />
+        <activity android:name="com.example.dengweixiong.Shopmember.MemberCard.DeductionActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Course.Course.CourseDetailActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Profile.Card.CardTypeListActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Profile.Card.AddNewCardActivity" />

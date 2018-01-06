@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Member;
+package com.example.dengweixiong.Shopmember.MemberCard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.dengweixiong.Shopmember.Member.ChargeActivity;
-import com.example.dengweixiong.Shopmember.Member.DeductionActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 import java.util.ArrayList;
