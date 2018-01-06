@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Util.Enum.EnumRespType;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -252,6 +254,7 @@ public class MethodTool{
     }
 
     public static int dealWithResponse(String resp) {
+
         if (resp.startsWith("[")) {
             return Ref.RESP_TYPE_MAPLIST;
         }else if (resp.startsWith("{")) {
@@ -264,6 +267,23 @@ public class MethodTool{
             }
         }else {
             return Ref.RESP_TYPE_ERROR;
+        }
+    }
+
+    public static EnumRespType dealWithResponseReturnEnum(String resp) {
+
+        if (resp.startsWith("[")) {
+            return EnumRespType.RESP_MAPLIST;
+        }else if (resp.startsWith("{")) {
+            if (resp.contains(Ref.STATUS)) {
+                return EnumRespType.RESP_STAT;
+            }else if (resp.contains(Ref.DATA)){
+                return EnumRespType.RESP_DATA;
+            } else {
+                return EnumRespType.RESP_STAT;
+            }
+        }else {
+            return EnumRespType.RESP_ERROR;
         }
     }
 

@@ -13,6 +13,9 @@ import android.widget.Button;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
 import com.example.dengweixiong.Shopmember.Adapter.RVPureCheckBoxAdapter;
+import com.example.dengweixiong.Util.Enum.EnumReqCodeType;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -26,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class CoursePlanDetailTeacherFragment extends Fragment implements View.OnClickListener {
@@ -41,6 +45,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
     private List<Map<String,String>> mapList_supported_teacher_origin = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
     private Button btn_save;
+    private RVPureCheckBoxAdapter adapter;
     public CoursePlanDetailTeacherFragment() {
     }
 
@@ -155,37 +160,42 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int int_type_resp = MethodTool.dealWithResponse(resp);
-                if (int_type_resp == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_teacher);
-                    for (int i = 0;i < mapList_teacher_origin.size();i++) {
-                        Map<String,String> map_origin = mapList_teacher_origin.get(i);
-                        Map<String,String> map_temp = new HashMap<>();
-                        map_temp.put("teacherId",map_origin.get("id"));
-                        map_temp.put("teacherName",map_origin.get("name"));
-                        String c = "0";
-                        for (int j = 0;j < mapList_supported_teacher_origin.size();j++) {
-                            Map<String,String> map_supported_origin = mapList_supported_teacher_origin.get(j);
-                            String left = String.valueOf(map_origin.get("id"));
-                            String right = String.valueOf(map_supported_origin.get("sm_id"));
-                            if ( left.equals(right)) {
-                                c = "1";
+                EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
+                switch (enumRespType) {
+                    case RESP_MAPLIST:
+                        mapList_teacher_origin = JsonHandler.strToListMap(resp,strs_keys_teacher);
+                        for (int i = 0;i < mapList_teacher_origin.size();i++) {
+                            Map<String,String> map_origin = mapList_teacher_origin.get(i);
+                            Map<String,String> map_temp = new HashMap<>();
+                            map_temp.put("teacherId",map_origin.get("id"));
+                            map_temp.put("teacherName",map_origin.get("name"));
+                            String c = "0";
+                            for (int j = 0;j < mapList_supported_teacher_origin.size();j++) {
+                                Map<String,String> map_supported_origin = mapList_supported_teacher_origin.get(j);
+                                String left = String.valueOf(map_origin.get("id"));
+                                String right = String.valueOf(map_supported_origin.get("sm_id"));
+                                if ( left.equals(right)) {
+                                    c = "1";
+                                }
                             }
+                            map_temp.put("isChecked",c);
+                            mapList_recyclerview_data.add(map_temp);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initRecyclerView();
+                                }
+                            });
                         }
-                        map_temp.put("isChecked",c);
-                        mapList_recyclerview_data.add(map_temp);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                initRecyclerView();
-                            }
-                        });
-                    }
-                }else if (int_type_resp == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map = JsonHandler.strToMap(resp);
-                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
-                        MethodTool.showToast(getActivity(),Ref.STAT_NSR);
-                    }
+                    break;
+                    case RESP_STAT:
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(map);
+                        switch (enumRespStatType) {
+                            case NSR:
+                                MethodTool.showToast(getActivity(),Ref.STAT_NSR);
+                        }
+                    break;
                 }
             }
         };
@@ -194,12 +204,67 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
 
     private void initRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        RVPureCheckBoxAdapter adapter = new RVPureCheckBoxAdapter(mapList_recyclerview_data,getActivity());
+        adapter = new RVPureCheckBoxAdapter(mapList_recyclerview_data,getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void saveCoursePlanTeacherModify() {
-        String url = "";
+        List<Map<String,String>> mapList_after = new ArrayList<>();
+        mapList_after = adapter.getListmap_after();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0;i < mapList_recyclerview_data.size();i++) {
+            Map<String,String> map_temp_before = new HashMap<>();
+            Map<String,String> map_temp_after = new HashMap<>();
+            map_temp_before = mapList_recyclerview_data.get(i);
+            map_temp_after = mapList_after.get(i);
+            if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("0")) {
+
+            }else if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("1")) {
+                builder.append("1").append("_").append(cp_id).append("_").append(map_temp_after.get("teacherId")).append("-");
+            }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("0")) {
+                builder.append("2").append("_").append(cp_id).append("_").append(map_temp_after.get("teacherId")).append("-");
+            }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("1")) {
+
+            }
+        }
+        String req = builder.toString();
+        req = req.substring(0,req.length()-1);
+
+        String url = "/CoursePlanTeacherModify?m=" + req;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(getActivity(),Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType intRespType = EnumRespType.dealWithResponse(resp);
+                switch (intRespType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        EnumRespStatType type = EnumRespStatType.dealWithRespStat(map);
+                        switch (type) {
+                            case EXE_SUC:
+                                MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(getActivity(),Ref.OP_MODIFY_FAIL);
+                                break;
+                            case PARTYLY_FAIL:
+                                MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
+                                break;
+                            default:break;
+                        }
+                        getActivity().finish();
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(getActivity(),url,callback);
     }
 }
