@@ -15,50 +15,19 @@
         android:layout_height="@dimen/toolbar_height"
         android:theme="@style/Toolbar"
         app:popupTheme="@style/AlfredOverlay">
+        <Spinner
+            android:id="@+id/sp_a_member_card_list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></Spinner>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/distance16"
-        android:orientation="vertical"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_a_member_card_list"
         android:layout_below="@id/toolbar_a_member_card_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv1_a_add_new_member_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginBottom="@dimen/distance16"
-            android:text="选择会员"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/distance16"
-            android:background="#fff">
+    </android.support.v7.widget.RecyclerView>
 
-            <Spinner
-                android:id="@+id/spinner_member_a_member_card_list"
-                android:layout_margin="@dimen/distance16"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:dropDownWidth="130dp">
-            </Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ListView
-                android:id="@+id/lv_a_member_card_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

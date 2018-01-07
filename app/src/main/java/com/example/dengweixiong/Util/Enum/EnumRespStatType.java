@@ -16,7 +16,8 @@ public enum EnumRespStatType {
     DUPLICATE("duplicate"),
     NST_NOT_MATCH("institution_not_match"),
     EMPTY_RESULT("empty_result"),
-    PARTYLY_FAIL("exe_partly_fail");
+    PARTYLY_FAIL("exe_partly_fail"),
+    NOT_MATCH("not_match");
 
     private String type;
 
@@ -40,6 +41,8 @@ public enum EnumRespStatType {
             return EnumRespStatType.EMPTY_RESULT;
         } else if (value.equals(Ref.STAT_INST_NOT_MATCH)) {
             return EnumRespStatType.NST_NOT_MATCH;
+        } else if (value.equals(Ref.NOT_MATCH)){
+            return EnumRespStatType.NOT_MATCH;
         } else {
             return null;
         }

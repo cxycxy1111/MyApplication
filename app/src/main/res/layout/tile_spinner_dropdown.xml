@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#efefef"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@id/tile_spinner_text"
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#efefef"
+        android:layout_margin="@dimen/distance16"
+        style="@style/plain_text"
+        android:id="@+id/tv_tile_spinner"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/plain_text"/>
+        android:ellipsize="marquee"
+        android:textAlignment="inherit"/>
 
 </LinearLayout>

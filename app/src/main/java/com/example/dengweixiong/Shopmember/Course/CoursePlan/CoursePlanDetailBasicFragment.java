@@ -287,7 +287,7 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.tile_spinner,R.id.tile_spinner_text,list_classroom);
+                            ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.tile_spinner,android.R.id.text1,list_classroom);
                             adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
 
                             current_position = list_classroom.indexOf(str_classroom_name);

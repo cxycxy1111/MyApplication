@@ -16,20 +16,29 @@
         app:popupTheme="@style/AlfredOverlay">
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/lv_a_member_card_detail"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_a_member_card_detail"
         android:layout_below="@id/tb_a_member_card_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance16">
-    </ListView>
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
 
-    <ListView
-        android:id="@+id/lv_action_a_member_card_detail"
-        android:layout_below="@id/lv_a_member_card_detail"
+    <Button
+        android:id="@+id/btn_charge_member_card_detail"
+        style="@style/plain_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance16">
-    </ListView>
+        android:layout_below="@id/rv_a_member_card_detail"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="@dimen/distance32"
+        android:padding="0dp"
+        android:text="充  值" />
 
+    <Button
+        android:id="@+id/btn_deduct_member_card_detail"
+        android:text="扣  费"
+        android:layout_below="@id/btn_charge_member_card_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/plain_button"/>
 </RelativeLayout>

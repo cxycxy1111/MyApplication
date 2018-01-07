@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumReqCodeType;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -200,8 +202,7 @@ public class MemberDetailActivity
         switch (positon) {
             case 0:
                 intent = new Intent(this,MemberCardListActivity.class);
-                intent.putExtra("source","MemberDetailActivity");
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             case 1:
                 intent = new Intent(MemberDetailActivity.this,ResetMemberPwdActivity.class);
@@ -300,6 +301,19 @@ public class MemberDetailActivity
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                switch (resultCode) {
+                    case 1:
+                        break;
+                    default:break;
+                }
+            default:break;
+        }
     }
 
     private void dealWithDeleteMemberAction() {

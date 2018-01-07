@@ -111,7 +111,7 @@ public class AddCourseActivity
         for (int i = 0;i < origin_teacher.size();i++) {
             list.add(origin_teacher.get(i).get("name"));
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.tile_spinner,R.id.tile_spinner_text,list);
+        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.tile_spinner,R.layout.tile_spinner,list);
         adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
         tea_spinner.setAdapter(adapter);
         tea_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -131,7 +131,7 @@ public class AddCourseActivity
      * 初始化学生数据
      */
     private void initStudent() {
-        String url = "/QueryMemberList?shop_id=" + shop_id;
+        String url = "/QueryMemberList?s_id=" + shop_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -168,7 +168,7 @@ public class AddCourseActivity
         for (int i = 0;i < origin_student.size();i++) {
             list.add(origin_student.get(i).get("name"));
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this,R.layout.tile_spinner,R.id.tile_spinner_text,list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this,R.layout.tile_spinner,list);
         arrayAdapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
         stu_spinner.setAdapter(arrayAdapter);
         stu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -201,7 +201,7 @@ public class AddCourseActivity
      */
     private void initCourseSpinner() {
         course_spinner = (Spinner)findViewById(R.id.sp_type_a_addNewCourse);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.tile_spinner,R.id.tile_spinner_text,course_type);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.tile_spinner,android.R.id.text1,course_type);
         arrayAdapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
         course_spinner.setAdapter(arrayAdapter);
         course_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

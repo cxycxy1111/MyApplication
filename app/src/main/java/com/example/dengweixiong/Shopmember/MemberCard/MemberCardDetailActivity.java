@@ -1,108 +1,64 @@
 package com.example.dengweixiong.Shopmember.MemberCard;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.dengweixiong.Shopmember.Adapter.RVWithHintAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
+import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.MethodTool;
+import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class MemberCardDetailActivity
         extends BaseActivity
-        implements ListView.OnItemClickListener{
+        implements View.OnClickListener{
+
+    private String seletec_mc_id;
+    private static final String TOOLBAR_TITLE = "会员卡详情";
+
+    private String[] strs_keys_course_detail = new String[] {"id","member_name","card_name","type","balance","start_time","expired_time"};
+
+    private List<Map<String,String>> maplist_course_detail = new ArrayList<>();
+    private List<Map<String,String>> maplist_course_detail_after = new ArrayList<>();
 
     private Toolbar toolbar;
-    private ListView listView;
-    private ListView listView_action;
-    private static final String TOOLBAR_TITLE = "会员卡详情";
-    private SimpleAdapter adapter;
-    private SimpleAdapter adapter_action;
-    private String [] from={"left","right"};
-    private String [] from_action={"left"};
-    private int [] to = {R.id.tv_main_text_list_with_hint,R.id.tv_hint_text_list_with_hint};
-    private int[] to_action = {R.id.tv_action};
-    private String [] left = {"会员卡类型","卡内余额","生效时间","失效时间"};
-    private String [] left_action = {"充值","扣费"};
-    private String [] right = {"余额卡","200元","2016-10-08","2017-10-08"};
+    private Button btn_charge,btn_deduct;
+    private RecyclerView rv_course_detail;
+    private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MemberCardDetailActivity.this,LinearLayoutManager.VERTICAL,false);
+
+    private RVWithHintAdapter rv_course_adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_card_detail);
         initToolbar();
-        initListView();
-        initListViewAction();
-    }
-
-    private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.tb_a_member_card_detail);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(TOOLBAR_TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void initListView() {
-        adapter = new SimpleAdapter(this,initData(left,right),R.layout.tile_list_with_hint,from,to);
-        listView = (ListView)findViewById(R.id.lv_a_member_card_detail);
-        listView.setAdapter(adapter);
-    }
-
-    private void initListViewAction() {
-        adapter_action = new SimpleAdapter(this,initDataAction(left_action),R.layout.tile_action,from_action,to_action);
-        listView_action = (ListView)findViewById(R.id.lv_action_a_member_card_detail);
-        listView_action.setAdapter(adapter_action);
-        listView_action.setOnItemClickListener(this);
-    }
-
-    private List<Map<String,Object>> initData(String[] str_1,String[] str_2) {
-        List<Map<String,Object>> mapList = new ArrayList<>();
-        for (int i = 0;i < str_1.length;i++) {
-            Map<String,Object> map = new HashMap<>();
-            map.put("left",str_1[i]);
-            map.put("right",str_2[i]);
-            mapList.add(map);
-        }
-        return mapList;
-    }
-
-    private List<Map<String,Object>> initDataAction(String[] str_1) {
-        List<Map<String,Object>> mapList = new ArrayList<>();
-        for (int i = 0;i<str_1.length;i++) {
-            Map<String,Object> map = new HashMap<>();
-            map.put("left",str_1[i]);
-            mapList.add(map);
-        }
-        return mapList;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (parent == listView_action) {
-            Intent intent;
-            switch (position) {
-                case 0:
-                    intent = new Intent(this,ChargeActivity.class);
-                    startActivity(intent);
-                    this.finish();
-                    break;
-                case 1:
-                    intent = new Intent(this,DeductionActivity.class);
-                    startActivity(intent);
-                    this.finish();
-                    break;
-                default:
-                    break;
-            }
-        }
+        initData();
+        initViews();
+        initMemberCardDetail();
     }
 
     @Override
@@ -116,4 +72,144 @@ public class MemberCardDetailActivity
         }
         return true;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_charge_member_card_detail:
+                break;
+            case R.id.btn_deduct_member_card_detail:
+                break;
+            default:break;
+        }
+    }
+
+    private void initData() {
+        seletec_mc_id = getIntent().getStringExtra("mc_id");
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar)findViewById(R.id.tb_a_member_card_detail);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(TOOLBAR_TITLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void initViews() {
+        btn_charge = (Button)findViewById(R.id.btn_charge_member_card_detail);
+        btn_deduct = (Button)findViewById(R.id.btn_deduct_member_card_detail);
+        rv_course_detail = (RecyclerView) findViewById(R.id.rv_a_member_card_detail);
+
+        btn_charge.setOnClickListener(this);
+        btn_deduct.setOnClickListener(this);
+    }
+
+    private void initMemberCardDetail() {
+        String url = "/QueryMemberCardDetail?mc_id=" + seletec_mc_id;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(MemberCardDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        maplist_course_detail = JsonHandler.strToListMap(resp,strs_keys_course_detail);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView();
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        switch (respStatType){
+                            case NSR:
+                                MethodTool.showToast(MemberCardDetailActivity.this,"未找到会员卡");
+                                MemberCardDetailActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(MemberCardDetailActivity.this,url,callback);
+    }
+
+    private void initRecyclerView() {
+        Map<String,String> map_origin = maplist_course_detail.get(0);
+        if (String.valueOf(map_origin.get("type")).equals("1")) {
+            Map<String,String> map_type = new HashMap<>();
+            map_type.put("name","会员卡类型");
+            map_type.put("balance","余额卡");
+
+            Map<String,String> map_balance = new HashMap<>();
+            map_balance.put("name","卡内余额");
+            map_balance.put("balance",String.valueOf(map_origin.get("balance")));
+
+            Map<String,String> map_start_time = new HashMap<>();
+            map_start_time.put("name","生效时间");
+            map_start_time.put("balance",String.valueOf(map_origin.get("start_time")).split(" ")[0]);
+
+            Map<String,String> map_invalid_time = new HashMap<>();
+            map_invalid_time.put("name","失效时间");
+            map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
+
+            maplist_course_detail_after.add(map_type);
+            maplist_course_detail_after.add(map_balance);
+            maplist_course_detail_after.add(map_start_time);
+            maplist_course_detail_after.add(map_invalid_time);
+
+        } else if (String.valueOf(map_origin.get("type")).equals("2")) {
+            Map<String,String> map_type = new HashMap<>();
+            map_type.put("name","会员卡类型");
+            map_type.put("balance","次卡");
+
+            Map<String,String> map_balance = new HashMap<>();
+            map_balance.put("name","卡内次数");
+            map_balance.put("balance",String.valueOf(map_origin.get("balance")));
+
+            Map<String,String> map_start_time = new HashMap<>();
+            map_start_time.put("name","生效时间");
+            map_start_time.put("balance",String.valueOf(map_origin.get("start_time")).split(" ")[0]);
+
+            Map<String,String> map_invalid_time = new HashMap<>();
+            map_invalid_time.put("name","失效时间");
+            map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
+
+            maplist_course_detail_after.add(map_type);
+            maplist_course_detail_after.add(map_balance);
+            maplist_course_detail_after.add(map_start_time);
+            maplist_course_detail_after.add(map_invalid_time);
+        }else if (String.valueOf(map_origin.get("type")).equals("3")) {
+            Map<String,String> map_type = new HashMap<>();
+            map_type.put("name","会员卡类型");
+            map_type.put("balance","有效期卡");
+
+            Map<String,String> map_start_time = new HashMap<>();
+            map_start_time.put("name","生效时间");
+            map_start_time.put("balance",String.valueOf(map_origin.get("start_time")).split(" ")[0]);
+
+            Map<String,String> map_invalid_time = new HashMap<>();
+            map_invalid_time.put("name","失效时间");
+            map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
+
+            maplist_course_detail_after.add(map_type);
+            maplist_course_detail_after.add(map_start_time);
+            maplist_course_detail_after.add(map_invalid_time);
+        }
+
+        rv_course_adapter = new RVWithHintAdapter(MemberCardDetailActivity.this,maplist_course_detail_after);
+        rv_course_detail.setLayoutManager(linearLayoutManager);
+        rv_course_detail.setAdapter(rv_course_adapter);
+    }
+
+
 }

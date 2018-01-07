@@ -128,7 +128,7 @@ public class MemberListActivity
      */
     private void initData() {
         long shop_id = MethodTool.preGetLong(MemberListActivity.this,"sasm","s_id");
-        String url = "/QueryMemberList?shop_id=" + shop_id;
+        String url = "/QueryMemberList?s_id=" + shop_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

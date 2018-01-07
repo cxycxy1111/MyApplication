@@ -48,6 +48,7 @@ public abstract class Ref {
     public static final String STAT_INST_NOT_MATCH = "institution_not_match";
     public static final String STAT_EMPTY_RESULT = "empty_result";
     public static final String STAT_PARTYLY_FAIL = "exe_partly_fail";
+    public static final String NOT_MATCH = "not_match";
 
     /**
      * 操作类型
