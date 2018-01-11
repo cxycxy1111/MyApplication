@@ -127,7 +127,6 @@ public class MemberFragment
             switch (position) {
                 case 0:
                     intent = new Intent(getActivity(), AddNewMemberCardActivity.class);
-                    intent.putExtra("source","ShopmemberMainActivity");
                     startActivity(intent);
                     break;
                 case 1:
@@ -136,6 +135,8 @@ public class MemberFragment
                     break;
                 case 2:
                     intent = new Intent(getActivity(), ChargeActivity.class);
+                    intent.putExtra("source","ShopmemberMainActivity");
+                    startActivityForResult(intent,2);
                     startActivity(intent);
                     break;
                 case 3:

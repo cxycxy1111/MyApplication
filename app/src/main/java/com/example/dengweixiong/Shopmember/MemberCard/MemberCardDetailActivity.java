@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Shopmember.MemberCard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,17 +39,17 @@ public class MemberCardDetailActivity
     private String seletec_mc_id;
     private static final String TOOLBAR_TITLE = "会员卡详情";
 
-    private String[] strs_keys_course_detail = new String[] {"id","member_name","card_name","type","balance","start_time","expired_time"};
+    private String[] strs_keys_member_card_detail = new String[] {"id","member_id","card_id","member_name","card_name","type","balance","start_time","expired_time"};
 
-    private List<Map<String,String>> maplist_course_detail = new ArrayList<>();
-    private List<Map<String,String>> maplist_course_detail_after = new ArrayList<>();
+    private List<Map<String,String>> maplist_member_card_detail = new ArrayList<>();
+    private List<Map<String,String>> maplist_member_card_detail_after = new ArrayList<>();
 
     private Toolbar toolbar;
     private Button btn_charge,btn_deduct;
-    private RecyclerView rv_course_detail;
+    private RecyclerView rv_member_card_detail;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MemberCardDetailActivity.this,LinearLayoutManager.VERTICAL,false);
 
-    private RVWithHintAdapter rv_course_adapter;
+    private RVWithHintAdapter rv_member_card_adapter;
 
 
     @Override
@@ -75,12 +76,50 @@ public class MemberCardDetailActivity
 
     @Override
     public void onClick(View v) {
+        Intent intent;
+        Map<String,String> map = maplist_member_card_detail.get(0);
         switch (v.getId()) {
             case R.id.btn_charge_member_card_detail:
+                intent = new Intent(MemberCardDetailActivity.this,ChargeActivity.class);
+                intent.putExtra("source","member_card_detail");
+                intent.putExtra("m_id",String.valueOf(map.get("member_id")));
+                intent.putExtra("c_id",String.valueOf(map.get("card_name")));
+                intent.putExtra("mc_id",String.valueOf(map.get("id")));
+                intent.putExtra("m_name",String.valueOf(map.get("member_name")));
+                intent.putExtra("c_name",String.valueOf(map.get("card_name")));
+                intent.putExtra("c_type",String.valueOf(map.get("type")));
+                startActivityForResult(intent,1);
                 break;
             case R.id.btn_deduct_member_card_detail:
+                intent = new Intent(MemberCardDetailActivity.this,DeductionActivity.class);
+                intent.putExtra("source","member_card_detail");
+                intent.putExtra("m_id",String.valueOf(map.get("member_id")));
+                intent.putExtra("c_id",String.valueOf(map.get("card_name")));
+                intent.putExtra("mc_id",String.valueOf(map.get("id")));
+                intent.putExtra("m_name",String.valueOf(map.get("member_name")));
+                intent.putExtra("c_name",String.valueOf(map.get("card_name")));
+                intent.putExtra("c_type",String.valueOf(map.get("type")));
+                startActivityForResult(intent,2);
                 break;
             default:break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                switch (resultCode) {
+
+                }
+                break;
+            case 2:
+                switch (resultCode) {
+
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -98,7 +137,7 @@ public class MemberCardDetailActivity
     private void initViews() {
         btn_charge = (Button)findViewById(R.id.btn_charge_member_card_detail);
         btn_deduct = (Button)findViewById(R.id.btn_deduct_member_card_detail);
-        rv_course_detail = (RecyclerView) findViewById(R.id.rv_a_member_card_detail);
+        rv_member_card_detail = (RecyclerView) findViewById(R.id.rv_a_member_card_detail);
 
         btn_charge.setOnClickListener(this);
         btn_deduct.setOnClickListener(this);
@@ -118,7 +157,7 @@ public class MemberCardDetailActivity
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
-                        maplist_course_detail = JsonHandler.strToListMap(resp,strs_keys_course_detail);
+                        maplist_member_card_detail = JsonHandler.strToListMap(resp,strs_keys_member_card_detail);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -144,7 +183,7 @@ public class MemberCardDetailActivity
     }
 
     private void initRecyclerView() {
-        Map<String,String> map_origin = maplist_course_detail.get(0);
+        Map<String,String> map_origin = maplist_member_card_detail.get(0);
         if (String.valueOf(map_origin.get("type")).equals("1")) {
             Map<String,String> map_type = new HashMap<>();
             map_type.put("name","会员卡类型");
@@ -162,10 +201,10 @@ public class MemberCardDetailActivity
             map_invalid_time.put("name","失效时间");
             map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
 
-            maplist_course_detail_after.add(map_type);
-            maplist_course_detail_after.add(map_balance);
-            maplist_course_detail_after.add(map_start_time);
-            maplist_course_detail_after.add(map_invalid_time);
+            maplist_member_card_detail_after.add(map_type);
+            maplist_member_card_detail_after.add(map_balance);
+            maplist_member_card_detail_after.add(map_start_time);
+            maplist_member_card_detail_after.add(map_invalid_time);
 
         } else if (String.valueOf(map_origin.get("type")).equals("2")) {
             Map<String,String> map_type = new HashMap<>();
@@ -184,10 +223,10 @@ public class MemberCardDetailActivity
             map_invalid_time.put("name","失效时间");
             map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
 
-            maplist_course_detail_after.add(map_type);
-            maplist_course_detail_after.add(map_balance);
-            maplist_course_detail_after.add(map_start_time);
-            maplist_course_detail_after.add(map_invalid_time);
+            maplist_member_card_detail_after.add(map_type);
+            maplist_member_card_detail_after.add(map_balance);
+            maplist_member_card_detail_after.add(map_start_time);
+            maplist_member_card_detail_after.add(map_invalid_time);
         }else if (String.valueOf(map_origin.get("type")).equals("3")) {
             Map<String,String> map_type = new HashMap<>();
             map_type.put("name","会员卡类型");
@@ -201,14 +240,14 @@ public class MemberCardDetailActivity
             map_invalid_time.put("name","失效时间");
             map_invalid_time.put("balance",String.valueOf(map_origin.get("expired_time")).split(" ")[0]);
 
-            maplist_course_detail_after.add(map_type);
-            maplist_course_detail_after.add(map_start_time);
-            maplist_course_detail_after.add(map_invalid_time);
+            maplist_member_card_detail_after.add(map_type);
+            maplist_member_card_detail_after.add(map_start_time);
+            maplist_member_card_detail_after.add(map_invalid_time);
         }
 
-        rv_course_adapter = new RVWithHintAdapter(MemberCardDetailActivity.this,maplist_course_detail_after);
-        rv_course_detail.setLayoutManager(linearLayoutManager);
-        rv_course_detail.setAdapter(rv_course_adapter);
+        rv_member_card_adapter = new RVWithHintAdapter(MemberCardDetailActivity.this,maplist_member_card_detail_after);
+        rv_member_card_detail.setLayoutManager(linearLayoutManager);
+        rv_member_card_detail.setAdapter(rv_member_card_adapter);
     }
 
 
