@@ -2,6 +2,7 @@ package com.example.dengweixiong.Shopmember.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
+    private static final String TAG = "RVWithHintAdapter";
     private List<Map<String,String>> mapList;
     private Context context;
     private OnItemClickListener onItemClickListener;
@@ -25,6 +27,7 @@ public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnCl
     public RVWithHintAdapter(Context context,List<Map<String,String>> mapList) {
         this.context = context;
         this.mapList = mapList;
+        Log.d(TAG, "RVWithHintAdapter: " + mapList.toString());
     }
 
     @Override

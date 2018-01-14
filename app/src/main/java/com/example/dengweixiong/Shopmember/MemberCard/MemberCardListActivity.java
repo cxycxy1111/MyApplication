@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -42,7 +43,10 @@ import okhttp3.Response;
 
 public class MemberCardListActivity extends BaseActivity{
 
+    private int int_clicked_position;
+    private boolean isFirstTimeToThisPage = true;
     private String source;
+    private static final String TAG= "MemberCardListActivity:";
     private String s_id,sm_id;
     private String str_selected_mc_id;
     private String [] strs_keys_member = {"id","name"};
@@ -66,11 +70,11 @@ public class MemberCardListActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_card_list);
-        source = getIntent().getStringExtra("source");
-
+        Intent intent = getIntent();
+        String source = intent.getStringExtra("source");
+        this.source = source;
         initViews();
-        initData();
-        initMemberList();
+        initData(source);
     }
 
     @Override
@@ -78,11 +82,11 @@ public class MemberCardListActivity extends BaseActivity{
         Intent intent;
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (source == "MemberFragment") {
+                if (source.equals("ShopmemberMainActivity")) {
                     intent = new Intent(this,ShopmemberMainActivity.class);
                     setResult(1);
                     MemberCardListActivity.this.finish();
-                } else if (source == "MemberDetailActivity") {
+                } else if (source.equals("MemberDetailActivity")) {
                     intent = new Intent(this,MemberDetailActivity.class);
                     startActivity(intent);
                 }
@@ -94,6 +98,24 @@ public class MemberCardListActivity extends BaseActivity{
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                switch (resultCode) {
+                    case 1:
+                        Map<String,String> map = maplist_membercard_origin.get(int_clicked_position);
+                        map.put("balance",String.valueOf(data.getIntExtra("balance",0)));
+                        maplist_membercard_origin.set(int_clicked_position,map);
+                        rvWithHintAdapter.notifyDataSetChanged();
+                        break;
+                    default:break;
+                }
+                break;
+            default:break;
+        }
+    }
+
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_a_member_card_list);
         setSupportActionBar(toolbar);
@@ -103,6 +125,20 @@ public class MemberCardListActivity extends BaseActivity{
 
     private void initViews() {
         spinner = (Spinner)findViewById(R.id.sp_a_member_card_list);
+        spinner.setSelection(0,true);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (isFirstTimeToThisPage == false) {
+                    refreshListView(parent,position,id);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         recyclerView = (RecyclerView)findViewById(R.id.rv_a_member_card_list);
         linearLayoutManager = new LinearLayoutManager(MemberCardListActivity.this,LinearLayoutManager.VERTICAL,false);
         if (maplist_membercard_origin.size()!=0) {
@@ -110,12 +146,24 @@ public class MemberCardListActivity extends BaseActivity{
         }
     }
 
-    private void initData() {
-        sm_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","sm_id",2);
-        s_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","s_id",2);
+    private void initData(String source) {
+        String sm_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","sm_id",2);
+        String s_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","s_id",2);
+
+        switch (source) {
+            case "ShopmemberMainActivity":
+                initMemberList(s_id);
+                break;
+            case "MemberDetailActivity":
+                String m_id = String.valueOf(getIntent().getLongExtra("m_id",0));
+                String m_name = getIntent().getStringExtra("m_name");
+                initSingleMemberData(m_id,m_name);
+                break;
+            default:break;
+        }
     }
 
-    private void initMemberList () {
+    private void initMemberList (String s_id) {
         String url = "/QueryMemberList?s_id=" + s_id;
         Callback callback = new Callback() {
             @Override
@@ -126,6 +174,7 @@ public class MemberCardListActivity extends BaseActivity{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
+                Log.d(TAG, " MemberList onResponse: " + resp);
                 EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
                 switch (enumRespType) {
                     case RESP_MAPLIST:
@@ -137,7 +186,7 @@ public class MemberCardListActivity extends BaseActivity{
                             @Override
                             public void run() {
                                 initToolbar();
-                                initSpinner();
+                                initSpinner(String.valueOf(maplist_member_origin.get(0).get("id")));
                             }
                         });
                         break;
@@ -155,32 +204,20 @@ public class MemberCardListActivity extends BaseActivity{
         NetUtil.sendHttpRequest(MemberCardListActivity.this,url,callback);
     }
 
-
-
     //初始化会员选择的spinner
-    private void initSpinner() {
+    private void initSpinner(String m_id) {
         adapter = new ArrayAdapter<>(this,R.layout.tile_spinner,R.id.tv_tile_spinner,list_member_name);
         adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
         spinner.setDropDownVerticalOffset(120);
         spinner.setSelection(0);
         spinner.setAdapter(adapter);
-        initFirstMemberRecyclerViewData();
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                refreshListView(parent,position,id);
-            }
+        initFirstMemberRecyclerViewData(m_id);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                spinner.setSelection(0);
-            }
-        });
     }
 
     //首次加载时加载第一位会员的会员卡
-    private void initFirstMemberRecyclerViewData() {
-        String url = "/QueryMemberCardList?m_id=" + String.valueOf(maplist_member_origin.get(0).get("id"));
+    private void initFirstMemberRecyclerViewData(String m_id) {
+        String url = "/QueryMemberCardList?m_id=" + m_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -190,6 +227,7 @@ public class MemberCardListActivity extends BaseActivity{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
+                Log.d(TAG, "FirstrMemberView onResponse: " + resp);
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -213,8 +251,14 @@ public class MemberCardListActivity extends BaseActivity{
                                     }
                                 });
                                 recyclerView.setAdapter(rvWithHintAdapter);
+                                isFirstTimeToThisPage = false;
                             }
                         });
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(MemberCardListActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };
@@ -234,6 +278,7 @@ public class MemberCardListActivity extends BaseActivity{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
+                Log.d(TAG, "RefreshList onResponse: " + resp);
                 EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
                 switch (enumRespType) {
                     case RESP_MAPLIST:
@@ -253,9 +298,10 @@ public class MemberCardListActivity extends BaseActivity{
                                         rvWithHintAdapter.setOnItemClickListener(new RVWithHintAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(View view, int position) {
+                                                int_clicked_position = position;
                                                 Intent intent = new Intent(MemberCardListActivity.this,MemberCardDetailActivity.class);
                                                 intent.putExtra("mc_id",String.valueOf(maplist_membercard_origin.get(position).get("id")));
-                                                startActivity(intent);
+                                                startActivityForResult(intent,1);
                                             }
                                         });
                                     }
@@ -293,6 +339,13 @@ public class MemberCardListActivity extends BaseActivity{
             }
         };
         NetUtil.sendHttpRequest(MemberCardListActivity.this,url,callback);
+    }
+
+    private void initSingleMemberData(String id,String name) {
+        initToolbar();
+        list_member_name.add(name);
+        initSpinner(id);
+
     }
 
 }

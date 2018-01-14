@@ -37,6 +37,7 @@ public class MemberCardDetailActivity
         implements View.OnClickListener{
 
     private String seletec_mc_id;
+    private String balance_after_change,invalid_time_after_change;
     private static final String TOOLBAR_TITLE = "会员卡详情";
 
     private String[] strs_keys_member_card_detail = new String[] {"id","member_id","card_id","member_name","card_name","type","balance","start_time","expired_time"};
@@ -66,6 +67,9 @@ public class MemberCardDetailActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent = new Intent(MemberCardDetailActivity.this,MemberCardListActivity.class);
+                intent.putExtra("balance",balance_after_change);
+                setResult(1,intent);
                 this.finish();
                 break;
             default:
@@ -110,7 +114,47 @@ public class MemberCardDetailActivity
         switch (requestCode) {
             case 1:
                 switch (resultCode) {
+                    case 1:
+                        switch (data.getStringExtra("type")) {
+                            case "1":
+                                Map<String,String> map_balance = new HashMap<>();
+                                Map<String,String> map_invalid_date = new HashMap<>();
 
+                                map_balance = maplist_member_card_detail_after.get(1);
+                                balance_after_change = data.getStringExtra("balance");
+                                int int_temp_balance = Integer.parseInt(map_balance.get("balance")) + Integer.parseInt(balance_after_change);
+                                map_balance.put("balance",String.valueOf(int_temp_balance));
+                                maplist_member_card_detail_after.set(1,map_balance);
+
+                                map_invalid_date = maplist_member_card_detail_after.get(3);
+                                map_invalid_date.put("balance",data.getStringExtra("invalid_time").split(" ")[0]);
+                                maplist_member_card_detail_after.set(3,map_invalid_date);
+
+                                break;
+                            case "2":
+                                map_balance = maplist_member_card_detail_after.get(1);
+
+                                balance_after_change = data.getStringExtra("balance");
+                                int_temp_balance = Integer.parseInt(map_balance.get("balance")) + Integer.parseInt(balance_after_change);
+                                map_balance.put("balance",String.valueOf(int_temp_balance));
+
+                                maplist_member_card_detail_after.set(1,map_balance);
+                                map_invalid_date = maplist_member_card_detail_after.get(3);
+                                map_invalid_date.put("balance",data.getStringExtra("invalid_time").split(" ")[0]);
+                                maplist_member_card_detail_after.set(3,map_invalid_date);
+
+                                break;
+                            case "3":
+                                map_invalid_date = maplist_member_card_detail_after.get(2);
+                                map_invalid_date.put("balance",data.getStringExtra("invalid_time").split(" ")[0]);
+                                maplist_member_card_detail_after.set(2,map_invalid_date);
+                                balance_after_change = "0";
+
+                                break;
+                            default:break;
+                        }
+
+                        rv_member_card_adapter.notifyDataSetChanged();
                 }
                 break;
             case 2:

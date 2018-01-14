@@ -202,6 +202,9 @@ public class MemberDetailActivity
         switch (positon) {
             case 0:
                 intent = new Intent(this,MemberCardListActivity.class);
+                intent.putExtra("m_id",m_id);
+                intent.putExtra("m_name",map.get("name"));
+                intent.putExtra("source","MemberDetailActivity");
                 startActivityForResult(intent, 1);
                 break;
             case 1:
@@ -226,6 +229,7 @@ public class MemberDetailActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                /**
                 builder = new AlertDialog.Builder(MemberDetailActivity.this);
                 builder.setTitle("提示");
                 builder.setMessage("是否保存更改？");
@@ -244,6 +248,8 @@ public class MemberDetailActivity
                     }
                 });
                 builder.show();
+                 **/
+                MemberDetailActivity.this.finish();
                 break;
             case R.id.save_member_detail:
                 final String m_name = et_name.getText().toString();

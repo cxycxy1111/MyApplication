@@ -27,8 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MemberFragment
-        extends Fragment
-        implements ListView.OnItemClickListener{
+        extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private String mParam1;
@@ -92,8 +91,49 @@ public class MemberFragment
         adapter_2 = new SimpleAdapter(shopmemberMainActivity,mapList_2,R.layout.tile_simple_list_view_with_icon,map,id);
         listView_1.setAdapter(adapter_1);
         listView_2.setAdapter(adapter_2);
-        listView_1.setOnItemClickListener(this);
-        listView_2.setOnItemClickListener(this);
+        listView_1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (position) {
+                    case 1:
+                        intent = new Intent(getActivity(),AddNewMemberActivity.class);
+                        startActivity(intent);
+                    case 2:
+                        intent = new Intent(getActivity(),MemberListActivity.class);
+                        startActivity(intent);
+                    default:break;
+                }
+            }
+        });
+        listView_2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        intent = new Intent(getActivity(), AddNewMemberCardActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(getActivity(), MemberCardListActivity.class);
+                        intent.putExtra("source","ShopmemberMainActivity");
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(getActivity(), ChargeActivity.class);
+                        intent.putExtra("source","ShopmemberMainActivity");
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(getActivity(), DeductionActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     private List<Map<String,Object>> initData(String [] strings,int [] ints) {
@@ -105,48 +145,6 @@ public class MemberFragment
             mapList.add(map);
         }
         return  mapList;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent;
-        if (parent == listView_1) {
-            switch (position) {
-                case 0:
-                    intent = new Intent(getActivity(), AddNewMemberActivity.class);
-                    startActivity(intent);
-                    break;
-                case 1:
-                    intent = new Intent(getActivity(), MemberListActivity.class);
-                    startActivity(intent);
-                    break;
-                default:
-                    break;
-            }
-        } else if (parent == listView_2) {
-            switch (position) {
-                case 0:
-                    intent = new Intent(getActivity(), AddNewMemberCardActivity.class);
-                    startActivity(intent);
-                    break;
-                case 1:
-                    intent = new Intent(getActivity(), MemberCardListActivity.class);
-                    startActivity(intent);
-                    break;
-                case 2:
-                    intent = new Intent(getActivity(), ChargeActivity.class);
-                    intent.putExtra("source","ShopmemberMainActivity");
-                    startActivityForResult(intent,2);
-                    startActivity(intent);
-                    break;
-                case 3:
-                    intent = new Intent(getActivity(), DeductionActivity.class);
-                    startActivity(intent);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
     @Override

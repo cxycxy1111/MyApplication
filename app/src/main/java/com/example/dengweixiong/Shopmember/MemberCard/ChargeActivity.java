@@ -41,8 +41,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelectedListener,View.OnClickListener,EditText.OnFocusChangeListener{
+public class ChargeActivity extends BaseActivity implements View.OnClickListener,EditText.OnFocusChangeListener{
 
+    private boolean isLoaded = false;
     private int selected_main_type;
     private String str_s_id,str_sm_id;
     private String selected_main_sc_id;
@@ -76,7 +77,16 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
         setContentView(R.layout.activity_member_card_charge);
         initToolbar();
         initViews();
-        initData();
+        source = initData();
+        switch (source) {
+            case "ShopmemberMainActivity":
+                initMemberSpinnerData();
+                break;
+            case "member_card_detail":
+                initSpinners();
+                break;
+            default:break;
+        }
     }
 
     @Override
@@ -92,56 +102,65 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
                 this.finish();
                 break;
             case R.id.submit_charge:
-                String str_new_invalid_date = et_invalid_time.getText().toString();
-                switch (str_selected_type) {
-                    case "1":
-                        String balance = et_balance.getText().toString();
-                        if (NumberUtils.isNumber(balance)) {
-                            submitBalanceCharge(balance);
-                        }else {
-                            Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+                switch (source) {
+                    case "ShopmemberMainActivity":
+                        switch (selected_main_type) {
+                            case 1:
+                                String balance = et_balance.getText().toString();
+                                if (NumberUtils.isNumber(balance)) {
+                                    submitBalanceCharge(balance);
+                                }else {
+                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+                                }
+                                break;
+                            case 2:
+                                String num = et_num.getText().toString();
+                                if (NumberUtils.isNumber(num)) {
+                                    submitBalanceCharge(num);
+                                }else {
+                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+                                }
+                                break;
+                            case 3:
+                                submitBalanceCharge("0");
+                                break;
+                            default:break;
+                        }
+
+                        break;
+                    case "member_card_detail":
+                        switch (str_selected_type) {
+                            case "1":
+                                String balance = et_balance.getText().toString();
+                                if (NumberUtils.isNumber(balance)) {
+                                    submitBalanceCharge(balance);
+                                }else {
+                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+                                }
+                                break;
+                            case "2":
+                                String num = et_num.getText().toString();
+                                if (NumberUtils.isNumber(num)) {
+                                    submitBalanceCharge(num);
+                                }else {
+                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+                                }
+                                break;
+                            case "3":
+                                submitBalanceCharge("0");
+                                break;
+                            default:
+                                break;
                         }
                         break;
-                    case "2":
-                        String num = et_num.getText().toString();
-                        if (NumberUtils.isNumber(num)) {
-                            submitBalanceCharge(num);
-                        }else {
-                            Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
-                        }
-                        break;
-                    case "3":
-                        break;
-                    default:
-                        break;
+                    default:break;
                 }
+
                 break;
             default:
                 break;
         }
         return true;
-    }
-
-    //Spinner.OnItemSelectedListener
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (view.getId()) {
-            case R.id.sp_card_a_charge:
-                selected_main_sc_id = String.valueOf(maplist_member_card.get(position).get("id"));
-                selected_main_type = Integer.parseInt(String.valueOf(maplist_member_card.get(position).get("type")));
-                setLinearLayoutVisibility(selected_main_type);
-                break;
-            case R.id.sp_member_a_charge:
-                String str_selected_m_id = String.valueOf(maplist_member.get(position).get("id"));
-                refreshMemberCardSpinnerData(str_selected_m_id);
-                break;
-        }
-    }
-
-    //Spinner.OnItemSelectedListener
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     @Override
@@ -175,14 +194,14 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void initData() {
+    //开始区分从主界面还是从会员卡详情界面过来的
+    private String initData() {
         str_s_id = MethodTool.getSharePreferenceValue(ChargeActivity.this,"sasm","s_id",2);
         str_sm_id = MethodTool.getSharePreferenceValue(ChargeActivity.this,"sasm","sm_id",2);
         Intent intent = getIntent();
         source = intent.getStringExtra("source");
         switch (source) {
             case "ShopmemberMainActivity":
-                initMemberSpinnerData();
                 break;
             case "member_card_detail":
                 selected_m_id = intent.getStringExtra("m_id");
@@ -191,10 +210,38 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
                 selected_c_name = intent.getStringExtra("c_name");
                 selected_m_name = intent.getStringExtra("m_name");
                 str_selected_type = intent.getStringExtra("c_type");
-                initSpinners();
                 break;
             default:break;
         }
+        return source;
+    }
+
+    private void initSpinnerListener() {
+        spinner_member.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String str_temp_m_id = String.valueOf(maplist_member.get(position).get("id"));
+                refreshMemberCardSpinnerData(str_temp_m_id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner_member_card.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected_main_sc_id = String.valueOf(maplist_member_card.get(position).get("id"));
+                selected_main_type = Integer.valueOf(String.valueOf(maplist_member_card.get(position).get("type")));
+                setLinearLayoutVisibility(selected_main_type);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     //初始化视图控件
@@ -208,6 +255,7 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
 
         spinner_member_card = (Spinner)findViewById(R.id.sp_card_a_charge);
         spinner_member = (Spinner)findViewById(R.id.sp_member_a_charge);
+
         linearLayout_balance = (LinearLayout)findViewById(R.id.ll_balance_a_charge);
         linearLayout_num = (LinearLayout)findViewById(R.id.ll_num_a_charge);
         linearLayout_time = (LinearLayout)findViewById(R.id.ll_time_a_charge);
@@ -254,6 +302,7 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
         }else {
 
         }
+        isLoaded = true;
     }
 
     //如果是从ShopmemberMain过来的，处理逻辑如下：
@@ -293,7 +342,6 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
         spinner_member_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_member.setAdapter(spinner_member_adapter);
         spinner_member.setSelection(0);
-        spinner_member.setOnItemSelectedListener(this);
 
         initMemberCardSpinnerData(String.valueOf(maplist_member.get(0).get("id")));
     }
@@ -348,7 +396,9 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
-                        maplist_member_card = JsonHandler.strToListMap(resp,keys_member_card);
+                        List<Map<String,String>> mapList_temp = new ArrayList<>();
+                        mapList_temp =  JsonHandler.strToListMap(resp,keys_member_card);
+                        maplist_member_card.addAll(mapList_temp);
                         for (int i = 0;i < maplist_member_card.size();i++) {
                             list_member_card_name.add(maplist_member_card.get(i).get("name"));
                         }
@@ -356,8 +406,9 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
                             @Override
                             public void run() {
                                 spinner_card_adapter.notifyDataSetChanged();
-                                int type = Integer.valueOf(String.valueOf(maplist_member_card.get(0).get("type")));
-                                setLinearLayoutVisibility(type);
+                                selected_main_type = Integer.valueOf(String.valueOf(maplist_member_card.get(0).get("type")));
+                                selected_main_sc_id = String.valueOf(maplist_member_card.get(0).get("id"));
+                                setLinearLayoutVisibility(selected_main_type);
                             }
                         });
                         break;
@@ -383,15 +434,8 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
         spinner_card_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_member_card.setAdapter(spinner_card_adapter);
         spinner_member_card.setSelection(0);
-        spinner_member_card.setOnItemSelectedListener(this);
-    }
-
-    private void refreshMemberCardSpinner() {
-        spinner_card_adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,android.R.id.text1,list_member_card_name);
-        spinner_card_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_member_card.setAdapter(spinner_card_adapter);
-        spinner_member_card.setSelection(0);
-        spinner_member_card.setOnItemSelectedListener(this);
+        initSpinnerListener();
+        isLoaded = true;
     }
 
     private void setLinearLayoutVisibility(int selected_main_type) {
@@ -414,11 +458,20 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
 
     private void submitBalanceCharge(String num) {
         String url = "";
-        if (source.equals("ShopmemberMainActivity")) {
-            url = "/Charge?mc_id?mc_id=" + selected_main_sc_id + "&lmu=" + str_sm_id + "&num=" + num;
-        }else if (source.equals("member_card_detail")) {
-            url = "/Charge?mc_id?mc_id=" + selected_mc_id + "&lmu=" + str_sm_id + "&num=" + num;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(et_invalid_time.getText().toString() + " 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        final String str_invalid_date = simpleDateFormat.format(date);
+        if (source.equals("ShopmemberMainActivity")) {
+            url = "/Charge?mc_id=" + selected_main_sc_id + "&lmu=" + str_sm_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
+        }else if (source.equals("member_card_detail")) {
+            url = "/Charge?mc_id=" + selected_mc_id + "&lmu=" + str_sm_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
+        }
+
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -437,11 +490,35 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
                         switch (respStatType) {
                             case EXE_SUC:
                                 MethodTool.showToast(ChargeActivity.this,Ref.OP_SUCCESS);
-                                submitInvalidDate();
+                                Intent intent = new Intent(ChargeActivity.this,MemberCardDetailActivity.class);
+                                switch (source) {
+                                    case "member_card_detail":
+                                        switch (str_selected_type) {
+                                            case "1":
+                                                intent.putExtra("type","1");
+                                                intent.putExtra("balance",et_balance.getText().toString());
+                                                intent.putExtra("invalid_time",str_invalid_date);
+                                                break;
+                                            case "2":
+                                                intent.putExtra("type","2");
+                                                intent.putExtra("balance",et_balance.getText().toString());
+                                                intent.putExtra("invalid_time",str_invalid_date);
+                                                break;
+                                            case "3":
+                                                intent.putExtra("type","2");
+                                                intent.putExtra("balance","0");
+                                                intent.putExtra("invalid_time",str_invalid_date);
+                                            default:break;
+                                        }
+                                        setResult(1,intent);
+                                         break;
+                                     default:break;
+                                }
+                                ChargeActivity.this.finish();
                                 break;
                             case EXE_FAIL:
                                 MethodTool.showToast(ChargeActivity.this,Ref.OP_FAIL);
-                                submitInvalidDate();
+                                ChargeActivity.this.finish();
                                 break;
                             case NSR:
                                 MethodTool.showToast(ChargeActivity.this,Ref.STAT_NSR);
@@ -459,67 +536,6 @@ public class ChargeActivity extends BaseActivity implements Spinner.OnItemSelect
             }
         };
         NetUtil.sendHttpRequest(ChargeActivity.this,url,callback);
-    }
-
-    private void submitInvalidDate() {
-        if (!et_invalid_time.getText().toString().equals("") || !et_invalid_time.getText().toString().equals(null)) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = null;
-            try {
-                date = simpleDateFormat.parse(et_invalid_time.getText().toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            String str_invalid_date = simpleDateFormat.format(date);
-            String url = "";
-            if (source.equals("ShopmemberMainActivity")) {
-                url = "/Charge?mc_id?mc_id=" + selected_main_sc_id + "&lmu=" + str_sm_id + "&et=" + str_invalid_date;
-            }else if (source.equals("member_card_detail")) {
-                url = "/Charge?mc_id?mc_id=" + selected_mc_id + "&lmu=" + str_sm_id + "&et=" + str_invalid_date;
-            }
-            Callback callback = new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    MethodTool.showToast(ChargeActivity.this,Ref.CANT_CONNECT_INTERNET);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String resp = response.body().string();
-                    EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                    switch (respType) {
-                        case RESP_STAT:
-                            Map<String,String> map = JsonHandler.strToMap(resp);
-                            EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
-                            switch (respStatType) {
-                                case NOT_MATCH:
-                                    MethodTool.showToast(ChargeActivity.this,Ref.NOT_MATCH);
-                                    ChargeActivity.this.finish();
-                                    break;
-                                case NSR:
-                                    MethodTool.showToast(ChargeActivity.this,Ref.STAT_NSR);
-                                    ChargeActivity.this.finish();
-                                    break;
-                                case EXE_SUC:
-                                    MethodTool.showToast(ChargeActivity.this,Ref.OP_SUCCESS);
-                                    ChargeActivity.this.finish();
-                                    break;
-                                case EXE_FAIL:
-                                    MethodTool.showToast(ChargeActivity.this,Ref.OP_FAIL);
-                                    break;
-                                default:break;
-                            }
-                        case RESP_ERROR:
-                            MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
-                            break;
-                    }
-                }
-            };
-            NetUtil.sendHttpRequest(ChargeActivity.this,url,callback);
-        }else {
-            ChargeActivity.this.finish();
-        }
-
     }
 
 }
