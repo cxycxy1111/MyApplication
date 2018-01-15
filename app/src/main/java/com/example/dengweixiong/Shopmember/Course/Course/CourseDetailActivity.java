@@ -17,7 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCourseDetailAdapter;
+import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -399,6 +402,7 @@ public class CourseDetailActivity
                 }
                 break;
             case R.id.delete_a_course_detail:
+
                 break;
             default:break;
         }
@@ -591,5 +595,48 @@ public class CourseDetailActivity
             NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
         }
 
+    }
+
+    private void deleteCourse() {
+        String url = "/CourseDelete?id=" + str_courseId + "&lmu=" + sm_id;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(CourseDetailActivity.this,Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        Map<String,String> map = JsonHandler.strToMap(resp);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        switch (respStatType) {
+                            case EXE_FAIL:
+                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_DELETE_FAIL);
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_DELETE_SUCCESS);
+                                Intent intent = new Intent(CourseDetailActivity.this, ShopmemberMainActivity.class);
+                                intent.putExtra("c_id",str_courseId);
+                                setResult(1,intent);
+                                CourseDetailActivity.this.finish();
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                                CourseDetailActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
     }
 }

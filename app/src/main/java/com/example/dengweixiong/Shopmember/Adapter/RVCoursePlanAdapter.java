@@ -53,7 +53,8 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         VH vh = (VH)holder;
         vh.itemView.setTag(position);
-        vh.tv_time.setText(mapList.get(position).get("start_time"));
+        String start_time = mapList.get(position).get("start_time");
+        vh.tv_time.setText(start_time.substring(0,start_time.length()-5));
         vh.tv_name.setText(mapList.get(position).get("course_name"));
         vh.tv_classroom.setText(mapList.get(position).get("classroom_name"));
         vh.tv_last_time.setText(String.valueOf(mapList.get(position).get("last_time")));

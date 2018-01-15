@@ -294,5 +294,4 @@ public class MemberCardDetailActivity
         rv_member_card_detail.setAdapter(rv_member_card_adapter);
     }
 
-
 }

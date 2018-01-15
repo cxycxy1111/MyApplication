@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -197,69 +199,76 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (MethodTool.dealWithResponse(resp) == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map = new HashMap<>();
-                    map = JsonHandler.strToMap(resp);
-                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
-                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
-                    }
-                }else if (MethodTool.dealWithResponse(resp) == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_detail = JsonHandler.strToListMap(resp,strs_detail_keys);
-                    final List<Map<String, String>> final_list_map_detail = mapList_detail;
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Map<String,String> map = final_list_map_detail.get(0);
-                            //初始化时间
-                            str_start_time = map.get("start_time");
-                            try {
-                                initDatePickerDialog();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                initTimePickerDialog();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Date date = null;
-                            try {
-                                date = sdf.parse(str_start_time);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(date);
-                            selected_year = calendar.get(Calendar.YEAR);
-                            selected_month = calendar.get(Calendar.MONTH + 1);
-                            selected_date = calendar.get(Calendar.DAY_OF_MONTH);
-                            selected_hour = calendar.get(Calendar.HOUR_OF_DAY);
-                            selected_minute = calendar.get(Calendar.MINUTE);
-
-                            String str_classroom_name = map.get("classroom_name");
-
-                            et_course_name.setText(map.get("course_name"));
-                            et_start_date.setText(str_start_time.split(" ")[0]);
-                            et_start_date.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dpd_date.show();
-                                }
-                            });
-                            et_start_time.setText(str_start_time.split(" ")[1]);
-                            et_start_time.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    tpd_time.show();
-                                }
-                            });
-                            et_last_time.setText(String.valueOf(map.get("last_time")));
-                            et_remark.setText(map.get("remark"));
-                            initClassroomSpinner(str_classroom_name);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        Map<String,String> map = new HashMap<>();
+                        map = JsonHandler.strToMap(resp);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                                break;
+                            default:break;
                         }
-                    });
+                        break;
+                    case RESP_MAPLIST:
+                        mapList_detail = JsonHandler.strToListMap(resp,strs_detail_keys);
+                        final List<Map<String, String>> final_list_map_detail = mapList_detail;
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Map<String,String> map = final_list_map_detail.get(0);
+                                //初始化时间
+                                str_start_time = map.get("start_time");
+                                try {
+                                    initDatePickerDialog();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    initTimePickerDialog();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                Date date = null;
+                                try {
+                                    date = sdf.parse(str_start_time);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(date);
+                                selected_year = calendar.get(Calendar.YEAR);
+                                selected_month = calendar.get(Calendar.MONTH + 1);
+                                selected_date = calendar.get(Calendar.DAY_OF_MONTH);
+                                selected_hour = calendar.get(Calendar.HOUR_OF_DAY);
+                                selected_minute = calendar.get(Calendar.MINUTE);
+
+                                String str_classroom_name = map.get("classroom_name");
+
+                                et_course_name.setText(map.get("course_name"));
+                                et_start_date.setText(str_start_time.split(" ")[0]);
+                                et_start_date.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dpd_date.show();
+                                    }
+                                });
+                                et_start_time.setText(str_start_time.split(" ")[1]);
+                                et_start_time.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        tpd_time.show();
+                                    }
+                                });
+                                et_last_time.setText(String.valueOf(map.get("last_time")));
+                                et_remark.setText(map.get("remark"));
+                                initClassroomSpinner(str_classroom_name);
+                            }
+                        });
                 }
             }
         };
@@ -287,8 +296,8 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ArrayAdapter adapter = new ArrayAdapter(getActivity(),R.layout.tile_spinner,android.R.id.text1,list_classroom);
-                            adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
+                            ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,list_classroom);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                             current_position = list_classroom.indexOf(str_classroom_name);
 

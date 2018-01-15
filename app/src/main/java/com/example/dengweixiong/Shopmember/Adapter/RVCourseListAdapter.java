@@ -3,6 +3,7 @@ package com.example.dengweixiong.Shopmember.Adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class RVCourseListAdapter
         extends RecyclerView.Adapter {
 
+    private static final String TAG = "RVCourseListAdapter:";
     private List<Map<String,String>> mapList = new ArrayList<>();
     private Activity activity;
 
@@ -54,7 +56,13 @@ public class RVCourseListAdapter
         final ViewHolder holder1 = (ViewHolder)holder;
         Map<String,String> map = mapList.get(position);
         holder1.tv_name.setText(map.get("name"));
-        holder1.tv_time.setText(map.get("time"));
+        Log.d(TAG, "onBindViewHolder: " + map.get("last_time"));
+        if (map.get("last_time").equals("") || map.get("last_time").equals(null) || map.get("last_time").equals("null")) {
+            holder1.tv_time.setText("");
+        }else {
+            holder1.tv_time.setText(map.get("last_time") + "分钟");
+        }
+
         holder1.tv_supportedcard.setText(map.get("supportedcard"));
     }
 

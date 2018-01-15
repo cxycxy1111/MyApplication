@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class CourseListFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-
+    private static final String TAG = "CourseListFragment:";
     private OnFragmentInteractionListener mListener;
     private long s_id,sm_id;
     private String [] keys = {"id","name","last_time","supportedcard"};
@@ -126,7 +127,8 @@ public class CourseListFragment extends Fragment {
                         String supportedcard = temp_map.get("supportedcard");
                         new_map.put("id",temp_map.get("id"));
                         new_map.put("name",temp_map.get("name"));
-                        new_map.put("last_time",temp_map.get("last_time"));
+                        new_map.put("last_time",String.valueOf(temp_map.get("last_time")));
+                        Log.d(TAG, "onResponse: " + String.valueOf(temp_map.get("last_time")));
                         new_map.put("type",temp_map.get("type"));
                         if (supportedcard.equals("") | supportedcard.equals(null)) {
                             new_map.put("supportedcard","未设置所支持的卡");
@@ -167,7 +169,15 @@ public class CourseListFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                switch (resultCode) {
+                    case 1:
+                        break;
+                    default:break;
+                }
+            default:break;
+        }
     }
 
     public void onButtonPressed(Uri uri) {

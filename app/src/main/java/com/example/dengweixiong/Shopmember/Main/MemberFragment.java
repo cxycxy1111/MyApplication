@@ -96,10 +96,10 @@ public class MemberFragment
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 switch (position) {
-                    case 1:
+                    case 0:
                         intent = new Intent(getActivity(),AddNewMemberActivity.class);
                         startActivity(intent);
-                    case 2:
+                    case 1:
                         intent = new Intent(getActivity(),MemberListActivity.class);
                         startActivity(intent);
                     default:break;
@@ -127,6 +127,7 @@ public class MemberFragment
                         break;
                     case 3:
                         intent = new Intent(getActivity(), DeductionActivity.class);
+                        intent.putExtra("source","ShopmemberMainActivity");
                         startActivity(intent);
                         break;
                     default:

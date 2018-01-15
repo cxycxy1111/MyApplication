@@ -74,7 +74,7 @@ public class AddCourseActivity
      * 初始化教师数据
      */
     private void initTeacher() {
-        String url = "/QueryShopmemberList?shop_id=" + shop_id + "&type=0";
+        String url = "/QueryShopmemberList?s_id=" + shop_id + "&type=0";
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -111,8 +111,8 @@ public class AddCourseActivity
         for (int i = 0;i < origin_teacher.size();i++) {
             list.add(origin_teacher.get(i).get("name"));
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.tile_spinner,R.layout.tile_spinner,list);
-        adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tea_spinner.setAdapter(adapter);
         tea_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -168,8 +168,8 @@ public class AddCourseActivity
         for (int i = 0;i < origin_student.size();i++) {
             list.add(origin_student.get(i).get("name"));
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this,R.layout.tile_spinner,list);
-        arrayAdapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AddCourseActivity.this,android.R.layout.simple_spinner_item,list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stu_spinner.setAdapter(arrayAdapter);
         stu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -201,8 +201,8 @@ public class AddCourseActivity
      */
     private void initCourseSpinner() {
         course_spinner = (Spinner)findViewById(R.id.sp_type_a_addNewCourse);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.tile_spinner,android.R.id.text1,course_type);
-        arrayAdapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,android.R.id.text1,course_type);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course_spinner.setAdapter(arrayAdapter);
         course_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

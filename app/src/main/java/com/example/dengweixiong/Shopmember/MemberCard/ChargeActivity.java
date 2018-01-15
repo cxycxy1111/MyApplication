@@ -459,13 +459,20 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
     private void submitBalanceCharge(String num) {
         String url = "";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str_origin_invalid_time = et_invalid_time.getText().toString();
         Date date = null;
-        try {
-            date = simpleDateFormat.parse(et_invalid_time.getText().toString() + " 00:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
+        final String str_invalid_date;
+        if (str_origin_invalid_time.length() != 0) {
+            try {
+                date = simpleDateFormat.parse(str_origin_invalid_time + " 00:00:00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+             str_invalid_date = simpleDateFormat.format(date);
+        }else {
+            str_invalid_date = "";
         }
-        final String str_invalid_date = simpleDateFormat.format(date);
+
         if (source.equals("ShopmemberMainActivity")) {
             url = "/Charge?mc_id=" + selected_main_sc_id + "&lmu=" + str_sm_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
         }else if (source.equals("member_card_detail")) {

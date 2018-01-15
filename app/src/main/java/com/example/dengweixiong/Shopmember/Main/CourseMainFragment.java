@@ -1,12 +1,14 @@
 package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -70,6 +72,10 @@ public class CourseMainFragment
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    }
+
     private void initView(View view) {
         initToolbar();
         initFragments();
@@ -101,6 +107,7 @@ public class CourseMainFragment
     }
 
     private void initViewPager(View view) {
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
         if (viewPager == null) {
             viewPager = (ViewPager) view.findViewById(R.id.vp_f_courseMain);
         }

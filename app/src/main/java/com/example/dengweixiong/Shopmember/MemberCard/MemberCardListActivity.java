@@ -85,12 +85,10 @@ public class MemberCardListActivity extends BaseActivity{
                 if (source.equals("ShopmemberMainActivity")) {
                     intent = new Intent(this,ShopmemberMainActivity.class);
                     setResult(1);
-                    MemberCardListActivity.this.finish();
+                    finish();
                 } else if (source.equals("MemberDetailActivity")) {
-                    intent = new Intent(this,MemberDetailActivity.class);
-                    startActivity(intent);
+                    finish();
                 }
-                this.finish();
                 break;
             default:
                 break;

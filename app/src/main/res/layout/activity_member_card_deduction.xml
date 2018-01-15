@@ -80,6 +80,7 @@
                 android:id="@+id/et_balance_a_deduction"
                 style="@style/plain_text"
                 android:hint="元"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance8"
@@ -94,9 +95,10 @@
             android:layout_marginBottom="@dimen/distance16"
             android:background="#fff">
             <EditText
-                android:id="@+id/et_num_a_charge"
+                android:id="@+id/et_num_a_deduction"
                 style="@style/plain_text"
                 android:hint="次数"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance8"

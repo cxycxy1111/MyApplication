@@ -47,10 +47,7 @@ public class CourseViewPagerAdapter extends FragmentStatePagerAdapter{
 
     @SuppressLint("RestrictedApi")
     @Override
-    public android.support.v4.app.Fragment getItem(int position) {
-
-        return fragments.get(position);
-    }
+    public android.support.v4.app.Fragment getItem(int position) {return fragments.get(position);}
 
     @SuppressLint("RestrictedApi")
     @Override
