@@ -25,6 +25,9 @@
     <string name="title_activity_add_new_card">AddNewCardActivity</string>
     <string name="title_activity_shopmember_detail">ShopmemberDetailActivity</string>
 
+    <string name="title_a_reset_member_pwd">重置密码</string>
+    <string name="title_a_login">注册新机构与登录</string>
+
     <string name="save">保存</string>
     <string name="delete">删除</string>
     <string name="add">新增</string>

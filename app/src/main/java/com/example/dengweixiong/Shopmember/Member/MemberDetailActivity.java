@@ -21,6 +21,7 @@ import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumReqCodeType;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -28,7 +29,11 @@ import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,18 +48,21 @@ public class MemberDetailActivity
             DatePickerDialog.OnDateSetListener,
             EditText.OnFocusChangeListener{
 
+    private int current_year,current_month,current_date;
     Toolbar toolbar;
     private String toolbar_title;
     private long s_id,sm_id,m_id;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
     private EditText et_sn,et_name,et_birthday,et_phone,et_im;
+
     private CharSequence sn,name,birthday,phone,im;
     private ArrayList<String> list = new ArrayList<>();
     private Map<String,String> map = new HashMap<>();
     private int year,month,day;
     private AlertDialog.Builder builder;
     private int position;
+    private DatePickerDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class MemberDetailActivity
         initToolBar();
         initActions();
         initData();
-        initView();
+        loadMemberDetail();
     }
 
     private void initToolBar () {
@@ -88,7 +96,7 @@ public class MemberDetailActivity
         simpleRecylcerViewAdapter.setOnItemClickListener(this);
     }
 
-    private void initView() {
+    private void loadMemberDetail() {
         String url = "/QueryMemberDetail?member_id=" + m_id +
                 "&shop_id=" + s_id;
         Callback callback = new Callback() {
@@ -100,19 +108,28 @@ public class MemberDetailActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name","login_name","birthday","phone","im"};
-                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
-                ArrayList<String> values = new ArrayList<String>();
-                for (int i = 0;i < list.size();i++) {
-                    map = list.get(0);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name","login_name","birthday","phone","im"};
+                        ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
+                        ArrayList<String> values = new ArrayList<String>();
+                        for (int i = 0;i < list.size();i++) {
+                            map = list.get(0);
+                        }
+                        m_id = Long.parseLong(String.valueOf(map.get("id")));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initEditText(map);
+                            }
+                        });
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        finish();
                 }
-                m_id = Long.parseLong(String.valueOf(map.get("id")));
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initEditText(map);
-                    }
-                });
+
             }
         };
         NetUtil.sendHttpRequest(MemberDetailActivity.this,url,callback);
@@ -122,6 +139,17 @@ public class MemberDetailActivity
         sm_id =MethodTool.preGetLong(MemberDetailActivity.this,"sasm","sm_id");
         s_id = MethodTool.preGetLong(MemberDetailActivity.this,"sasm","s_id");
         dealWithIntent();
+    }
+
+    private void initDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                et_birthday.setText(new StringBuffer().append(year).append("-").append(month+1).append("-").append(dayOfMonth));
+            }
+        };
+        dialog = new DatePickerDialog(MemberDetailActivity.this,listener,current_year,current_month,current_date);
     }
 
     private void initEditText(Map<String,String> map) {
@@ -141,9 +169,27 @@ public class MemberDetailActivity
         name = String.valueOf(o_name);
         et_sn.setText(sn);
         et_name.setText(name);
-        et_birthday.setText(String.valueOf(map.get("birthday")));
+        String birthday = String.valueOf(map.get("birthday"));
+        birthday = birthday.substring(0,birthday.length()-11);
+        et_birthday.setText(birthday);
         et_phone.setText(String.valueOf(map.get("phone")));
         et_im.setText(String.valueOf(map.get("im")));
+
+        //初始化时间选择器
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(birthday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        current_year = calendar.get(Calendar.YEAR);
+        current_month = calendar.get(Calendar.MONTH);
+        current_date = calendar.get(Calendar.DAY_OF_MONTH);
+        initDatePickerDialog();
+
     }
 
     private void dealWithIntent() {
@@ -159,7 +205,6 @@ public class MemberDetailActivity
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_add_new_member:
                 if (hasFocus == false) {
-                    DatePickerDialog dialog = new DatePickerDialog(MemberDetailActivity.this, MemberDetailActivity.this, year, month, day);
                     dialog.show();
                 }
                 break;
@@ -172,7 +217,6 @@ public class MemberDetailActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_member_detail:
-                DatePickerDialog dialog = new DatePickerDialog(MemberDetailActivity.this, MemberDetailActivity.this, year, month, day);
                 dialog.show();
                 break;
             default:
@@ -202,9 +246,7 @@ public class MemberDetailActivity
         switch (positon) {
             case 0:
                 intent = new Intent(this,MemberCardListActivity.class);
-                intent.putExtra("m_id",m_id);
-                intent.putExtra("m_name",map.get("name"));
-                intent.putExtra("source","MemberDetailActivity");
+                intent.putExtra("m_id",m_id).putExtra("m_name",map.get("name")).putExtra("source","MemberDetailActivity");
                 startActivityForResult(intent, 1);
                 break;
             case 1:
@@ -252,56 +294,7 @@ public class MemberDetailActivity
                 MemberDetailActivity.this.finish();
                 break;
             case R.id.save_member_detail:
-                final String m_name = et_name.getText().toString();
-                String m_birthday = et_birthday.getText().toString();
-                String m_phone = et_phone.getText().toString();
-                String m_im = et_im.getText().toString();
-                long sm_id = MethodTool.preGetLong(MemberDetailActivity.this,"sasm","sm_id");
-                String url = "/ModifyMember?member_id=" + m_id +
-                        "&shopmember_id=" + sm_id +
-                        "&name=" + m_name +
-                        "&birthday=" + m_birthday +
-                        "&phone=" + m_phone +
-                        "&im=" + m_im;
-                Callback callback = new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Map<String,String> map = new HashMap<>();
-                        String resp = response.body().string();
-                        map = JsonHandler.strToMap(resp);
-                        ArrayList<String> keys = MethodTool.getKeys(map);
-                        ArrayList<String> values = MethodTool.getValues(map,keys);
-                        if (keys.get(0).equals(Ref.STATUS)) {
-                            switch (String.valueOf(values.get(0))) {
-                                case "exe_suc":
-                                    MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
-                                    Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
-                                    intent.putExtra("pos",position);
-                                    intent.putExtra("m_id",m_id);
-                                    intent.putExtra("m_name",m_name);
-                                    setResult(Ref.RESULTCODE_UPDATE,intent);
-                                    finish();
-                                    break;
-                                case "exe_fail":
-                                    MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_FAIL);
-                                    break;
-                                case "no_such_record":
-                                    MethodTool.showToast(MemberDetailActivity.this,"会员已被删除");
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }else {
-                            MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
-                        }
-                    }
-                };
-                NetUtil.sendHttpRequest(MemberDetailActivity.this,url,callback);
+                dealWithSaveAction();
                 break;
             default:
                 break;
@@ -323,14 +316,11 @@ public class MemberDetailActivity
     }
 
     private void dealWithDeleteMemberAction() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
-        builder.setCancelable(false);
-        builder.setTitle("确认要删除该会员吗？");
-        builder.setMessage("删除会员后，该会员下的会员卡均无法使用。");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MemberDetailActivity.this);
+        builder.setCancelable(false).setTitle("确认要删除该会员吗？").setMessage("删除会员后，该会员下的会员卡均无法使用。");
         builder.setNegativeButton("不删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
@@ -346,33 +336,31 @@ public class MemberDetailActivity
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String resp = response.body().string();
-                        Map<String,String> map = new HashMap<String, String>();
-                        map = JsonHandler.strToMap(resp);
-                        ArrayList<String> keys = MethodTool.getKeys(map);
-                        ArrayList<String> values = MethodTool.getValues(map,keys);
-                        switch (keys.get(0)) {
-                            case "stat" :
-                                switch (values.get(0)) {
-                                    case "exe_suc" :
+                        EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                        switch (respType) {
+                            case RESP_ERROR:
+                                MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
+                                break;
+                            case RESP_STAT:
+                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                                switch (respStatType) {
+                                    case EXE_SUC:
                                         MethodTool.showToast(MemberDetailActivity.this,Ref.OP_DELETE_SUCCESS);
                                         Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
                                         intent.putExtra("pos",position);
                                         setResult(Ref.RESULTCODE_DELETE,intent);
                                         finish();
                                         break;
-                                    case "exe_fail" :
-                                        MethodTool.showToast(MemberDetailActivity.this,Ref.OP_DELETE_FAIL);
-                                        break;
-                                    case "no_such_record" :
+                                    case NSR:
                                         MethodTool.showToast(MemberDetailActivity.this,"该会员已被删除");
                                         MemberDetailActivity.this.finish();
                                         break;
-                                    default:
-                                        MethodTool.showToast(MemberDetailActivity.this, Ref.UNKNOWN_ERROR);
+                                    case EXE_FAIL:
+                                        MethodTool.showToast(MemberDetailActivity.this,"该会员已被删除");
+                                        MemberDetailActivity.this.finish();
                                         break;
+                                    default:break;
                                 }
-                            default:
-                                break;
                         }
                     }
                 };
@@ -380,5 +368,56 @@ public class MemberDetailActivity
             }
         });
         builder.show();
+    }
+
+    private void dealWithSaveAction() {
+        final String m_name = et_name.getText().toString();
+        String m_birthday = et_birthday.getText().toString();
+        String m_phone = et_phone.getText().toString();
+        String m_im = et_im.getText().toString();
+        long sm_id = MethodTool.preGetLong(MemberDetailActivity.this,"sasm","sm_id");
+        String url = "/ModifyMember?member_id=" + m_id +
+                "&shopmember_id=" + sm_id +
+                "&name=" + m_name +
+                "&birthday=" + m_birthday +
+                "&phone=" + m_phone +
+                "&im=" + m_im;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(MemberDetailActivity.this,Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_SUC:
+                                MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                Intent intent = new Intent(MemberDetailActivity.this,MemberListActivity.class);
+                                intent.putExtra("pos",position).putExtra("m_id",m_id).putExtra("m_name",m_name);
+                                setResult(Ref.RESULTCODE_UPDATE,intent);
+                                finish();
+                                break;
+                            case NSR:
+                                MethodTool.showToast(MemberDetailActivity.this,"会员已被删除");
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_FAIL);
+                                break;
+                        }
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(MemberDetailActivity.this,url,callback);
+
     }
 }

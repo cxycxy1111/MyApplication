@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity">
+
+    <include
+        android:id="@+id/tb_a_course_plan_detail_private"
+        layout="@layout/tile_toolbar" />
+
+    <ScrollView
+        android:id="@+id/sv_a_course_plan_detail_private"
+        android:layout_below="@id/tb_a_course_plan_detail_private"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_course_name_a_course_plan_detail_private"
+                style="@style/rl_first_widget">
+                <TextView
+                    android:id="@+id/tv_course_name_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="课程名称"/>
+                <TextView
+                    android:id="@+id/tv_hint_course_name_a_course_plan_detail_private"
+                    android:text="@string/delete"
+                    style="@style/plain_text_hint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_classroom_name_a_course_plan_detail_private"
+                android:layout_below="@id/rl_course_name_a_course_plan_detail_private"
+                style="@style/rl_normal">
+                <TextView
+                    android:id="@+id/tv_classroom_name_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="课室名称"/>
+                <Spinner
+                    android:id="@+id/sp_hint_classroom_name_a_course_plan_detail_private"
+                    style="@style/plain_spinner" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_tea_name_a_course_plan_detail_private"
+                android:layout_below="@id/rl_classroom_name_a_course_plan_detail_private"
+                style="@style/rl_normal">
+                <TextView
+                    android:id="@+id/tv_tea_name_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="教练"/>
+                <TextView
+                    android:id="@+id/tv_hint_tea_name_a_course_plan_detail_private"
+                    android:text="@string/delete"
+                    style="@style/plain_text_hint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_stu_name_a_course_plan_detail_private"
+                android:layout_below="@id/rl_tea_name_a_course_plan_detail_private"
+                style="@style/rl_normal">
+                <TextView
+                    android:id="@+id/tv_stu_name_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="学生"/>
+                <TextView
+                    android:id="@+id/tv_hint_stu_name_a_course_plan_detail_private"
+                    android:text="@string/delete"
+                    style="@style/plain_text_hint" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_last_time_a_course_plan_detail_private"
+                android:layout_below="@id/rl_stu_name_a_course_plan_detail_private"
+                style="@style/rl_normal">
+                <TextView
+                    android:id="@+id/tv_last_time_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="上课时长"/>
+                <EditText
+                    android:id="@+id/et_last_time_a_course_plan_detail_private"
+                    android:layout_toRightOf="@id/tv_last_time_a_course_plan_detail_private"
+                    android:inputType="number"
+                    style="@style/plain_editText" />
+                <TextView
+                    android:id="@+id/tv_minute_a_course_plan_detail_private"
+                    android:layout_alignParentRight="true"
+                    style="@style/plain_text_hint"
+                    android:text="分钟"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/rl_start_time_a_course_plan_detail_private"
+                android:orientation="horizontal"
+                android:layout_below="@id/rl_last_time_a_course_plan_detail_private"
+                style="@style/rl_normal">
+                <TextView
+                    android:id="@+id/tv_start_time_a_course_plan_detail_private"
+                    style="@style/plain_text"
+                    android:text="开始时间"/>
+                <EditText
+                    android:id="@+id/et_start_date_a_course_plan_detail_private"
+                    android:layout_width="@dimen/distance128"
+                    style="@style/plain_editText" />
+                <EditText
+                    android:id="@+id/et_start_time_a_course_plan_detail_private"
+                    style="@style/plain_editText" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_a_course_plan_detail_private"
+                style="@style/plain_button"
+                android:text="@string/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

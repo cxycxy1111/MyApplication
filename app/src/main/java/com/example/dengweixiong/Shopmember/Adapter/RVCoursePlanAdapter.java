@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -39,7 +40,16 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
             public void onClick(View v) {
                 int p = viewHolder.getAdapterPosition();
                 Map<String,String> map = mapList.get(p);
-                Intent intent = new Intent(parent.getContext(), CoursePlanDetailActivity.class);
+                String course_type = String.valueOf(map.get("course_type"));
+                Intent intent;
+                switch (course_type) {
+                    case "4":
+                        intent = new Intent(parent.getContext(), CoursePlanDetailPrivateActivity.class);
+                        break;
+                    default:
+                        intent = new Intent(parent.getContext(), CoursePlanDetailActivity.class);
+                        break;
+                }
                 intent.putExtra("cp_id",String.valueOf(map.get("courseplan_id")));
                 intent.putExtra("course_name",map.get("course_name"));
                 intent.putExtra("time",map.get("start_time"));

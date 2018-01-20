@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -42,7 +44,6 @@ public class LoginActivity
 
     private TabLayout tabLayout;
     private Context context;
-    private static final String TOOLBAR_TITLE = "注册新机构与登录";
     private ViewPager viewPager;
     private List<Fragment> fragments = new ArrayList<>();
     private FragmentManager manager;
@@ -90,28 +91,31 @@ public class LoginActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> map = new HashMap<>();
                 String resp = response.body().string();
-                map = JsonHandler.strToMap(resp);
-                ArrayList<String> keys = MethodTool.getKeys(map);
-                ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals(Ref.STATUS)) {
-                    if (values.get(0).equals("not_match")) {
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        Map<String,String> map = new HashMap<>();
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NOT_MATCH:
+                                MethodTool.hideView(LoginActivity.this,progressBar);
+                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
+                                break;
+                            case NSR:
+                                MethodTool.hideView(LoginActivity.this,progressBar);
+                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_DATA:
                         MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
-                    } else if (values.get(0).equals("no_such_record")){
+                        MethodTool.jumpToActivity(LoginActivity.this,ShopmemberMainActivity.class);
+                        break;
+                    case RESP_ERROR:
                         MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
-                    } else {
-                        MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.showToast(LoginActivity.this, Ref.UNKNOWN_ERROR);
-                    }
-                }else if (keys.get(0).equals("data")) {
-                    MethodTool.hideView(LoginActivity.this,progressBar);
-                    MethodTool.jumpToActivity(LoginActivity.this,ShopmemberMainActivity.class);
-                }else {
-                    MethodTool.hideView(LoginActivity.this,progressBar);
-                    MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
+                        MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
                 }
             }
         };
@@ -121,7 +125,7 @@ public class LoginActivity
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_a_login);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(TOOLBAR_TITLE);
+        getSupportActionBar().setTitle(R.string.title_a_login);
     }
 
     private void initTabLayout() {

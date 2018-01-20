@@ -210,8 +210,7 @@ public class MemberCardDetailActivity
                         });
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType){
                             case NSR:
                                 MethodTool.showToast(MemberCardDetailActivity.this,"未找到会员卡");

@@ -413,8 +413,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         });
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EMPTY_RESULT:
                                 MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
@@ -491,9 +490,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_STAT:
-                        Map<String,String> map = new HashMap<>();
-                        map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EXE_SUC:
                                 MethodTool.showToast(ChargeActivity.this,Ref.OP_SUCCESS);

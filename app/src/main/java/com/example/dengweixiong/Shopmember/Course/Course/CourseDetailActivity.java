@@ -614,8 +614,7 @@ public class CourseDetailActivity
                         MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EXE_FAIL:
                                 MethodTool.showToast(CourseDetailActivity.this,Ref.OP_DELETE_FAIL);

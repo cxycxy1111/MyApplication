@@ -77,7 +77,7 @@ public class ClassroomListActivity extends BaseActivity {
                     }
                 }else {
                     list = JsonHandler.strToListMap(resp,keys);
-                    MethodTool.sortListMap(list);
+                    MethodTool.sortListMap(list,"name");
                     for (int i = 0;i < list.size();i++) {
                         strings.add(list.get(i).get("name"));
                     }
@@ -141,7 +141,7 @@ public class ClassroomListActivity extends BaseActivity {
                     map.put("id", String.valueOf(new_cr_id));
                     map.put("name",new_cr_name);
                     list.add(map);
-                    MethodTool.sortListMap(list);
+                    MethodTool.sortListMap(list,"name");
                     strings.add(new_cr_name);
                     MethodTool.sort(strings);
                 }

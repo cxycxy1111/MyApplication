@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSupportedCardAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -76,13 +77,26 @@ public class AddSupportedCardActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 String [] keys = new String[] {"id","name","type"};
-                origin_cards = JsonHandler.strToListMap(resp,keys);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initRecyclerView();
-                    }
-                });
+
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddSupportedCardActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_MAPLIST:
+                        origin_cards = JsonHandler.strToListMap(resp,keys);
+                        if (origin_cards.size() == 0) {
+                            MethodTool.showToast(AddSupportedCardActivity.this,"暂无会员卡");
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView();
+                            }
+                        });
+                        break;
+                    default:break;
+                }
             }
         };
         NetUtil.sendHttpRequest(AddSupportedCardActivity.this,url,callback);

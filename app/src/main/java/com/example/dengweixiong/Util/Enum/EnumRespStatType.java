@@ -1,7 +1,10 @@
 package com.example.dengweixiong.Util.Enum;
 
+import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.Ref;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,7 +28,13 @@ public enum EnumRespStatType {
         this.type = string;
     }
 
-    public static EnumRespStatType dealWithRespStat(Map<String,String> map) {
+    public static EnumRespStatType dealWithRespStat(String resp) {
+        Map<String,String> map = new HashMap<>();
+        try {
+            map = JsonHandler.strToMap(resp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String value = map.get(Ref.STATUS);
         if (value.equals(Ref.STAT_EXE_SUC)) {//执行成功
             return EnumRespStatType.EXE_SUC;

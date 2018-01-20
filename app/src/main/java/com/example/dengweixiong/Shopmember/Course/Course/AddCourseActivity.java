@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -45,6 +47,7 @@ public class AddCourseActivity
     private static final int RESULT_CODE_FAIL = 2;
     private long shop_id,shopmember_id,selected_tea,selected_course,selected_stu,course_id;
     private String course_name,last_time,max_book_num,total_times,invalidtime;
+    private Button btn,btn_person;
     private Toolbar toolbar;
     private Spinner tea_spinner,course_spinner,stu_spinner;
     private EditText et_course_name,et_last_time,et_max_num,et_person_course_name,et_max_times,et_invalidetime,et_actual_cost;
@@ -85,18 +88,30 @@ public class AddCourseActivity
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 String [] keys = new String[] {"id","name","type"};
-                origin_teacher = JsonHandler.strToListMap(resp,keys);
-                if (origin_teacher.size() == 0) {
-                    Map<String,String> default_map = new HashMap<>();
-                    default_map.put("id","0");default_map.put("name","暂无教师");
-                    origin_student.add(default_map);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        origin_teacher = JsonHandler.strToListMap(resp,keys);
+                        if (origin_teacher.size() == 0) {
+                            Map<String,String> default_map = new HashMap<>();
+                            default_map.put("id","0");default_map.put("name","暂无教师");
+                            btn_person.setClickable(false);
+                            origin_student.add(default_map);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initTeaSpinner();
+                            }
+                        });
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCourseActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initTeaSpinner();
-                    }
-                });
+
+
             }
         };
         NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
@@ -147,6 +162,7 @@ public class AddCourseActivity
                     Map<String,String> default_map = new HashMap<>();
                     default_map.put("id","0");default_map.put("name","暂无会员");
                     origin_student.add(default_map);
+                    btn_person.setClickable(false);
                 }
                 runOnUiThread(new Runnable() {
                     @Override
@@ -276,8 +292,8 @@ public class AddCourseActivity
      * 初始化Button
      */
     private void initButtons() {
-        Button btn = (Button)findViewById(R.id.btn_addNewCourse);
-        Button btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
+        btn = (Button)findViewById(R.id.btn_addNewCourse);
+        btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
         btn.setOnClickListener(this);
         btn_person.setOnClickListener(this);
     }
@@ -428,32 +444,37 @@ public class AddCourseActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    Map<String,String> r = JsonHandler.strToMap(resp);
-                    switch (r.get(Ref.STATUS)) {
-                        case "not_match":
-                            MethodTool.showToast(AddCourseActivity.this,"课程类型不匹配");
-                            break;
-                        case "institution_not_match":
-                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
-                            break;
-                        case "exe_fail":
-                            MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
-                            break;
-                        case "duplicate" :
-                            MethodTool.showToast(AddCourseActivity.this,"课程名称重复");
-                            break;
-                        default:break;
-                    }
-                }else if (resp.contains(Ref.DATA)) {
-                    HashMap<String,String> temp_map = JsonHandler.strToMap(resp);
-                    String s = temp_map.get(Ref.DATA);
-                    course_id = Long.valueOf(s);
-                    Intent intent = new Intent(AddCourseActivity.this,AddSupportedCardActivity.class);
-                    intent.putExtra("course_id",course_id);
-                    startActivityForResult(intent,REQEST_CODE_ADD);
-                }else {
-                    MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NOT_MATCH:
+                                MethodTool.showToast(AddCourseActivity.this,"课程类型不匹配");
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(AddCourseActivity.this,"课程名称重复");
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                                break;
+                        }
+                        break;
+                    case RESP_DATA:
+                        HashMap<String,String> temp_map = JsonHandler.strToMap(resp);
+                        String s = temp_map.get(Ref.DATA);
+                        course_id = Long.valueOf(s);
+                        Intent intent = new Intent(AddCourseActivity.this,AddSupportedCardActivity.class);
+                        intent.putExtra("course_id",course_id);
+                        startActivityForResult(intent,REQEST_CODE_ADD);
+                        break;
+                    default:break;
                 }
             }
         };

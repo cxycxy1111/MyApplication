@@ -240,17 +240,17 @@ public class ShopmemberListActivity extends BaseActivity {
                 //处理内部教师更新
                 if (type.equals(Ref.TEACHER_ADMIN)) {
                     admin_list.set(pos - 1,map);
-                    MethodTool.sortListMap(admin_list);
+                    MethodTool.sortListMap(admin_list,"name");
                     fullListReorder();
                 }
                 if (type.equals(Ref.TEACHER_INNER)) {
                     inner_list.set(pos -admin_list.size() - 2, map);
-                    MethodTool.sortListMap(inner_list);
+                    MethodTool.sortListMap(inner_list,"name");
                     fullListReorder();
                 //处理外聘教师更新
                 } else if (type.equals(Ref.TEACHER_OUTER)) {
                     outer_list.set(pos - admin_list.size() - inner_list.size() - 3, map);
-                    MethodTool.sortListMap(outer_list);
+                    MethodTool.sortListMap(outer_list,"name");
                     fullListReorder();
                 }
             //处理教师删除
@@ -270,13 +270,13 @@ public class ShopmemberListActivity extends BaseActivity {
                 map.put("name",name);map.put("id",id);map.put("type",String.valueOf(type));
                 if (String.valueOf(type).equals(Ref.TEACHER_ADMIN)) {
                     admin_list.add(map);
-                    MethodTool.sortListMap(admin_list);
+                    MethodTool.sortListMap(admin_list,"name");
                 }else if (String.valueOf(type).equals(Ref.TEACHER_INNER)) {
                     inner_list.add(map);
-                    MethodTool.sortListMap(inner_list);
+                    MethodTool.sortListMap(inner_list,"name");
                 }else if (String.valueOf(type).equals(Ref.TEACHER_OUTER)) {
                     outer_list.add(map);
-                    MethodTool.sortListMap(outer_list);
+                    MethodTool.sortListMap(outer_list,"name");
                 }
                 fullListReorder();
             }else if (resultCode == Ref.RESULTCODE_NULL) {

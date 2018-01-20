@@ -189,8 +189,7 @@ public class MemberCardListActivity extends BaseActivity{
                         });
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
                             case EMPTY_RESULT:MethodTool.showToast(MemberCardListActivity.this,Ref.STAT_NSR);break;
                             default:break;
@@ -204,8 +203,8 @@ public class MemberCardListActivity extends BaseActivity{
 
     //初始化会员选择的spinner
     private void initSpinner(String m_id) {
-        adapter = new ArrayAdapter<>(this,R.layout.tile_spinner,R.id.tv_tile_spinner,list_member_name);
-        adapter.setDropDownViewResource(R.layout.tile_spinner_dropdown);
+        adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,list_member_name);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setDropDownVerticalOffset(120);
         spinner.setSelection(0);
         spinner.setAdapter(adapter);
@@ -316,8 +315,7 @@ public class MemberCardListActivity extends BaseActivity{
                         });
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EMPTY_RESULT:
                                 MethodTool.showToast(MemberCardListActivity.this,"该会员名下暂无会员卡");

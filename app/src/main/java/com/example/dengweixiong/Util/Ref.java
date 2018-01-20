@@ -26,6 +26,8 @@ public abstract class Ref {
     public static final String OP_INST_NOT_MATCH = "机构匹配失败";
     public static final String OP_WRONG_NUMBER_FORMAT = "数字格式错误";
     public static final String OP_EMPTY_ESSENTIAL_INFO = "必要信息不能为空";
+    public static final String OP_NSR = "不存在此记录";
+    public static final String OP_DUPLICATED = "重复操作";
 
     /**
      * 结果码

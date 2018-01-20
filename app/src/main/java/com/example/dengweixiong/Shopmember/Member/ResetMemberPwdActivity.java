@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -45,7 +47,7 @@ public class ResetMemberPwdActivity
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.tb_activity_reset_pwd_member);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("重置密码");
+        getSupportActionBar().setTitle(R.string.title_a_reset_member_pwd);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -73,7 +75,7 @@ public class ResetMemberPwdActivity
         switch (item.getItemId()) {
             case R.id.submit_reset_pwd:
                 boolean b = dealWithSubmitAction();
-                if (b == false) {
+                if (!b) {
                     break;
                 }else {
                     break;
@@ -111,17 +113,28 @@ public class ResetMemberPwdActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Map<String,String> map = JsonHandler.strToMap(resp);
-                ArrayList<String> keys = MethodTool.getKeys(map);
-                ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (values.get(0).equals("no_such_record")) {
-                    MethodTool.showToast(ResetMemberPwdActivity.this,"会员不存在");
-                }else if (values.get(0).equals("exe_suc")) {
-                    MethodTool.showToast(ResetMemberPwdActivity.this,"修改成功");
-                }else if (values.get(0).equals("exe_fail")) {
-                    MethodTool.showToast(ResetMemberPwdActivity.this,"修改失败");
-                }else {
-                    MethodTool.showToast(ResetMemberPwdActivity.this, Ref.UNKNOWN_ERROR);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(ResetMemberPwdActivity.this,Ref.CANT_CONNECT_INTERNET);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ResetMemberPwdActivity.this,Ref.STAT_NSR);
+                                ResetMemberPwdActivity.this.finish();
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(ResetMemberPwdActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(ResetMemberPwdActivity.this,Ref.OP_MODIFY_FAIL);
+                                break;
+                            default:
+                                break;
+                        }
+                    default:break;
                 }
             }
         };

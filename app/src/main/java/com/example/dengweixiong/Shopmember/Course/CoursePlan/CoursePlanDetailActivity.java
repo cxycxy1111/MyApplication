@@ -1,5 +1,6 @@
 package com.example.dengweixiong.Shopmember.Course.CoursePlan;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -7,19 +8,30 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
+import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
+import com.example.dengweixiong.Util.NetUtil;
+import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CoursePlanDetailActivity
         extends BaseActivity
@@ -46,6 +58,7 @@ public class CoursePlanDetailActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_courseplan_detail,menu);
         return true;
     }
 
@@ -62,7 +75,9 @@ public class CoursePlanDetailActivity
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(str_course_name);
-        getSupportActionBar().setSubtitle(str_time);
+        String subtitle = str_time;
+        subtitle = subtitle.substring(0,str_time.length()-5);
+        getSupportActionBar().setSubtitle(subtitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -116,8 +131,72 @@ public class CoursePlanDetailActivity
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();break;
+            case R.id.delete_courseplan_detail:
+                showRemoveAlert();
+                break;
             default:break;
         }
         return true;
+    }
+
+    private void showRemoveAlert() {
+        final AlertDialog.Builder builder= new AlertDialog.Builder(CoursePlanDetailActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("是否确认删除该排课？");
+        builder.setCancelable(false);
+        builder.setPositiveButton("不删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                removeCoursePlan();
+            }
+        });
+        builder.show();
+    }
+
+    private void removeCoursePlan() {
+        String url = "/CoursePlanRemove?id=" + str_cp_id + "&lmu_id=" + str_sm_id;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(CoursePlanDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
+                switch (enumRespType) {
+                    case RESP_ERROR:MethodTool.showToast(CoursePlanDetailActivity.this,Ref.UNKNOWN_ERROR);break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CoursePlanDetailActivity.this,Ref.OP_NSR);
+                                CoursePlanDetailActivity.this.finish();
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(CoursePlanDetailActivity.this,Ref.OP_INST_NOT_MATCH);
+                                CoursePlanDetailActivity.this.finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(CoursePlanDetailActivity.this,Ref.OP_DELETE_FAIL);
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(CoursePlanDetailActivity.this,Ref.OP_DELETE_SUCCESS);
+                                CoursePlanDetailActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(CoursePlanDetailActivity.this,url,callback);
     }
 }

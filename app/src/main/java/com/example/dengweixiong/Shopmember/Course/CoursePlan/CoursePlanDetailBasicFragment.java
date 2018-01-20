@@ -202,12 +202,11 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_STAT:
-                        Map<String,String> map = new HashMap<>();
-                        map = JsonHandler.strToMap(resp);
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                                MethodTool.showToast(getActivity(),Ref.OP_NSR);
+                                getActivity().finish();
                                 break;
                             default:break;
                         }

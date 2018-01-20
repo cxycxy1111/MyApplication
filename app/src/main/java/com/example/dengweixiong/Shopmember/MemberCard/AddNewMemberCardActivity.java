@@ -337,8 +337,7 @@ public class AddNewMemberCardActivity
                         EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
                         switch (enumRespType) {
                             case RESP_STAT:
-                                Map<String,String> map = JsonHandler.strToMap(resp);
-                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(map);
+                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                                 switch (respStatType) {
                                     case EXE_SUC:
                                         MethodTool.showToast(AddNewMemberCardActivity.this,Ref.OP_ADD_SUCCESS);

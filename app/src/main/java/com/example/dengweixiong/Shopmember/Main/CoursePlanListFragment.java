@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -110,16 +112,25 @@ public class CoursePlanListFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    Map<String,String> map_result = JsonHandler.strToMap(resp);
-                    switch (map_result.get(Ref.STATUS)) {
-                        case "empty_result":
-                            MethodTool.showToast(getParentFragment().getActivity(),"暂无排课");break;
-                        default:break;
-                    }
-                }else {
-                    mapList_data = JsonHandler.strToListMap(resp,strs_keys);
-                    initCoursePlanViews();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        mapList_data = JsonHandler.strToListMap(resp,strs_keys);
+                        initCoursePlanViews();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(getParentFragment().getActivity(),"暂无排课");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
                 }
             }
         };

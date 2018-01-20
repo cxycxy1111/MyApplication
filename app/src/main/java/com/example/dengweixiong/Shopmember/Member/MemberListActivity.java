@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -82,7 +83,7 @@ public class MemberListActivity
                 map.put("name",data.getStringExtra("m_name"));
                 list.set(p,map);
                 name_list.set(p,data.getStringExtra("m_name"));
-                MethodTool.sortListMap(list);
+                MethodTool.sortListMap(list,"name");
                 MethodTool.sort(name_list);
             }else if (resultCode == Ref.RESULTCODE_NULL) {
 
@@ -132,24 +133,33 @@ public class MemberListActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(MemberListActivity.this,Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String [] keys = new String[] {"id","name"};
+
                 String resp = response.body().string();
-                list = JsonHandler.strToListMap(resp,keys);
-                MethodTool.sortListMap(list);
-                for (int i = 0;i < list.size();i++) {
-                    name_list.add(list.get(i).get("name"));
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        break;
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name"};
+                        list = JsonHandler.strToListMap(resp,keys);
+                        MethodTool.sortListMap(list,"name");
+                        for (int i = 0;i < list.size();i++) {
+                            name_list.add(list.get(i).get("name"));
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView(MemberListActivity.this);
+                            }
+                        });
+                        break;
+                    default:break;
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    initRecyclerView(MemberListActivity.this);
-                    }
-                });
             }
         };
         NetUtil.sendHttpRequest(MemberListActivity.this,url,callback);

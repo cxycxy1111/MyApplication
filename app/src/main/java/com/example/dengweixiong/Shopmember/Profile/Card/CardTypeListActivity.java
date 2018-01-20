@@ -102,13 +102,13 @@ public class CardTypeListActivity extends BaseActivity {
                     m.put("type",String.valueOf(t));
                     if (t == 1) {
                         balanceList.add(m);
-                        MethodTool.sortListMap(balanceList);
+                        MethodTool.sortListMap(balanceList,"name");
                     }else if (t == 2) {
                         timesList.add(m);
-                        MethodTool.sortListMap(timesList);
+                        MethodTool.sortListMap(timesList,"name");
                     }else if (t == 3) {
                         timeList.add(m);
-                        MethodTool.sortListMap(timeList);
+                        MethodTool.sortListMap(timeList,"name");
                     }
                     list.clear();
                     Map<String,String> b_map = new HashMap<>();

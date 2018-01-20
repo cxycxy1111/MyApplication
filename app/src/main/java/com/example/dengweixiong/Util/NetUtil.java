@@ -33,6 +33,8 @@ public class NetUtil {
     private static final String IPHONE_PREFIX = "http://172.20.10.3:8080/Sailfish";
     //使用正式服务器进行调试
     private static final String REMOTE_PREFIX = "http://39.104.72.97:8080/Sailfish";
+
+    private static final String JINYE_PREFIX = "http://192.168.27.195:8080/Sailfish";
     private static OkHttpClient client;
 
     /**
@@ -42,7 +44,7 @@ public class NetUtil {
      * @param callback 回调
      */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
-        String str = LOCAL_PREFIX + address;
+        String str = IPHONE_PREFIX + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);

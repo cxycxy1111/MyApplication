@@ -1,6 +1,7 @@
 package com.example.dengweixiong.Shopmember.Course.CoursePlan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
     private LinearLayoutManager linearLayoutManager;
     private String sm_id,s_id,cp_id,course_name;
     private String[] strs_keys_teacher = new String[] {"id","name","type"};
-    private String[] strs_keys_supported_teacher = new String[] {"sm_id","tea_name"};
+    private String[] strs_keys_supported_teacher = new String[] {"teacher_id","name"};
     private List<Map<String,String>> mapList_recyclerview_data = new ArrayList<>();
     private List<Map<String,String>> mapList_teacher_origin = new ArrayList<>();
     private List<Map<String,String>> mapList_supported_teacher_origin = new ArrayList<>();
@@ -134,8 +135,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         initShopmember();
                         break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
                             case NSR:MethodTool.showToast(getActivity(),Ref.STAT_NSR);break;
                             default:MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);break;
@@ -153,7 +153,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
 
     //初始化舞馆中存量的所有教师
     private void initShopmember() {
-        String  url = "/QueryShopmemberList?s_id=" + s_id + "&type=0";
+        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=0";
         okhttp3.Callback callback = new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -173,27 +173,27 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                             map_temp.put("teacherId",map_origin.get("id"));
                             map_temp.put("teacherName",map_origin.get("name"));
                             String c = "0";
+                            map_temp.put("isChecked",c);
                             for (int j = 0;j < mapList_supported_teacher_origin.size();j++) {
                                 Map<String,String> map_supported_origin = mapList_supported_teacher_origin.get(j);
-                                String left = String.valueOf(map_origin.get("id"));
-                                String right = String.valueOf(map_supported_origin.get("sm_id"));
-                                if ( left.equals(right)) {
+                                int left = Integer.parseInt(String.valueOf(map_origin.get("id")));
+                                int right = Integer.valueOf(String.valueOf(map_supported_origin.get("teacher_id")));
+                                if ( left == right) {
                                     c = "1";
                                 }
                             }
                             map_temp.put("isChecked",c);
                             mapList_recyclerview_data.add(map_temp);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    initRecyclerView();
-                                }
-                            });
                         }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView(mapList_recyclerview_data);
+                            }
+                        });
                     break;
                     case RESP_STAT:
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(map);
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
                             case NSR:
                                 MethodTool.showToast(getActivity(),Ref.STAT_NSR);
@@ -205,9 +205,9 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
         NetUtil.sendHttpRequest(getActivity(),url,callback);
     }
 
-    private void initRecyclerView() {
+    private void initRecyclerView(List<Map<String,String>> list_map) {
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        adapter = new RVPureCheckBoxAdapter(mapList_recyclerview_data,getActivity());
+        adapter = new RVPureCheckBoxAdapter(list_map,getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
@@ -252,8 +252,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                             MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
                             break;
                         case RESP_STAT:
-                            Map<String,String> map = JsonHandler.strToMap(resp);
-                            EnumRespStatType type = EnumRespStatType.dealWithRespStat(map);
+                            EnumRespStatType type = EnumRespStatType.dealWithRespStat(resp);
                             switch (type) {
                                 case EXE_SUC:
                                     MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
