@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCourseListAdapter;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -119,36 +121,43 @@ public class CourseListFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (!resp.contains(Ref.STATUS)) {
-                    regional_list = JsonHandler.strToListMap(resp,keys);
-                    for (int i = 0;i < regional_list.size();i++) {
-                        Map<String,String> temp_map = regional_list.get(i);
-                        Map<String,String> new_map = new HashMap<>();
-                        String supportedcard = temp_map.get("supportedcard");
-                        new_map.put("id",temp_map.get("id"));
-                        new_map.put("name",temp_map.get("name"));
-                        new_map.put("last_time",String.valueOf(temp_map.get("last_time")));
-                        Log.d(TAG, "onResponse: " + String.valueOf(temp_map.get("last_time")));
-                        new_map.put("type",temp_map.get("type"));
-                        if (supportedcard.equals("") | supportedcard.equals(null)) {
-                            new_map.put("supportedcard","未设置所支持的卡");
-                        }else {
-                            supportedcard = supportedcard.substring(0,supportedcard.length()-1);
-                            new_map.put("supportedcard","支持" + supportedcard);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        regional_list = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i < regional_list.size();i++) {
+                            Map<String,String> temp_map = regional_list.get(i);
+                            Map<String,String> new_map = new HashMap<>();
+                            String supportedcard = temp_map.get("supportedcard");
+                            new_map.put("id",temp_map.get("id"));
+                            new_map.put("name",temp_map.get("name"));
+                            new_map.put("last_time",String.valueOf(temp_map.get("last_time")));
+                            Log.d(TAG, "onResponse: " + String.valueOf(temp_map.get("last_time")));
+                            new_map.put("type",temp_map.get("type"));
+                            if (supportedcard.equals("") | supportedcard.equals(null)) {
+                                new_map.put("supportedcard","未设置所支持的卡");
+                            }else {
+                                supportedcard = supportedcard.substring(0,supportedcard.length()-1);
+                                new_map.put("supportedcard","支持" + supportedcard);
+                            }
+                            recyclerviewdata.add(new_map);
                         }
-                        recyclerviewdata.add(new_map);
-                    }
-                    adapter = new RVCourseListAdapter(recyclerviewdata,getParentFragment().getActivity());
-                    getParentFragment().getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            initRecyclerView(view);
+                        getParentFragment().getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initRecyclerView(view);
+                            }
+                        });
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case NSR:
+                                MethodTool.showToast(getParentFragment().getActivity(), Ref.STAT_NSR);
+                                break;
+                            default:break;
                         }
-                    });
-                }else {
-                    MethodTool.showToast(getParentFragment().getActivity(), Ref.STAT_NSR);
+                        break;
+                    default:break;
                 }
-
             }
         };
         NetUtil.sendHttpRequest(getParentFragment().getActivity(),url,callback);
@@ -159,6 +168,7 @@ public class CourseListFragment extends Fragment {
      * @param view
      */
     private void initRecyclerView (View view) {
+        adapter = new RVCourseListAdapter(recyclerviewdata,getParentFragment().getActivity());
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 

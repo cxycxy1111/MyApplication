@@ -395,36 +395,39 @@ public class AddCourseActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String mResp = response.body().string();
-                Map<String,String> mResponseMap = JsonHandler.strToMap(mResp);
-                if (mResp.contains(Ref.STATUS)) {
-                    String mValue = String.valueOf(mResponseMap.get("stat"));
-                    switch (mValue) {
-                        case "not_match":
-                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
-                            break;
-                        case "institution_not_match":
-                            MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
-                            break;
-                        case "exe_fail":
-                            MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_FAIL);
-                            setResult(RESULT_CODE_FAIL);
-                            AddCourseActivity.this.finish();
-                            break;
-                        case "exe_suc":
-                            MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_SUCCESS);
-                            setResult(RESULT_CODE_SUC);
-                            AddCourseActivity.this.finish();
-                            break;
-                        default:
-                            MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
-                            setResult(RESULT_CODE_FAIL);
-                            AddCourseActivity.this.finish();
-                            break;
-                    }
-                }else if (mResp.contains(Ref.DATA)) {
-                    MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                EnumRespType respType = EnumRespType.dealWithResponse(mResp);
+                switch (respType) {
+                    case RESP_DATA:
+                        MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                        break;
+                    case RESP_MAPLIST:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(mResp);
+                        switch (respStatType) {
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_FAIL);
+                                setResult(RESULT_CODE_FAIL);
+                                AddCourseActivity.this.finish();
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_SUCCESS);
+                                setResult(RESULT_CODE_SUC);
+                                AddCourseActivity.this.finish();
+                                break;
+                            case NOT_MATCH:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                                break;
+                            default:
+                                MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);
+                                setResult(RESULT_CODE_FAIL);
+                                AddCourseActivity.this.finish();
+                                break;
+                        }
+                        break;
+                    default:break;
                 }
-
             }
         };
         NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);

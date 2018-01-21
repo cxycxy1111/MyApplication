@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/member_a_main"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/icon_membershdpi"
         android:title="会员" />
     <item
         android:id="@+id/course_a_main"

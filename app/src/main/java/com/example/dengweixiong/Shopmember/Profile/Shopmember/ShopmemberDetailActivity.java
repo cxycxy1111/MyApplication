@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -163,27 +165,35 @@ public class ShopmemberDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if(resp.equals("") | resp.equals(null)) {
-                    MethodTool.showToast(ShopmemberDetailActivity.this, Ref.UNKNOWN_ERROR);
-                } else {
-                    Map<String,String> map = JsonHandler.strToMap(resp);
-                    String value = map.get("stat");
-                    if (value.equals(Ref.STAT_INST_NOT_MATCH)) {
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
-                    }else if (value.equals(Ref.STAT_EXE_SUC)) {
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"保存成功");
-                        Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
-                        intent.putExtra("name",new_name);
-                        intent.putExtra("id",id);
-                        intent.putExtra("type",type);
-                        intent.putExtra("pos",position);
-                        setResult(Ref.RESULTCODE_UPDATE,intent);
-                        finish();
-                    }else if (value.equals(Ref.STAT_EXE_FAIL)) {
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"保存失败");
-                    }else if (value.equals(Ref.STAT_NSR)) {
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"记录不存在");
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_SUC:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"保存成功");
+                                Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
+                                intent.putExtra("name",new_name);
+                                intent.putExtra("id",id);
+                                intent.putExtra("type",type);
+                                intent.putExtra("pos",position);
+                                setResult(Ref.RESULTCODE_UPDATE,intent);
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"保存失败");
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
+                                break;
+                            case NSR:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"记录不存在");
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(ShopmemberDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };
@@ -201,23 +211,31 @@ public class ShopmemberDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Map<String,String> map = JsonHandler.strToMap(resp);
-                switch (map.get("stat")) {
-                    case "institution_not_match" :
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"删除成功");
+                                Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
+                                intent.putExtra("pos",position);
+                                setResult(Ref.RESULTCODE_DELETE,intent);
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
+                                break;
+                            default:break;
+                        }
                         break;
-                    case "exe_suc" :
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"删除成功");
-                        Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
-                        intent.putExtra("pos",position);
-                        setResult(Ref.RESULTCODE_DELETE,intent);
-                        finish();
+                    case RESP_ERROR:
+                        MethodTool.showToast(ShopmemberDetailActivity.this,Ref.UNKNOWN_ERROR);
                         break;
-                    case "exe_fail" :
-                        MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
-                        break;
-                    default:
-                        break;
+                    default:break;
                 }
             }
         };

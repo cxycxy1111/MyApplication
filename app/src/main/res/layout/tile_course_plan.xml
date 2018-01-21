@@ -13,42 +13,34 @@
         <TextView
             android:id="@+id/tv_time_t_course_plan"
             style="@style/plain_text2"
+            android:gravity="center"
             android:layout_marginLeft="@dimen/distance16"
             android:layout_marginBottom="@dimen/distance8"
             android:text="上课时间" />
+
+
+        <TextView
+            android:id="@+id/tv_last_time_t_course_plan"
+            android:gravity="right"
+            style="@style/plain_text2"
+            android:layout_centerHorizontal="true"
+            android:text="持续时间"/>
+
         <TextView
             android:id="@+id/tv_classroom_t_course_plan"
             style="@style/plain_text2"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/distance16"
             android:layout_alignParentRight="true"
-            android:text="课室"/>
-
+            android:text="课室" />
     </RelativeLayout>
     
     <TextView
         android:id="@+id/tv_name_t_course_plan"
         style="@style/plain_text"
         android:layout_marginTop="@dimen/distance4"
-        android:layout_marginBottom="@dimen/distance4"
-        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/distance8"
         android:layout_below="@id/rv_header_t_course_plan"
         android:text="课程名称"/>
-
-    <RelativeLayout
-        android:id="@+id/rv_footer_t_course_plan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name_t_course_plan">
-        <TextView
-            android:id="@+id/tv_teachers_t_course_plan"
-            style="@style/plain_text2"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginBottom="@dimen/distance8"
-            android:text="教师列表" />
-        <TextView
-            android:id="@+id/tv_last_time_t_course_plan"
-            style="@style/plain_text2"
-            android:layout_alignParentRight="true"
-            android:text="持续时间"/>
-    </RelativeLayout>
 
 </RelativeLayout>

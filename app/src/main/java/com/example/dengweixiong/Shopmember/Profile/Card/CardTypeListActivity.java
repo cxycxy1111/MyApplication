@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSectionAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -155,24 +157,42 @@ public class CardTypeListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
+                CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Map<String,String> map = new HashMap<>();
-                ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                if (!resp.contains(Ref.STATUS)) {
-                    map.put("type","余额卡");
-                    list.add(map);
-                    arrayList = JsonHandler.strToListMap(resp,keys);
-                    for (int i = 0;i < arrayList.size();i++) {
-                        list.add(arrayList.get(i));
-                        balanceList.add(arrayList.get(i));
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CardTypeListActivity.this,"暂无会员卡类型，请新增");
+                                break;
+                            default:break;
+                        }
+                        initTimesCard();
+                        break;
+                    case RESP_MAPLIST:
+                        Map<String,String> map = new HashMap<>();
+                        ArrayList<Map<String,String>> arrayList = new ArrayList<>();
+                        map.put("type","余额卡");
+                        list.add(map);
+                        arrayList = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i < arrayList.size();i++) {
+                            list.add(arrayList.get(i));
+                            balanceList.add(arrayList.get(i));
+                        }
+                        initTimesCard();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(CardTypeListActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
-                initTimesCard();
             }
         };
         NetUtil.sendHttpRequest(CardTypeListActivity.this,url_balance,callback);
@@ -183,24 +203,42 @@ public class CardTypeListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
+                CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                Map<String,String> map = new HashMap<>();
-                if (!resp.contains(Ref.STATUS)) {
-                    map.put("type","次卡");
-                    list.add(map);
-                    arrayList = JsonHandler.strToListMap(resp,keys);
-                    for (int i = 0;i < arrayList.size();i++) {
-                        list.add(arrayList.get(i));
-                        timesList.add(arrayList.get(i));
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(CardTypeListActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_MAPLIST:
+                        ArrayList<Map<String,String>> arrayList = new ArrayList<>();
+                        Map<String,String> map = new HashMap<>();
+                        map.put("type","次卡");
+                        list.add(map);
+                        arrayList = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i < arrayList.size();i++) {
+                            list.add(arrayList.get(i));
+                            timesList.add(arrayList.get(i));
+                        }
+                        initTimeCard();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                break;
+                            default:break;
+                        }
+                        initTimeCard();
+                    default:break;
                 }
-                initTimeCard();
+
             }
         };
         NetUtil.sendHttpRequest(CardTypeListActivity.this,url_times,callback);
@@ -211,24 +249,40 @@ public class CardTypeListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
+                CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                ArrayList<Map<String,String>> arrayList = new ArrayList<>();
-                if (!resp.contains(Ref.STATUS)) {
-                    Map<String,String> map = new HashMap<>();
-                    map.put("type","有效期卡");
-                    arrayList = JsonHandler.strToListMap(resp,keys);
-                    list.add(map);
-                    for (int i = 0;i < arrayList.size();i++) {
-                        list.add(arrayList.get(i));
-                        timeList.add(arrayList.get(i));
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        ArrayList<Map<String,String>> arrayList = new ArrayList<>();
+                        Map<String,String> map = new HashMap<>();
+                        map.put("type","有效期卡");
+                        arrayList = JsonHandler.strToListMap(resp,keys);
+                        list.add(map);
+                        for (int i = 0;i < arrayList.size();i++) {
+                            list.add(arrayList.get(i));
+                            timeList.add(arrayList.get(i));
+                        }
+                        initRecyclerView();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                break;
+                            default:break;
+                        }
+                        initRecyclerView();
+                        break;
+                    default:break;
                 }
-                initRecyclerView();
+
             }
         };
         NetUtil.sendHttpRequest(CardTypeListActivity.this,url_times,callback);

@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -68,20 +70,32 @@ public class ClassroomListActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                HashMap<String,String> m = new HashMap<>();
-                if (resp.contains(Ref.STATUS)) {
-                    if (m.get("stat") == "no_such_record"){
-                        MethodTool.showToast(ClassroomListActivity.this,"没有课室");
-                    }else {
-                        MethodTool.showToast(ClassroomListActivity.this, Ref.UNKNOWN_ERROR);
-                    }
-                }else {
-                    list = JsonHandler.strToListMap(resp,keys);
-                    MethodTool.sortListMap(list,"name");
-                    for (int i = 0;i < list.size();i++) {
-                        strings.add(list.get(i).get("name"));
-                    }
-                    initRecyclerView();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ClassroomListActivity.this,"暂无课室，请新增");
+                                break;
+                            default:
+                                MethodTool.showToast(ClassroomListActivity.this, Ref.UNKNOWN_ERROR);
+                                break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        list = JsonHandler.strToListMap(resp,keys);
+                        MethodTool.sortListMap(list,"name");
+                        for (int i = 0;i < list.size();i++) {
+                            strings.add(list.get(i).get("name"));
+                        }
+                        initRecyclerView();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(ClassroomListActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
+
                 }
             }
         };

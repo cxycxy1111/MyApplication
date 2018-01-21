@@ -17,7 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Shopmember.Profile.Classroom.AddNewClassroomActivity;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -246,38 +249,43 @@ public class AddNewCardActivity
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+                    MethodTool.showToast(AddNewCardActivity.this,Ref.CANT_CONNECT_INTERNET);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    if (resp.contains(Ref.ID)) {
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);
-                        intent.putExtra("type",selected_type);
-                        intent.putExtra("id",map.get("id"));
-                        intent.putExtra("name",name);
-                        setResult(Ref.RESULTCODE_ADD,intent);
-                        finish();
-                    }else if (resp.contains(Ref.STATUS)) {
-                        HashMap<String,String> map = JsonHandler.strToMap(resp);
-                        switch (map.get("stat")) {
-                            case "exe_suc":
-                                MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_SUCCESS);
-                                finish();
-                                break;
-                            case "duplicate":
-                                MethodTool.showToast(AddNewCardActivity.this,"卡名重复");
-                                break;
-                            case "exe_fail":
-                                MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_FAIL);
-                                break;
-                            default:
-                                break;
-                        }
+                    EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                    switch (respType) {
+                        case RESP_STAT:
+                            EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                            switch (respStatType) {
+                                case EXE_SUC:
+                                    MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_SUCCESS);
+                                    finish();
+                                    break;
+                                case DUPLICATE:
+                                    MethodTool.showToast(AddNewCardActivity.this,"卡名重复");
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_FAIL);
+                                    break;
+                                default:break;
+                            }
+                        case RESP_MAP:
+                            Map<String,String> map = JsonHandler.strToMap(resp);
+                            Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);
+                            intent.putExtra("type",selected_type);
+                            intent.putExtra("id",map.get("id"));
+                            intent.putExtra("name",name);
+                            setResult(Ref.RESULTCODE_ADD,intent);
+                            finish();
+                            break;
+                        case RESP_ERROR:
+                            MethodTool.showToast(AddNewCardActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        default:break;
                     }
-
                 }
             };
             NetUtil.sendHttpRequest(AddNewCardActivity.this,url,callback);

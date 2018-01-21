@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Login;
+package com.example.dengweixiong.Login;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -142,7 +144,6 @@ public class SignInFragment
                     Toast.makeText(getContext(),"登录名或密码不能为空",Toast.LENGTH_LONG).show();
                 }else {
                     requestShopmember();
-                    jumpTo();
                 }
                 break;
             default:
@@ -165,23 +166,35 @@ public class SignInFragment
             public void onResponse(Call call, Response response) throws IOException {
                 Map<String,String> map = new HashMap<>();
                 String resp = response.body().string();
-                map = JsonHandler.strToMap(resp);
-                ArrayList<String> keys = MethodTool.getKeys(map);
-                ArrayList<String> values = MethodTool.getValues(map,keys);
-                if (keys.get(0).equals(Ref.STATUS)) {
-                    if (values.get(0).equals("not_match")) {
-                        MethodTool.showToast(getActivity(),"登录名与密码不匹配");
-                    } else if (values.get(0).equals("no_such_record")){
-                        MethodTool.showToast(getActivity(),"登录名与密码不匹配");
-                    } else {
-                        MethodTool.showToast(getActivity(), Ref.UNKNOWN_ERROR);
-                    }
-                }else if (keys.get(0).equals("data")) {
-                    sm_id = Long.parseLong(values.get(0));
-                    storeLoginMessage(loginname,password);
-                    requestShop();
-                }else {
-                    MethodTool.showToast(getActivity(),"内部错误，无法完成请求");
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NOT_MATCH:
+                                MethodTool.showToast(getActivity(),"登录名与密码不匹配");
+                                break;
+                            case NSR:
+                                MethodTool.showToast(getActivity(),"登录名与密码不匹配");
+                                break;
+                            default:
+                                MethodTool.showToast(getActivity(), Ref.UNKNOWN_ERROR);
+                                break;
+                        }
+                        break;
+                    case RESP_DATA:
+                        map = JsonHandler.strToMap(resp);
+                        ArrayList<String> keys = MethodTool.getKeys(map);
+                        ArrayList<String> values = MethodTool.getValues(map,keys);
+                        sm_id = Long.parseLong(values.get(0));
+                        storeLoginMessage(loginname,password);
+                        requestShop();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
+
                 }
             }
         };
@@ -209,6 +222,7 @@ public class SignInFragment
                 storeShopAndShopMemberInfo("sasm","s_id", Long.parseLong(values.get(0)));
                 //储存教师ID
                 storeShopAndShopMemberInfo("sasm","sm_id",sm_id);
+                jumpTo();
             }
         };
         NetUtil.sendHttpRequest(getContext(),url,callback);

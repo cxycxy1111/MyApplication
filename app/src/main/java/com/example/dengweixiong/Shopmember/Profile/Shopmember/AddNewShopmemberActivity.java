@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -141,27 +143,33 @@ public class AddNewShopmemberActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    Map<String,String> map =JsonHandler.strToMap(resp);
-                    String v = map.get(Ref.STATUS);
-                    if (map.get("stat").equals(Ref.STAT_EXE_FAIL)) {
-                        MethodTool.showToast(AddNewShopmemberActivity.this,"新增失败");
-                    }else if (map.get("stat").equals(Ref.STAT_DUPLICATE)) {
-                        MethodTool.showToast(AddNewShopmemberActivity.this,"登录名重复");
-                    }else {
-
-                    }
-                }else if (resp.contains(Ref.DATA)) {
-                    Map<String,String> map =JsonHandler.strToMap(resp);
-                    String v = map.get(Ref.DATA);
-                    Intent intent = new Intent(AddNewShopmemberActivity.this,ShopmemberListActivity.class);
-                    intent.putExtra("id",v);
-                    intent.putExtra("name",name);
-                    intent.putExtra("type",selectedType);
-                    setResult(Ref.RESULTCODE_ADD,intent);
-                    finish();
-                }else {
-                    MethodTool.showToast(AddNewShopmemberActivity.this, Ref.UNKNOWN_ERROR);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddNewShopmemberActivity.this,Ref.OP_ADD_FAIL);
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(AddNewShopmemberActivity.this,"登录名重复");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_DATA:
+                        String v = JsonHandler.strToMap(resp).get(Ref.DATA);
+                        Intent intent = new Intent(AddNewShopmemberActivity.this,ShopmemberListActivity.class);
+                        intent.putExtra("id",v);
+                        intent.putExtra("name",name);
+                        intent.putExtra("type",selectedType);
+                        setResult(Ref.RESULTCODE_ADD,intent);
+                        finish();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddNewShopmemberActivity.this, Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };

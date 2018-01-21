@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.example.dengweixiong.Shopmember.Course.Course.CourseDetailActivity;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -177,27 +180,27 @@ public class CardDetailActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Map<String,String> map = JsonHandler.strToMap(response.body().toString());
-                        ArrayList<String> keys = MethodTool.getKeys(map);
-                        ArrayList<String> values = MethodTool.getValues(map,keys);
-                        switch (keys.get(0)) {
-                            case "stat" :
-                                switch (values.get(0)) {
-                                    case "exe_suc" :
+                        String resp = response.body().string();
+                        EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                        switch (respType) {
+                            case RESP_STAT:
+                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                                switch (respStatType) {
+                                    case EXE_SUC:
                                         MethodTool.showToast(CardDetailActivity.this,"卡类型已被删除");
                                         Intent intent = new Intent(CardDetailActivity.this,CardTypeListActivity.class);
                                         intent.putExtra("pos",position);
                                         setResult(Ref.RESULTCODE_DELETE,intent);
                                         finish();
                                         break;
-                                    case "exe_fail" :
+                                    case EXE_FAIL:
                                         MethodTool.showToast(CardDetailActivity.this,"删除失败");
                                         break;
-                                    default:
-                                        break;
+                                    default:break;
                                 }
-                            default:
                                 break;
+                            case RESP_ERROR:
+                                MethodTool.showToast(CardDetailActivity.this,Ref.UNKNOWN_ERROR);
                         }
                     }
                 };
@@ -248,30 +251,37 @@ public class CardDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                HashMap<String,String> map = JsonHandler.strToMap(resp);
-                String value = map.get(Ref.STATUS);
-                switch (value) {
-                    case "no_such_record":
-                        MethodTool.showToast(CardDetailActivity.this,"无法修改");
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CardDetailActivity.this,"无法修改");
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(CardDetailActivity.this,"卡名重复，请重试");
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(CardDetailActivity.this,"修改成功");
+                                Intent intent = new Intent(CardDetailActivity.this, CardTypeListActivity.class);
+                                intent.putExtra("name",new_name)
+                                        .putExtra("pos",position)
+                                        .putExtra("type",type)
+                                        .putExtra("id",c_id);
+                                setResult(Ref.RESULTCODE_UPDATE,intent);
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(CardDetailActivity.this,"修改失败");
+                                break;
+                            default:break;
+                        }
                         break;
-                    case "duplicate" :
-                        MethodTool.showToast(CardDetailActivity.this,"卡名重复，请重试");
+                    case RESP_ERROR:
+                        MethodTool.showToast(CardDetailActivity.this,Ref.UNKNOWN_ERROR);
                         break;
-                    case "exe_suc" :
-                        MethodTool.showToast(CardDetailActivity.this,"修改成功");
-                        Intent intent = new Intent(CardDetailActivity.this, CardTypeListActivity.class);
-                        intent.putExtra("name",new_name);
-                        intent.putExtra("pos",position);
-                        intent.putExtra("type",type);
-                        intent.putExtra("id",c_id);
-                        setResult(Ref.RESULTCODE_UPDATE,intent);
-                        finish();
-                        break;
-                    case "exe_fail" :
-                        MethodTool.showToast(CardDetailActivity.this,"修改失败");
-                        break;
-                    default:
-                        break;
+                    default:break;
                 }
             }
         };

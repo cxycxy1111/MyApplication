@@ -20,6 +20,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -214,29 +216,39 @@ public class AddCoursePlanActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int s = MethodTool.dealWithResponse(resp);
-                if (s == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_course_full = JsonHandler.strToListMap(resp,keys_course_list);
-                    for (int i = 0;i < mapList_course_full.size();i++) {
-                        list_course_name.add(String.valueOf(mapList_course_full.get(i).get(keys_course_list[1])));
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            initCourseSpinner();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        mapList_course_full = JsonHandler.strToListMap(resp,keys_course_list);
+                        for (int i = 0;i < mapList_course_full.size();i++) {
+                            list_course_name.add(String.valueOf(mapList_course_full.get(i).get(keys_course_list[1])));
                         }
-                    });
-                }else if (s == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map_status = new HashMap<>();
-                    map_status = JsonHandler.strToMap(resp);
-                    if (map_status.get(Ref.STATUS) == Ref.STAT_NSR) {
-                        MethodTool.showToast(AddCoursePlanActivity.this,"暂无此舞馆");
-                    }else if (map_status.get(Ref.STATUS) == Ref.STAT_EMPTY_RESULT) {
-                        MethodTool.showToast(AddCoursePlanActivity.this,"舞馆尚未安排课程");
-                    }
-                    AddCoursePlanActivity.this.finish();
-                }else if (s == Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initCourseSpinner();
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddCoursePlanActivity.this,"暂无此舞馆");
+                                AddCoursePlanActivity.this.finish();
+                                break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(AddCoursePlanActivity.this,"舞馆尚未安排课程");
+                                AddCoursePlanActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                        AddCoursePlanActivity.this.finish();
+                        break;
+                    default:break;
                 }
             }
         };
@@ -284,24 +296,35 @@ public class AddCoursePlanActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int stat = MethodTool.dealWithResponse(resp);
-                if (stat == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_classroom_full = JsonHandler.strToListMap(resp,keys_classroom_list);
-                    for (int i = 0;i < mapList_classroom_full.size();i++) {
-                        list_classroom_name.add(String.valueOf(mapList_classroom_full.get(i).get(keys_classroom_list[1])));
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            initClassroomSpinner();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        mapList_classroom_full = JsonHandler.strToListMap(resp,keys_classroom_list);
+                        for (int i = 0;i < mapList_classroom_full.size();i++) {
+                            list_classroom_name.add(String.valueOf(mapList_classroom_full.get(i).get(keys_classroom_list[1])));
                         }
-                    });
-                }else if (stat == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map_stat = JsonHandler.strToMap(resp);
-                }else if (stat == Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
-                }else {
-
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initClassroomSpinner();
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddCoursePlanActivity.this,"暂无课室，请先新增");
+                                AddCoursePlanActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                        AddCoursePlanActivity.this.finish();
+                        break;
+                    default:break;
                 }
             }
         };
@@ -365,45 +388,43 @@ public class AddCoursePlanActivity
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String resp = response.body().string();
-                        int s = MethodTool.dealWithResponse(resp);
-                        //响应中包含数据
-                        if (s == Ref.RESP_TYPE_DATA) {
-                            Map<String,String> map = new HashMap<>();
-                            map = JsonHandler.strToMap(resp);
-                            current_courseplan = String.valueOf(map.get(Ref.DATA));
-                            switch (selected_course_type) {
-                                case "4":
-                                    AddCoursePlanActivity.this.finish();
-                                    break;
-                                default:
-                                    Intent intent = new Intent(AddCoursePlanActivity.this,AddCoursePlanTeacherActivity.class);
-                                    intent.putExtra("cp_id",current_courseplan);
-                                    //启动新界面
-                                    AddCoursePlanActivity.this.startActivityForResult(intent,Ref.REQCODE_ADD);
-                                    AddCoursePlanActivity.this.finish();
-                                    break;
-                            }
-                        }
-                        //响应中包含错误
-                        else if (s == Ref.RESP_TYPE_ERROR) {
-                            MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
-                        }
-                        //响应中包含状态
-                        else if (s == Ref.RESP_TYPE_STAT) {
-                            Map<String,String> map = new HashMap<>();
-                            map = JsonHandler.strToMap(resp);
-                            switch (map.get(Ref.STATUS)) {
-                                case "institution_not_match":
-                                    MethodTool.showToast(AddCoursePlanActivity.this,Ref.OP_INST_NOT_MATCH);
-                                    break;
-                                case "duplicate":
-                                    MethodTool.showToast(AddCoursePlanActivity.this,"排课重复");
-                                    break;
-                                case "no_such_record":
-                                    MethodTool.showToast(AddCoursePlanActivity.this,"未发现课程");
-                                    break;
-                                default:break;
-                            }
+                        EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                        switch (respType) {
+                            case RESP_MAP:
+                                Map<String,String> map = new HashMap<>();
+                                map = JsonHandler.strToMap(resp);
+                                current_courseplan = String.valueOf(map.get(Ref.DATA));
+                                switch (selected_course_type) {
+                                    case "4":
+                                        AddCoursePlanActivity.this.finish();
+                                        break;
+                                    default:
+                                        Intent intent = new Intent(AddCoursePlanActivity.this,AddCoursePlanTeacherActivity.class);
+                                        intent.putExtra("cp_id",current_courseplan);
+                                        //启动新界面
+                                        AddCoursePlanActivity.this.startActivityForResult(intent,Ref.REQCODE_ADD);
+                                        AddCoursePlanActivity.this.finish();
+                                        break;
+                                }
+                                break;
+                            case RESP_ERROR:
+                                MethodTool.showToast(AddCoursePlanActivity.this,Ref.UNKNOWN_ERROR);
+                                break;
+                            case RESP_STAT:
+                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                                switch (respStatType) {
+                                    case NST_NOT_MATCH:
+                                        MethodTool.showToast(AddCoursePlanActivity.this,Ref.OP_INST_NOT_MATCH);
+                                        break;
+                                    case DUPLICATE:
+                                        MethodTool.showToast(AddCoursePlanActivity.this,"排课重复");
+                                        break;
+                                    case NSR:
+                                        MethodTool.showToast(AddCoursePlanActivity.this,"未发现课程");
+                                        break;
+                                    default:break;
+                                }
+                            default:break;
                         }
                     }
                 };

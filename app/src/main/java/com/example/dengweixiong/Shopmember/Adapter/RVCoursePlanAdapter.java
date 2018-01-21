@@ -12,7 +12,11 @@ import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailAct
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity;
 import com.example.dengweixiong.myapplication.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -67,8 +71,25 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
         vh.tv_time.setText(start_time.substring(0,start_time.length()-5));
         vh.tv_name.setText(mapList.get(position).get("course_name"));
         vh.tv_classroom.setText(mapList.get(position).get("classroom_name"));
-        vh.tv_last_time.setText(String.valueOf(mapList.get(position).get("last_time")));
-        vh.tv_teachers.setText(mapList.get(position).get("teachers"));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date_start = null;
+        try {
+            date_start = simpleDateFormat.parse(start_time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date date_end = null;
+        try {
+            date_end = simpleDateFormat.parse(mapList.get(position).get("end_time"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long minute = (date_end.getTime() - date_start.getTime())/60/1000;
+
+        vh.tv_last_time.setText(String.valueOf(minute) + "分钟");
     }
 
     @Override
@@ -77,7 +98,7 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
     }
 
     private static class VH extends RecyclerView.ViewHolder{
-        TextView tv_time,tv_classroom,tv_name,tv_teachers,tv_last_time;
+        TextView tv_time,tv_classroom,tv_name,tv_last_time;
         View view;
         private VH (View view) {
             super(view);
@@ -85,7 +106,6 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
             tv_time = (TextView)view.findViewById(R.id.tv_time_t_course_plan);
             tv_classroom = (TextView)view.findViewById(R.id.tv_classroom_t_course_plan);
             tv_name = (TextView)view.findViewById(R.id.tv_name_t_course_plan);
-            tv_teachers = (TextView)view.findViewById(R.id.tv_teachers_t_course_plan);
             tv_last_time = (TextView)view.findViewById(R.id.tv_last_time_t_course_plan);
         }
 

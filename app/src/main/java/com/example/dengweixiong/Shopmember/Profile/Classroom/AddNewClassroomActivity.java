@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -84,34 +86,37 @@ public class AddNewClassroomActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String resp = response.body().string();
-                        if (resp.contains(Ref.STATUS)) {
-                            Map<String,String> map = JsonHandler.strToMap(resp);
-                            switch (map.get("stat")) {
-                                case "duplicate" :
-                                    MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
-                                    break;
-                                case "exe_fail" :
-                                    MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
-                                    break;
-                                case "no_such_record" :
-                                    MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
-                                    finish();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }else if (resp.contains("id")) {
-                            MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
-                            String [] k = new String[]{"id"};
-                            List<Map<String,String>> list = JsonHandler.strToListMap(resp,k);
-                            cr_id = Long.parseLong(String.valueOf(list.get(0).get(k[0])));
-                            Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
-                            intent.putExtra("cr_id",cr_id);
-                            intent.putExtra("cr_name",cr_name);
-                            setResult(Ref.RESULTCODE_ADD,intent);
-                            finish();
+                        EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                        switch (respType) {
+                            case RESP_STAT:
+                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                                switch (respStatType) {
+                                    case DUPLICATE:
+                                        MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
+                                        break;
+                                    case EXE_FAIL:
+                                        MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
+                                        break;
+                                    case NSR:
+                                        MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
+                                        finish();
+                                        break;
+                                    default:break;
+                                }
+                                break;
+                            case RESP_MAP:
+                                MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
+                                String [] k = new String[]{"id"};
+                                List<Map<String,String>> list = JsonHandler.strToListMap(resp,k);
+                                cr_id = Long.parseLong(String.valueOf(list.get(0).get(k[0])));
+                                Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
+                                intent.putExtra("cr_id",cr_id).
+                                        putExtra("cr_name",cr_name);
+                                setResult(Ref.RESULTCODE_ADD,intent);
+                                finish();
+                                break;
+                            default:break;
                         }
-
                     }
                 };
                 NetUtil.sendHttpRequest(AddNewClassroomActivity.this,url,callback);

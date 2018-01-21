@@ -1,4 +1,4 @@
-package com.example.dengweixiong.Shopmember.Login;
+package com.example.dengweixiong.Login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,7 +20,6 @@ import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
-import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
@@ -39,8 +38,8 @@ import okhttp3.Response;
 public class LoginActivity
         extends BaseActivity
         implements TabLayout.OnTabSelectedListener,
-        com.example.dengweixiong.Shopmember.Login.RegistShopFragment.OnFragmentInteractionListener,
-        com.example.dengweixiong.Shopmember.Login.SignInFragment.OnFragmentInteractionListener {
+        RegistShopFragment.OnFragmentInteractionListener,
+        SignInFragment.OnFragmentInteractionListener {
 
     private TabLayout tabLayout;
     private Context context;

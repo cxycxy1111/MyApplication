@@ -12,8 +12,6 @@
         <TextView
             android:id="@+id/tv_name_tile_course"
             android:text="课程名称"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/distance8"
             android:layout_marginLeft="@dimen/distance16"
             style="@style/plain_text"/>
@@ -21,19 +19,15 @@
             android:id="@+id/tv_time_tile_course"
             android:layout_alignParentRight="true"
             android:text="持续时间"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/distance8"
             android:layout_marginRight="@dimen/distance16"
-            style="@style/plain_text_hint"/>
+            style="@style/plain_text2"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/tv_supportedcard_tile_course"
         android:text="支持的会员卡"
-        style="@style/plain_text_hint"
+        style="@style/plain_text2"
         android:ellipsize="marquee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/distance4"
         android:layout_marginBottom="@dimen/distance16"
         android:layout_marginLeft="@dimen/distance16"

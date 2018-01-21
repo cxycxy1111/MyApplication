@@ -150,35 +150,43 @@ public class CourseDetailActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    Map<String, String> tempMap = new HashMap<>();
-                    tempMap = JsonHandler.strToMap(resp);
-                    switch (tempMap.get(Ref.STATUS)) {
-                        case "empty_result":
-                            MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
-                        default:
-                            break;
-                    }
-                }else {
-                    if (str_type.equals("4")) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                recyclerView.setVisibility(View.GONE);
-                            }
-                        });
-                        maplist_courseDetail = JsonHandler.strToListMap(resp,strs_coursePrivateKeys);
-                        initPrivateCourse();
-                    }else if (str_type.equals("1") || str_type.equals("2") || str_type.equals("3")) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                scrollView.setVisibility(View.GONE);
-                            }
-                        });
-                        maplist_courseDetail = JsonHandler.strToListMap(resp,strs_courseKeys);
-                        initAllCards();
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        if (str_type.equals("4")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recyclerView.setVisibility(View.GONE);
+                                }
+                            });
+                            maplist_courseDetail = JsonHandler.strToListMap(resp,strs_coursePrivateKeys);
+                            initPrivateCourse();
+                        }else if (str_type.equals("1") || str_type.equals("2") || str_type.equals("3")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    scrollView.setVisibility(View.GONE);
+                                }
+                            });
+                            maplist_courseDetail = JsonHandler.strToListMap(resp,strs_courseKeys);
+                            initAllCards();
+                        }
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -220,13 +228,26 @@ public class CourseDetailActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-
-                }else {
-                    maplist_card = JsonHandler.strToListMap(resp,strs_cardKeys);
-                    if (maplist_card.size()!=0) {
-                        initSupportedCard();
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_NSR);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        maplist_card = JsonHandler.strToListMap(resp,strs_cardKeys);
+                        if (maplist_card.size()!=0) {
+                            initSupportedCard();
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                    default:break;
                 }
             }
         };
@@ -247,12 +268,27 @@ public class CourseDetailActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    map_result = JsonHandler.strToMap(resp);
-                }else {
-                    maplist_supportedCard = JsonHandler.strToListMap(resp,strs_supportCardKeys);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                map_result = JsonHandler.strToMap(resp);
+                                reorgnizeData();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        maplist_supportedCard = JsonHandler.strToListMap(resp,strs_supportCardKeys);
+                        reorgnizeData();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
-                reorgnizeData();
             }
         };
         NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
@@ -391,6 +427,7 @@ public class CourseDetailActivity
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                break;
             case R.id.save_a_course_detail:
                 switch (str_type) {
                     case "4" :
@@ -402,7 +439,7 @@ public class CourseDetailActivity
                 }
                 break;
             case R.id.delete_a_course_detail:
-
+                deleteCourse();
                 break;
             default:break;
         }

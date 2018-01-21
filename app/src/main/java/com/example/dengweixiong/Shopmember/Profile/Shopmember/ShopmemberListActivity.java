@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSectionAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -73,18 +75,35 @@ public class ShopmemberListActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name","type"};
-                List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
-                if (list.size() !=0 ) {
-                    Map<String,String> header = new HashMap<>();
-                    header.put("type","管理员");
-                    full_list.add(header);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name","type"};
+                        List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
+                        if (list.size() !=0 ) {
+                            Map<String,String> header = new HashMap<>();
+                            header.put("type","管理员");
+                            full_list.add(header);
+                        }
+                        for (int i = 0;i < list.size();i++) {
+                            full_list.add(list.get(i));
+                            admin_list.add(list.get(i));
+                        }
+                        initInnerList();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ShopmemberListActivity.this,"暂无管理员");
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(ShopmemberListActivity.this,"");
+                        initInnerList();
+                    default:break;
                 }
-                for (int i = 0;i < list.size();i++) {
-                    full_list.add(list.get(i));
-                    admin_list.add(list.get(i));
-                }
-                initInnerList();
             }
         };
         NetUtil.sendHttpRequest(this,url,callback);
@@ -102,18 +121,33 @@ public class ShopmemberListActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name","type"};
-                List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
-                if (list.size() !=0 ) {
-                    Map<String,String> header = new HashMap<>();
-                    header.put("type","内部教师");
-                    full_list.add(header);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name","type"};
+                        List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
+                        if (list.size() !=0 ) {
+                            Map<String,String> header = new HashMap<>();
+                            header.put("type","内部教师");
+                            full_list.add(header);
+                        }
+                        for (int i = 0;i < list.size();i++) {
+                            full_list.add(list.get(i));
+                            inner_list.add(list.get(i));
+                        }
+                        initOuterList();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ShopmemberListActivity.this,"暂无内部教师");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
                 }
-                for (int i = 0;i < list.size();i++) {
-                    full_list.add(list.get(i));
-                    inner_list.add(list.get(i));
-                }
-                initOuterList();
             }
         };
         NetUtil.sendHttpRequest(this,url,callback);
@@ -124,24 +158,43 @@ public class ShopmemberListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                MethodTool.showToast(ShopmemberListActivity.this,Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name","type"};
-                List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
-                if (list.size() != 0) {
-                    Map<String,String> header = new HashMap<>();
-                    header.put("type","外聘教师");
-                    full_list.add(header);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name","type"};
+                        List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
+                        if (list.size() != 0) {
+                            Map<String,String> header = new HashMap<>();
+                            header.put("type","外聘教师");
+                            full_list.add(header);
+                        }
+                        for (int i = 0;i < list.size();i++) {
+                            full_list.add(list.get(i));
+                            outer_list.add(list.get(i));
+                        }
+                        initRecyclerView();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ShopmemberListActivity.this,"暂无外聘教师");
+                                initRecyclerView();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(ShopmemberListActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
                 }
-                for (int i = 0;i < list.size();i++) {
-                    full_list.add(list.get(i));
-                    outer_list.add(list.get(i));
-                }
-                initRecyclerView();
+
             }
         };
         NetUtil.sendHttpRequest(ShopmemberListActivity.this,url,callback);

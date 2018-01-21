@@ -199,18 +199,38 @@ public class AddNewMemberCardActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name"};
-                full_name_list = JsonHandler.strToListMap(resp,keys);
-                for (int i = 0;i < full_name_list.size();i++) {
-                    name_list.add(full_name_list.get(i).get("name"));
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name"};
+                        full_name_list = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i < full_name_list.size();i++) {
+                            name_list.add(full_name_list.get(i).get("name"));
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initMemberSpinner();
+                            }
+                        });
+                        initCard();
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(AddNewMemberCardActivity.this,"暂无会员");
+                                AddNewMemberCardActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initMemberSpinner();
-                    }
-                });
-                initCard();
+
             }
         };
         NetUtil.sendHttpRequest(AddNewMemberCardActivity.this,url,callback);
@@ -244,17 +264,34 @@ public class AddNewMemberCardActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","type","name"};
-                card_full_list = JsonHandler.strToListMap(resp,keys);
-                for (int i = 0;i < card_full_list.size();i++) {
-                    card_list.add(card_full_list.get(i).get("name"));
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","type","name"};
+                        card_full_list = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i < card_full_list.size();i++) {
+                            card_list.add(card_full_list.get(i).get("name"));
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initCardSpinner();
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddNewMemberCardActivity.this,"暂无卡，请添加");
+                                AddNewMemberCardActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initCardSpinner();
-                    }
-                });
+
             }
         };
         NetUtil.sendHttpRequest(AddNewMemberCardActivity.this,url,callback);

@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -71,12 +73,27 @@ public class ClassroomDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    MethodTool.showToast(ClassroomDetailActivity.this, Ref.UNKNOWN_ERROR);
-                }else {
-                    ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
-                    req_cr_name = list.get(0).get("name");
-                    setEditTextText();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(ClassroomDetailActivity.this,Ref.OP_NSR);
+                                ClassroomDetailActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
+                        req_cr_name = list.get(0).get("name");
+                        setEditTextText();
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(ClassroomDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };
@@ -161,23 +178,32 @@ public class ClassroomDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                HashMap<String,String> map = JsonHandler.strToMap(resp);
-                switch (map.get(Ref.STATUS)) {
-                    case "exe_suc" :
-                        Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
-                        int i = position;
-                        intent.putExtra("pos",i);
-                        setResult(Ref.RESULTCODE_DELETE,intent);
-                        finish();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_SUC:
+                                Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
+                                int i = position;
+                                intent.putExtra("pos",i);
+                                setResult(Ref.RESULTCODE_DELETE,intent);
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(ClassroomDetailActivity.this,"删除失败");
+                                break;
+                            case NSR:
+                                MethodTool.showToast(ClassroomDetailActivity.this,"未找到课室");
+                                finish();
+                                break;
+                            default:break;
+                        }
                         break;
-                    case "exe_fail" :
-                        MethodTool.showToast(ClassroomDetailActivity.this,"删除失败");
+                    case RESP_ERROR:
+                        MethodTool.showToast(ClassroomDetailActivity.this,Ref.UNKNOWN_ERROR);
                         break;
-                    case "no_such_record" :
-                        MethodTool.showToast(ClassroomDetailActivity.this,"未找到课室");
-                        break;
-                    default:
-                        break;
+                    default:break;
                 }
             }
         };

@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapterWithCheck;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -92,25 +94,35 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int s = MethodTool.dealWithResponse(resp);
-                if (s == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_teacher_full = JsonHandler.strToListMap(resp,keys_teacher_list);
-                    for (int i = 0;i < mapList_teacher_full.size();i++) {
-                        list_teacher_name.add(String.valueOf(mapList_teacher_full.get(i).get(keys_teacher_list[1])));
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter = new RVSimpleAdapterWithCheck(list_teacher_name);
-                            LinearLayoutManager llm_rv_teacher = new LinearLayoutManager(AddCoursePlanTeacherActivity.this,LinearLayoutManager.VERTICAL,false);
-                            rv_teacher.setAdapter(adapter);
-                            rv_teacher.setLayoutManager(llm_rv_teacher);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddCoursePlanTeacherActivity.this,"暂无教师");break;
+                            default:break;
                         }
-                    });
-                }else if (s == Ref.RESP_TYPE_STAT) {
-
-                }else if (s == Ref.RESP_TYPE_ERROR){
-                    MethodTool.showToast(AddCoursePlanTeacherActivity.this,resp);
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_MAPLIST:
+                        mapList_teacher_full = JsonHandler.strToListMap(resp,keys_teacher_list);
+                        for (int i = 0;i < mapList_teacher_full.size();i++) {
+                            list_teacher_name.add(String.valueOf(mapList_teacher_full.get(i).get(keys_teacher_list[1])));
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter = new RVSimpleAdapterWithCheck(list_teacher_name);
+                                LinearLayoutManager llm_rv_teacher = new LinearLayoutManager(AddCoursePlanTeacherActivity.this,LinearLayoutManager.VERTICAL,false);
+                                rv_teacher.setAdapter(adapter);
+                                rv_teacher.setLayoutManager(llm_rv_teacher);
+                            }
+                        });
+                        break;
+                    default:break;
                 }
             }
         };
@@ -131,22 +143,32 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (MethodTool.dealWithResponse(resp) ==  Ref.RESP_TYPE_ERROR) {
-                    MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.UNKNOWN_ERROR);
-                }else if (MethodTool.dealWithResponse(resp) == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map = JsonHandler.strToMap(resp);
-                    if (map.get(Ref.STATUS).equals(Ref.STAT_EXE_SUC)) {
-                        MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_SUCCESS);
-                        //返回码
-                        setResult(Ref.RESULTCODE_ADD);
-                        AddCoursePlanTeacherActivity.this.finish();
-                    }else if (map.get(Ref.STATUS).equals(Ref.STAT_EXE_FAIL)) {
-                        MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_FAIL);
-                    }else if (map.get(Ref.STATUS).equals(Ref.STAT_PARTYLY_FAIL)) {
-                        MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_PARTLY_FAIL);
-                        setResult(Ref.RESULTCODE_ADD);
-                        AddCoursePlanTeacherActivity.this.finish();
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_SUC:
+                                MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_SUCCESS);
+                                //返回码
+                                setResult(Ref.RESULTCODE_ADD);
+                                AddCoursePlanTeacherActivity.this.finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_FAIL);
+                                break;
+                            case PARTYLY_FAIL:
+                                MethodTool.showToast(AddCoursePlanTeacherActivity.this,Ref.OP_PARTLY_FAIL);
+                                setResult(Ref.RESULTCODE_ADD);
+                                AddCoursePlanTeacherActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
                 }
             }
         };

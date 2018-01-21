@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSupportedCardAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -95,6 +96,16 @@ public class AddSupportedCardActivity extends BaseActivity {
                             }
                         });
                         break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddSupportedCardActivity.this,"会员卡列表为空，请先新增会员卡");
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
                     default:break;
                 }
             }
@@ -172,35 +183,43 @@ public class AddSupportedCardActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                if (resp.contains(Ref.STATUS)) {
-                    Map<String,String> map = JsonHandler.strToMap(resp);
-                    switch (map.get(Ref.STATUS)) {
-                        case "no_such_record":
-                            MethodTool.showToast(AddSupportedCardActivity.this,"课程或卡不存在");
-                            setResult(RESULT_CODE_FAIL);
-                            AddSupportedCardActivity.this.finish();
-                            break;
-                        case "institution_not_match" :
-                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.STAT_INST_NOT_MATCH);
-                            setResult(RESULT_CODE_FAIL);
-                            AddSupportedCardActivity.this.finish();
-                            break;
-                        case "duplicate":
-                            MethodTool.showToast(AddSupportedCardActivity.this,"已存在要支持的卡");
-                            setResult(RESULT_CODE_FAIL);
-                            AddSupportedCardActivity.this.finish();
-                            break;
-                        case "exe_suc":
-                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_SUCCESS);
-                            setResult(RESULT_CODE_SUC);
-                            AddSupportedCardActivity.this.finish();
-                            break;
-                        case "exe_fail":
-                            MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_FAIL);
-                            setResult(RESULT_CODE_FAIL);
-                            AddSupportedCardActivity.this.finish();
-                            break;
-                    }
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NSR:
+                                MethodTool.showToast(AddSupportedCardActivity.this,"课程或卡不存在");
+                                setResult(RESULT_CODE_FAIL);
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(AddSupportedCardActivity.this,Ref.STAT_INST_NOT_MATCH);
+                                setResult(RESULT_CODE_FAIL);
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_SUCCESS);
+                                setResult(RESULT_CODE_SUC);
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(AddSupportedCardActivity.this,"已存在要支持的卡");
+                                setResult(RESULT_CODE_FAIL);
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_FAIL);
+                                setResult(RESULT_CODE_FAIL);
+                                AddSupportedCardActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddSupportedCardActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };

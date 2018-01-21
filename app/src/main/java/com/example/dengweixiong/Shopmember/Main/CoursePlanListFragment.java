@@ -34,7 +34,7 @@ public class CoursePlanListFragment extends Fragment {
 
     private String s_id,sm_id,mParam1;
     private static final String ARG_PARAM1 = "param1";
-    private String[] strs_keys = new String[] {"courseplan_id","course_name","course_type","classroom_name","last_time","start_time"};
+    private String[] strs_keys = new String[] {"courseplan_id","course_name","course_type","classroom_name","end_time","start_time"};
     private RecyclerView rv_course_plan;
     private View view;
     private List<Map<String,String>> mapList_data = new ArrayList<>();

@@ -13,6 +13,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -63,56 +65,7 @@ public class AddNewMemberActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_member_list:
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                s_id = MethodTool.preGetLong(getApplicationContext(),"sasm","s_id");
-                sm_id = MethodTool.preGetLong(getApplicationContext(),"sasm","sm_id");
-                name = et_name.getText().toString();
-                phone = et_phone.getText().toString();
-                im = et_im.getText().toString();
-                login_name = et_login_name.getText().toString();
-                password = et_password.getText().toString();
-                birthday = et_birthday.getText().toString();
-                if (birthday.equals("")) {
-                    birthday = sdf.format(new Date());
-                }
-                if (name.equals("") || login_name.equals("") || password.equals("")) {
-                    initAlertDialog("必填字段为空","姓名、登录名或密码为空，请补充完整","确定","取消");
-                    break;
-                }
-                String address = "/AddNewMember?shop_id=" + String.valueOf(s_id) +
-                    "&shop_member_id=" + String.valueOf(sm_id) +
-                    "&name=" + name +
-                    "&login_name=" +login_name +
-                    "&password=" +password +
-                    "&phone=" +phone +
-                    "&im=" + im +
-                    "&birthday=" + birthday;
-                Callback callback = new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(AddNewMemberActivity.this, Ref.CANT_CONNECT_INTERNET);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Map<String,String> map = JsonHandler.strToMap(response.body().toString());
-                        switch (MethodTool.getValues(map,MethodTool.getKeys(map)).get(0)) {
-                            case "exe_suc":
-                                MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
-                                finish();
-                                break;
-                            case "duplicate":
-                                MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
-                                break;
-                            case "exe_fail" :
-                                MethodTool.showToast(AddNewMemberActivity.this,"新增失败");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                };
-                NetUtil.sendHttpRequest(AddNewMemberActivity.this,address,callback);
+                saveMember();
                 break;
             case android.R.id.home:
                 finish();
@@ -200,12 +153,72 @@ public class AddNewMemberActivity
                 if (hasFocus) {
                     dpd_birthday.show();
                 }else {
+
                 }
                 break;
-            default:
-                break;
-
+            default:break;
         }
+    }
 
+    private void saveMember() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        s_id = MethodTool.preGetLong(getApplicationContext(),"sasm","s_id");
+        sm_id = MethodTool.preGetLong(getApplicationContext(),"sasm","sm_id");
+        name = et_name.getText().toString();
+        phone = et_phone.getText().toString();
+        im = et_im.getText().toString();
+        login_name = et_login_name.getText().toString();
+        password = et_password.getText().toString();
+        birthday = et_birthday.getText().toString();
+        if (birthday.equals("")) {
+            birthday = sdf.format(new Date());
+        }
+        if (name.equals("") || login_name.equals("") || password.equals("")) {
+            initAlertDialog("必填字段为空","姓名、登录名或密码为空，请补充完整","确定","取消");
+        }else {
+            String address = "/AddNewMember?shop_id=" + String.valueOf(s_id) +
+                    "&shop_member_id=" + String.valueOf(sm_id) +
+                    "&name=" + name +
+                    "&login_name=" +login_name +
+                    "&password=" +password +
+                    "&phone=" +phone +
+                    "&im=" + im +
+                    "&birthday=" + birthday;
+            Callback callback = new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    MethodTool.showToast(AddNewMemberActivity.this, Ref.CANT_CONNECT_INTERNET);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().toString();
+                    EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                    switch (respType) {
+                        case RESP_ERROR:
+                            MethodTool.showToast(AddNewMemberActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        case RESP_STAT:
+                            EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                            switch (respStatType) {
+                                case EXE_SUC:
+                                    MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
+                                    finish();
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(AddNewMemberActivity.this,"新增失败");
+                                    break;
+                                case DUPLICATE:
+                                    MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        default:break;
+                    }
+                }
+            };
+            NetUtil.sendHttpRequest(AddNewMemberActivity.this,address,callback);
+        }
     }
 }
