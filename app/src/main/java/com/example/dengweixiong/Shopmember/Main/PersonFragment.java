@@ -32,7 +32,9 @@ public class PersonFragment
     private static final String TAG = "Nothing to Tell";
     private String mParam1;
     private ListView listView;
-    private int [] icons = {R.mipmap.icon,R.mipmap.icon,R.mipmap.icon};
+    private int [] icons = {R.mipmap.ic_card_type_managehdpi,
+            R.mipmap.ic_teacher_managehdpi,
+            R.mipmap.ic_classroom_managehdpi};
     private String [] values = {"会员卡类型管理","教师管理","课室管理"};
     private String [] map = {"icon","name"};
     private int [] id = {R.id.simple_list_view_img,R.id.simple_list_view_text};
@@ -57,14 +59,14 @@ public class PersonFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main_person, container, false);
-        initToolbar();
+//        initToolbar();
         initListView(view);
         return view;
     }
@@ -135,18 +137,18 @@ public class PersonFragment
         mListener = null;
     }
 
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_fragment_person,menu);
-        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        return true;
     }
 }

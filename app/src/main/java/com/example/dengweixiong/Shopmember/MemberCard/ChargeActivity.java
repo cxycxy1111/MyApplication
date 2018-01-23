@@ -33,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -330,6 +329,21 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 initMemberSpinner();
                             }
                         });
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(ChargeActivity.this,"暂无会员，请新增");
+                                ChargeActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:
+                        break;
                 }
             }
         };

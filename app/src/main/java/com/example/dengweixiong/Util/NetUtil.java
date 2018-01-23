@@ -2,20 +2,18 @@ package com.example.dengweixiong.Util;
 
 import android.content.Context;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * Created by dengweixiong on 2017/8/29.
@@ -35,6 +33,7 @@ public class NetUtil {
     private static final String REMOTE_PREFIX = "http://39.104.72.97:8080/Sailfish";
 
     private static final String JINYE_PREFIX = "http://192.168.27.195:8080/Sailfish";
+
     private static OkHttpClient client;
 
     /**
@@ -68,10 +67,11 @@ public class NetUtil {
      * @param context Activity
      */
     private static void initOkHttpClient(Context context) {
+        final Map<String,List<Cookie>> cookieStore = new HashMap<>();
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS);
+                .readTimeout(20, TimeUnit.SECONDS).cookieJar(new CookiesManager(context));
         client = builder.build();
     }
 

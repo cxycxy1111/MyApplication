@@ -2,29 +2,21 @@ package com.example.dengweixiong.Shopmember.MemberCard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
-import com.example.dengweixiong.Bean.Shop;
 import com.example.dengweixiong.Shopmember.Adapter.RVWithHintAdapter;
 import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
-import com.example.dengweixiong.Shopmember.Member.MemberDetailActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
-import com.example.dengweixiong.Util.Enum.EnumResultCodeType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
@@ -33,7 +25,6 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -191,7 +182,10 @@ public class MemberCardListActivity extends BaseActivity{
                     case RESP_STAT:
                         EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
-                            case EMPTY_RESULT:MethodTool.showToast(MemberCardListActivity.this,Ref.STAT_NSR);break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(MemberCardListActivity.this,Ref.STAT_NSR);
+                                MemberCardListActivity.this.finish();
+                                break;
                             default:break;
                         }
 

@@ -15,12 +15,13 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity;
+import com.example.dengweixiong.Shopmember.Member.MemberListActivity;
 import com.example.dengweixiong.Shopmember.MemberCard.AddNewMemberCardActivity;
 import com.example.dengweixiong.Shopmember.MemberCard.ChargeActivity;
 import com.example.dengweixiong.Shopmember.MemberCard.DeductionActivity;
 import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
-import com.example.dengweixiong.Shopmember.Member.MemberListActivity;
 import com.example.dengweixiong.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +36,12 @@ public class MemberFragment
     private List<Map<String,Object>> mapList_2 = new ArrayList<Map<String, Object>>();
     private String [] values = {"新增会员","会员管理"};
     private String [] values_2 = {"新增会员卡","会员卡管理","充值","扣费"};
-    private int [] icons = {R.mipmap.icon,R.mipmap.icon};
-    private int [] icons_2 = {R.mipmap.icon,R.mipmap.icon,R.mipmap.icon,R.mipmap.icon};
+    private int [] icons = {R.mipmap.ic_member_addhdpi,
+            R.mipmap.ic_member_managehdpi};
+    private int [] icons_2 = {R.mipmap.ic_member_card_addhdpi,
+            R.mipmap.ic_member_card_managehdpi,
+            R.mipmap.ic_member_card_chargehdpi,
+            R.mipmap.ic_member_card_deductionhdpi};
     private String [] map = {"icon","name"};
     private int [] id = {R.id.simple_list_view_img,R.id.simple_list_view_text};
     private SimpleAdapter adapter_1;
@@ -65,14 +70,14 @@ public class MemberFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_main_member, container, false);
-        initToolbar();
+        //initToolbar();
         initListView(view);
         return view;
     }
@@ -152,17 +157,18 @@ public class MemberFragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_fragment_member,menu);
-        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_message_fragment_member:
-                return true;
-            default:return super.onOptionsItemSelected(item);
+                break;
+            default:break;
         }
+        return true;
     }
 
     public interface OnFragmentInteractionListener {

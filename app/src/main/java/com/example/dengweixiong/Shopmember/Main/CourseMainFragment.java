@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
+import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class CourseMainFragment
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
     private CourseViewPagerAdapter adapter_vp;
+    private static final int REQUEST_ADD_NEW_COURSE = 1;
     private List<Fragment> fragments = new ArrayList<>();
     private View view1,view2;
     private List<View> viewList = new ArrayList<>();
@@ -62,13 +65,13 @@ public class CourseMainFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main_course,container,false);
         initView(view);
-//        setHasOptionsMenu(true);
         return view;
     }
 
@@ -77,7 +80,7 @@ public class CourseMainFragment
     }
 
     private void initView(View view) {
-        initToolbar();
+        //initToolbar();
         initFragments();
         initFragmentManager();
         initTabLayout(view);
@@ -157,19 +160,25 @@ public class CourseMainFragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_fragment_course,menu);
-        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_fragment_course_add_new_course:
-                return true;
+                intent = new Intent(getActivity(),AddCourseActivity.class);
+                startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
+                break;
             case R.id.menu_fragment_course_add_new_course_plan:
-                return true;
-            default:return super.onOptionsItemSelected(item);
+                intent = new Intent(getActivity(),AddCoursePlanActivity.class);
+                startActivity(intent);
+                break;
+            default:break;
         }
+        return true;
     }
 
     public interface OnFragmentInteractionListener {

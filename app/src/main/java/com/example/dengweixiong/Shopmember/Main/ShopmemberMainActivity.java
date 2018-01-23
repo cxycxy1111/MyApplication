@@ -12,12 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
 import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.Shopmember.Message.MessageListActivity;
-import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class ShopmemberMainActivity
 
             @Override
             public void onPageSelected(int position) {
- //               getSupportActionBar().setTitle(title[position]);
+                getSupportActionBar().setTitle(title[position]);
                 selected_position = position;
                 if(prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
@@ -138,8 +139,7 @@ public class ShopmemberMainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return true;
+        return false;
     }
 
     @Override

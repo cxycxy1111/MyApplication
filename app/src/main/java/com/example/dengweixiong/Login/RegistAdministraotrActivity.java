@@ -2,19 +2,18 @@ package com.example.dengweixiong.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
-
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class RegistAdministraotrActivity
-        extends AppCompatActivity
+        extends BaseActivity
         implements View.OnClickListener{
 
     private static final String TAG = "RegistAdminActivity:";

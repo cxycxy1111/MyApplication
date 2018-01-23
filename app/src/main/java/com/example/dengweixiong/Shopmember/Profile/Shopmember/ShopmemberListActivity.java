@@ -32,6 +32,7 @@ import okhttp3.Response;
 
 public class ShopmemberListActivity extends BaseActivity {
 
+    private String [] keys = new String[] {"id","name","type"};
     private RVSectionAdapter adapter;
     private long s_id,sm_id;
     private List<Map<String,String>> full_list = new ArrayList<>();
@@ -78,7 +79,6 @@ public class ShopmemberListActivity extends BaseActivity {
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
-                        String [] keys = new String[] {"id","name","type"};
                         List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
                         if (list.size() !=0 ) {
                             Map<String,String> header = new HashMap<>();
@@ -124,7 +124,6 @@ public class ShopmemberListActivity extends BaseActivity {
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
-                        String [] keys = new String[] {"id","name","type"};
                         List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
                         if (list.size() !=0 ) {
                             Map<String,String> header = new HashMap<>();
@@ -167,7 +166,6 @@ public class ShopmemberListActivity extends BaseActivity {
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
-                        String [] keys = new String[] {"id","name","type"};
                         List<Map<String,String>> list = JsonHandler.strToListMap(resp,keys);
                         if (list.size() != 0) {
                             Map<String,String> header = new HashMap<>();

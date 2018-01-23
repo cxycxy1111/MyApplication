@@ -3,15 +3,15 @@
 
     <item
         android:id="@+id/member_a_main"
-        android:icon="@mipmap/icon_membershdpi"
+        android:icon="@mipmap/ic_bnb_members_hdpi"
         android:title="会员" />
     <item
         android:id="@+id/course_a_main"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/ic_bnb_courses_hdpi"
         android:title="课程" />
     <item
         android:id="@+id/person_a_main"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/ic_bnb_person_hdpi"
         android:title="个人中心" />
 
 </menu>

@@ -2,4 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/menu_fragment_person"
+        android:title="帮助"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
 </menu>

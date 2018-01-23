@@ -1,6 +1,5 @@
 package com.example.dengweixiong.Util;
 
-import android.app.Application;
 import android.content.Context;
 
 import java.util.List;
@@ -15,9 +14,14 @@ import okhttp3.HttpUrl;
 
 public class CookiesManager implements CookieJar{
 
-    Context context = new Application().getApplicationContext();
+    private Context context;
 
-    private final PersistentCookieStore cookieStore = new PersistentCookieStore(context);
+    private final PersistentCookieStore cookieStore;
+
+    public CookiesManager (Context context) {
+        this.context = context;
+        cookieStore = new PersistentCookieStore(context);
+    }
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {

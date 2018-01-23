@@ -33,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -330,6 +329,20 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                                 initMemberSpinner();
                             }
                         });
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (enumRespStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(DeductionActivity.this,"暂无会员，请新增");
+                                DeductionActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };
