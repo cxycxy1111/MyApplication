@@ -2,7 +2,6 @@ package com.example.dengweixiong.Util;
 
 import android.app.Activity;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +14,15 @@ public class ActivityManager{
     public static List<Activity> activityList = new ArrayList<>();
 
     public static void addActivity(Activity activity) {
-        activityList.add(activity);
+        if (!activityList.contains(activity)) {
+            activityList.add(activity);
+        }
     }
 
     public static void removeActivity(Activity activity) {
-        activityList.remove(activity);
+        if (activityList.contains(activity)) {
+            activityList.remove(activity);
+        }
     }
 
     public static void removeAllActivity() {

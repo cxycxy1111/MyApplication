@@ -104,6 +104,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                 switch (source) {
                     case "ShopmemberMainActivity":
                         switch (selected_main_type) {
+                            case 0:
+                                MethodTool.showToast(ChargeActivity.this,"无法提交");
+                                break;
                             case 1:
                                 String balance = et_balance.getText().toString();
                                 if (NumberUtils.isNumber(balance)) {
@@ -125,7 +128,6 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 break;
                             default:break;
                         }
-
                         break;
                     case "member_card_detail":
                         switch (str_selected_type) {
@@ -154,7 +156,6 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         break;
                     default:break;
                 }
-
                 break;
             default:
                 break;
@@ -386,6 +387,17 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             }
                         });
                         break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
+                                selected_main_type = 0;
+                                setLinearLayoutVisibility(0);
+                                break;
+                            default:break;
+                        }
+                        break;
                     default:break;
                 }
             }
@@ -431,8 +443,17 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         switch (respStatType) {
                             case EMPTY_RESULT:
                                 MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
+                                selected_main_type = 0;
+                                setLinearLayoutVisibility(selected_main_type);
+                                list_member_card_name.clear();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        spinner_card_adapter.notifyDataSetChanged();
+                                    }
+                                });
                                 break;
-
+                            default:break;
                         }
                     default:break;
                 }
@@ -451,22 +472,36 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
         isLoaded = true;
     }
 
-    private void setLinearLayoutVisibility(int selected_main_type) {
-        switch (selected_main_type) {
-            case 1:
-                linearLayout_num.setVisibility(View.GONE);
-                linearLayout_balance.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                linearLayout_num.setVisibility(View.VISIBLE);
-                linearLayout_balance.setVisibility(View.GONE);
-                break;
-            case 3:
-                linearLayout_balance.setVisibility(View.GONE);
-                linearLayout_num.setVisibility(View.GONE);
-                break;
-            default:break;
-        }
+    private void setLinearLayoutVisibility(final int selected_main_type) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (selected_main_type) {
+                    case 1:
+                        linearLayout_num.setVisibility(View.GONE);
+                        linearLayout_balance.setVisibility(View.VISIBLE);
+                        linearLayout_time.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        linearLayout_num.setVisibility(View.VISIBLE);
+                        linearLayout_balance.setVisibility(View.GONE);
+                        linearLayout_time.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        linearLayout_balance.setVisibility(View.GONE);
+                        linearLayout_num.setVisibility(View.GONE);
+                        linearLayout_time.setVisibility(View.VISIBLE);
+                        break;
+                    case 0:
+                        linearLayout_balance.setVisibility(View.GONE);
+                        linearLayout_num.setVisibility(View.GONE);
+                        linearLayout_time.setVisibility(View.GONE);
+                        break;
+                    default:break;
+                }
+            }
+        });
+
     }
 
     private void submitBalanceCharge(String num) {

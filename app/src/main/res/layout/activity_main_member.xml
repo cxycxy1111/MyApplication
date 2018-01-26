@@ -5,47 +5,116 @@
     android:layout_height="match_parent"
     tools:context="com.example.dengweixiong.Shopmember.Main.MemberFragment">
 
-    <RelativeLayout
-        android:layout_height="match_parent"
+    <ScrollView
+        android:id="@+id/sv_f_member"
         android:layout_width="match_parent"
-        android:layout_marginTop="72dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv1_fragment_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance16"
-            android:text="会员管理"/>
-
-        <com.example.dengweixiong.Util.ListViewForScrollView
-            android:id="@+id/fragment_member_lv_1"
+        <LinearLayout
             android:orientation="vertical"
-            style="@style/ListViewText"
-            android:layout_below="@id/tv1_fragment_member"
-            android:layout_marginTop="@dimen/distance16"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.example.dengweixiong.Util.ListViewForScrollView>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv2_fragment_member"
-            android:layout_below="@id/fragment_member_lv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance16"
-            android:layout_marginLeft="@dimen/distance16"
-            android:text="会员卡管理" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_add_member_f_member"
+                style="@style/rl_first_widget"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="88dp"
+                android:background="#fff">
 
-        <com.example.dengweixiong.Util.ListViewForScrollView
-            android:id="@+id/fragment_member_lv_2"
-            android:orientation="vertical"
-            style="@style/ListViewText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/distance16"
-            android:layout_below="@+id/tv2_fragment_member">
-        </com.example.dengweixiong.Util.ListViewForScrollView>
+                <ImageView
+                    android:id="@+id/img_add_member_f_member"
+                    android:src="@mipmap/ic_member_addhdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_card_type_f_member"
+                    android:layout_toRightOf="@id/img_add_member_f_member"
+                    style="@style/plain_text"
+                    android:text="新增会员" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_add_member_f_member"
+                android:id="@+id/rl_member_manage_f_member"
+                style="@style/rl_normal"
+                android:background="#fff">
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_teacher_f_member"
+                    android:src="@mipmap/ic_member_managehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_teacher_f_member"
+                    android:layout_toRightOf="@id/img_teacher_f_member"
+                    style="@style/plain_text"
+                    android:text="会员管理" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_member_manage_f_member"
+                android:id="@+id/rl_add_member_card_f_member"
+                style="@style/rl_first_widget"
+                android:layout_marginTop="@dimen/distance32"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_member_manage_f_member"
+                    android:src="@mipmap/ic_member_card_addhdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_member_manage_f_member"
+                    android:layout_toRightOf="@id/img_member_manage_f_member"
+                    style="@style/plain_text"
+                    android:text="新增会员卡" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_add_member_card_f_member"
+                android:id="@+id/rl_member_card_manage_f_member"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_member_card_manage_f_member"
+                    android:src="@mipmap/ic_member_card_managehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_member_card_manage_f_member"
+                    android:layout_toRightOf="@id/img_member_card_manage_f_member"
+                    style="@style/plain_text"
+                    android:text="会员卡管理" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_member_manage_f_member"
+                android:id="@+id/rl_charge_f_member"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_charge_f_member"
+                    android:src="@mipmap/ic_member_card_chargehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_charge_f_member"
+                    android:layout_toRightOf="@id/img_charge_f_member"
+                    style="@style/plain_text"
+                    android:text="充值" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_charge_f_member"
+                android:id="@+id/rl_deduction_f_member"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_deduction_f_member"
+                    android:src="@mipmap/ic_member_card_deductionhdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_deduction_f_member"
+                    android:layout_toRightOf="@id/img_deduction_f_member"
+                    style="@style/plain_text"
+                    android:text="扣费" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

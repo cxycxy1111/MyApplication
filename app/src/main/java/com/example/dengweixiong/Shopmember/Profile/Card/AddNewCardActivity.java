@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Shopmember.Profile.Classroom.AddNewClassroomActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
@@ -30,7 +29,6 @@ import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -272,7 +270,7 @@ public class AddNewCardActivity
                                     break;
                                 default:break;
                             }
-                        case RESP_MAP:
+                        case RESP_ID:
                             Map<String,String> map = JsonHandler.strToMap(resp);
                             Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);
                             intent.putExtra("type",selected_type);

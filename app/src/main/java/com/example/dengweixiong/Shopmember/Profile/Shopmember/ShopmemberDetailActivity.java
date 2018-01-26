@@ -9,8 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
@@ -38,7 +39,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
     private long id,sm_id,s_id;
     private String new_name;
     private EditText et_name,et_user_name;
-    private RelativeLayout relativeLayout_delete;
+    private Button btn_delete,btn_modify;
     private String [] keys = new String[] {"id","type","name","user_name"};
     private Map<String,String> map = new HashMap<>();
     private List<Map<String,String>> list = new ArrayList<>();
@@ -80,8 +81,10 @@ public class ShopmemberDetailActivity extends BaseActivity {
     }
 
     private void initLinearLayout(){
-        relativeLayout_delete = (RelativeLayout)findViewById(R.id.rl_delete_a_shopmember_detail);
-        relativeLayout_delete.setOnClickListener(new View.OnClickListener() {
+        btn_delete = (Button)findViewById(R.id.btn_delete_a_shopmember_detail);
+        btn_modify = (Button)findViewById(R.id.btn_modifypwd_a_shopmember_detail);
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ShopmemberDetailActivity.this);
@@ -91,7 +94,11 @@ public class ShopmemberDetailActivity extends BaseActivity {
                 builder.setNegativeButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        delete();
+                        if (id == sm_id) {
+                            Toast.makeText(ShopmemberDetailActivity.this,"你无法删除自身",Toast.LENGTH_SHORT);
+                        }else {
+                            delete();
+                        }
                         dialog.dismiss();
                     }
                 });
@@ -102,6 +109,14 @@ public class ShopmemberDetailActivity extends BaseActivity {
                     }
                 });
                 builder.show();
+            }
+        });
+        btn_modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShopmemberDetailActivity.this,ResetShopmemberPasswordActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
             }
         });
     }
@@ -202,43 +217,49 @@ public class ShopmemberDetailActivity extends BaseActivity {
 
     private void delete(){
         final String url = "/ShopmemberDelete?id=" + id + "&lmu_id=" + sm_id;
-        final Callback callback = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(ShopmemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
-                    case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
-                            case NST_NOT_MATCH:
-                                MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
-                                break;
-                            case EXE_SUC:
-                                MethodTool.showToast(ShopmemberDetailActivity.this,"删除成功");
-                                Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
-                                intent.putExtra("pos",position);
-                                setResult(Ref.RESULTCODE_DELETE,intent);
-                                finish();
-                                break;
-                            case EXE_FAIL:
-                                MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
-                                break;
-                            default:break;
-                        }
-                        break;
-                    case RESP_ERROR:
-                        MethodTool.showToast(ShopmemberDetailActivity.this,Ref.UNKNOWN_ERROR);
-                        break;
-                    default:break;
+        if (id == sm_id) {
+            MethodTool.showToast(ShopmemberDetailActivity.this,"你无法删除自身");
+        }else {
+            final Callback callback = new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    MethodTool.showToast(ShopmemberDetailActivity.this, Ref.CANT_CONNECT_INTERNET);
                 }
-            }
-        };
-        NetUtil.sendHttpRequest(ShopmemberDetailActivity.this,url,callback);
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().string();
+                    EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                    switch (respType) {
+                        case RESP_STAT:
+                            EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                            switch (respStatType) {
+                                case NST_NOT_MATCH:
+                                    MethodTool.showToast(ShopmemberDetailActivity.this,"机构不匹配");
+                                    break;
+                                case EXE_SUC:
+                                    MethodTool.showToast(ShopmemberDetailActivity.this,"删除成功");
+                                    Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
+                                    intent.putExtra("pos",position)
+                                    .putExtra("type",type);
+                                    setResult(Ref.RESULTCODE_DELETE,intent);
+                                    finish();
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        case RESP_ERROR:
+                            MethodTool.showToast(ShopmemberDetailActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        default:break;
+                    }
+                }
+            };
+            NetUtil.sendHttpRequest(ShopmemberDetailActivity.this,url,callback);
+        }
+
     }
 }

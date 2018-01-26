@@ -4,12 +4,102 @@
     android:layout_height="match_parent"
     tools:context="com.example.dengweixiong.Shopmember.Main.PersonFragment">
 
-    <ListView
-        android:id="@+id/lv_f_person"
-        android:layout_alignParentTop="true"
+    <ScrollView
+        android:id="@+id/sv_f_person"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance72">
-    </ListView>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_card_type_f_person"
+                style="@style/rl_first_widget"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="88dp"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_card_type_f_person"
+                    android:src="@mipmap/ic_card_type_managehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_card_type_f_person"
+                    android:layout_toRightOf="@id/img_card_type_f_person"
+                    style="@style/plain_text"
+                    android:text="会员卡类型管理" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_card_type_f_person"
+                android:id="@+id/rl_teacher_f_person"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_teacher_f_person"
+                    android:src="@mipmap/ic_teacher_managehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_teacher_f_person"
+                    android:layout_toRightOf="@id/img_teacher_f_person"
+                    style="@style/plain_text"
+                    android:text="教师管理" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_teacher_f_person"
+                android:id="@+id/rl_classroom_f_person"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_classroom_f_person"
+                    android:src="@mipmap/ic_classroom_managehdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_classroom_f_person"
+                    android:layout_toRightOf="@id/img_classroom_f_person"
+                    style="@style/plain_text"
+                    android:text="课室管理" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_teacher_f_person"
+                android:id="@+id/rl_logout_f_person"
+                style="@style/rl_first_widget"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_logout_f_person"
+                    android:src="@mipmap/ic_logouthdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_logout_f_person"
+                    android:layout_toRightOf="@id/img_logout_f_person"
+                    style="@style/plain_text"
+                    android:text="退出登录" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_logout_f_person"
+                android:id="@+id/rl_help_f_person"
+                style="@style/rl_first_widget"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_help_f_person"
+                    android:src="@mipmap/ic_helphdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_help_f_person"
+                    android:layout_toRightOf="@id/img_help_f_person"
+                    style="@style/plain_text"
+                    android:text="帮助" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

@@ -1,7 +1,9 @@
 package com.example.dengweixiong.Shopmember.Main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,33 +13,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.example.dengweixiong.Shopmember.Profile.Card.CardTypeListActivity;
 import com.example.dengweixiong.Shopmember.Profile.Classroom.ClassroomListActivity;
+import com.example.dengweixiong.Shopmember.Profile.HelpActivity;
 import com.example.dengweixiong.Shopmember.Profile.Shopmember.ShopmemberListActivity;
+import com.example.dengweixiong.Util.ActivityManager;
 import com.example.dengweixiong.myapplication.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class PersonFragment
-        extends Fragment
-        implements ListView.OnItemClickListener{
+        extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String TAG = "Nothing to Tell";
     private String mParam1;
-    private ListView listView;
-    private int [] icons = {R.mipmap.ic_card_type_managehdpi,
-            R.mipmap.ic_teacher_managehdpi,
-            R.mipmap.ic_classroom_managehdpi};
-    private String [] values = {"会员卡类型管理","教师管理","课室管理"};
-    private String [] map = {"icon","name"};
-    private int [] id = {R.id.simple_list_view_img,R.id.simple_list_view_text};
+    private RelativeLayout rl_card_type,rl_teacher,rl_classroom,rl_logout,rl_help;
+    private ScrollView scrollView;
     private OnFragmentInteractionListener mListener;
     private static ShopmemberMainActivity context;
 
@@ -66,31 +58,58 @@ public class PersonFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main_person, container, false);
-//        initToolbar();
-        initListView(view);
+        initViews(view);
         return view;
     }
 
-    private void initToolbar() {
-        context.getSupportActionBar().setTitle("个人中心");
-    }
-
-    private void initListView(View view) {
-        listView = (ListView)view.findViewById(R.id.lv_f_person);
-        SimpleAdapter adapter = new SimpleAdapter(view.getContext(),initData(),R.layout.tile_simple_list_view_with_icon,map,id);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
-    }
-
-    private List<Map<String,Object>> initData() {
-        List<Map<String,Object>> list = new ArrayList<>();
-        for (int i = 0;i < icons.length;i++) {
-            Map<String,Object> map = new HashMap<>();
-            map.put("icon",icons[i]);
-            map.put("name",values[i]);
-            list.add(map);
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.rl_card_type_f_person:
+                intent = new Intent(getActivity(),CardTypeListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_teacher_f_person:
+                intent = new Intent(getActivity(),ShopmemberListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_classroom_f_person:
+                intent = new Intent(getActivity(),ClassroomListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_logout_f_person:
+                SharedPreferences preferences_sasm = getActivity().getSharedPreferences("sasm",Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor_sasm = preferences_sasm.edit();
+                editor_sasm.clear();
+                editor_sasm.commit();
+                SharedPreferences preferences_login = getActivity().getSharedPreferences("login_data",Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor_login = preferences_login.edit();
+                editor_login.clear();
+                editor_login.commit();
+                ActivityManager.removeAllActivity();
+                break;
+            case R.id.rl_help_f_person:
+                intent = new Intent(getActivity(), HelpActivity.class);
+                startActivity(intent);
+            default:break;
         }
-        return list;
+    }
+
+    private void initViews(View view) {
+        rl_card_type = (RelativeLayout)view.findViewById(R.id.rl_card_type_f_person);
+        rl_teacher = (RelativeLayout)view.findViewById(R.id.rl_teacher_f_person);
+        rl_classroom = (RelativeLayout)view.findViewById(R.id.rl_classroom_f_person);
+        rl_logout = (RelativeLayout)view.findViewById(R.id.rl_logout_f_person);
+        rl_help = (RelativeLayout)view.findViewById(R.id.rl_help_f_person);
+        scrollView = (ScrollView)view.findViewById(R.id.sv_f_person);
+        scrollView.setVerticalScrollBarEnabled(false);
+
+        rl_card_type.setOnClickListener(this);
+        rl_teacher.setOnClickListener(this);
+        rl_classroom.setOnClickListener(this);
+        rl_logout.setOnClickListener(this);
+        rl_help.setOnClickListener(this);
     }
 
 
@@ -98,26 +117,6 @@ public class PersonFragment
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent;
-        switch (position) {
-            case 0:
-                intent = new Intent(getActivity(),CardTypeListActivity.class);
-                break;
-            case 1:
-                intent = new Intent(getActivity(), ShopmemberListActivity.class);
-                break;
-            case 2:
-                intent = new Intent(getActivity(),ClassroomListActivity.class);
-                break;
-            default:
-                intent = new Intent(getActivity(),getActivity().getClass());
-                break;
-        }
-        startActivity(intent);
     }
 
     @Override

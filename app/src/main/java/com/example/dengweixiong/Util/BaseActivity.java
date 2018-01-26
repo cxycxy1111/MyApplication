@@ -31,7 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK) {
-            Toast.makeText(getApplicationContext(),"返回按钮无效，请点击左上角的向上按钮。",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"请点击左上角的返回按钮返回上一界面",Toast.LENGTH_SHORT).show();
             return false;
         }
         return super.onKeyDown(keyCode, event);

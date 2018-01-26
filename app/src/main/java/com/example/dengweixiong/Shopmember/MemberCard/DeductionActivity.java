@@ -385,6 +385,15 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             }
                         });
                         break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(DeductionActivity.this,Ref.STAT_EMPTY_RESULT);
+                                selected_main_type = 0;
+                                setLinearLayoutVisibility(0);
+                                break;
+                            default:break;
+                        }
                     default:break;
                 }
             }
@@ -430,8 +439,10 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                         switch (respStatType) {
                             case EMPTY_RESULT:
                                 MethodTool.showToast(DeductionActivity.this,Ref.STAT_EMPTY_RESULT);
+                                selected_main_type = 0;
+                                setLinearLayoutVisibility(0);
                                 break;
-
+                            default:break;
                         }
                     default:break;
                 }
@@ -452,6 +463,11 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
 
     private void setLinearLayoutVisibility(int selected_main_type) {
         switch (selected_main_type) {
+            case 0:
+                linearLayout_balance.setVisibility(View.GONE);
+                linearLayout_num.setVisibility(View.GONE);
+                linearLayout_time.setVisibility(View.GONE);
+                break;
             case 1:
                 linearLayout_num.setVisibility(View.GONE);
                 linearLayout_balance.setVisibility(View.VISIBLE);

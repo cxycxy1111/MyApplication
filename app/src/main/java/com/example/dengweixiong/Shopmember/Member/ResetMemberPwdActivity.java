@@ -10,15 +10,12 @@ import android.widget.Toast;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
-import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,7 +32,7 @@ public class ResetMemberPwdActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopmember_reset_pwd);
+        setContentView(R.layout.activity_member_reset_pwd);
         initView();
     }
 

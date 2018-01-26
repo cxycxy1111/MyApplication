@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#efefef"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:background="#fff"
+    android:layout_width="@dimen/distance128"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="#efefef"
-        android:layout_margin="@dimen/distance16"
+        android:id="@android:id/text1"
         style="@style/plain_text"
-        android:id="@+id/tv_tile_spinner"
+        android:layout_marginTop="@dimen/distance8"
+        android:layout_marginBottom="@dimen/distance8"
+        android:layout_marginRight="@dimen/distance8"
+        android:layout_marginLeft="@dimen/distance8"
         android:singleLine="true"
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:textAlignment="inherit"/>
+        android:ellipsize="marquee"/>
 
 </LinearLayout>
+

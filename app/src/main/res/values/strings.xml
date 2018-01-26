@@ -33,4 +33,22 @@
     <string name="add">新增</string>
     <string name="modify">修改</string>
     <string name="submit">提交</string>
+    <string name="title_activity_help">HelpActivity</string>
+
+    <string name="text_h_intro">简介</string>
+    <string name="text_p_intro_1">该应用设计用于舞蹈馆，瑜伽馆，跆拳道馆等具有会员体系的机构管理工具。</string>
+    <string name="text_p_intro_2">该应用可以对教学场所(课室)，教练，会员，会员卡类型，会员卡，课程，排课等进行管理。</string>
+    <string name="text_p_intro_3">教练被设计分为三类：管理员，普通教师，外聘教师三类。</string>
+    <string name="text_p_intro_4">会员卡类型被设计分为三类：余额卡，次卡和有效期卡。余额卡充值，消费时以元为单位；次卡以次为单位；有效期卡在有效期内可以任意消费。</string>
+    <string name="text_p_intro_5">每位会员均可办理不同类型的会员卡，每位会员每种类型的会员卡仅能办理一张。</string>
+    <string name="text_p_intro_6">课程可以设置为支持不同类型的会员卡，并设置每张会员卡的扣费额度 。</string>
+    <string name="text_p_intro_7">排课可以设置多位教师共同授课。</string>
+    <string name="text_h_note">注意事项</string>
+    <string name="text_p_note_1">启用该应用为：补充会员卡类型，补充教师，补充课室，补充会员，补充会员卡，补充课程，补充排课。</string>
+
+    <string name="text_h_contact">联系方式</string>
+    <string name="text_p_contact_email">电子邮箱：1023054095@qq.com</string>
+    <string name="text_p_contact_wechat">微信号：AlfredTengP</string>
+    <string name="title_activity_reset_shopmember_password">重设密码</string>
+
 </resources>

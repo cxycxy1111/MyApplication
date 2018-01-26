@@ -55,7 +55,15 @@
         <activity android:name="com.example.dengweixiong.Shopmember.Course.Course.AddSupportedCardActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity" />
         <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanTeacherActivity" />
-        <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity"></activity>
+        <activity android:name="com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity" />
+        <activity
+            android:name="com.example.dengweixiong.Shopmember.Profile.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.dengweixiong.Shopmember.Profile.Shopmember.ResetShopmemberPasswordActivity"
+            android:label="@string/title_activity_reset_shopmember_password"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

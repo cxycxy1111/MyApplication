@@ -18,7 +18,6 @@ import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -75,55 +74,59 @@ public class AddNewClassroomActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.add_a_add_new_classroom :
-                final String cr_name = et_name.getText().toString();
-                String url = "/ClassroomAdd?s_id=" + s_id + "&name=" + cr_name;
-                Callback callback = new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        MethodTool.showToast(AddNewClassroomActivity.this, Ref.CANT_CONNECT_INTERNET);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String resp = response.body().string();
-                        EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                        switch (respType) {
-                            case RESP_STAT:
-                                EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                                switch (respStatType) {
-                                    case DUPLICATE:
-                                        MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
-                                        break;
-                                    case EXE_FAIL:
-                                        MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
-                                        break;
-                                    case NSR:
-                                        MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
-                                        finish();
-                                        break;
-                                    default:break;
-                                }
-                                break;
-                            case RESP_MAP:
-                                MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
-                                String [] k = new String[]{"id"};
-                                List<Map<String,String>> list = JsonHandler.strToListMap(resp,k);
-                                cr_id = Long.parseLong(String.valueOf(list.get(0).get(k[0])));
-                                Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
-                                intent.putExtra("cr_id",cr_id).
-                                        putExtra("cr_name",cr_name);
-                                setResult(Ref.RESULTCODE_ADD,intent);
-                                finish();
-                                break;
-                            default:break;
-                        }
-                    }
-                };
-                NetUtil.sendHttpRequest(AddNewClassroomActivity.this,url,callback);
+                saveClassroom();
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+    private void saveClassroom() {
+        final String cr_name = et_name.getText().toString();
+        String url = "/ClassroomAdd?s_id=" + s_id + "&name=" + cr_name;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(AddNewClassroomActivity.this, Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case DUPLICATE:
+                                MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddNewClassroomActivity.this,"新增失败");
+                                break;
+                            case NSR:
+                                MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
+                                finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_ID:
+                        MethodTool.showToast(AddNewClassroomActivity.this,"新增成功");
+                        String [] k = new String[]{"id"};
+                        Map<String,String> list = JsonHandler.strToMap(resp);
+                        cr_id = Long.parseLong(String.valueOf(list.get(k[0])));
+                        Intent intent = new Intent(AddNewClassroomActivity.this,ClassroomListActivity.class);
+                        intent.putExtra("cr_id",cr_id).
+                                putExtra("cr_name",cr_name);
+                        setResult(Ref.RESULTCODE_ADD,intent);
+                        finish();
+                        break;
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(AddNewClassroomActivity.this,url,callback);
     }
 }

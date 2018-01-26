@@ -108,7 +108,7 @@ public class MemberCardListActivity extends BaseActivity{
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_a_member_card_list);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("会员卡管理");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -197,9 +197,9 @@ public class MemberCardListActivity extends BaseActivity{
 
     //初始化会员选择的spinner
     private void initSpinner(String m_id) {
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,list_member_name);
+        adapter = new ArrayAdapter<>(MemberCardListActivity.this,android.R.layout.simple_spinner_item,list_member_name);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setDropDownVerticalOffset(120);
+        spinner.setDropDownVerticalOffset(60);
         spinner.setSelection(0);
         spinner.setAdapter(adapter);
         initFirstMemberRecyclerViewData(m_id);

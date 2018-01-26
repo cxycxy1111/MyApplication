@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.EditText;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
-import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -192,7 +191,8 @@ public class AddNewMemberActivity
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String resp = response.body().toString();
+                    String resp = response.body().string();
+                    Log.d(TAG, "onResponse: " + resp);
                     EnumRespType respType = EnumRespType.dealWithResponse(resp);
                     switch (respType) {
                         case RESP_ERROR:

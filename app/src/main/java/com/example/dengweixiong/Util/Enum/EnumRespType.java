@@ -8,7 +8,7 @@ import com.example.dengweixiong.Util.Ref;
 
 public enum EnumRespType {
 
-    RESP_STAT(4),RESP_DATA(6),RESP_ERROR(5),RESP_MAPLIST(1),RESP_MAP(2),RESP_LIST(3);
+    RESP_STAT(4),RESP_DATA(6),RESP_ERROR(5),RESP_MAPLIST(1),RESP_MAP(2),RESP_LIST(3),RESP_ID(7);
 
     private int type;
 
@@ -33,6 +33,8 @@ public enum EnumRespType {
                 return RESP_STAT;
             }else if (resp.contains(Ref.DATA)){
                 return RESP_DATA;
+            }else if (resp.contains("\"id\"")) {
+                return RESP_ID;
             } else {
                 return RESP_STAT;
             }

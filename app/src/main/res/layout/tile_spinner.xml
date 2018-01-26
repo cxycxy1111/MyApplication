@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_spinner"
+    style="?android:attr/spinnerItemStyle"
+    android:textColor="#fff"
+    android:singleLine="true"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/text"
-        style="@style/plain_text"
-        android:textColor="#fff"
-        android:singleLine="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:textAlignment="inherit"/>
-
-</LinearLayout>
-
+    android:layout_height="wrap_content"
+    android:ellipsize="marquee"
+    android:textAlignment="inherit"/>

@@ -25,6 +25,12 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <style name="SpinnerDropdownTheme" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toolbar_height</item>
+        <item name="android:background">#fff</item>
+    </style>
+
     <style name="AlfredOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@color/windowBackgroundCoclor</item>
     </style>
@@ -87,6 +93,34 @@
         <item name="android:textColor">#888</item>
     </style>
 
+    <style name="h1">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance8</item>
+        <item name="android:layout_marginBottom">@dimen/distance8</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="p">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance8</item>
+        <item name="android:layout_marginBottom">@dimen/distance8</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#000</item>
+
+    </style>
+
     <style name="plain_text_center">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
@@ -99,6 +133,8 @@
 
     <style name="plain_spinner">
         <item name="android:layout_alignParentRight">true</item>
+        <item name="android:popupBackground">#fff</item>
+        <item name="android:popupAnimationStyle">@style/AppTheme.PopupOverlay</item>
         <item name="android:layout_margin">@dimen/distance16</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -157,7 +193,7 @@
         <item name="android:background">#fff</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance32</item>
     </style>
 
     <style name="rl_normal">
@@ -165,6 +201,16 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/distance2</item>
+    </style>
+
+    <style name="plain_img">
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance16</item>
+        <item name="android:layout_marginBottom">@dimen/distance16</item>
+        <item name="android:layout_marginRight">@dimen/distance4</item>
     </style>
 
 </resources>

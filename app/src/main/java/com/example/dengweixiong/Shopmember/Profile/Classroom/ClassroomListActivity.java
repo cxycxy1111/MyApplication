@@ -139,12 +139,10 @@ public class ClassroomListActivity extends BaseActivity {
                     list.set(p,map);
                     strings.set(p,data.getStringExtra("new_name"));
                     MethodTool.sort(strings);
-                    break;
                 } else if (resultCode == Ref.RESULTCODE_DELETE) {
                     p = data.getIntExtra("pos",-1);
                     list.remove(p);
                     strings.remove(p);
-                    break;
                 }
                 break;
             case 2:
@@ -159,6 +157,7 @@ public class ClassroomListActivity extends BaseActivity {
                     strings.add(new_cr_name);
                     MethodTool.sort(strings);
                 }
+                break;
             default:
                 break;
         }

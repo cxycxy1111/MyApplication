@@ -148,6 +148,7 @@ public class CourseListFragment extends Fragment {
                                 initRecyclerView(view);
                             }
                         });
+                        break;
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case NSR:
