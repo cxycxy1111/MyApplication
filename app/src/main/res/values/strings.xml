@@ -50,5 +50,6 @@
     <string name="text_p_contact_email">电子邮箱：1023054095@qq.com</string>
     <string name="text_p_contact_wechat">微信号：AlfredTengP</string>
     <string name="title_activity_reset_shopmember_password">重设密码</string>
+    <string name="title_activity_shop_config">ShopConfigActivity</string>
 
 </resources>

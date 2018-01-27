@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dengweixiong.Shopmember.Profile.ShopConfigActivity">
+
+    <include
+        android:id="@+id/tb_shop_config"
+        layout="@layout/tile_toolbar"/>
+
+    <ScrollView
+        android:id="@+id/sv_shop_config"
+        android:layout_below="@id/tb_shop_config"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/rl_first_widget">
+                <CheckBox
+                    android:id="@+id/cb_allow_inner_view_teacher"
+                    style="@style/plain_checkbox"
+                    android:text="允许内部教师查看教师"/>
+            </LinearLayout>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/rl_normal">
+                <CheckBox
+                    android:id="@+id/cb_allow_inner_manage_teacher"
+                    style="@style/plain_checkbox"
+                    android:text="允许内部教师管理教师"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,7 +1,6 @@
 package com.example.dengweixiong.Shopmember.Main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCoursePlanAdapter;
-import com.example.dengweixiong.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;

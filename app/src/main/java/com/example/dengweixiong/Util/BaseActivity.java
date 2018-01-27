@@ -1,5 +1,9 @@
 package com.example.dengweixiong.Util;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +16,8 @@ import android.widget.Toast;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private MyReceiver receiver;
+
     public BaseActivity() {
         super();
     }
@@ -20,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityManager.addActivity(this);
+        registerBroadcast();
     }
 
     @Override
@@ -35,5 +42,22 @@ public class BaseActivity extends AppCompatActivity {
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void registerBroadcast() {
+        receiver = new MyReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("exit_app");
+        this.registerReceiver(receiver,intentFilter);
+    }
+
+    class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals("exit_app")){
+                finish();
+            }
+        }
     }
 }

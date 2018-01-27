@@ -5,9 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -50,7 +47,6 @@ public class MemberFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -117,23 +113,6 @@ public class MemberFragment
         rl_charge.setOnClickListener(this);
         rl_deduction.setOnClickListener(this);
         scrollView.setVerticalScrollBarEnabled(false);
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_member,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_message_fragment_member:
-                break;
-            default:break;
-        }
-        return true;
     }
 
     public interface OnFragmentInteractionListener {

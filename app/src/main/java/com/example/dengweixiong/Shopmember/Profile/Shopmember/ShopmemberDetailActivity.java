@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
@@ -38,8 +41,10 @@ public class ShopmemberDetailActivity extends BaseActivity {
     private int type,position;
     private long id,sm_id,s_id;
     private String new_name;
+    private int new_type;
     private EditText et_name,et_user_name;
     private Button btn_delete,btn_modify;
+    private Spinner spinner;
     private String [] keys = new String[] {"id","type","name","user_name"};
     private Map<String,String> map = new HashMap<>();
     private List<Map<String,String>> list = new ArrayList<>();
@@ -64,9 +69,11 @@ public class ShopmemberDetailActivity extends BaseActivity {
     }
 
     private void initView() {
+        spinner = (Spinner)findViewById(R.id.sp_type_shopmember_detail);
         initToolBar();
         initEditText();
         initLinearLayout();
+        initSpinner();
     }
 
     private void initToolBar() {
@@ -95,7 +102,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (id == sm_id) {
-                            Toast.makeText(ShopmemberDetailActivity.this,"你无法删除自身",Toast.LENGTH_SHORT);
+                            Toast.makeText(ShopmemberDetailActivity.this,"你无法删除自身",Toast.LENGTH_SHORT).show();
                         }else {
                             delete();
                         }
@@ -148,6 +155,26 @@ public class ShopmemberDetailActivity extends BaseActivity {
         NetUtil.sendHttpRequest(this,url,callback);
     }
 
+    private void initSpinner() {
+        new_type = type;
+        String[] strings = new String[] {"管理员","内部教师","外聘教师"};
+        ArrayAdapter adapter = new ArrayAdapter(ShopmemberDetailActivity.this,android.R.layout.simple_spinner_item,android.R.id.text1,strings);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                new_type = position+1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                new_type = type;
+            }
+        });
+        spinner.setSelection(type-1);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_shopmember_detail,menu);
@@ -170,7 +197,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
 
     private void save() {
         new_name = et_name.getText().toString();
-        String url = "/ShopmemberModify?sm_id=" + id + "&lmu_id=" + sm_id + "&name=" + new_name;
+        String url = "/ShopmemberModify?sm_id=" + id + "&lmu_id=" + sm_id + "&name=" + new_name + "&new_type=" + new_type;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -190,7 +217,8 @@ public class ShopmemberDetailActivity extends BaseActivity {
                                 Intent intent = new Intent(ShopmemberDetailActivity.this,ShopmemberListActivity.class);
                                 intent.putExtra("name",new_name);
                                 intent.putExtra("id",id);
-                                intent.putExtra("type",type);
+                                intent.putExtra("old_type",type);
+                                intent.putExtra("new_type",new_type);
                                 intent.putExtra("pos",position);
                                 setResult(Ref.RESULTCODE_UPDATE,intent);
                                 finish();

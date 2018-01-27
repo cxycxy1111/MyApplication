@@ -3,23 +3,20 @@ package com.example.dengweixiong.Shopmember.Member;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
 import com.example.dengweixiong.Shopmember.MemberCard.MemberCardListActivity;
 import com.example.dengweixiong.Util.BaseActivity;
-import com.example.dengweixiong.Util.Enum.EnumReqCodeType;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
@@ -49,11 +46,10 @@ public class MemberDetailActivity
             EditText.OnFocusChangeListener{
 
     private int current_year,current_month,current_date;
-    Toolbar toolbar;
+    private Toolbar toolbar;
+    private Button btn_view_member_card,btn_reset_password,btn_delete;
     private String toolbar_title;
     private long s_id,sm_id,m_id;
-    private LinearLayoutManager linearLayoutManager;
-    private RecyclerView recyclerView;
     private EditText et_sn,et_name,et_birthday,et_phone,et_im;
 
     private CharSequence sn,name,birthday,phone,im;
@@ -85,15 +81,13 @@ public class MemberDetailActivity
     }
 
     private void initActions() {
-        list.add("查看会员卡");
-        list.add("重置密码");
-        list.add("删除会员卡");
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_detail);
-        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        RVSimpleAdapter simpleRecylcerViewAdapter = new RVSimpleAdapter(list);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(simpleRecylcerViewAdapter);
-        simpleRecylcerViewAdapter.setOnItemClickListener(this);
+        btn_view_member_card = (Button)findViewById(R.id.btn_view_member_card_activity_member_detail);
+        btn_reset_password = (Button)findViewById(R.id.btn_view_reset_password_activity_member_detail);
+        btn_delete = (Button)findViewById(R.id.btn_view_delete_activity_member_detail);
+
+        btn_view_member_card.setOnClickListener(this);
+        btn_delete.setOnClickListener(this);
+        btn_reset_password.setOnClickListener(this);
     }
 
     private void loadMemberDetail() {
@@ -218,6 +212,21 @@ public class MemberDetailActivity
         switch (v.getId()) {
             case R.id.edittext_birthday_activity_member_detail:
                 dialog.show();
+                break;
+            case R.id.btn_view_member_card_activity_member_detail:
+                Intent intent;
+                intent = new Intent(MemberDetailActivity.this,MemberCardListActivity.class);
+                intent.putExtra("m_id",m_id).putExtra("m_name",name).putExtra("source","MemberDetailActivity");
+                startActivity(intent);
+                break;
+            case R.id.btn_view_reset_password_activity_member_detail:
+                Intent intent1;
+                intent1 = new Intent(MemberDetailActivity.this,ResetMemberPwdActivity.class);
+                intent1.putExtra("m_id",m_id);
+                startActivity(intent1);
+                break;
+            case R.id.btn_view_delete_activity_member_detail:
+                dealWithDeleteMemberAction();
                 break;
             default:
                 break;

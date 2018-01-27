@@ -63,9 +63,25 @@
                     style="@style/plain_text"
                     android:text="课室管理" />
             </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_below="@id/rl_classroom_f_person"
+                android:id="@+id/rl_shop_config_f_person"
+                style="@style/rl_normal"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_shop_config_f_person"
+                    android:src="@mipmap/ic_general_settingshdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_shop_config_f_person"
+                    android:layout_toRightOf="@id/img_shop_config_f_person"
+                    style="@style/plain_text"
+                    android:text="通用设置" />
+            </RelativeLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_below="@id/rl_teacher_f_person"
+                android:layout_below="@id/rl_shop_config_f_person"
                 android:id="@+id/rl_logout_f_person"
                 style="@style/rl_first_widget"
                 android:background="#fff">

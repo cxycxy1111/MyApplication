@@ -11,10 +11,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVCourseListAdapter;
+import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
+import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
@@ -93,6 +98,28 @@ public class CourseListFragment extends Fragment {
         initShopData();
         initRecyclerView();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_fragment_course,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_fragment_course_add_new_course:
+                Intent intent1 = new Intent(getParentFragment().getActivity(), AddCourseActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.menu_fragment_course_add_new_course_plan:
+                Intent intent = new Intent(getParentFragment().getActivity(), AddCoursePlanActivity.class);
+                startActivity(intent);
+                break;
+            default:break;
+        }
+        return true;
     }
 
     /**

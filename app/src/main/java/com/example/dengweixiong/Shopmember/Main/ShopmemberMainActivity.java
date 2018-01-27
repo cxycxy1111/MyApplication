@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import com.example.dengweixiong.Shopmember.Adapter.MainActivityPagerAdapter;
 import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
 import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
-import com.example.dengweixiong.Shopmember.Message.MessageListActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.myapplication.R;
 
@@ -139,17 +138,14 @@ public class ShopmemberMainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.message_main:
-                intent = new Intent(ShopmemberMainActivity.this, MessageListActivity.class);
-                startActivity(intent);
-                break;
             case R.id.add_new_course_main:
                 intent = new Intent(ShopmemberMainActivity.this,AddCourseActivity.class);
                 startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);

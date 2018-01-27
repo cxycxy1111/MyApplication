@@ -96,12 +96,12 @@ public class ShopmemberListActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(ShopmemberListActivity.this,"暂无管理员");
+                                initInnerList();
                                 break;
                             default:break;
                         }
                     case RESP_ERROR:
                         MethodTool.showToast(ShopmemberListActivity.this,"");
-                        initInnerList();
                     default:break;
                 }
             }
@@ -141,6 +141,7 @@ public class ShopmemberListActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(ShopmemberListActivity.this,"暂无内部教师");
+                                initOuterList();
                                 break;
                             default:break;
                         }
@@ -223,33 +224,6 @@ public class ShopmemberListActivity extends BaseActivity {
 
     }
 
-    private void fullListReorder() {
-        if (admin_list.size() != 0) {
-            Map<String, String> header = new HashMap<>();
-            header.put("type", "管理员");
-            full_list.add(header);
-        }
-        for (int i = 0; i < admin_list.size(); i++) {
-            full_list.add(admin_list.get(i));
-        }
-        if (inner_list.size() != 0) {
-            Map<String, String> header = new HashMap<>();
-            header.put("type", "内部教师");
-            full_list.add(header);
-        }
-        for (int i = 0; i < inner_list.size(); i++) {
-            full_list.add(inner_list.get(i));
-        }
-        if (outer_list.size() != 0) {
-            Map<String, String> header = new HashMap<>();
-            header.put("type", "外聘教师");
-            full_list.add(header);
-        }
-        for (int i = 0; i < outer_list.size(); i++) {
-            full_list.add(outer_list.get(i));
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_shopmember_list,menu);
@@ -275,35 +249,79 @@ public class ShopmemberListActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        full_list.clear();
+        admin_list.clear();
+        inner_list.clear();
+        outer_list.clear();
+        initAdminList();
+
+        /*
         int pos;
         //处理教师姓名更新
         if (requestCode == Ref.REQCODE_QUERYDETAIL) {
+            /*
             if (resultCode == Ref.RESULTCODE_UPDATE) {
-                pos = data.getIntExtra("pos", -1);
+
+                pos = data.getIntExtra("old_pos", -1);
                 full_list.clear();
-                String type = String.valueOf(data.getIntExtra("type", 0));
+                String new_type = String.valueOf(data.getIntExtra("new_type", 0));
+                String old_type = String.valueOf(data.getIntExtra("old_type",0));
                 String new_name = data.getStringExtra("name");
                 String id = String.valueOf(data.getLongExtra("id", 0));
                 Map<String, String> map = new HashMap<>();
                 map.put("id", id);
                 map.put("name", new_name);
-                map.put("type", type);
+                map.put("type", new_type);
                 //处理内部教师更新
-                if (type.equals(Ref.TEACHER_ADMIN)) {
-                    admin_list.set(pos - 1,map);
-                    MethodTool.sortListMap(admin_list,"name");
-                    fullListReorder();
+                switch (old_type) {
+                    case "1":
+                        switch (new_type) {
+                            case "2":
+                                admin_list.remove(pos-1);
+                                inner_list.set(pos-2-admin_list.size(),map);
+                                MethodTool.sortListMap(inner_list,"name");
+                                break;
+                            case "3":
+                                admin_list.remove(pos-1);;
+                                outer_list.set(pos-3-admin_list.size()-inner_list.size(),map);
+                                MethodTool.sortListMap(outer_list,"name");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case "2":
+                        switch (new_type) {
+                            case "1":
+                                inner_list.remove(pos-admin_list.size()-2);
+                                admin_list.add(map);
+                                MethodTool.sortListMap(admin_list,"name");
+                                break;
+                            case "3":
+                                inner_list.remove(pos-admin_list.size()-2);
+                                outer_list.add(map);
+                                MethodTool.sortListMap(outer_list,"name");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case "3":
+                        switch (new_type) {
+                            case "1":
+                                outer_list.remove(pos-admin_list.size()-inner_list.size()-3);
+                                admin_list.add(map);
+                                MethodTool.sortListMap(admin_list,"name");
+                                break;
+                            case "2":
+                                outer_list.remove(pos-admin_list.size()-inner_list.size()-3);
+                                inner_list.add(map);
+                                MethodTool.sortListMap(inner_list,"name");
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
                 }
-                if (type.equals(Ref.TEACHER_INNER)) {
-                    inner_list.set(pos -admin_list.size() - 2, map);
-                    MethodTool.sortListMap(inner_list,"name");
-                    fullListReorder();
-                //处理外聘教师更新
-                } else if (type.equals(Ref.TEACHER_OUTER)) {
-                    outer_list.set(pos - admin_list.size() - inner_list.size() - 3, map);
-                    MethodTool.sortListMap(outer_list,"name");
-                    fullListReorder();
-                }
+                fullListReorder();
             //处理教师删除
             } else if (resultCode == Ref.RESULTCODE_DELETE) {
                 pos = data.getIntExtra("pos", -1);
@@ -333,8 +351,37 @@ public class ShopmemberListActivity extends BaseActivity {
             }else if (resultCode == Ref.RESULTCODE_NULL) {
 
             }
+
         }
         adapter.notifyDataSetChanged();
+        */
+    }
+
+    private void fullListReorder() {
+        if (admin_list.size() != 0) {
+            Map<String, String> header = new HashMap<>();
+            header.put("type", "管理员");
+            full_list.add(header);
+        }
+        for (int i = 0; i < admin_list.size(); i++) {
+            full_list.add(admin_list.get(i));
+        }
+        if (inner_list.size() != 0) {
+            Map<String, String> header = new HashMap<>();
+            header.put("type", "内部教师");
+            full_list.add(header);
+        }
+        for (int i = 0; i < inner_list.size(); i++) {
+            full_list.add(inner_list.get(i));
+        }
+        if (outer_list.size() != 0) {
+            Map<String, String> header = new HashMap<>();
+            header.put("type", "外聘教师");
+            full_list.add(header);
+        }
+        for (int i = 0; i < outer_list.size(); i++) {
+            full_list.add(outer_list.get(i));
+        }
     }
 
 }

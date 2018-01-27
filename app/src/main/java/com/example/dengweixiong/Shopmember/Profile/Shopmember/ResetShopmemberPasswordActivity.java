@@ -1,9 +1,9 @@
 package com.example.dengweixiong.Shopmember.Profile.Shopmember;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.ActivityManager;
+import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.MethodTool;
@@ -24,7 +25,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ResetShopmemberPasswordActivity extends AppCompatActivity {
+public class ResetShopmemberPasswordActivity extends BaseActivity {
 
     private long id;
     private String sm_id,s_id;
@@ -69,7 +70,7 @@ public class ResetShopmemberPasswordActivity extends AppCompatActivity {
         if (new_password.equals("") || new_password_repeat.equals("")) {
             Toast.makeText(ResetShopmemberPasswordActivity.this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
         }else if (!new_password.equals(new_password_repeat)) {
-            Toast.makeText(ResetShopmemberPasswordActivity.this,"",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ResetShopmemberPasswordActivity.this,"两次输入的密码不一致，请核对",Toast.LENGTH_SHORT).show();
         }else {
             modifyPassword(new_password);
         }
@@ -95,13 +96,15 @@ public class ResetShopmemberPasswordActivity extends AppCompatActivity {
                                     SharedPreferences preferences_sasm = getSharedPreferences("sasm", Activity.MODE_PRIVATE);
                                     SharedPreferences.Editor editor_sasm = preferences_sasm.edit();
                                     editor_sasm.clear();
-                                    editor_sasm.commit();
+                                    editor_sasm.clear().commit();
                                     SharedPreferences preferences_login = getSharedPreferences("login_data",Activity.MODE_PRIVATE);
                                     SharedPreferences.Editor editor_login = preferences_login.edit();
-                                    editor_login.clear();
-                                    editor_login.commit();
+                                    editor_login.clear().commit();
                                     MethodTool.showToast(ResetShopmemberPasswordActivity.this,"你已修改你的登录密码，需要重新登录");
+                                    Intent intent = new Intent();
+                                    intent.setAction("exit_app");
                                     ActivityManager.removeAllActivity();
+                                    //sendBroadcast(intent);
                                 }else {
                                     ResetShopmemberPasswordActivity.this.finish();
                                 }

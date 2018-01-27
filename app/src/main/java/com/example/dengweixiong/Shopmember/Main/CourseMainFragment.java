@@ -12,15 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
-import com.example.dengweixiong.Shopmember.Course.Course.AddCourseActivity;
-import com.example.dengweixiong.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import com.example.dengweixiong.myapplication.R;
 
 import java.util.ArrayList;
@@ -65,7 +61,6 @@ public class CourseMainFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -156,29 +151,6 @@ public class CourseMainFragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_course,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.menu_fragment_course_add_new_course:
-                intent = new Intent(getActivity(),AddCourseActivity.class);
-                startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
-                break;
-            case R.id.menu_fragment_course_add_new_course_plan:
-                intent = new Intent(getActivity(),AddCoursePlanActivity.class);
-                startActivity(intent);
-                break;
-            default:break;
-        }
-        return true;
     }
 
     public interface OnFragmentInteractionListener {
