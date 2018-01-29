@@ -24,6 +24,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -113,8 +114,8 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
     }
 
     private void initData() {
-        str_s_id = MethodTool.getSharePreferenceValue(CoursePlanDetailPrivateActivity.this,"sasm","s_id",2);
-        str_sm_id = MethodTool.getSharePreferenceValue(CoursePlanDetailPrivateActivity.this,"sasm","sm_id",2);
+        str_s_id = SharePreferenceManager.getSharePreferenceValue(CoursePlanDetailPrivateActivity.this,"sasm","s_id",2);
+        str_sm_id = SharePreferenceManager.getSharePreferenceValue(CoursePlanDetailPrivateActivity.this,"sasm","sm_id",2);
         str_c_name = getIntent().getStringExtra("course_name");
         str_cp_id = getIntent().getStringExtra("cp_id");
         str_start_time = getIntent().getStringExtra("time");
@@ -231,6 +232,9 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                             case NSR:
                                 MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.OP_NSR);
                                 CoursePlanDetailPrivateActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
                                 break;
                             default:break;
                         }
@@ -375,6 +379,9 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                                 break;
                             case EXE_FAIL:
                                 MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.OP_MODIFY_FAIL);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
                                 break;
                             default:break;
                         }

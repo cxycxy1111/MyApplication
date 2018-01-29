@@ -22,12 +22,14 @@ import com.example.dengweixiong.Shopmember.Profile.HelpActivity;
 import com.example.dengweixiong.Shopmember.Profile.ShopConfigActivity;
 import com.example.dengweixiong.Shopmember.Profile.Shopmember.ShopmemberListActivity;
 import com.example.dengweixiong.Util.ActivityManager;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 public class PersonFragment
         extends Fragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String TAG = "Nothing to Tell";
+    private String sm_type;
     private String mParam1;
     private RelativeLayout rl_card_type,rl_teacher,rl_classroom,rl_general_settings,rl_logout,rl_help;
     private ScrollView scrollView;
@@ -122,6 +124,8 @@ public class PersonFragment
     }
 
     private void initViews(View view) {
+        sm_type = SharePreferenceManager.getSharePreferenceValue(getActivity(),"sasm","sm_type",1);
+
         rl_card_type = (RelativeLayout)view.findViewById(R.id.rl_card_type_f_person);
         rl_teacher = (RelativeLayout)view.findViewById(R.id.rl_teacher_f_person);
         rl_classroom = (RelativeLayout)view.findViewById(R.id.rl_classroom_f_person);
@@ -137,6 +141,10 @@ public class PersonFragment
         rl_general_settings.setOnClickListener(this);
         rl_logout.setOnClickListener(this);
         rl_help.setOnClickListener(this);
+
+        if (!sm_type.equals("1")) {
+            rl_general_settings.setVisibility(View.GONE);
+        }
     }
 
 

@@ -25,10 +25,10 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.w3c.dom.CDATASection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,8 +80,8 @@ public class CourseDetailActivity
         str_courseName = intent.getStringExtra("name");
         str_type = intent.getStringExtra("type");
 
-        str_shopId = MethodTool.getSharePreferenceValue(this,"sasm","s_id", Ref.DATA_TYPE_LONG);
-        sm_id = MethodTool.getSharePreferenceValue(this,"sasm","sm_id", Ref.DATA_TYPE_LONG);
+        str_shopId = SharePreferenceManager.getSharePreferenceValue(this,"sasm","s_id", Ref.DATA_TYPE_LONG);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_id", Ref.DATA_TYPE_LONG);
     }
 
     /**
@@ -179,6 +179,9 @@ public class CourseDetailActivity
                             case EMPTY_RESULT:
                                 MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -218,7 +221,7 @@ public class CourseDetailActivity
      * 初始化所有的会员卡
      */
     private void initAllCards() {
-        String url = "/QueryCardList?shop_id=" + str_shopId + "&type=0";
+        String url = "/QueryCardList?type=0";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -235,6 +238,9 @@ public class CourseDetailActivity
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(CourseDetailActivity.this,Ref.OP_NSR);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
                             default:break;
                         }
@@ -276,6 +282,9 @@ public class CourseDetailActivity
                             case EMPTY_RESULT:
                                 map_result = JsonHandler.strToMap(resp);
                                 reorgnizeData();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
                             default:break;
                         }
@@ -666,6 +675,9 @@ public class CourseDetailActivity
                             case NST_NOT_MATCH:
                                 MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
                                 CourseDetailActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
                             default:break;
                         }

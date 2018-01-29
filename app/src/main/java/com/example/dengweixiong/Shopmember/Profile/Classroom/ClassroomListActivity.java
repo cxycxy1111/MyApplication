@@ -78,8 +78,10 @@ public class ClassroomListActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(ClassroomListActivity.this,"暂无课室，请新增");
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ClassroomListActivity.this);
+                                break;
                             default:
-                                MethodTool.showToast(ClassroomListActivity.this, Ref.UNKNOWN_ERROR);
                                 break;
                         }
                         break;

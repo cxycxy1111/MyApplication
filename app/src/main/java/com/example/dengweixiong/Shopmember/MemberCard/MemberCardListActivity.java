@@ -21,6 +21,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -136,8 +137,8 @@ public class MemberCardListActivity extends BaseActivity{
     }
 
     private void initData(String source) {
-        String sm_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","sm_id",2);
-        String s_id = MethodTool.getSharePreferenceValue(MemberCardListActivity.this,"sasm","s_id",2);
+        String sm_id = SharePreferenceManager.getSharePreferenceValue(MemberCardListActivity.this,"sasm","sm_id",2);
+        String s_id = SharePreferenceManager.getSharePreferenceValue(MemberCardListActivity.this,"sasm","s_id",2);
 
         switch (source) {
             case "ShopmemberMainActivity":
@@ -185,6 +186,9 @@ public class MemberCardListActivity extends BaseActivity{
                             case EMPTY_RESULT:
                                 MethodTool.showToast(MemberCardListActivity.this,Ref.STAT_NSR);
                                 MemberCardListActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberCardListActivity.this);
                                 break;
                             default:break;
                         }
@@ -320,6 +324,9 @@ public class MemberCardListActivity extends BaseActivity{
                                         rvWithHintAdapter.notifyDataSetChanged();
                                     }
                                 });
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberCardListActivity.this);
                                 break;
                             default:
                                 break;

@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.dengweixiong.Util.Enum.EnumRespType;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,8 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import okhttp3.Response;
 
 /**
  * Created by dengweixiong on 2017/10/14.
@@ -62,6 +58,11 @@ public class MethodTool{
         });
     }
 
+    /**
+     * 显示Toast，随后结束活动
+     * @param targetActivity
+     * @param string
+     */
     public static void showToastAndFinish(final Activity targetActivity,final String string) {
         showToast(targetActivity,string);
         targetActivity.finish();
@@ -89,6 +90,29 @@ public class MethodTool{
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialog.show();
+            }
+        });
+    }
+
+    /**
+     * 显示提示框
+     * @param targetActivity
+     */
+    public static void showExitAppAlert(final Activity targetActivity) {
+        targetActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
+                dialog.setTitle("登录过期提示");
+                dialog.setCancelable(false);
+                dialog.setMessage("登录已过期，请重新登录");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityManager.removeAllActivity();
                     }
                 });
                 dialog.show();
@@ -158,6 +182,11 @@ public class MethodTool{
         return list;
     }
 
+    /**
+     * 针对ListMap进行排序
+     * @param list
+     * @param key
+     */
     public static void sortListMap(List<Map<String,String>> list,final String key) {
         if (null != list&& list.size()>0) {
             Collections.sort(list,new Comparator<Map>() {
@@ -170,6 +199,10 @@ public class MethodTool{
         }
     }
 
+    /**
+     * 对List进行排序
+     * @param list
+     */
     public static void sort(List<String> list) {
         if (list != null && list.size() > 0) {
             Collections.sort(list, new Comparator<String>() {
@@ -182,31 +215,12 @@ public class MethodTool{
         }
     }
 
-    public static void dealWithStatResponse(String value,Activity activity,int action) {
-        if (value == Ref.STAT_INST_NOT_MATCH) {
-            showToast(activity,"机构不匹配");
-        }else if (value == Ref.STAT_EXE_SUC) {
-            if (action == Ref.ACTION_SAVE) {
-                showToast(activity,"保存成功");
-            }else if (action == Ref.ACTION_ADD) {
-                showToast(activity,"新增成功");
-            }else if (action == Ref.ACTION_DELETE) {
-                showToast(activity,"删除成功");
-            }
-        }else if (value == Ref.STAT_EXE_FAIL) {
-            if (action == Ref.ACTION_SAVE) {
-                showToast(activity,"保存失败");
-            }else if (action == Ref.ACTION_ADD) {
-                showToast(activity,"新增失败");
-            }else if (action == Ref.ACTION_DELETE) {
-                showToast(activity,"删除失败");
-            }
-        }else if (value == Ref.STAT_NSR) {
-            showToast(activity,"记录不存在");
-        }
-
-    }
-
+    /**
+     * 深拷贝
+     * @param src
+     * @param <T>
+     * @return
+     */
     public static <T> List<T> deepCopy(List<T> src) {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         ObjectOutputStream out = null;
@@ -240,21 +254,7 @@ public class MethodTool{
         return dest;
     }
 
-    public static String getSharePreferenceValue(Context context,String fileName,String key,int dataType) {
-        SharedPreferences preferences = context.getSharedPreferences(fileName,Context.MODE_PRIVATE);
-        switch (dataType) {
-            case 1:
-                return String.valueOf(preferences.getInt(key,0));
-            case 2:
-                return String.valueOf(preferences.getLong(key,0));
-            case 3:
-                return String.valueOf(preferences.getString(key,null));
-            default:return null;
-        }
-    }
-
     public static int dealWithResponse(String resp) {
-
         if (resp.startsWith("[")) {
             return Ref.RESP_TYPE_MAPLIST;
         }else if (resp.startsWith("{")) {
@@ -267,23 +267,6 @@ public class MethodTool{
             }
         }else {
             return Ref.RESP_TYPE_ERROR;
-        }
-    }
-
-    public static EnumRespType dealWithResponseReturnEnum(String resp) {
-
-        if (resp.startsWith("[")) {
-            return EnumRespType.RESP_MAPLIST;
-        }else if (resp.startsWith("{")) {
-            if (resp.contains(Ref.STATUS)) {
-                return EnumRespType.RESP_STAT;
-            }else if (resp.contains(Ref.DATA)){
-                return EnumRespType.RESP_DATA;
-            } else {
-                return EnumRespType.RESP_STAT;
-            }
-        }else {
-            return EnumRespType.RESP_ERROR;
         }
     }
 

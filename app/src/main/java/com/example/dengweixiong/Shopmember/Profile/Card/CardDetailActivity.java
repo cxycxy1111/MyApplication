@@ -281,6 +281,9 @@ public class CardDetailActivity extends BaseActivity {
                                     case EXE_FAIL:
                                         MethodTool.showToast(CardDetailActivity.this,"删除失败");
                                         break;
+                                    case SESSION_EXPIRED:
+                                        MethodTool.showExitAppAlert(CardDetailActivity.this);
+                                        break;
                                     default:break;
                                 }
                                 break;
@@ -321,7 +324,6 @@ public class CardDetailActivity extends BaseActivity {
         String start_time = et_starttime.getText().toString();
         String invalid_time = et_invalidtime.getText().toString();
         String url = "/ModifyCard?id=" + c_id +
-                "&shopmember_id=" + sm_id +
                 "&name=" + new_name +
                 "&price=" + price +
                 "&balance=" + balance +
@@ -359,6 +361,9 @@ public class CardDetailActivity extends BaseActivity {
                                 break;
                             case EXE_FAIL:
                                 MethodTool.showToast(CardDetailActivity.this,"修改失败");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CardDetailActivity.this);
                                 break;
                             default:break;
                         }

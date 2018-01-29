@@ -153,7 +153,7 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initBalanceCard() {
-        String url_balance = "/QueryCardList?shop_id=" + s_id + "&type=1";
+        String url_balance = "/QueryCardList?type=1";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -171,6 +171,9 @@ public class CardTypeListActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,"暂无会员卡类型，请新增");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CardTypeListActivity.this);
                                 break;
                             default:break;
                         }
@@ -199,7 +202,7 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initTimesCard() {
-        String url_times = "/QueryCardList?shop_id=" + s_id + "&type=2";
+        String url_times = "/QueryCardList?type=2";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -233,6 +236,9 @@ public class CardTypeListActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CardTypeListActivity.this);
+                                break;
                             default:break;
                         }
                         initTimeCard();
@@ -245,7 +251,7 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initTimeCard() {
-        String url_times = "/QueryCardList?shop_id=" + s_id + "&type=3";
+        String url_times = "/QueryCardList?type=3";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -275,6 +281,9 @@ public class CardTypeListActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CardTypeListActivity.this);
                                 break;
                             default:break;
                         }

@@ -1,13 +1,11 @@
 package com.example.dengweixiong.Login;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +20,12 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -50,15 +49,15 @@ public class SignInFragment
     private static final String TAG = "SIGNINFRAGMENT :";
 
     // TODO: Rename and change types of parameters
+
     private String mParam1,mParam2;
     private static final int S_ID = 1;
     private static final int SM_ID = 2;
     private long sm_id,s_id;
+    private Map<String,String> map = new HashMap<>();
     private EditText et_loginname_a_regist_admin,et_password_a_regist_admin;
     private String loginname,password;
     private Button btn_submit_a_regist_admin;
-    private Context context;
-    private Activity activity;
 
     private OnFragmentInteractionListener mListener;
 
@@ -108,7 +107,6 @@ public class SignInFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context;
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -143,7 +141,7 @@ public class SignInFragment
                 if (loginname.equals("") || loginname.equals(null) || password.equals("") || password.equals(null)) {
                     Toast.makeText(getContext(),"登录名或密码不能为空",Toast.LENGTH_LONG).show();
                 }else {
-                    requestShopmember();
+                    logIn();
                 }
                 break;
             default:
@@ -152,9 +150,9 @@ public class SignInFragment
     }
 
     /**
-     * 校验
+     * 登录入口
      */
-    private void requestShopmember() {
+    private void logIn() {
         String add = "/ShopMemberLogin?user_name=" + loginname + "&password=" + password;
         Callback callback = new Callback() {
             @Override
@@ -164,69 +162,40 @@ public class SignInFragment
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Map<String,String> map = new HashMap<>();
                 String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case NOT_MATCH:
                                 MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                                 break;
                             case NSR:
                                 MethodTool.showToast(getActivity(),"登录名与密码不匹配");
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());
+                                break;
                             default:
                                 MethodTool.showToast(getActivity(), Ref.UNKNOWN_ERROR);
                                 break;
                         }
                         break;
-                    case RESP_DATA:
-                        map = JsonHandler.strToMap(resp);
-                        ArrayList<String> keys = MethodTool.getKeys(map);
-                        ArrayList<String> values = MethodTool.getValues(map,keys);
-                        sm_id = Long.parseLong(values.get(0));
-                        storeLoginMessage(loginname,password);
-                        requestShop();
+                    case RESP_MAPLIST:
+                        String[] keys = new String[] {"id","shop_id","type","user_name"};
+                        List<Map<String,String>> mapList = JsonHandler.strToListMap(resp,keys);
+                        map = mapList.get(0);
+                        storeLoginMessage();
                         break;
                     case RESP_ERROR:
                         MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
                         break;
                     default:break;
-
                 }
             }
         };
         NetUtil.sendHttpRequest(getContext(),add,callback);
     }
 
-    /**
-     * 查询机构ID
-     */
-    private void requestShop() {
-        String url = "/ShopIdQueryByShopMemberId?sm_id=" + sm_id;
-        Callback callback = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MethodTool.showToast(getActivity(), Ref.CANT_CONNECT_INTERNET);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-                Map<String,String> hashMap = JsonHandler.strToMap(resp);
-                ArrayList<String> keys = MethodTool.getKeys(hashMap);
-                ArrayList<String> values = MethodTool.getValues(hashMap,keys);
-                //储存舞馆ID
-                storeShopAndShopMemberInfo("sasm","s_id", Long.parseLong(values.get(0)));
-                //储存教师ID
-                storeShopAndShopMemberInfo("sasm","sm_id",sm_id);
-                jumpTo();
-            }
-        };
-        NetUtil.sendHttpRequest(getContext(),url,callback);
-    }
 
     /**
      * 跳至主界面
@@ -238,30 +207,21 @@ public class SignInFragment
 
     /**
      * 储存登录信息
-     * @param l_name 登录名
-     * @param pwd 密码
      */
-    private void storeLoginMessage(String l_name,String pwd) {
-        FragmentActivity activity = getActivity();
-        SharedPreferences.Editor editor = activity.getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
-        editor.putString("login_name",l_name);
-        editor.putString("password",pwd);
-        editor.apply();
-    }
+    private void storeLoginMessage() {
+        SharedPreferences.Editor editor_sasm = getActivity().getSharedPreferences("sasm",Context.MODE_PRIVATE).edit();
+        editor_sasm.clear().apply();
+        SharedPreferences.Editor editor_login_data = getActivity().getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
+        editor_login_data.clear().apply();
 
-    /**
-     * 储存舞馆信息或教师信息
-     * @param file_name 文件名
-     * @param key 键
-     * @param value 值
-     */
-    private void storeShopAndShopMemberInfo(String file_name,String key,long value) {
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences(file_name,Context.MODE_PRIVATE).edit();
-        editor.putLong(key,value);
-        editor.apply();
-        getActivity().finish();
-    }
+        SharePreferenceManager.storeSharePreferenceInt(getActivity(),"sasm","sm_type",Integer.valueOf(String.valueOf(map.get("type"))));
+        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","sm_id",Integer.valueOf(String.valueOf(map.get("id"))));
+        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
+        SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","login_name",loginname);
+        SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","password",password);
 
+        jumpTo();
+    }
 
     /**
      *

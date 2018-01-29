@@ -67,7 +67,7 @@ public class AddSupportedCardActivity extends BaseActivity {
     }
 
     private void initCards() {
-        String url = "/QueryCardList?shop_id=" + s_id + "&type=" + 0;
+        String url = "/QueryCardList?type=" + 0;
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -102,6 +102,9 @@ public class AddSupportedCardActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(AddSupportedCardActivity.this,"会员卡列表为空，请先新增会员卡");
                                 AddSupportedCardActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddSupportedCardActivity.this);
                                 break;
                             default:break;
                         }
@@ -212,6 +215,9 @@ public class AddSupportedCardActivity extends BaseActivity {
                                 MethodTool.showToast(AddSupportedCardActivity.this,Ref.OP_FAIL);
                                 setResult(RESULT_CODE_FAIL);
                                 AddSupportedCardActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddSupportedCardActivity.this);
                                 break;
                             default:break;
                         }

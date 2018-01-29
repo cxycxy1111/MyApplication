@@ -467,6 +467,10 @@ public class AddCourseActivity
                             case EXE_FAIL:
                                 MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCourseActivity.this);
+                                break;
+                            default:break;
                         }
                         break;
                     case RESP_DATA:

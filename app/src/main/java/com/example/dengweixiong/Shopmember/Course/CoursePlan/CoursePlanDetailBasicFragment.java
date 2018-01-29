@@ -7,7 +7,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ScrollingTabContainerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +39,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.security.auth.callback.Callback;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -208,6 +205,8 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                                 MethodTool.showToast(getActivity(),Ref.OP_NSR);
                                 getActivity().finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());break;
                             default:break;
                         }
                         break;
@@ -286,45 +285,55 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                int int_type_resp = MethodTool.dealWithResponse(resp);
-                if (int_type_resp == Ref.RESP_TYPE_MAPLIST) {
-                    mapList_classroom = JsonHandler.strToListMap(resp,str_classroom_keys);
-                    for (int i = 0;i < mapList_classroom.size();i++) {
-                        list_classroom.add(mapList_classroom.get(i).get("name"));
-                    }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,list_classroom);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            current_position = list_classroom.indexOf(str_classroom_name);
-
-                            sp_classroom.setAdapter(adapter);
-                            sp_classroom.setSelection(current_position);
-                            sp_classroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    selected_classroom = String.valueOf(mapList_classroom.get(position).get("id"));
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-                                    for (int i = 0;i < mapList_classroom.size();i++) {
-                                        Map<String,String> map = mapList_classroom.get(i);
-                                        if (map.get("name").equals(mapList_detail.get(0).get("classroom_name")));
-                                        selected_classroom = map.get("id");
-                                    }
-                                }
-                            });
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_MAPLIST:
+                        mapList_classroom = JsonHandler.strToListMap(resp,str_classroom_keys);
+                        for (int i = 0;i < mapList_classroom.size();i++) {
+                            list_classroom.add(mapList_classroom.get(i).get("name"));
                         }
-                    });
-                }else if (int_type_resp == Ref.RESP_TYPE_STAT) {
-                    Map<String,String> map = new HashMap<>();
-                    map = JsonHandler.strToMap(resp);
-                    if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
-                        MethodTool.showToast(getActivity(),Ref.STAT_NSR);
-                    }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,list_classroom);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                current_position = list_classroom.indexOf(str_classroom_name);
+
+                                sp_classroom.setAdapter(adapter);
+                                sp_classroom.setSelection(current_position);
+                                sp_classroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        selected_classroom = String.valueOf(mapList_classroom.get(position).get("id"));
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+                                        for (int i = 0;i < mapList_classroom.size();i++) {
+                                            Map<String,String> map = mapList_classroom.get(i);
+                                            if (map.get("name").equals(mapList_detail.get(0).get("classroom_name")));
+                                            selected_classroom = map.get("id");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case NSR:
+                                Map<String,String> map = new HashMap<>();
+                                map = JsonHandler.strToMap(resp);
+                                if (map.get(Ref.STATUS).equals(Ref.STAT_NSR)) {
+                                    MethodTool.showToast(getActivity(),Ref.STAT_NSR);
+                                }
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());
+                                break;
+                            default:break;
+                        }
+                    default:break;
                 }
             }
         };
@@ -377,18 +386,25 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    int int_resp_type = MethodTool.dealWithResponse(resp);
-                    if (int_resp_type == Ref.RESP_TYPE_STAT) {
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        if (map.get(Ref.STATUS).equals(Ref.STAT_EXE_SUC)) {
-                            MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
-                        }else if (map.get(Ref.STATUS).equals(Ref.STAT_EXE_FAIL)) {
-                            MethodTool.showToast(getActivity(),Ref.OP_FAIL);
-                        }else {
-                            MethodTool.showToast(getActivity(),"status" + Ref.UNKNOWN_ERROR);
-                        }
-                    }else if (int_resp_type == Ref.RESP_TYPE_ERROR){
-                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                    switch (EnumRespType.dealWithResponse(resp)) {
+                        case RESP_STAT:
+                            switch (EnumRespStatType.dealWithRespStat(resp)) {
+                                case EXE_SUC:
+                                    MethodTool.showToast(getActivity(),Ref.OP_MODIFY_SUCCESS);
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(getActivity(),Ref.OP_FAIL);
+                                    break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(getActivity());
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        case RESP_ERROR:
+                            MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                            break;
+                        default:break;
                     }
                 }
             };

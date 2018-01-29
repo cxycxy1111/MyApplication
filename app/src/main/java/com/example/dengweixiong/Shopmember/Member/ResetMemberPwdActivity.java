@@ -128,6 +128,8 @@ public class ResetMemberPwdActivity
                             case EXE_FAIL:
                                 MethodTool.showToast(ResetMemberPwdActivity.this,Ref.OP_MODIFY_FAIL);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ResetMemberPwdActivity.this);break;
                             default:
                                 break;
                         }

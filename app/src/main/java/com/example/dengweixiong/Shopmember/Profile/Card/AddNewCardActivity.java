@@ -236,9 +236,7 @@ public class AddNewCardActivity
                 invalidtime.equals("") | invalidtime.equals(null)) {
             Toast.makeText(AddNewCardActivity.this,Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_LONG).show();
         }else {
-            String url = "/AddNewCard?shop_id=" + s_id +
-                    "&shopmember_id=" + sm_id +
-                    "&name=" + name +
+            String url = "/AddNewCard?name=" + name +
                     "&type=" + selected_type +
                     "&price=" + price +
                     "&balance=" + balance +
@@ -268,6 +266,8 @@ public class AddNewCardActivity
                                 case EXE_FAIL:
                                     MethodTool.showToast(AddNewCardActivity.this,Ref.OP_ADD_FAIL);
                                     break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(AddNewCardActivity.this);
                                 default:break;
                             }
                         case RESP_ID:

@@ -17,6 +17,7 @@ import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -115,6 +116,9 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(ResetShopmemberPasswordActivity.this,Ref.OP_NSR);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ResetShopmemberPasswordActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -129,8 +133,8 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
     }
 
     private void initData() {
-        sm_id = MethodTool.getSharePreferenceValue(ResetShopmemberPasswordActivity.this,"sasm","sm_id",2);
-        s_id = MethodTool.getSharePreferenceValue(ResetShopmemberPasswordActivity.this,"sasm","s_id",2);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(ResetShopmemberPasswordActivity.this,"sasm","sm_id",2);
+        s_id = SharePreferenceManager.getSharePreferenceValue(ResetShopmemberPasswordActivity.this,"sasm","s_id",2);
         id = getIntent().getLongExtra("id",0);
     }
 

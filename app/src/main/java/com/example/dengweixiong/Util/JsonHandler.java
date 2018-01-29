@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import okhttp3.Response;
-
 /**
  * Created by dengweixiong on 2017/10/8.
  */
@@ -31,6 +29,18 @@ public class JsonHandler {
         for(int i=0;i<ja.size();i++) {
             JSONObject jo = ja.getJSONObject(i);
             Map<String,String> map = new HashMap<>();
+            map = jo;
+            list.add(map);
+        }
+        return list;
+    }
+
+    public static ArrayList<Map<String,Boolean>> strToBooleanListMap(String resp,String keys[]) throws IOException {
+        ArrayList<Map<String,Boolean>> list = new ArrayList<>();
+        JSONArray ja = JSONArray.fromObject(resp);
+        for(int i=0;i<ja.size();i++) {
+            JSONObject jo = ja.getJSONObject(i);
+            Map<String,Boolean> map = new HashMap<>();
             map = jo;
             list.add(map);
         }

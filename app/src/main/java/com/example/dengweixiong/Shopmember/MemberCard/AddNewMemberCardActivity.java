@@ -222,6 +222,9 @@ public class AddNewMemberCardActivity
                                 MethodTool.showToast(AddNewMemberCardActivity.this,"暂无会员");
                                 AddNewMemberCardActivity.this.finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -255,7 +258,7 @@ public class AddNewMemberCardActivity
     }
 
     private void initCard() {
-        String url = "/QueryCardList?type=0&shop_id=" + s_id;
+        String url = "/QueryCardList?type=0";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -285,6 +288,9 @@ public class AddNewMemberCardActivity
                             case NSR:
                                 MethodTool.showToast(AddNewMemberCardActivity.this,"暂无卡，请添加");
                                 AddNewMemberCardActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
                                 break;
                             default:break;
                         }
@@ -388,6 +394,9 @@ public class AddNewMemberCardActivity
                                         break;
                                     case NOT_MATCH:
                                         MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);
+                                        break;
+                                    case SESSION_EXPIRED:
+                                        MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
                                         break;
                                     default:break;
                                 }

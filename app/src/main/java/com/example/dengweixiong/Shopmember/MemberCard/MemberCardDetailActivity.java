@@ -7,10 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.example.dengweixiong.Shopmember.Adapter.RVWithHintAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
@@ -216,6 +213,7 @@ public class MemberCardDetailActivity
                                 MethodTool.showToast(MemberCardDetailActivity.this,"未找到会员卡");
                                 MemberCardDetailActivity.this.finish();
                                 break;
+                            case SESSION_EXPIRED:MethodTool.showExitAppAlert(MemberCardDetailActivity.this);break;
                             default:break;
                         }
                     default:break;

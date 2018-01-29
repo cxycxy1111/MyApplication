@@ -156,7 +156,6 @@ public class ShopmemberMainActivity
                 break;
             default:break;
         }
-        super.onOptionsItemSelected(item);
         return true;
     }
 

@@ -24,7 +24,6 @@ import com.example.dengweixiong.myapplication.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -153,6 +152,9 @@ public class AddNewShopmemberActivity extends BaseActivity {
                                 break;
                             case DUPLICATE:
                                 MethodTool.showToast(AddNewShopmemberActivity.this,"登录名重复");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddNewShopmemberActivity.this);
                                 break;
                             default:break;
                         }

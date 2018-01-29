@@ -20,7 +20,8 @@ public enum EnumRespStatType {
     NST_NOT_MATCH("institution_not_match"),
     EMPTY_RESULT("empty_result"),
     PARTYLY_FAIL("exe_partly_fail"),
-    NOT_MATCH("not_match");
+    NOT_MATCH("not_match"),
+    SESSION_EXPIRED("session_expired");
 
     private String type;
 
@@ -52,6 +53,8 @@ public enum EnumRespStatType {
             return EnumRespStatType.NST_NOT_MATCH;
         } else if (value.equals(Ref.NOT_MATCH)){
             return EnumRespStatType.NOT_MATCH;
+        } else if (value.equals(Ref.SESSION_EXPIRED)){
+            return EnumRespStatType.SESSION_EXPIRED;
         } else {
             return null;
         }

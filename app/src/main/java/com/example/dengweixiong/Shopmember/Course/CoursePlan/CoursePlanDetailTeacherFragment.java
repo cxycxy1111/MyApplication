@@ -1,7 +1,6 @@
 package com.example.dengweixiong.Shopmember.Course.CoursePlan;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -138,6 +137,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
                             case NSR:MethodTool.showToast(getActivity(),Ref.STAT_NSR);break;
+                            case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
                             default:MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);break;
                         }
                         break;
@@ -197,8 +197,14 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         switch (enumRespStatType) {
                             case NSR:
                                 MethodTool.showToast(getActivity(),Ref.STAT_NSR);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());
+                                break;
+                            default:break;
                         }
-                    break;
+                        break;
+                    default:break;
                 }
             }
         };
@@ -263,9 +269,12 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                                 case PARTYLY_FAIL:
                                     MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
                                     break;
+                                case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
                                 default:break;
                             }
                             getActivity().finish();
+                            break;
+                        default:break;
                     }
                 }
             };

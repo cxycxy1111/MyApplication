@@ -23,6 +23,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -195,8 +196,8 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
 
     //开始区分从主界面还是从会员卡详情界面过来的
     private String initData() {
-        str_s_id = MethodTool.getSharePreferenceValue(DeductionActivity.this,"sasm","s_id",2);
-        str_sm_id = MethodTool.getSharePreferenceValue(DeductionActivity.this,"sasm","sm_id",2);
+        str_s_id = SharePreferenceManager.getSharePreferenceValue(DeductionActivity.this,"sasm","s_id",2);
+        str_sm_id = SharePreferenceManager.getSharePreferenceValue(DeductionActivity.this,"sasm","sm_id",2);
         Intent intent = getIntent();
         source = intent.getStringExtra("source");
         switch (source) {
@@ -337,6 +338,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                                 MethodTool.showToast(DeductionActivity.this,"暂无会员，请新增");
                                 DeductionActivity.this.finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(DeductionActivity.this);
+                                break;
                             default:break;
                         }
                     case RESP_ERROR:
@@ -392,6 +396,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                                 selected_main_type = 0;
                                 setLinearLayoutVisibility(0);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(DeductionActivity.this);
+                                break;
                             default:break;
                         }
                     default:break;
@@ -441,6 +448,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                                 MethodTool.showToast(DeductionActivity.this,Ref.STAT_EMPTY_RESULT);
                                 selected_main_type = 0;
                                 setLinearLayoutVisibility(0);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
                             default:break;
                         }
@@ -560,6 +570,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case NOT_MATCH:
                                 MethodTool.showToast(DeductionActivity.this,Ref.NOT_MATCH);
                                 DeductionActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
                             default:break;
                         }

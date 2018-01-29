@@ -1,6 +1,7 @@
 package com.example.dengweixiong.Login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,15 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
+import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
+import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -41,6 +45,10 @@ public class LoginActivity
         RegistShopFragment.OnFragmentInteractionListener,
         SignInFragment.OnFragmentInteractionListener {
 
+    private String sm_type;
+    private String sm_id,s_id;
+    private String[] keys = new String[] {"id","name","type","user_name"};
+    private Map<String,String> map = new HashMap<>();
     private TabLayout tabLayout;
     private Context context;
     private ViewPager viewPager;
@@ -61,14 +69,38 @@ public class LoginActivity
         initView();
     }
 
+    //TABLAYOUT处理
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     private void initFragmentManager() {
         manager = getSupportFragmentManager();
     }
 
     private void initLoginnameAndPassword() {
-        SharedPreferences preferences = getSharedPreferences("login_data",MODE_PRIVATE);
-        login_name = preferences.getString("login_name",null);
-        password = preferences.getString("password",null);
+        sm_type = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_type",1);
+        s_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","s_id",2);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_id",2);
+        login_name = SharePreferenceManager.getSharePreferenceValue(this,"login_data","login_name",3);
+        password = SharePreferenceManager.getSharePreferenceValue(this,"login_data","password",3);
+
     }
 
     private void initView() {
@@ -76,49 +108,7 @@ public class LoginActivity
         initTabLayout();
         initViewPager();
         createProgressBar();
-        autoLogin();
-    }
-
-    private void autoLogin() {
-        String url = "/ShopMemberLogin?user_name=" + login_name + "&password=" + password;
-        Callback callback = new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                MethodTool.hideView(LoginActivity.this,progressBar);
-                MethodTool.showToast(LoginActivity.this, Ref.CANT_CONNECT_INTERNET);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
-                    case RESP_STAT:
-                        Map<String,String> map = new HashMap<>();
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
-                            case NOT_MATCH:
-                                MethodTool.hideView(LoginActivity.this,progressBar);
-                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
-                                break;
-                            case NSR:
-                                MethodTool.hideView(LoginActivity.this,progressBar);
-                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
-                                break;
-                            default:break;
-                        }
-                        break;
-                    case RESP_DATA:
-                        MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.jumpToActivity(LoginActivity.this,ShopmemberMainActivity.class);
-                        break;
-                    case RESP_ERROR:
-                        MethodTool.hideView(LoginActivity.this,progressBar);
-                        MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
-                }
-            }
-        };
-        NetUtil.sendHttpRequest(LoginActivity.this,url,callback);
+        checkInfoIsPrepared();
     }
 
     private void initToolbar() {
@@ -161,25 +151,84 @@ public class LoginActivity
         rootFrameLayout.addView(progressBar);
     }
 
-
-    //TABLAYOUT处理
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-
+    private void checkInfoIsPrepared() {
+        if (sm_type.equals("") || s_id.equals("") ||sm_id.equals("") || login_name.equals("")||password.equals("")) {
+            Toast.makeText(this,"自动登录失败",Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+        }else {
+            autoLogin();
+        }
     }
 
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
+    private void autoLogin() {
+        String url = "/ShopMemberLogin?user_name=" + login_name + "&password=" + password;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.hideView(LoginActivity.this,progressBar);
+                MethodTool.showToast(LoginActivity.this, Ref.CANT_CONNECT_INTERNET);
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case NOT_MATCH:
+                                MethodTool.hideView(LoginActivity.this,progressBar);
+                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
+                                break;
+                            case NSR:
+                                MethodTool.hideView(LoginActivity.this,progressBar);
+                                MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(LoginActivity.this);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        String[] keys = new String[] {"id","shop_id","type","user_name"};
+                        List<Map<String,String>> mapList = JsonHandler.strToListMap(resp,keys);
+                        map = mapList.get(0);
+                        storeLoginMessage();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                Intent intent = new Intent(LoginActivity.this,ShopmemberMainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.hideView(LoginActivity.this,progressBar);
+                        MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(LoginActivity.this,url,callback);
     }
 
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    /**
+     * 储存登录信息
+     */
+    private void storeLoginMessage() {
+        SharedPreferences.Editor editor_sasm = getSharedPreferences("sasm",Context.MODE_PRIVATE).edit();
+        editor_sasm.clear().apply();
+        SharedPreferences.Editor editor_login_data = getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
+        editor_login_data.clear().apply();
 
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
+        SharePreferenceManager.storeSharePreferenceInt(this,"sasm","sm_type",Integer.valueOf(String.valueOf(map.get("type"))));
+        SharePreferenceManager.storeSharePreferenceLong(this,"sasm","sm_id",Integer.valueOf(String.valueOf(map.get("id"))));
+        SharePreferenceManager.storeSharePreferenceLong(this,"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
+        SharePreferenceManager.storeSharePreferenceString(this,"login_data","login_name",login_name);
+        SharePreferenceManager.storeSharePreferenceString(this,"login_data","password",password);
     }
 }

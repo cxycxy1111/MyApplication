@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.view.MenuItem;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +26,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -147,8 +148,8 @@ public class AddCoursePlanActivity
     }
 
     private void initData() {
-        sm_id = MethodTool.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","sm_id",2);
-        s_id = MethodTool.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","s_id",2);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","sm_id",2);
+        s_id = SharePreferenceManager.getSharePreferenceValue(AddCoursePlanActivity.this,"sasm","s_id",2);
 
         Calendar calendar = Calendar.getInstance();
         this.current_year = calendar.get(Calendar.YEAR);
@@ -206,7 +207,7 @@ public class AddCoursePlanActivity
     }
 
     private void initCourses() {
-        String url = "/CourseListQuery?s_id=" + s_id;
+        String url = "/CourseListQuery";
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -240,6 +241,9 @@ public class AddCoursePlanActivity
                             case EMPTY_RESULT:
                                 MethodTool.showToast(AddCoursePlanActivity.this,"舞馆尚未安排课程");
                                 AddCoursePlanActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
                                 break;
                             default:break;
                         }
@@ -316,6 +320,9 @@ public class AddCoursePlanActivity
                             case NSR:
                                 MethodTool.showToast(AddCoursePlanActivity.this,"暂无课室，请先新增");
                                 AddCoursePlanActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
                                 break;
                             default:break;
                         }
@@ -421,6 +428,9 @@ public class AddCoursePlanActivity
                                         break;
                                     case NSR:
                                         MethodTool.showToast(AddCoursePlanActivity.this,"未发现课程");
+                                        break;
+                                    case SESSION_EXPIRED:
+                                        MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
                                         break;
                                     default:break;
                                 }

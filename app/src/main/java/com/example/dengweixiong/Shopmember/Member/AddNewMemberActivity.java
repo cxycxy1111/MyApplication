@@ -211,6 +211,9 @@ public class AddNewMemberActivity
                                 case DUPLICATE:
                                     MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
                                     break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(AddNewMemberActivity.this);
+                                    break;
                                 default:break;
                             }
                             break;

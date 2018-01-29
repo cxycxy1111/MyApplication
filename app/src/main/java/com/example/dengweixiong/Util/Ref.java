@@ -51,6 +51,8 @@ public abstract class Ref {
     public static final String STAT_EMPTY_RESULT = "empty_result";
     public static final String STAT_PARTYLY_FAIL = "exe_partly_fail";
     public static final String NOT_MATCH = "not_match";
+    public static final String SESSION_EXPIRED = "session_expired";
+    public static final String ALERT_SESSION_EXPIRED = "登录已过期，请重新登录";
 
     /**
      * 操作类型

@@ -3,11 +3,11 @@ package com.example.dengweixiong.Shopmember.Course.CoursePlan;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,10 +17,10 @@ import com.example.dengweixiong.Shopmember.Adapter.CourseViewPagerAdapter;
 import com.example.dengweixiong.Util.BaseActivity;
 import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
-import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -63,8 +63,8 @@ public class CoursePlanDetailActivity
     }
 
     private void initData(){
-        str_s_id = MethodTool.getSharePreferenceValue(this,"sasm","s_id",2);
-        str_sm_id = MethodTool.getSharePreferenceValue(this,"sasm","sm_id",2);
+        str_s_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","s_id",2);
+        str_sm_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_id",2);
         Intent intent = getIntent();
         str_course_name = intent.getStringExtra("course_name");
         str_time = intent.getStringExtra("time");
@@ -172,7 +172,9 @@ public class CoursePlanDetailActivity
                 String resp = response.body().string();
                 EnumRespType enumRespType = EnumRespType.dealWithResponse(resp);
                 switch (enumRespType) {
-                    case RESP_ERROR:MethodTool.showToast(CoursePlanDetailActivity.this,Ref.UNKNOWN_ERROR);break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(CoursePlanDetailActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
                     case RESP_STAT:
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
@@ -190,6 +192,9 @@ public class CoursePlanDetailActivity
                             case EXE_SUC:
                                 MethodTool.showToast(CoursePlanDetailActivity.this,Ref.OP_DELETE_SUCCESS);
                                 CoursePlanDetailActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CoursePlanDetailActivity.this);
                                 break;
                             default:break;
                         }

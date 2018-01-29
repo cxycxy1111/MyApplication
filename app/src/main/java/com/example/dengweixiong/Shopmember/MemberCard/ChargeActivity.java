@@ -23,6 +23,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -196,8 +197,8 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
 
     //开始区分从主界面还是从会员卡详情界面过来的
     private String initData() {
-        str_s_id = MethodTool.getSharePreferenceValue(ChargeActivity.this,"sasm","s_id",2);
-        str_sm_id = MethodTool.getSharePreferenceValue(ChargeActivity.this,"sasm","sm_id",2);
+        str_s_id = SharePreferenceManager.getSharePreferenceValue(ChargeActivity.this,"sasm","s_id",2);
+        str_sm_id = SharePreferenceManager.getSharePreferenceValue(ChargeActivity.this,"sasm","sm_id",2);
         Intent intent = getIntent();
         source = intent.getStringExtra("source");
         switch (source) {
@@ -338,6 +339,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 MethodTool.showToast(ChargeActivity.this,"暂无会员，请新增");
                                 ChargeActivity.this.finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ChargeActivity.this);
+                                break;
                             default:break;
                         }
                     case RESP_ERROR:
@@ -394,6 +398,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
                                 selected_main_type = 0;
                                 setLinearLayoutVisibility(0);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
                             default:break;
                         }
@@ -452,6 +459,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                         spinner_card_adapter.notifyDataSetChanged();
                                     }
                                 });
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
                             default:break;
                         }
@@ -580,6 +590,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             case NOT_MATCH:
                                 MethodTool.showToast(ChargeActivity.this,Ref.NOT_MATCH);
                                 ChargeActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
                             default:break;
                         }

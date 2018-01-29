@@ -98,6 +98,8 @@ public class ShopmemberListActivity extends BaseActivity {
                                 MethodTool.showToast(ShopmemberListActivity.this,"暂无管理员");
                                 initInnerList();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
                             default:break;
                         }
                     case RESP_ERROR:
@@ -143,6 +145,8 @@ public class ShopmemberListActivity extends BaseActivity {
                                 MethodTool.showToast(ShopmemberListActivity.this,"暂无内部教师");
                                 initOuterList();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
                             default:break;
                         }
                         break;
@@ -186,6 +190,8 @@ public class ShopmemberListActivity extends BaseActivity {
                                 MethodTool.showToast(ShopmemberListActivity.this,"暂无外聘教师");
                                 initRecyclerView();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
                             default:break;
                         }
                         break;

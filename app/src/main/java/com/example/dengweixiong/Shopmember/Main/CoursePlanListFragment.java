@@ -17,6 +17,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -95,12 +96,12 @@ public class CoursePlanListFragment extends Fragment {
     }
 
     private void initData() {
-        s_id = MethodTool.getSharePreferenceValue(getParentFragment().getActivity(),"sasm","s_id",2);
-        sm_id = MethodTool.getSharePreferenceValue(getParentFragment().getActivity(),"sasm","sm_id",2);
+        s_id = SharePreferenceManager.getSharePreferenceValue(getParentFragment().getActivity(),"sasm","s_id",2);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(getParentFragment().getActivity(),"sasm","sm_id",2);
     }
 
     private void initCoursePlanData() {
-        String url = "/CoursePlanListQurey?s_id=" + s_id;
+        String url = "/CoursePlanListQurey";
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -124,6 +125,9 @@ public class CoursePlanListFragment extends Fragment {
                         switch (respStatType) {
                             case EMPTY_RESULT:
                                 MethodTool.showToast(getParentFragment().getActivity(),"暂无排课");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getParentFragment().getActivity());
                                 break;
                             default:break;
                         }

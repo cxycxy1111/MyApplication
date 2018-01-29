@@ -138,7 +138,7 @@ public class CourseListFragment extends Fragment {
      */
     private void initRecyclerView() {
         recyclerviewdata = new ArrayList<>();
-        String url = "/CourseListQuery?s_id=" + s_id;
+        String url = "/CourseListQuery";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -181,6 +181,8 @@ public class CourseListFragment extends Fragment {
                             case NSR:
                                 MethodTool.showToast(getParentFragment().getActivity(), Ref.STAT_NSR);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getParentFragment().getActivity());
                             default:break;
                         }
                         break;

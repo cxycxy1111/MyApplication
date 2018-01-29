@@ -15,6 +15,7 @@ import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
+import com.example.dengweixiong.Util.SharePreferenceManager;
 import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
@@ -67,9 +68,9 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
     }
 
     private void initData() {
-        s_id = MethodTool.getSharePreferenceValue(
+        s_id = SharePreferenceManager.getSharePreferenceValue(
                 AddCoursePlanTeacherActivity.this,"sasm","s_id",2);
-        sm_id = MethodTool.getSharePreferenceValue(
+        sm_id = SharePreferenceManager.getSharePreferenceValue(
                 AddCoursePlanTeacherActivity.this,"sasm","sm_id",2);
         cp_id = getIntent().getStringExtra("cp_id");
     }
@@ -101,6 +102,9 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(AddCoursePlanTeacherActivity.this,"暂无教师");break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCoursePlanTeacherActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -165,6 +169,8 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
                                 setResult(Ref.RESULTCODE_ADD);
                                 AddCoursePlanTeacherActivity.this.finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCoursePlanTeacherActivity.this);break;
                             default:break;
                         }
                         break;

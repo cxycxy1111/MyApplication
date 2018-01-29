@@ -109,6 +109,9 @@ public class AddNewClassroomActivity extends BaseActivity {
                                 MethodTool.showToast(AddNewClassroomActivity.this,"机构不存在");
                                 finish();
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddNewClassroomActivity.this);
+                                break;
                             default:break;
                         }
                         break;

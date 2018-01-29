@@ -368,6 +368,7 @@ public class MemberDetailActivity
                                         MethodTool.showToast(MemberDetailActivity.this,"该会员已被删除");
                                         MemberDetailActivity.this.finish();
                                         break;
+                                    case SESSION_EXPIRED:MethodTool.showExitAppAlert(MemberDetailActivity.this);break;
                                     default:break;
                                 }
                         }
@@ -421,6 +422,11 @@ public class MemberDetailActivity
                             case EXE_FAIL:
                                 MethodTool.showToast(MemberDetailActivity.this,Ref.OP_MODIFY_FAIL);
                                 break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberDetailActivity.this);
+                                break;
+                            default:
+                                    break;
                         }
                     default:break;
                 }

@@ -231,6 +231,11 @@ public class ShopmemberDetailActivity extends BaseActivity {
                                 break;
                             case NSR:
                                 MethodTool.showToast(ShopmemberDetailActivity.this,"记录不存在");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ShopmemberDetailActivity.this);
+                                break;
+                            default:break;
                         }
                         break;
                     case RESP_ERROR:
@@ -275,6 +280,9 @@ public class ShopmemberDetailActivity extends BaseActivity {
                                     break;
                                 case EXE_FAIL:
                                     MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
+                                    break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(ShopmemberDetailActivity.this);
                                     break;
                                 default:break;
                             }

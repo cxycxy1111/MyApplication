@@ -19,7 +19,6 @@ import com.example.dengweixiong.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -81,6 +80,9 @@ public class ClassroomDetailActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(ClassroomDetailActivity.this,Ref.OP_NSR);
                                 ClassroomDetailActivity.this.finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
                                 break;
                             default:break;
                         }
@@ -196,6 +198,9 @@ public class ClassroomDetailActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(ClassroomDetailActivity.this,"未找到课室");
                                 finish();
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
                                 break;
                             default:break;
                         }
