@@ -88,8 +88,7 @@ public class AddCourseActivity
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
                 String [] keys = new String[] {"id","name","type"};
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_MAPLIST:
                         origin_teacher = JsonHandler.strToListMap(resp,keys);
                         if (origin_teacher.size() == 0) {
@@ -108,6 +107,16 @@ public class AddCourseActivity
                     case RESP_ERROR:
                         MethodTool.showToast(AddCourseActivity.this,Ref.UNKNOWN_ERROR);
                         break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCourseActivity.this);
+                                break;
+                            case NSR:
+                                MethodTool.showToast(AddCourseActivity.this,Ref.OP_NSR);
+                                break;
+                            default:break;
+                        }
                     default:break;
                 }
 
@@ -156,20 +165,38 @@ public class AddCourseActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                String [] keys = new String[] {"id","name"};
-                origin_student = JsonHandler.strToListMap(resp,keys);
-                if (origin_student.size() == 0) {
-                    Map<String,String> default_map = new HashMap<>();
-                    default_map.put("id","0");default_map.put("name","暂无会员");
-                    origin_student.add(default_map);
-                    btn_person.setClickable(false);
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_MAPLIST:
+                        String [] keys = new String[] {"id","name"};
+                        origin_student = JsonHandler.strToListMap(resp,keys);
+                        if (origin_student.size() == 0) {
+                            Map<String,String> default_map = new HashMap<>();
+                            default_map.put("id","0");default_map.put("name","暂无会员");
+                            origin_student.add(default_map);
+                            btn_person.setClickable(false);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initStuSpinner();
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCourseActivity.this);
+                                break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(AddCourseActivity.this,Ref.STAT_EMPTY_RESULT);
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddCourseActivity.this,Ref.UNKNOWN_ERROR);
+                    default:break;
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        initStuSpinner();
-                    }
-                });
+
             }
         };
         NetUtil.sendHttpRequest(AddCourseActivity.this,url,callback);
@@ -394,15 +421,13 @@ public class AddCourseActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String mResp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(mResp);
-                switch (respType) {
+                String resp = response.body().string();
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_DATA:
                         MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
                         break;
                     case RESP_MAPLIST:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(mResp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case EXE_FAIL:
                                 MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_FAIL);
                                 setResult(RESULT_CODE_FAIL);
@@ -418,6 +443,9 @@ public class AddCourseActivity
                                 break;
                             case NST_NOT_MATCH:
                                 MethodTool.showToast(AddCourseActivity.this, Ref.STAT_INST_NOT_MATCH);
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddCourseActivity.this);
                                 break;
                             default:
                                 MethodTool.showToast(AddCourseActivity.this, Ref.UNKNOWN_ERROR);

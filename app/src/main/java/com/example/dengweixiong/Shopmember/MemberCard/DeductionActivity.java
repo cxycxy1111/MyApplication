@@ -454,6 +454,8 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                                 break;
                             default:break;
                         }
+                    case RESP_ERROR:
+                        MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
                 }
             }
@@ -578,6 +580,8 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                         }
                     case RESP_ERROR:
                         MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };

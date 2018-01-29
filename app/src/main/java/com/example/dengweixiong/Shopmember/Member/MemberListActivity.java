@@ -2,8 +2,8 @@ package com.example.dengweixiong.Shopmember.Member;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -12,9 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Shopmember.Adapter.RVSimpleAdapter;
+import com.example.dengweixiong.Shopmember.Main.ShopmemberMainActivity;
 import com.example.dengweixiong.Util.BaseActivity;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
 import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
@@ -158,6 +159,16 @@ public class MemberListActivity
                             }
                         });
                         break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberListActivity.this);
+                                break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(MemberListActivity.this,"暂无会员，请新增");
+                                break;
+                            default:break;
+                        }
                     default:break;
                 }
             }

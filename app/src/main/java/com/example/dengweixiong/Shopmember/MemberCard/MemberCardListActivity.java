@@ -250,6 +250,13 @@ public class MemberCardListActivity extends BaseActivity{
                             }
                         });
                         break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberCardListActivity.this);
+                                break;
+                            default:break;
+                        }
                     case RESP_ERROR:
                         MethodTool.showToast(MemberCardListActivity.this,Ref.UNKNOWN_ERROR);
                         break;

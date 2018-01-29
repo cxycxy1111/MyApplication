@@ -147,22 +147,31 @@ public class ClassroomDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Map<String,String> map = JsonHandler.strToMap(resp);
-                switch (map.get(Ref.STATUS)) {
-                    case "no_such_record" :
-                        MethodTool.showToast(ClassroomDetailActivity.this,"机构或课室不存在");
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case NSR:
+                                MethodTool.showToast(ClassroomDetailActivity.this,"机构或课室不存在");
+                                break;
+                            case EXE_SUC:
+                                Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
+                                intent.putExtra("new_name",new_name);
+                                intent.putExtra("pos",position);
+                                intent.putExtra("cr_id",cr_id);
+                                setResult(Ref.RESULTCODE_UPDATE,intent);
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(ClassroomDetailActivity.this,"保存失败");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
+                                break;
+                            default:
+                                break;
+                        }
                         break;
-                    case "exe_suc" :
-                        Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
-                        intent.putExtra("new_name",new_name);
-                        intent.putExtra("pos",position);
-                        intent.putExtra("cr_id",cr_id);
-                        setResult(Ref.RESULTCODE_UPDATE,intent);
-                        finish();
-                        break;
-                    case "exe_fail":
-                        MethodTool.showToast(ClassroomDetailActivity.this,"保存失败");
-                        break;
+                    default:break;
                 }
             }
         };
@@ -180,11 +189,9 @@ public class ClassroomDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case EXE_SUC:
                                 Intent intent = new Intent(ClassroomDetailActivity.this,ClassroomListActivity.class);
                                 int i = position;

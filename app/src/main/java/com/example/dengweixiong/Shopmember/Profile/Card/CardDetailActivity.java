@@ -142,54 +142,71 @@ public class CardDetailActivity extends BaseActivity {
             @Override
             public void onResponse(final Call call, Response response) throws IOException {
                 String [] key = new String[] {"name","type","price","balance","start_time","expired_time"};
-                ArrayList<Map<String,String>> list = JsonHandler.strToListMap(response.body().string(),key);
-                map = list.get(0);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        et_name.setText(map.get("name"));
-                        et_price.setText(String.valueOf(map.get("price")));
-                        String st = String.valueOf(map.get("start_time")).split(" ")[0];
-                        String it = String.valueOf(map.get("expired_time")).split(" ")[0];
-                        et_starttime.setText(st);
-                        et_invalidtime.setText(it);
-                        Date date_s = null;
-                        Date date_i = null;
-                        try {
-                            date_s = simpleDateFormat.parse(st);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            date_i = simpleDateFormat.parse(it);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                String resp = response.body().string();
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_MAPLIST:
+                        ArrayList<Map<String,String>> list = JsonHandler.strToListMap(resp,key);
+                        map = list.get(0);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                et_name.setText(map.get("name"));
+                                et_price.setText(String.valueOf(map.get("price")));
+                                String st = String.valueOf(map.get("start_time")).split(" ")[0];
+                                String it = String.valueOf(map.get("expired_time")).split(" ")[0];
+                                et_starttime.setText(st);
+                                et_invalidtime.setText(it);
+                                Date date_s = null;
+                                Date date_i = null;
+                                try {
+                                    date_s = simpleDateFormat.parse(st);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    date_i = simpleDateFormat.parse(it);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
-                        Calendar calendar_s = Calendar.getInstance();
-                        calendar_s.setTime(date_s);
-                        Calendar calendar_i = Calendar.getInstance();
-                        calendar_i.setTime(date_i);
-                        int_selected_s_year = calendar_s.get(Calendar.YEAR);
-                        int_selected_s_month = calendar_s.get(Calendar.MONTH);
-                        int_selected_s_date = calendar_s.get(Calendar.DAY_OF_MONTH);
-                        int_selected_i_year = calendar_i.get(Calendar.YEAR);
-                        int_selected_i_month = calendar_i.get(Calendar.MONTH);
-                        int_selected_i_date = calendar_i.get(Calendar.DAY_OF_MONTH);
-                        initStartTimeDatePickerDialog(st);
-                        initInvalidTimeDatePickerDialog(it);
-                        switch (Integer.parseInt(String.valueOf(map.get("type")))) {
-                            case 1:
-                                et_balance.setText(String.valueOf(map.get("balance")));
+                                Calendar calendar_s = Calendar.getInstance();
+                                calendar_s.setTime(date_s);
+                                Calendar calendar_i = Calendar.getInstance();
+                                calendar_i.setTime(date_i);
+                                int_selected_s_year = calendar_s.get(Calendar.YEAR);
+                                int_selected_s_month = calendar_s.get(Calendar.MONTH);
+                                int_selected_s_date = calendar_s.get(Calendar.DAY_OF_MONTH);
+                                int_selected_i_year = calendar_i.get(Calendar.YEAR);
+                                int_selected_i_month = calendar_i.get(Calendar.MONTH);
+                                int_selected_i_date = calendar_i.get(Calendar.DAY_OF_MONTH);
+                                initStartTimeDatePickerDialog(st);
+                                initInvalidTimeDatePickerDialog(it);
+                                switch (Integer.parseInt(String.valueOf(map.get("type")))) {
+                                    case 1:
+                                        et_balance.setText(String.valueOf(map.get("balance")));
+                                        break;
+                                    case 2:
+                                        et_times.setText(String.valueOf(map.get("balance")));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        });
+                        break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CardDetailActivity.this);
                                 break;
-                            case 2:
-                                et_times.setText(String.valueOf(map.get("balance")));
+                            case NSR:
+                                MethodTool.showToast(CardDetailActivity.this,Ref.OP_NSR);
+                                CardDetailActivity.this.finish();
                                 break;
-                            default:
-                                break;
+                            default:break;
                         }
-                    }
-                });
+                    default:break;
+                }
 
             }
         };

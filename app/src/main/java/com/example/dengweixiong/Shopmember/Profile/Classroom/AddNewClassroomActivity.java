@@ -94,11 +94,9 @@ public class AddNewClassroomActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case DUPLICATE:
                                 MethodTool.showToast(AddNewClassroomActivity.this,"教室名重复");
                                 break;

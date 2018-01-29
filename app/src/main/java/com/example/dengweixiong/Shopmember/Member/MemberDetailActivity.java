@@ -122,6 +122,20 @@ public class MemberDetailActivity
                     case RESP_ERROR:
                         MethodTool.showToast(MemberDetailActivity.this,Ref.UNKNOWN_ERROR);
                         finish();
+                        break;
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberDetailActivity.this);
+                                break;
+                            case NSR:
+                                MethodTool.showToast(MemberDetailActivity.this,Ref.OP_NSR);
+                                MemberDetailActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
                 }
 
             }

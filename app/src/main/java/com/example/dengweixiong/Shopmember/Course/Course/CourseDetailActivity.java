@@ -484,28 +484,32 @@ public class CourseDetailActivity
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    if (resp.contains(Ref.STATUS)) {
-                        Map<String,String> map = JsonHandler.strToMap(resp);
-                        String str_value = map.get(Ref.STATUS);
-                        switch (str_value) {
-                            case "institution_not_match":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_INST_NOT_MATCH);
-                                CourseDetailActivity.this.finish();
-                                break;
-                            case "exe_suc":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
-                                CourseDetailActivity.this.finish();
-                                break;
-                            case "exe_fail":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
-                                CourseDetailActivity.this.finish();
-                                break;
-                            default:break;
-                        }
-                    }else {
-                        MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
+                    switch (EnumRespType.dealWithResponse(resp)) {
+                        case RESP_ERROR:
+                            MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        case RESP_STAT:
+                            switch (EnumRespStatType.dealWithRespStat(resp)) {
+                                case NST_NOT_MATCH:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_INST_NOT_MATCH);
+                                    CourseDetailActivity.this.finish();
+                                    break;
+                                case EXE_SUC:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                    CourseDetailActivity.this.finish();
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
+                                    CourseDetailActivity.this.finish();
+                                    break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        default:break;
                     }
-
                 }
             };
             NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
@@ -541,23 +545,27 @@ public class CourseDetailActivity
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    if (resp.contains(Ref.STATUS)) {
-                        Map<String,String> map_result = JsonHandler.strToMap(resp);
-                        switch (map_result.get(Ref.STATUS)) {
-                            case "institution_not_match":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_INST_NOT_MATCH);
-                                break;
-                            case "exe_suc":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
-                                saveSupportCardModifation();
-                                break;
-                            case "exe_fail":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
-                                break;
-                            default:break;
-                        }
-                    }else {
-                        MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
+                    switch (EnumRespType.dealWithResponse(resp)) {
+                        case RESP_STAT:
+                            switch (EnumRespStatType.dealWithRespStat(resp)) {
+                                case NST_NOT_MATCH:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_INST_NOT_MATCH);
+                                    break;
+                                case EXE_SUC:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                    saveSupportCardModifation();
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
+                                    break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                default:break;
+                            }
+                        case RESP_ERROR:
+                            MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        default:break;
                     }
                 }
             };
@@ -619,22 +627,29 @@ public class CourseDetailActivity
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    if (resp.contains(Ref.STATUS)) {
-                        Map<String,String> map_result = JsonHandler.strToMap(resp);
-                        switch (map_result.get(Ref.STATUS)) {
-                            case "exe_fail":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
-                                break;
-                            case "exe_partly_fail":
-                                MethodTool.showToast(CourseDetailActivity.this,"部分修改失败");
-                                break;
-                            case "exe_suc":
-                                MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
-                                CourseDetailActivity.this.finish();
-                            default:break;
-                        }
-                    }else {
-                        MethodTool.showToast(CourseDetailActivity.this, Ref.UNKNOWN_ERROR);
+                    switch (EnumRespType.dealWithResponse(resp)) {
+                        case RESP_ERROR:
+                            MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
+                            break;
+                        case RESP_STAT:
+                            switch (EnumRespStatType.dealWithRespStat(resp)) {
+                                case EXE_FAIL:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
+                                    break;
+                                case PARTYLY_FAIL:
+                                    MethodTool.showToast(CourseDetailActivity.this,"部分修改失败");
+                                    break;
+                                case EXE_SUC:
+                                    MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                    CourseDetailActivity.this.finish();
+                                    break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        default:break;
                     }
                 }
             };

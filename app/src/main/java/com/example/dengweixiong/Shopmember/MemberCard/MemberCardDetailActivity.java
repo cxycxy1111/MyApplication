@@ -213,7 +213,9 @@ public class MemberCardDetailActivity
                                 MethodTool.showToast(MemberCardDetailActivity.this,"未找到会员卡");
                                 MemberCardDetailActivity.this.finish();
                                 break;
-                            case SESSION_EXPIRED:MethodTool.showExitAppAlert(MemberCardDetailActivity.this);break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(MemberCardDetailActivity.this);
+                                break;
                             default:break;
                         }
                     default:break;

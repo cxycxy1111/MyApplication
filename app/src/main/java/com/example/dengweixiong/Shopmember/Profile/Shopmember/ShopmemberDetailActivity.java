@@ -141,15 +141,35 @@ public class ShopmemberDetailActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                list = JsonHandler.strToListMap(resp,keys);
-                map = list.get(0);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        et_name.setText(map.get("name"));
-                        et_user_name.setText(map.get("user_name"));
-                    }
-                });
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(ShopmemberDetailActivity.this);
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,Ref.OP_INST_NOT_MATCH);
+                                ShopmemberDetailActivity.this.finish();
+                                break;
+                            case NSR:
+                                MethodTool.showToast(ShopmemberDetailActivity.this,Ref.OP_NSR);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    case RESP_MAPLIST:
+                        list = JsonHandler.strToListMap(resp,keys);
+                        map = list.get(0);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                et_name.setText(map.get("name"));
+                                et_user_name.setText(map.get("user_name"));
+                            }
+                        });
+                        break;
+                    default:break;
+                }
             }
         };
         NetUtil.sendHttpRequest(this,url,callback);

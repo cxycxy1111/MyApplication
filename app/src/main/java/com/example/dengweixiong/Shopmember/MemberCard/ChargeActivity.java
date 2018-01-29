@@ -405,6 +405,8 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             default:break;
                         }
                         break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
                 }
             }
@@ -465,6 +467,8 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 break;
                             default:break;
                         }
+                    case RESP_ERROR:
+                        MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
                 }
             }
@@ -598,6 +602,8 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         }
                     case RESP_ERROR:
                         MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    default:break;
                 }
             }
         };

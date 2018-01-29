@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dengweixiong.Util.BaseActivity;
-import com.example.dengweixiong.Util.JsonHandler;
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
@@ -95,26 +96,26 @@ public class RegistAdministraotrActivity
             public void onResponse(Call call, Response response) throws IOException {
                 HashMap<String,String> map = new HashMap<>();
                 String resp = response.body().string();
-                map = JsonHandler.strToMap(resp);
-                String value = map.get(Ref.STATUS);
-                if (value.equals("exe_suc")) {
-                    MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
-                    Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                } else if (value.equals("exe_fail")) {
-                    RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(RegistAdministraotrActivity.this,Ref.OP_ADD_FAIL,Toast.LENGTH_LONG).show();
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case EXE_SUC:
+                                MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
+                                Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(RegistAdministraotrActivity.this,Ref.OP_FAIL);
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(RegistAdministraotrActivity.this,"登录名重复");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(RegistAdministraotrActivity.this);
+                                break;
+                            default:break;
                         }
-                    });
-                }else if (value.equals("duplicate")) {
-                    RegistAdministraotrActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(RegistAdministraotrActivity.this,"登录名重复",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    default:break;
                 }
             }
         };

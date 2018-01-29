@@ -272,6 +272,19 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                                 initCourseplanDetailView();
                             }
                         });
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
+                                break;
+                            case NSR:
+                                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.OP_NSR);
+                                CoursePlanDetailPrivateActivity.this.finish();
+                                break;
+                            default:break;
+                        }
+                    case RESP_ERROR:
+                        MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
                 }
             }

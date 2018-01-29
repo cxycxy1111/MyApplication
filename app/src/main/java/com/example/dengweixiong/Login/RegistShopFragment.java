@@ -13,15 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dengweixiong.Util.Enum.EnumRespStatType;
+import com.example.dengweixiong.Util.Enum.EnumRespType;
 import com.example.dengweixiong.Util.JsonHandler;
 import com.example.dengweixiong.Util.MethodTool;
 import com.example.dengweixiong.Util.NetUtil;
 import com.example.dengweixiong.Util.Ref;
 import com.example.dengweixiong.myapplication.R;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -139,29 +140,31 @@ public class RegistShopFragment
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    HashMap<String,String> map = JsonHandler.strToMap(resp);
-                    //打印转化出来的map
-                    ArrayList<String> keys = MethodTool.getKeys(map);
-                    ArrayList<String> values = MethodTool.getValues(map,keys);
-                    Set<String> set = map.keySet();
-                    if (keys.get(0).equals(Ref.STATUS)) {
-                        if (values.get(0).equals("exe_fail")) {
-                            MethodTool.showToast(getActivity(),Ref.OP_ADD_FAIL);
-                        }else if (values.get(0).equals("duplicate")) {
-                            MethodTool.showToast(getActivity(),"机构名重复");
-                        } else {
-                            MethodTool.showToast(getActivity(), Ref.UNKNOWN_ERROR);
-                        }
-
-                    }else if (keys.get(0).equals("data")) {
-                        long id = Long.parseLong(values.get(0));
-                        Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
-                        intent.putExtra("s_id",id);
-                        getActivity().startActivity(intent);
-                    }else if (keys.get(0).equals(null)){
-                        MethodTool.showToast(getActivity(), Ref.NULL_POINTER_ERROR);
-                    } else {
-                        MethodTool.showToast(getActivity(),resp);
+                    switch (EnumRespType.dealWithResponse(resp)) {
+                        case RESP_STAT:
+                            switch (EnumRespStatType.dealWithRespStat(resp)) {
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(getActivity());
+                                    break;
+                                case EXE_FAIL:
+                                    MethodTool.showToast(getActivity(),Ref.OP_ADD_FAIL);
+                                    break;
+                                case DUPLICATE:
+                                    MethodTool.showToast(getActivity(),"机构名重复");
+                                    break;
+                                default:break;
+                            }
+                            break;
+                        case RESP_DATA:
+                            long id = Long.parseLong(String.valueOf(JsonHandler.strToMap(resp).get("id")));
+                            Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
+                            intent.putExtra("s_id",id);
+                            getActivity().startActivity(intent);
+                            break;
+                        case RESP_ERROR:
+                            MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                            break;
+                        default:break;
                     }
                 }
             };
