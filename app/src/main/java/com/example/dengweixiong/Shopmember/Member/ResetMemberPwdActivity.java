@@ -97,10 +97,10 @@ public class ResetMemberPwdActivity
             return false;
         }
         if (!newpwd_repeat.equals(newpwd)) {
-            Toast.makeText(this,"密码不一致",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"两次输入的密码不一致，请核对",Toast.LENGTH_LONG).show();
             return false;
         }
-        String url = "/MemberResetPassword?m_id=" + m_id + "&sm_id=" + sm_id + "&newpwd=" + newpwd;
+        String url = "/MemberResetPassword?m_id=" + m_id + "&newpwd=" + newpwd;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

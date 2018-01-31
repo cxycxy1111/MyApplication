@@ -127,9 +127,7 @@ public class AddNewShopmemberActivity extends BaseActivity {
         final String name = et_name.getText().toString();
         String user_name = et_user_name.getText().toString();
         String pwd = et_pwd.getText().toString();
-        String url = "/AddNewShopMember?shop_id=" + s_id +
-                "&shopmember_id=" + sm_id +
-                "&name=" + name +
+        String url = "/AddNewShopMember?name=" + name +
                 "&user_name=" + user_name +
                 "&password=" + pwd +
                 "&type=" + selectedType;

@@ -290,7 +290,7 @@ public class AddCoursePlanActivity
     }
 
     private void initClassroom() {
-        String url = "/ClassroomListQuery?s_id=" + s_id;
+        String url = "/ClassroomListQuery";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -382,7 +382,6 @@ public class AddCoursePlanActivity
                 String str_end_time = sdf.format(calendar.getTime());
                 String url = "/CoursePlanAdd?c_id=" + selected_course +
                         "&cr_id=" + selected_classroom +
-                        "&lmu_id=" + sm_id +
                         "&s_time=" + str_start_time +
                         "&e_time=" + str_end_time +
                         "&remark=";

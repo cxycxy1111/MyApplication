@@ -110,19 +110,13 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 break;
                             case 1:
                                 String balance = et_balance.getText().toString();
-                                if (NumberUtils.isNumber(balance)) {
-                                    submitBalanceCharge(balance);
-                                }else {
-                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
-                                }
+                                if (NumberUtils.isNumber(balance)) {submitBalanceCharge(balance);}
+                                else {Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();}
                                 break;
                             case 2:
                                 String num = et_num.getText().toString();
-                                if (NumberUtils.isNumber(num)) {
-                                    submitBalanceCharge(num);
-                                }else {
-                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
-                                }
+                                if (NumberUtils.isNumber(num)) {submitBalanceCharge(num);}
+                                else {Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();}
                                 break;
                             case 3:
                                 submitBalanceCharge("0");
@@ -134,19 +128,13 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         switch (str_selected_type) {
                             case "1":
                                 String balance = et_balance.getText().toString();
-                                if (NumberUtils.isNumber(balance)) {
-                                    submitBalanceCharge(balance);
-                                }else {
-                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
-                                }
+                                if (NumberUtils.isNumber(balance)) {submitBalanceCharge(balance);}
+                                else {Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();}
                                 break;
                             case "2":
                                 String num = et_num.getText().toString();
-                                if (NumberUtils.isNumber(num)) {
-                                    submitBalanceCharge(num);
-                                }else {
-                                    Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
-                                }
+                                if (NumberUtils.isNumber(num)) {submitBalanceCharge(num);}
+                                else {Toast.makeText(ChargeActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();}
                                 break;
                             case "3":
                                 submitBalanceCharge("0");
@@ -308,7 +296,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
 
     //如果是从ShopmemberMain过来的，处理逻辑如下：
     private void initMemberSpinnerData() {
-        String url = "/QueryMemberList?s_id=" + str_s_id;
+        String url = "/QueryMemberList";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -536,9 +524,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
         }
 
         if (source.equals("ShopmemberMainActivity")) {
-            url = "/Charge?mc_id=" + selected_main_sc_id + "&lmu=" + str_sm_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
+            url = "/Charge?mc_id=" + selected_main_sc_id +  "&num=" + num + "&invalid_date=" + str_invalid_date;
         }else if (source.equals("member_card_detail")) {
-            url = "/Charge?mc_id=" + selected_mc_id + "&lmu=" + str_sm_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
+            url = "/Charge?mc_id=" + selected_mc_id + "&num=" + num + "&invalid_date=" + str_invalid_date;
         }
 
         Callback callback = new Callback() {

@@ -189,7 +189,7 @@ public class AddNewMemberCardActivity
     }
 
     private void initMember() {
-        String url = "/QueryMemberList?s_id=" + s_id;
+        String url = "/QueryMemberList";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -362,8 +362,7 @@ public class AddNewMemberCardActivity
 
         if (NumberUtils.isNumber(str_price)) {
             if (NumberUtils.isNumber(balance)) {
-                String url = "/AddNewMemberCard?smid=" + sm_id +
-                        "&mid=" + selected_m_id +
+                String url = "/AddNewMemberCard?mid=" + selected_m_id +
                         "&cid=" + selected_c_id +
                         "&balance=" + balance +
                         "&stime=" + str_start_time +

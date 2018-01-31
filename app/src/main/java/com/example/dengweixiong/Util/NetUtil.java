@@ -43,7 +43,7 @@ public class NetUtil {
      * @param callback 回调
      */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
-        String str = LOCAL_PREFIX + address;
+        String str = IPHONE_PREFIX + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);

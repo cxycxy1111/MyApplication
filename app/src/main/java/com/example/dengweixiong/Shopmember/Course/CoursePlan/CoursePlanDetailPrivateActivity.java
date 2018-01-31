@@ -249,7 +249,7 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
     }
 
     private void initClassroomData() {
-        String url = "/ClassroomListQuery?s_id=" + str_s_id;
+        String url = "/ClassroomListQuery";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -354,7 +354,6 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
 
         String url = "/CoursePlanModify?id=" + str_cp_id +
                 "&cr_id=" + str_selected_cr_id +
-                "&lmu_id="+ str_sm_id +
                 "&s_time=" + str_new_start +
                 "&e_time=" + str_new_end +
                 "&remark=";

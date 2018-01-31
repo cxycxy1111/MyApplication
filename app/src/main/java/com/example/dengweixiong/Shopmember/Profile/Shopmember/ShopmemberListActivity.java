@@ -66,7 +66,7 @@ public class ShopmemberListActivity extends BaseActivity {
     }
 
     private void initAdminList() {
-        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=1";
+        String url = "/QueryShopmemberList?type=1";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -113,7 +113,7 @@ public class ShopmemberListActivity extends BaseActivity {
 
     //获取内部教师
     private void initInnerList() {
-        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=2";
+        String url = "/QueryShopmemberList?type=2";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -158,7 +158,7 @@ public class ShopmemberListActivity extends BaseActivity {
     }
 
     private void initOuterList() {
-        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=3";
+        String url = "/QueryShopmemberList?type=3";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

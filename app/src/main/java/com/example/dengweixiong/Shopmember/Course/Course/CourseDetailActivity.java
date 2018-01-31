@@ -264,7 +264,7 @@ public class CourseDetailActivity
      * 初始化受支持的会员卡
      */
     private void initSupportedCard() {
-        String url = "/SupportedCardQuery?c_id=" + str_courseId + "&s_id=" + str_shopId;
+        String url = "/SupportedCardQuery?c_id=" + str_courseId;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -469,8 +469,7 @@ public class CourseDetailActivity
         if (!NumberUtils.isNumber(str_total_times) || !NumberUtils.isNumber(str_total_cost)) {
             Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
         }else {
-            String url = "/CoursePrivateModify?sm_id=" + sm_id +
-                    "&c_id=" + str_courseId +
+            String url = "/CoursePrivateModify?c_id=" + str_courseId +
                     "&total_times=" + int_total_times +
                     "&name=" + str_name +
                     "&invalid_time=" + str_invalid_time +
@@ -528,10 +527,9 @@ public class CourseDetailActivity
         String str_last_time = String.valueOf(map_last_time.get("hint"));
         String str_max_book_num = String.valueOf(map_max_book_num.get("hint"));
         if (!NumberUtils.isNumber(str_last_time) || !NumberUtils.isNumber(str_max_book_num)) {
-            Toast.makeText(CourseDetailActivity.this,"数字格式错误",Toast.LENGTH_LONG).show();
+            Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_LONG).show();
         }else {
             String url = "/CourseModify?c_id=" + str_courseId +
-                    "&lmu_id=" + sm_id +
                     "&name=" + str_name +
                     "&last_time=" + str_last_time +
                     "&max_book_num=" + str_max_book_num +
@@ -659,7 +657,7 @@ public class CourseDetailActivity
     }
 
     private void deleteCourse() {
-        String url = "/CourseDelete?id=" + str_courseId + "&lmu=" + sm_id;
+        String url = "/CourseDelete?id=" + str_courseId;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -273,7 +273,7 @@ public class CardDetailActivity extends BaseActivity {
         builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String url = "/RemoveCard?card_id=" + c_id + "&shopmember_id=" +sm_id;
+                String url = "/RemoveCard?card_id=" + c_id;
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

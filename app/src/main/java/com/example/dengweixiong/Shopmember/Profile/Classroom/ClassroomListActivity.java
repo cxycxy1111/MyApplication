@@ -60,7 +60,7 @@ public class ClassroomListActivity extends BaseActivity {
     private void initData() {
         SharedPreferences preferences = getSharedPreferences("sasm",MODE_PRIVATE);
         long s_id = preferences.getLong("s_id",0);
-        String url = "/ClassroomListQuery?s_id=" + s_id;
+        String url = "/ClassroomListQuery";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

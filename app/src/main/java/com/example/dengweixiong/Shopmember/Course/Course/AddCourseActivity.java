@@ -77,7 +77,7 @@ public class AddCourseActivity
      * 初始化教师数据
      */
     private void initTeacher() {
-        String url = "/QueryShopmemberList?s_id=" + shop_id + "&type=0";
+        String url = "/QueryShopmemberList?type=0";
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -155,7 +155,7 @@ public class AddCourseActivity
      * 初始化学生数据
      */
     private void initStudent() {
-        String url = "/QueryMemberList?s_id=" + shop_id;
+        String url = "/QueryMemberList";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -410,8 +410,8 @@ public class AddCourseActivity
      * 提交新增私教课程
      */
     private void submitPrivateCourse() {
-        String url = "/CourseAddPrivate?s_id=" + shop_id + "&lmu_id=" + shopmember_id + "&sm_id=" + selected_tea
-                + "&m_id=" + selected_stu + "&name=" + course_name + "&type=" + selected_course + "&total_times=" + total_times
+        String url = "/CourseAddPrivate?sm_id=" + selected_tea + "&m_id=" + selected_stu + "&name="
+                + course_name + "&type=" + selected_course + "&total_times=" + total_times
                 + "&e_time=" + invalidtime + "&actual_cost=" + actual_cost;
         Callback callback = new Callback() {
             @Override
@@ -462,8 +462,7 @@ public class AddCourseActivity
     }
 
     private void submitCourse() {
-        String url = "/courseAdd?s_id=" + shop_id + "&lmu_id="
-                + shopmember_id + "&name=" + course_name + "&type="
+        String url = "/courseAdd?name=" + course_name + "&type="
                 + selected_course + "&last_time=" + last_time + "&max_book_num="
                 + max_book_num + "&summary=";
         Callback callback = new Callback() {

@@ -60,6 +60,15 @@
                     style="@style/plain_checkbox"
                     android:text="允许内部教师查看课室"/>
             </LinearLayout>
+
+            <LinearLayout style="@style/rl_normal">
+
+                <CheckBox
+                    android:id="@+id/cb_allow_outer_view_classroom"
+                    style="@style/plain_checkbox"
+                    android:text="允许外聘教师查看课室" />
+            </LinearLayout>
+
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 style="@style/rl_normal">
@@ -68,14 +77,7 @@
                     style="@style/plain_checkbox"
                     android:text="允许内部教师管理课室"/>
             </LinearLayout>
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/rl_normal">
-                <CheckBox
-                    android:id="@+id/cb_allow_outer_view_classroom"
-                    style="@style/plain_checkbox"
-                    android:text="允许外聘教师查看课室"/>
-            </LinearLayout>
+
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 style="@style/rl_normal">
@@ -166,7 +168,7 @@
             </LinearLayout>
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/rl_first_widget">
+                style="@style/rl_normal">
                 <CheckBox
                     android:id="@+id/cb_allow_outer_view_member"
                     style="@style/plain_checkbox"

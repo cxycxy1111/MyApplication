@@ -131,7 +131,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
     private void initEditTextData() {
         et_name = (EditText)findViewById(R.id.et_name_a_shopmember_detail);
         et_user_name = (EditText)findViewById(R.id.et_user_name_a_shopmember_detail);
-        String url = "/ShopmemberQueryDetail?sm_id=" + id + "&s_id=" + s_id;
+        String url = "/ShopmemberQueryDetail?sm_id=" + id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -217,7 +217,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
 
     private void save() {
         new_name = et_name.getText().toString();
-        String url = "/ShopmemberModify?sm_id=" + id + "&lmu_id=" + sm_id + "&name=" + new_name + "&new_type=" + new_type;
+        String url = "/ShopmemberModify?sm_id=" + id + "&name=" + new_name + "&new_type=" + new_type;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -269,7 +269,7 @@ public class ShopmemberDetailActivity extends BaseActivity {
     }
 
     private void delete(){
-        final String url = "/ShopmemberDelete?id=" + id + "&lmu_id=" + sm_id;
+        final String url = "/ShopmemberDelete?id=" + id;
         if (id == sm_id) {
             MethodTool.showToast(ShopmemberDetailActivity.this,"你无法删除自身");
         }else {

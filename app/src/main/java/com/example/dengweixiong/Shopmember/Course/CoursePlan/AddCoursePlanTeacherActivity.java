@@ -85,7 +85,7 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
     }
 
     private void initTeacherData() {
-        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=0";
+        String url = "/QueryShopmemberList?type=0";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

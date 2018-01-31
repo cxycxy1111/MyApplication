@@ -175,9 +175,7 @@ public class AddNewMemberActivity
         if (name.equals("") || login_name.equals("") || password.equals("")) {
             initAlertDialog("必填字段为空","姓名、登录名或密码为空，请补充完整","确定","取消");
         }else {
-            String address = "/AddNewMember?shop_id=" + String.valueOf(s_id) +
-                    "&shop_member_id=" + String.valueOf(sm_id) +
-                    "&name=" + name +
+            String address = "/AddNewMember?name=" + name +
                     "&login_name=" +login_name +
                     "&password=" +password +
                     "&phone=" +phone +

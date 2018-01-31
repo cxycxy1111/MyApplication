@@ -84,7 +84,7 @@ public class AddNewClassroomActivity extends BaseActivity {
 
     private void saveClassroom() {
         final String cr_name = et_name.getText().toString();
-        String url = "/ClassroomAdd?s_id=" + s_id + "&name=" + cr_name;
+        String url = "/ClassroomAdd?name=" + cr_name;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -91,8 +91,7 @@ public class MemberDetailActivity
     }
 
     private void loadMemberDetail() {
-        String url = "/QueryMemberDetail?member_id=" + m_id +
-                "&shop_id=" + s_id;
+        String url = "/QueryMemberDetail?member_id=" + m_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -349,7 +348,7 @@ public class MemberDetailActivity
         builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String url = "/removeMember?shopmember_id=" + sm_id + "&member_id=" + m_id;
+                String url = "/removeMember?member_id=" + m_id;
                 Callback callback = new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
@@ -401,7 +400,6 @@ public class MemberDetailActivity
         String m_im = et_im.getText().toString();
         long sm_id = MethodTool.preGetLong(MemberDetailActivity.this,"sasm","sm_id");
         String url = "/ModifyMember?member_id=" + m_id +
-                "&shopmember_id=" + sm_id +
                 "&name=" + m_name +
                 "&birthday=" + m_birthday +
                 "&phone=" + m_phone +

@@ -67,7 +67,7 @@ public class AddSupportedCardActivity extends BaseActivity {
     }
 
     private void initCards() {
-        String url = "/QueryCardList?type=" + 0;
+        String url = "/QueryCardList?type=0";
         okhttp3.Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

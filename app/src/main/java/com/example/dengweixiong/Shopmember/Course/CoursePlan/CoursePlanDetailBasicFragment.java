@@ -275,7 +275,7 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
 
     //初始化课室
     private void initClassroomSpinner(final String str_classroom_name) {
-        String url = "/ClassroomListQuery?s_id=" + s_id;
+        String url = "/ClassroomListQuery";
         okhttp3.Callback callback = new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -346,7 +346,7 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
         String new_remark = et_remark.getText().toString();
 
         if (!NumberUtils.isNumber(et_last_time.getText().toString())) {
-            Toast.makeText(getActivity(),Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(),Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
         }else {
             //取得持续时间
             int new_last_time = Integer.parseInt(et_last_time.getText().toString());
@@ -373,7 +373,6 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
 
             String url = "/CoursePlanModify?id=" + cp_id +
                     "&cr_id=" + selected_classroom +
-                    "&lmu_id=" + sm_id +
                     "&s_time=" + new_start_time +
                     "&e_time=" + new_end_time +
                     "&remark=" + new_remark;

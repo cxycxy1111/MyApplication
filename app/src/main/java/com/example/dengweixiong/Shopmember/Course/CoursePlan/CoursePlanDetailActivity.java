@@ -160,7 +160,7 @@ public class CoursePlanDetailActivity
     }
 
     private void removeCoursePlan() {
-        String url = "/CoursePlanRemove?id=" + str_cp_id + "&lmu_id=" + str_sm_id;
+        String url = "/CoursePlanRemove?id=" + str_cp_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

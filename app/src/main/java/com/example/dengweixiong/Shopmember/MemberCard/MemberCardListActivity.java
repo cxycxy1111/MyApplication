@@ -154,7 +154,7 @@ public class MemberCardListActivity extends BaseActivity{
     }
 
     private void initMemberList (String s_id) {
-        String url = "/QueryMemberList?s_id=" + s_id;
+        String url = "/QueryMemberList";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

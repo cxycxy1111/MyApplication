@@ -153,7 +153,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
 
     //初始化舞馆中存量的所有教师
     private void initShopmember() {
-        String url = "/QueryShopmemberList?s_id=" + s_id + "&type=0";
+        String url = "/QueryShopmemberList?type=0";
         okhttp3.Callback callback = new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
