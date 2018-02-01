@@ -81,6 +81,9 @@ public class ClassroomListActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ClassroomListActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ClassroomListActivity.this);
+                                break;
                             default:
                                 break;
                         }
@@ -96,6 +99,7 @@ public class ClassroomListActivity extends BaseActivity {
                     case RESP_ERROR:
                         MethodTool.showToast(ClassroomListActivity.this,Ref.UNKNOWN_ERROR);
                         break;
+
                     default:break;
 
                 }

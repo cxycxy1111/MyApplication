@@ -216,8 +216,12 @@ public class MemberCardDetailActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(MemberCardDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberCardDetailActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

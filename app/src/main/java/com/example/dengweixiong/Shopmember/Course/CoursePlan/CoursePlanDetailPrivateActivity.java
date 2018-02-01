@@ -236,8 +236,12 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CoursePlanDetailPrivateActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
@@ -281,8 +285,12 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                                 MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.OP_NSR);
                                 CoursePlanDetailPrivateActivity.this.finish();
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CoursePlanDetailPrivateActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
@@ -395,8 +403,12 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(CoursePlanDetailPrivateActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

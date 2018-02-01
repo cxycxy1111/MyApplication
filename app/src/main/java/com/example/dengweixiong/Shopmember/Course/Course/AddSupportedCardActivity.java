@@ -106,6 +106,9 @@ public class AddSupportedCardActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddSupportedCardActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddSupportedCardActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -218,6 +221,9 @@ public class AddSupportedCardActivity extends BaseActivity {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddSupportedCardActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddSupportedCardActivity.this);
                                 break;
                             default:break;
                         }

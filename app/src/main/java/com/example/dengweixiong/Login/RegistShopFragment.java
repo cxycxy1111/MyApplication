@@ -146,6 +146,9 @@ public class RegistShopFragment
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(getActivity());
                                     break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
+                                    break;
                                 case EXE_FAIL:
                                     MethodTool.showToast(getActivity(),Ref.OP_ADD_FAIL);
                                     break;

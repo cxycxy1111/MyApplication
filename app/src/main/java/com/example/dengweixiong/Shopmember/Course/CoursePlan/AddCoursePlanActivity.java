@@ -245,6 +245,9 @@ public class AddCoursePlanActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddCoursePlanActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -323,6 +326,9 @@ public class AddCoursePlanActivity
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddCoursePlanActivity.this);
                                 break;
                             default:break;
                         }
@@ -430,6 +436,9 @@ public class AddCoursePlanActivity
                                         break;
                                     case SESSION_EXPIRED:
                                         MethodTool.showExitAppAlert(AddCoursePlanActivity.this);
+                                        break;
+                                    case AUTHORIZE_FAIL:
+                                        MethodTool.showAuthorizeFailToast(AddCoursePlanActivity.this);
                                         break;
                                     default:break;
                                 }

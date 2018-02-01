@@ -190,8 +190,15 @@ public class MemberCardListActivity extends BaseActivity{
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(MemberCardListActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberCardListActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(MemberCardListActivity.this,Ref.UNKNOWN_ERROR);
+                    default:break;
 
                 }
             }
@@ -252,11 +259,15 @@ public class MemberCardListActivity extends BaseActivity{
                         break;
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberCardListActivity.this);
+                                break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(MemberCardListActivity.this);
                                 break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(MemberCardListActivity.this,Ref.UNKNOWN_ERROR);
                         break;
@@ -335,9 +346,13 @@ public class MemberCardListActivity extends BaseActivity{
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(MemberCardListActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberCardListActivity.this);
+                                break;
                             default:
                                 break;
                         }
+                        break;
                     default:break;
                 }
             }

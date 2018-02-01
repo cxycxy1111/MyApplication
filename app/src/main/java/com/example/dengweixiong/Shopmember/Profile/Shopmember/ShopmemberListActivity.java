@@ -99,11 +99,15 @@ public class ShopmemberListActivity extends BaseActivity {
                                 initInnerList();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ShopmemberListActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
-                        MethodTool.showToast(ShopmemberListActivity.this,"");
+                        MethodTool.showToast(ShopmemberListActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
                 }
             }
@@ -146,7 +150,10 @@ public class ShopmemberListActivity extends BaseActivity {
                                 initOuterList();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ShopmemberListActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -191,7 +198,10 @@ public class ShopmemberListActivity extends BaseActivity {
                                 initRecyclerView();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);
+                                MethodTool.showExitAppAlert(ShopmemberListActivity.this);break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ShopmemberListActivity.this);
+                                break;
                             default:break;
                         }
                         break;

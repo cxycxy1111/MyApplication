@@ -119,6 +119,9 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ResetShopmemberPasswordActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ResetShopmemberPasswordActivity.this);
+                                break;
                             default:break;
                         }
                         break;

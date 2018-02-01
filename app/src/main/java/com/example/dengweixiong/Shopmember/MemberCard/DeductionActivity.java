@@ -329,8 +329,12 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(DeductionActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
                         break;
@@ -387,8 +391,12 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(DeductionActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }
@@ -440,8 +448,12 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(DeductionActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
@@ -564,8 +576,12 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(DeductionActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(DeductionActivity.this,Ref.UNKNOWN_ERROR);
                         break;

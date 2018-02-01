@@ -207,6 +207,9 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(getActivity());break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
+                                break;
                             default:break;
                         }
                         break;
@@ -267,6 +270,8 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                                 initClassroomSpinner(str_classroom_name);
                             }
                         });
+                        break;
+                    default:break;
                 }
             }
         };
@@ -331,8 +336,12 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(getActivity());
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }
@@ -396,6 +405,9 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                                     break;
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(getActivity());
+                                    break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(getActivity());
                                     break;
                                 default:break;
                             }

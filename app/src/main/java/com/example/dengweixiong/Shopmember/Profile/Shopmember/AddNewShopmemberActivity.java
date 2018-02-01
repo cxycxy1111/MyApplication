@@ -154,6 +154,9 @@ public class AddNewShopmemberActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddNewShopmemberActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddNewShopmemberActivity.this);
+                                break;
                             default:break;
                         }
                         break;

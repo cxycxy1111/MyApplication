@@ -28,6 +28,9 @@ public abstract class Ref {
     public static final String OP_EMPTY_ESSENTIAL_INFO = "必要信息不能为空";
     public static final String OP_NSR = "不存在此记录";
     public static final String OP_DUPLICATED = "重复操作";
+    public static final String ALERT_SESSION_EXPIRED = "登录已过期，请重新登录";
+    public static final String OP_VIEW_AUTHORIZE_FAIL = "你没有权限查看，请联系管理员";
+    public static final String OP_MANAGE_AUTHORIZE_FAIL = "你没有权限管理，请联系管理员";
 
     /**
      * 结果码
@@ -52,7 +55,8 @@ public abstract class Ref {
     public static final String STAT_PARTYLY_FAIL = "exe_partly_fail";
     public static final String NOT_MATCH = "not_match";
     public static final String SESSION_EXPIRED = "session_expired";
-    public static final String ALERT_SESSION_EXPIRED = "登录已过期，请重新登录";
+    public static final String AUTHORIZE_FAIL = "authorize_fail";
+
 
     /**
      * 操作类型

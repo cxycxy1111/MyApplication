@@ -115,8 +115,12 @@ public class AddCourseActivity
                             case NSR:
                                 MethodTool.showToast(AddCourseActivity.this,Ref.OP_NSR);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddCourseActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
 
@@ -190,8 +194,12 @@ public class AddCourseActivity
                             case EMPTY_RESULT:
                                 MethodTool.showToast(AddCourseActivity.this,Ref.STAT_EMPTY_RESULT);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddCourseActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(AddCourseActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
@@ -496,6 +504,9 @@ public class AddCourseActivity
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddCourseActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddCourseActivity.this);
                                 break;
                             default:break;
                         }

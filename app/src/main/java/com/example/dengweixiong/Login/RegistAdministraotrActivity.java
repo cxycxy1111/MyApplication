@@ -115,6 +115,7 @@ public class RegistAdministraotrActivity
                                 break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

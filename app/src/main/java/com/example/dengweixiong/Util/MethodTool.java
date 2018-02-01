@@ -108,7 +108,7 @@ public class MethodTool{
                 AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
                 dialog.setTitle("登录过期提示");
                 dialog.setCancelable(false);
-                dialog.setMessage("登录已过期，请重新登录");
+                dialog.setMessage(Ref.ALERT_SESSION_EXPIRED);
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -116,6 +116,25 @@ public class MethodTool{
                     }
                 });
                 dialog.show();
+            }
+        });
+    }
+
+    public static void exitAcitivityDueToAuthorizeFail(final Activity targetActivity) {
+        targetActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(targetActivity,Ref.OP_MANAGE_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
+            }
+        });
+        targetActivity.finish();
+    }
+
+    public static void showAuthorizeFailToast(final Activity targetActivity) {
+        targetActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(targetActivity,Ref.OP_VIEW_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
             }
         });
     }

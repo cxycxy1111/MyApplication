@@ -330,6 +330,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ChargeActivity.this);
+                                break;
                             default:break;
                         }
                     case RESP_ERROR:
@@ -389,6 +392,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ChargeActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ChargeActivity.this);
                                 break;
                             default:break;
                         }
@@ -453,8 +459,12 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ChargeActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
                     default:break;
@@ -586,8 +596,12 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ChargeActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ChargeActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
                         break;

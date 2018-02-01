@@ -175,6 +175,9 @@ public class CardTypeListActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CardTypeListActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CardTypeListActivity.this);
+                                break;
                             default:break;
                         }
                         initTimesCard();
@@ -236,12 +239,16 @@ public class CardTypeListActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CardTypeListActivity.this);
+                                break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CardTypeListActivity.this);
                                 break;
                             default:break;
                         }
                         initTimeCard();
+                        break;
                     default:break;
                 }
 
@@ -281,6 +288,9 @@ public class CardTypeListActivity extends BaseActivity {
                         switch (respStatType) {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CardTypeListActivity.this);
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CardTypeListActivity.this);

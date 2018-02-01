@@ -84,6 +84,9 @@ public class ClassroomDetailActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ClassroomDetailActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -167,6 +170,9 @@ public class ClassroomDetailActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ClassroomDetailActivity.this);
+                                break;
                             default:
                                 break;
                         }
@@ -208,6 +214,9 @@ public class ClassroomDetailActivity extends BaseActivity {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ClassroomDetailActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ClassroomDetailActivity.this);
                                 break;
                             default:break;
                         }

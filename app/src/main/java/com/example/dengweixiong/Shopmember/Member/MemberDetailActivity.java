@@ -131,6 +131,9 @@ public class MemberDetailActivity
                                 MethodTool.showToast(MemberDetailActivity.this,Ref.OP_NSR);
                                 MemberDetailActivity.this.finish();
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberDetailActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -384,6 +387,8 @@ public class MemberDetailActivity
                                     case SESSION_EXPIRED:MethodTool.showExitAppAlert(MemberDetailActivity.this);break;
                                     default:break;
                                 }
+                                break;
+                            default:break;
                         }
                     }
                 };
@@ -437,9 +442,12 @@ public class MemberDetailActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(MemberDetailActivity.this);
                                 break;
-                            default:
-                                    break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(MemberDetailActivity.this);
+                                break;
+                            default:break;
                         }
+                        break;
                     default:break;
                 }
             }

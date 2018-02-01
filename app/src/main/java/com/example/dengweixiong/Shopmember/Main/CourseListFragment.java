@@ -183,6 +183,9 @@ public class CourseListFragment extends Fragment {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(getParentFragment().getActivity());
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(getParentFragment().getActivity());
+                                break;
                             default:break;
                         }
                         break;

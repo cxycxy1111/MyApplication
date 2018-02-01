@@ -268,8 +268,12 @@ public class AddNewCardActivity
                                     break;
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(AddNewCardActivity.this);
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(AddNewCardActivity.this);
+                                    break;
                                 default:break;
                             }
+                            break;
                         case RESP_ID:
                             Map<String,String> map = JsonHandler.strToMap(resp);
                             Intent intent = new Intent(AddNewCardActivity.this,CardTypeListActivity.class);

@@ -203,8 +203,12 @@ public class CardDetailActivity extends BaseActivity {
                                 MethodTool.showToast(CardDetailActivity.this,Ref.OP_NSR);
                                 CardDetailActivity.this.finish();
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CardDetailActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
 
@@ -301,11 +305,15 @@ public class CardDetailActivity extends BaseActivity {
                                     case SESSION_EXPIRED:
                                         MethodTool.showExitAppAlert(CardDetailActivity.this);
                                         break;
+                                    case AUTHORIZE_FAIL:
+                                        MethodTool.showAuthorizeFailToast(CardDetailActivity.this);
+                                        break;
                                     default:break;
                                 }
                                 break;
                             case RESP_ERROR:
-                                MethodTool.showToast(CardDetailActivity.this,Ref.UNKNOWN_ERROR);
+                                MethodTool.showToast(CardDetailActivity.this,Ref.UNKNOWN_ERROR);break;
+                            default:break;
                         }
                     }
                 };
@@ -381,6 +389,9 @@ public class CardDetailActivity extends BaseActivity {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CardDetailActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CardDetailActivity.this);
                                 break;
                             default:break;
                         }

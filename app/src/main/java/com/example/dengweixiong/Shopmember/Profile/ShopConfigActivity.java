@@ -131,6 +131,9 @@ public class ShopConfigActivity extends AppCompatActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ShopConfigActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ShopConfigActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -148,6 +151,8 @@ public class ShopConfigActivity extends AppCompatActivity {
                     case RESP_ERROR:
                         MethodTool.showToast(ShopConfigActivity.this,Ref.UNKNOWN_ERROR);
                         ShopConfigActivity.this.finish();
+                        break;
+                    default:break;
                 }
             }
         };
@@ -506,6 +511,9 @@ public class ShopConfigActivity extends AppCompatActivity {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ShopConfigActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ShopConfigActivity.this);
                                 break;
                             default:break;
                         }

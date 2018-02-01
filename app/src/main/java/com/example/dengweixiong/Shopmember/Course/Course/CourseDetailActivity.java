@@ -182,6 +182,9 @@ public class CourseDetailActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CourseDetailActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -242,6 +245,9 @@ public class CourseDetailActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CourseDetailActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -285,6 +291,9 @@ public class CourseDetailActivity
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CourseDetailActivity.this);
                                 break;
                             default:break;
                         }
@@ -504,6 +513,9 @@ public class CourseDetailActivity
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                     break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(CourseDetailActivity.this);
+                                    break;
                                 default:break;
                             }
                             break;
@@ -557,9 +569,13 @@ public class CourseDetailActivity
                                     MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
                                     break;
                                 case SESSION_EXPIRED:
-                                    MethodTool.showExitAppAlert(CourseDetailActivity.this);
+                                    MethodTool.showExitAppAlert(CourseDetailActivity.this);break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(CourseDetailActivity.this);
+                                    break;
                                 default:break;
                             }
+                            break;
                         case RESP_ERROR:
                             MethodTool.showToast(CourseDetailActivity.this,Ref.UNKNOWN_ERROR);
                             break;
@@ -644,6 +660,9 @@ public class CourseDetailActivity
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                     break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(CourseDetailActivity.this);
+                                    break;
                                 default:break;
                             }
                             break;
@@ -692,8 +711,12 @@ public class CourseDetailActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CourseDetailActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(CourseDetailActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

@@ -105,6 +105,9 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddCoursePlanTeacherActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddCoursePlanTeacherActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -171,6 +174,9 @@ public class AddCoursePlanTeacherActivity extends BaseActivity {
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddCoursePlanTeacherActivity.this);break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddCoursePlanTeacherActivity.this);
+                                break;
                             default:break;
                         }
                         break;

@@ -194,10 +194,14 @@ public class CoursePlanDetailActivity
                                 CoursePlanDetailActivity.this.finish();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showExitAppAlert(CoursePlanDetailActivity.this);
+                                MethodTool.showAuthorizeFailToast(CoursePlanDetailActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CoursePlanDetailActivity.this);
                                 break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

@@ -151,6 +151,9 @@ public class ShopmemberDetailActivity extends BaseActivity {
                                 MethodTool.showToast(ShopmemberDetailActivity.this,Ref.OP_INST_NOT_MATCH);
                                 ShopmemberDetailActivity.this.finish();
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(ShopmemberDetailActivity.this);
+                                break;
                             case NSR:
                                 MethodTool.showToast(ShopmemberDetailActivity.this,Ref.OP_NSR);
                                 break;
@@ -252,6 +255,9 @@ public class ShopmemberDetailActivity extends BaseActivity {
                             case NSR:
                                 MethodTool.showToast(ShopmemberDetailActivity.this,"记录不存在");
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ShopmemberDetailActivity.this);
+                                break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ShopmemberDetailActivity.this);
                                 break;
@@ -300,6 +306,9 @@ public class ShopmemberDetailActivity extends BaseActivity {
                                     break;
                                 case EXE_FAIL:
                                     MethodTool.showToast(ShopmemberDetailActivity.this,"删除失败");
+                                    break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(ShopmemberDetailActivity.this);
                                     break;
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(ShopmemberDetailActivity.this);

@@ -212,6 +212,9 @@ public class AddNewMemberActivity
                                 case SESSION_EXPIRED:
                                     MethodTool.showExitAppAlert(AddNewMemberActivity.this);
                                     break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(AddNewMemberActivity.this);
+                                    break;
                                 default:break;
                             }
                             break;

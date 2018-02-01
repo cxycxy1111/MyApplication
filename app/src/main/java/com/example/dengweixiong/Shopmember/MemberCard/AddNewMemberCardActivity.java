@@ -225,6 +225,9 @@ public class AddNewMemberCardActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddNewMemberCardActivity.this);
+                                break;
                             default:break;
                         }
                         break;
@@ -292,8 +295,12 @@ public class AddNewMemberCardActivity
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(AddNewMemberCardActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);
                 }
@@ -397,11 +404,15 @@ public class AddNewMemberCardActivity
                                     case SESSION_EXPIRED:
                                         MethodTool.showExitAppAlert(AddNewMemberCardActivity.this);
                                         break;
+                                    case AUTHORIZE_FAIL:
+                                        MethodTool.showAuthorizeFailToast(AddNewMemberCardActivity.this);
+                                        break;
                                     default:break;
                                 }
                                 break;
                             case RESP_ERROR:
-                                MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);
+                                MethodTool.showToast(AddNewMemberCardActivity.this,Ref.UNKNOWN_ERROR);break;
+                            default:break;
                         }
                     }
                 };

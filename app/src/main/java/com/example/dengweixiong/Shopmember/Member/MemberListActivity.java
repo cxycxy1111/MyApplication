@@ -167,8 +167,12 @@ public class MemberListActivity
                             case EMPTY_RESULT:
                                 MethodTool.showToast(MemberListActivity.this,"暂无会员，请新增");
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(MemberListActivity.this);
+                                break;
                             default:break;
                         }
+                        break;
                     default:break;
                 }
             }

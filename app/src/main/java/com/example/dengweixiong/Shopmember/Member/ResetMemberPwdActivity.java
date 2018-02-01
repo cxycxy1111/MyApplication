@@ -130,9 +130,13 @@ public class ResetMemberPwdActivity
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(ResetMemberPwdActivity.this);break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(ResetMemberPwdActivity.this);
+                                break;
                             default:
                                 break;
                         }
+                        break;
                     default:break;
                 }
             }

@@ -138,6 +138,9 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         switch (enumRespStatType) {
                             case NSR:MethodTool.showToast(getActivity(),Ref.STAT_NSR);break;
                             case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
+                                break;
                             default:MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);break;
                         }
                         break;
@@ -200,6 +203,9 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(getActivity());
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
                                 break;
                             default:break;
                         }
@@ -270,6 +276,9 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                                     MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
                                     break;
                                 case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
+                                case AUTHORIZE_FAIL:
+                                    MethodTool.showAuthorizeFailToast(getActivity());
+                                    break;
                                 default:break;
                             }
                             getActivity().finish();

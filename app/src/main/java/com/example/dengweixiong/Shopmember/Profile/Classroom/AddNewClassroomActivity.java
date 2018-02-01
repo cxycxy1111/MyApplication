@@ -110,6 +110,9 @@ public class AddNewClassroomActivity extends BaseActivity {
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(AddNewClassroomActivity.this);
                                 break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddNewClassroomActivity.this);
+                                break;
                             default:break;
                         }
                         break;
