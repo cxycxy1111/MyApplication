@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Alfred Test</string>
+    <string name="app_name">管馆易商家端</string>
     <string name="main_website">tel:10086</string>
     <string name="title_activity_sec">Add New Story</string>
     <string name="title_activity_add_new_trend">Add New Trend</string>

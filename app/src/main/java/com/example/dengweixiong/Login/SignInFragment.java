@@ -3,7 +3,9 @@ package com.example.dengweixiong.Login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -141,7 +143,7 @@ public class SignInFragment
                 if (loginname.equals("") || loginname.equals(null) || password.equals("") || password.equals(null)) {
                     Toast.makeText(getContext(),"登录名或密码不能为空",Toast.LENGTH_LONG).show();
                 }else {
-                    logIn();
+                    dealWithLoginParamater();
                 }
                 break;
             default:
@@ -149,11 +151,29 @@ public class SignInFragment
         }
     }
 
+    private void dealWithLoginParamater() {
+        String deviceBrand = Build.BRAND;
+        String systemVersion = Build.VERSION.RELEASE;
+        String systemModel = Build.MODEL;
+        HashMap<String,Object> map_1 = new HashMap<>();
+        map_1.put("user_name",loginname);
+        map_1.put("password",password);
+        map_1.put("system_version",systemVersion);
+        map_1.put("system_model",systemModel);
+        map_1.put("device_brand",deviceBrand);
+        try {
+            map_1.put("app_version",getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(),0).versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        logIn(map_1);
+    }
+
     /**
      * 登录入口
      */
-    private void logIn() {
-        String add = "/ShopMemberLogin?user_name=" + loginname + "&password=" + password;
+    private void logIn(HashMap<String,Object> map_1) {
+        String add = "/ShopMemberLogin";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -193,7 +213,7 @@ public class SignInFragment
                 }
             }
         };
-        NetUtil.sendHttpRequest(getContext(),add,callback);
+        NetUtil.sendPostHttpRequest(getActivity(),add,map_1,callback);
     }
 
 

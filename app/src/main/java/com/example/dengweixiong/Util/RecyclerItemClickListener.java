@@ -2,7 +2,9 @@ package com.example.dengweixiong.Util;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.*;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Created by dengweixiong on 2017/8/22.

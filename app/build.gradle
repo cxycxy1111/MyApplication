@@ -28,13 +28,11 @@ android {
 }
 
 
-
-
-
-
-
-
-
+configurations {
+    all {
+        exclude module: 'httpclient'exclude module: 'commons-logging'
+    }
+}
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

@@ -124,7 +124,7 @@ public class MethodTool{
         targetActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(targetActivity,Ref.OP_MANAGE_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
+                Toast.makeText(targetActivity,Ref.OP_VIEW_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
             }
         });
         targetActivity.finish();
@@ -134,7 +134,7 @@ public class MethodTool{
         targetActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(targetActivity,Ref.OP_VIEW_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
+                Toast.makeText(targetActivity,Ref.OP_MANAGE_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
             }
         });
     }

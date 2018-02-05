@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.dengweixiong.Bean.Card;
 import com.example.dengweixiong.myapplication.R;
+
 import java.util.ArrayList;
 
 /**

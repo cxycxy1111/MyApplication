@@ -24,7 +24,7 @@ public class NetUtil {
     //使用家里网络进行调试
     private static final String LOCAL_PREFIX = "http://10.0.0.2:8080/Sailfish";
     //使用冯静霞家的网络进行调试
-    private static final String FJX_PREFIX = "http://192.168.1.104:8080/Sailfish";
+    private static final String FJX_PREFIX = "http://192.168.1.112:8080/Sailfish";
     //使用省移动网络进行调试
     private static final String MOBILE_PREFIX = "http://10.167.151.237:8080/Sailfish";
     //使用iPhone手机网络进行调试
@@ -33,6 +33,9 @@ public class NetUtil {
     private static final String REMOTE_PREFIX = "http://39.104.72.97:8080/Sailfish";
 
     private static final String JINYE_PREFIX = "http://192.168.27.195:8080/Sailfish";
+
+    private static final String FY_PREFIX = "http://192.168.0.107:8080/Sailfish";
+
 
     private static OkHttpClient client;
 
@@ -43,21 +46,22 @@ public class NetUtil {
      * @param callback 回调
      */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
-        String str = IPHONE_PREFIX + address;
+        String str = REMOTE_PREFIX + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);
         call.enqueue(callback);
     }
 
-    public static void sendPostHttpRequest(Context context, HashMap<String,Object> map,Callback callback) {
+    public static void sendPostHttpRequest(Context context, String url,HashMap<String,Object> map,Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         initOkHttpClient(context);
         for (Map.Entry<String,Object> entry:map.entrySet()) {
             builder.add(entry.getKey(),String.valueOf(entry.getValue()));
         }
+        String str = REMOTE_PREFIX + url;
         RequestBody body = builder.build();
-        Request request = new Request.Builder().url(REMOTE_PREFIX).post(body).build();
+        Request request = new Request.Builder().url(str).post(body).build();
         Call call = client.newCall(request);
         call.enqueue(callback);
     }

@@ -186,8 +186,13 @@ public class CourseListFragment extends Fragment {
                             case AUTHORIZE_FAIL:
                                 MethodTool.exitAcitivityDueToAuthorizeFail(getParentFragment().getActivity());
                                 break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(getParentFragment().getActivity(),"暂无课程");
                             default:break;
                         }
+                        break;
+                    case RESP_ERROR:
+                        MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
                         break;
                     default:break;
                 }

@@ -3,7 +3,9 @@ package com.example.dengweixiong.Login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -46,17 +48,17 @@ public class LoginActivity
         SignInFragment.OnFragmentInteractionListener {
 
     private String sm_type;
-    private String sm_id,s_id;
-    private String[] keys = new String[] {"id","name","type","user_name"};
-    private Map<String,String> map = new HashMap<>();
+    private String sm_id, s_id;
+    private String[] keys = new String[]{"id", "name", "type", "user_name"};
+    private Map<String, String> map = new HashMap<>();
     private TabLayout tabLayout;
     private Context context;
     private ViewPager viewPager;
     private List<Fragment> fragments = new ArrayList<>();
     private FragmentManager manager;
     private CourseViewPagerAdapter adapter_vp;
-    private String [] str_title = {"注册新机构","登录"};
-    private String login_name,password;
+    private String[] str_title = {"注册新机构", "登录"};
+    private String login_name, password;
     private ProgressBar progressBar;
 
     @Override
@@ -95,11 +97,11 @@ public class LoginActivity
     }
 
     private void initLoginnameAndPassword() {
-        sm_type = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_type",1);
-        s_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","s_id",2);
-        sm_id = SharePreferenceManager.getSharePreferenceValue(this,"sasm","sm_id",2);
-        login_name = SharePreferenceManager.getSharePreferenceValue(this,"login_data","login_name",3);
-        password = SharePreferenceManager.getSharePreferenceValue(this,"login_data","password",3);
+        sm_type = SharePreferenceManager.getSharePreferenceValue(this, "sasm", "sm_type", 1);
+        s_id = SharePreferenceManager.getSharePreferenceValue(this, "sasm", "s_id", 2);
+        sm_id = SharePreferenceManager.getSharePreferenceValue(this, "sasm", "sm_id", 2);
+        login_name = SharePreferenceManager.getSharePreferenceValue(this, "login_data", "login_name", 3);
+        password = SharePreferenceManager.getSharePreferenceValue(this, "login_data", "password", 3);
 
     }
 
@@ -118,15 +120,15 @@ public class LoginActivity
     }
 
     private void initTabLayout() {
-        tabLayout = (TabLayout)findViewById(R.id.tl_a_login);
+        tabLayout = (TabLayout) findViewById(R.id.tl_a_login);
         tabLayout.addTab(tabLayout.newTab().setText("注册新机构"));
         tabLayout.addTab(tabLayout.newTab().setText("登录"));
         tabLayout.addOnTabSelectedListener(this);
     }
 
     private void initViewPager() {
-        viewPager = (ViewPager)findViewById(R.id.vp_a_login);
-        adapter_vp = new CourseViewPagerAdapter(manager,str_title,fragments);
+        viewPager = (ViewPager) findViewById(R.id.vp_a_login);
+        adapter_vp = new CourseViewPagerAdapter(manager, str_title, fragments);
         viewPager.setAdapter(adapter_vp);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -140,28 +142,43 @@ public class LoginActivity
      * 创建进度条
      */
 
-    private void createProgressBar(){
-        context=this;
+    private void createProgressBar() {
+        context = this;
         FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity= Gravity.CENTER;
-        progressBar=new ProgressBar(context);
+        layoutParams.gravity = Gravity.CENTER;
+        progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);
         progressBar.setVisibility(View.VISIBLE);
         rootFrameLayout.addView(progressBar);
     }
 
     private void checkInfoIsPrepared() {
-        if (sm_type.equals("") || s_id.equals("") ||sm_id.equals("") || login_name.equals("")||password.equals("")) {
-            Toast.makeText(this,"自动登录失败",Toast.LENGTH_SHORT).show();
+        if (sm_type.equals("") || s_id.equals("") || sm_id.equals("") || login_name.equals("") || password.equals("")) {
+            Toast.makeText(this, "自动登录失败", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
-        }else {
+        } else {
             autoLogin();
         }
     }
 
     private void autoLogin() {
-        String url = "/ShopMemberLogin?user_name=" + login_name + "&password=" + password;
+        String deviceBrand = Build.BRAND;
+        String systemVersion = Build.VERSION.RELEASE;
+        String systemModel = Build.MODEL;
+        Context context = getApplicationContext();
+        HashMap<String,Object> map_1 = new HashMap<>();
+        map_1.put("user_name",login_name);
+        map_1.put("password",password);
+        map_1.put("system_version",systemVersion);
+        map_1.put("system_model",systemModel);
+        map_1.put("device_brand",deviceBrand);
+        try {
+            map_1.put("app_version",getPackageManager().getPackageInfo(this.getPackageName(),0).versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String url = "/ShopMemberLogin";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -213,7 +230,7 @@ public class LoginActivity
                 }
             }
         };
-        NetUtil.sendHttpRequest(LoginActivity.this,url,callback);
+        NetUtil.sendPostHttpRequest(LoginActivity.this,url,map_1,callback);
     }
 
     /**

@@ -531,8 +531,7 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case EXE_SUC:
                                 MethodTool.showToast(DeductionActivity.this,Ref.OP_SUCCESS);
                                 Intent intent = new Intent(DeductionActivity.this,MemberCardDetailActivity.class);
@@ -579,6 +578,8 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                             case AUTHORIZE_FAIL:
                                 MethodTool.showAuthorizeFailToast(DeductionActivity.this);
                                 break;
+                            case BALANCE_NOT_ENOUGH:
+                                MethodTool.showToast(DeductionActivity.this,"该会员卡余额不足，无法扣费");
                             default:break;
                         }
                         break;

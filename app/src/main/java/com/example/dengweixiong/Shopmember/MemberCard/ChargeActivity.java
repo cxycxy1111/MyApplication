@@ -335,6 +335,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                 break;
                             default:break;
                         }
+                        break;
                     case RESP_ERROR:
                         MethodTool.showToast(ChargeActivity.this,Ref.UNKNOWN_ERROR);
                         break;

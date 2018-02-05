@@ -56,7 +56,7 @@ public abstract class Ref {
     public static final String NOT_MATCH = "not_match";
     public static final String SESSION_EXPIRED = "session_expired";
     public static final String AUTHORIZE_FAIL = "authorize_fail";
-
+    public static final String BALANCE_NOT_ENOUGH = "balance_not_enough";
 
     /**
      * 操作类型

@@ -22,7 +22,8 @@ public enum EnumRespStatType {
     PARTYLY_FAIL("exe_partly_fail"),
     NOT_MATCH("not_match"),
     SESSION_EXPIRED("session_expired"),
-    AUTHORIZE_FAIL("authorize_fail");
+    AUTHORIZE_FAIL("authorize_fail"),
+    BALANCE_NOT_ENOUGH("balance_not_enough");
 
     private String type;
 
@@ -58,7 +59,9 @@ public enum EnumRespStatType {
             return EnumRespStatType.SESSION_EXPIRED;
         } else if (value.equals(Ref.AUTHORIZE_FAIL)) {
             return EnumRespStatType.AUTHORIZE_FAIL;
-        } else {
+        } else if (value.equals(Ref.BALANCE_NOT_ENOUGH)){
+            return EnumRespStatType.BALANCE_NOT_ENOUGH;
+        }else {
             return null;
         }
     }
