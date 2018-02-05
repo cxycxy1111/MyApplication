@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dengweixiong.Shopmember.Member.AddNewMemberActivity">
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Member.AddNewMemberActivity">
 
     <android.support.v7.widget.Toolbar
         android:title="新增会员"

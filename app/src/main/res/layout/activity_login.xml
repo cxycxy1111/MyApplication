@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackgroundCoclor"
-    tools:context="com.example.dengweixiong.Login.LoginActivity">
+    tools:context="xyz.institutionmanage.sailfish.Login.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_a_login"

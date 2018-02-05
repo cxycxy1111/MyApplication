@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dengweixiong.Shopmember.Profile.Card.CardDetailActivity">
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Profile.Card.CardDetailActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_a_card_detail"

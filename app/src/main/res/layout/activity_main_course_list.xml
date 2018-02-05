@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/distance16"
-    tools:context="com.example.dengweixiong.Shopmember.Main.CourseListFragment">
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Main.CourseListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_f_course_list"
