@@ -1,0 +1,53 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Main.MemberFragment">
+
+    <ScrollView
+        android:id="@+id/sv_f_m_discovery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_all_course_f_m_discovery"
+                style="@style/rl_first_widget"
+                android:layout_alignParentTop="true"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_all_course_f_m_discovery"
+                    android:src="@mipmap/ic_member_addhdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_all_course_f_m_discovery"
+                    android:layout_toRightOf="@id/img_all_course_f_m_discovery"
+                    style="@style/plain_text"
+                    android:text="全部课程" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_all_courseplan_f_m_discovery"
+                style="@style/rl_first_widget"
+                android:layout_alignParentTop="true">
+
+                <ImageView
+                    android:id="@+id/img_all_courseplan_f_m_discovery"
+                    android:src="@mipmap/ic_member_addhdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_all_courseplan_f_m_discovery"
+                    android:layout_toRightOf="@id/img_all_courseplan_f_m_discovery"
+                    style="@style/plain_text"
+                    android:text="全部排课" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

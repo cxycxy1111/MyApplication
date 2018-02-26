@@ -19,6 +19,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -37,7 +38,7 @@ public class AddNewShopmemberActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_shopmember_add);
+        setContentView(R.layout.activity_shopmember_add);
         initData();
         initView();
     }
@@ -57,14 +58,14 @@ public class AddNewShopmemberActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_general);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("新增教师");
     }
 
     private void initSpinner() {
-        Spinner spinner = (Spinner)findViewById(xyz.example.dengweixiong.myapplication.R.id.sp_type_add_new_shopmember);
+        Spinner spinner = (Spinner)findViewById(R.id.sp_type_add_new_shopmember);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,type);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -94,14 +95,14 @@ public class AddNewShopmemberActivity extends BaseActivity {
     }
 
     private void initEditText(){
-        et_name = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_name_add_new_shopmember);
-        et_user_name = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_user_name_add_new_shopmember);
-        et_pwd = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_pwd_add_new_shopmember);
+        et_name = (EditText)findViewById(R.id.et_name_add_new_shopmember);
+        et_user_name = (EditText)findViewById(R.id.et_user_name_add_new_shopmember);
+        et_pwd = (EditText)findViewById(R.id.et_pwd_add_new_shopmember);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_add_new_shopmember,menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_shopmember,menu);
         return true;
     }
 
@@ -112,7 +113,7 @@ public class AddNewShopmemberActivity extends BaseActivity {
                 setResult(Ref.RESULTCODE_NULL);
                 finish();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.save_add_new_shopmember :
+            case R.id.save_add_new_shopmember :
                 save();
                 break;
             default:

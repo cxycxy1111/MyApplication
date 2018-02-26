@@ -1,9 +1,7 @@
 package xyz.institutionmanage.sailfish.Shopmember.Adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +12,27 @@ import java.util.List;
 import java.util.Map;
 
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Course.Course.CourseDetailActivity;
 
 /**
  * Created by dengweixiong on 2017/9/13.
  */
 
 public class RVCourseListAdapter
-        extends RecyclerView.Adapter {
+        extends RecyclerView.Adapter implements View.OnClickListener{
 
     private static final String TAG = "RVCourseListAdapter:";
     private List<Map<String,String>> mapList = new ArrayList<>();
+    private OnItemClickListener onItemClickListener = null;
     private Activity activity;
+
+    //内部接口
+    public interface OnItemClickListener {
+        void onItemClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public RVCourseListAdapter(List<Map<String,String>> mapList, Activity activity) {
         this.mapList = mapList;
@@ -36,18 +43,7 @@ public class RVCourseListAdapter
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile_course,parent,false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.courseView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                Map<String,String> map = mapList.get(position);
-                Intent intent = new Intent(parent.getContext(), CourseDetailActivity.class);
-                intent.putExtra("name",map.get("name"));
-                intent.putExtra("id",String.valueOf(map.get("id")));
-                intent.putExtra("type",String.valueOf(map.get("type")));
-                activity.startActivityForResult(intent,1);
-            }
-        });
+        view.setOnClickListener(this);
         return holder;
     }
 
@@ -56,14 +52,18 @@ public class RVCourseListAdapter
         final ViewHolder holder1 = (ViewHolder)holder;
         Map<String,String> map = mapList.get(position);
         holder1.tv_name.setText(map.get("name"));
-        Log.d(TAG, "onBindViewHolder: " + map.get("last_time"));
-        if (map.get("last_time").equals("") || map.get("last_time").equals(null) || map.get("last_time").equals("null")) {
+        ((ViewHolder) holder).itemView.setTag(position);
+        String l_time = String.valueOf(map.get("last_time"));
+        if (l_time.equals("") || l_time.equals(null) || l_time.equals("null")) {
             holder1.tv_time.setText("");
         }else {
-            holder1.tv_time.setText(map.get("last_time") + "分钟");
+            holder1.tv_time.setText(l_time + "分钟");
         }
-
-        holder1.tv_supportedcard.setText(map.get("supportedcard"));
+        if (map.get("supportedcard").equals("") | map.get("supportedcard").equals(null)){
+            holder1.tv_supportedcard.setText("未设置所支持的卡");
+        }else {
+            holder1.tv_supportedcard.setText("支持" + map.get("supportedcard"));
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -88,4 +88,8 @@ public class RVCourseListAdapter
         return mapList.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        onItemClickListener.onItemClick(v,(int)v.getTag());
+    }
 }

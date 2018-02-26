@@ -18,7 +18,6 @@
                 android:id="@+id/rl_card_type_f_person"
                 style="@style/rl_first_widget"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="88dp"
                 android:background="#fff">
 
                 <ImageView

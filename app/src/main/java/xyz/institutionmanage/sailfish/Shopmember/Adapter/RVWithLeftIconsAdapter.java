@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import xyz.institutionmanage.sailfish.Bean.Card;
+import xyz.institutionmanage.sailfish.R;
 
 /**
  * Created by dengweixiong on 2017/8/21.
@@ -23,7 +24,7 @@ public class RVWithLeftIconsAdapter extends RecyclerView.Adapter<RVWithLeftIcons
 
         public ViewHolder(View view) {
             super(view);
-            name = (TextView)view.findViewById(xyz.example.dengweixiong.myapplication.R.id.country_name);
+            name = (TextView)view.findViewById(R.id.country_name);
         }
     }
 
@@ -32,7 +33,7 @@ public class RVWithLeftIconsAdapter extends RecyclerView.Adapter<RVWithLeftIcons
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup,int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(xyz.example.dengweixiong.myapplication.R.layout.tile_simple_list_view_with_icon,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tile_simple_list_view_with_icon,viewGroup,false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

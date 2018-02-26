@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 
 public class HelpActivity extends BaseActivity {
@@ -12,8 +13,8 @@ public class HelpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_help);
-        Toolbar toolbar = (Toolbar) findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_general);
+        setContentView(R.layout.activity_help);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("帮助");
         setSupportActionBar(toolbar);
@@ -22,7 +23,7 @@ public class HelpActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_help,menu);
+        getMenuInflater().inflate(R.menu.menu_help,menu);
         return true;
     }
 

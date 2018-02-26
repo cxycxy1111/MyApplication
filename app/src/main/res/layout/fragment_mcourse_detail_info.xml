@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.institutionmanage.sailfish.Member.Course.MCourseDetailInfoFragment">
+
+    <ScrollView
+        android:id="@+id/sv_f_m_course_detail_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_type_f_m_course_detail_info"
+                style="@style/rl_first_widget">
+                <TextView
+                    android:id="@+id/tv_main_type_f_m_course_detail_info"
+                    style="@style/plain_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
+                    android:text="课程类型" />
+                <TextView
+                    android:id="@+id/tv_hint_type_a_course_detial"
+                    style="@style/plain_text_hint"
+                    android:layout_toRightOf="@id/tv_main_type_f_m_course_detail_info"
+                    android:text="@string/app_name" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_name_a_course_detial"
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_type_f_m_course_detail_info"
+                android:background="#fff">
+                <TextView
+                    android:id="@+id/tv_main_course_name_f_m_course_detail_info"
+                    style="@style/plain_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
+                    android:text="课程名称" />
+                <TextView
+                    android:id="@+id/tv_hint_course_name_a_course_detial"
+                    style="@style/plain_text_hint"
+                    android:layout_toRightOf="@id/tv_main_course_name_f_m_course_detail_info"
+                    android:hint="课程名称" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_total_book_a_course_detial"
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_name_a_course_detial">
+                <TextView
+                    android:id="@+id/tv_main_total_book_f_m_course_detail_info"
+                    style="@style/plain_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
+                    android:text="最高预订人数" />
+                <TextView
+                    android:id="@+id/tv_hint_total_book_a_course_detial"
+                    style="@style/plain_text_hint"
+                    android:layout_toRightOf="@id/tv_main_total_book_f_m_course_detail_info"
+                    android:hint="总预订人数" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_last_time_a_course_detial"
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_total_book_a_course_detial">
+                <TextView
+                    android:id="@+id/tv_last_time_f_m_course_detail_info"
+                    style="@style/plain_text"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/distance96"
+                    android:text="持续时间" />
+                <TextView
+                    android:id="@+id/tv_last_time_a_course_detial"
+                    style="@style/plain_text_hint"
+                    android:layout_toRightOf="@id/tv_last_time_f_m_course_detail_info"
+                    android:hint="分钟" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

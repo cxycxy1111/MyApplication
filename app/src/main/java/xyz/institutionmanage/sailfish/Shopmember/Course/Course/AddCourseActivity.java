@@ -1,14 +1,17 @@
 package xyz.institutionmanage.sailfish.Shopmember.Course.Course;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -18,6 +21,7 @@ import org.apache.commons.lang.math.NumberUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,18 +42,21 @@ public class AddCourseActivity
         extends
             BaseActivity
         implements
-            View.OnClickListener{
+            View.OnClickListener,EditText.OnFocusChangeListener{
 
     private int actual_cost;
     private static final int REQEST_CODE_ADD = 1;
     private static final int RESULT_CODE_SUC = 1;
     private static final int RESULT_CODE_FAIL = 2;
+    private int current_year,current_month,current_date;
     private long shop_id,shopmember_id,selected_tea,selected_course,selected_stu,course_id;
     private String course_name,last_time,max_book_num,total_times,invalidtime;
     private Button btn,btn_person;
     private Toolbar toolbar;
     private Spinner tea_spinner,course_spinner,stu_spinner;
     private EditText et_course_name,et_last_time,et_max_num,et_person_course_name,et_max_times,et_invalidetime,et_actual_cost;
+    private DatePickerDialog dpd;
+
     private LinearLayout basicInfo_linearlayout,person_linearlayout;
     private List<String> course_type = new ArrayList<>();
     private List<String> tea = new ArrayList<>();
@@ -70,6 +77,23 @@ public class AddCourseActivity
         SharedPreferences preferences = getSharedPreferences("sasm",MODE_PRIVATE);
         shop_id = preferences.getLong("s_id",0);
         shopmember_id = preferences.getLong("sm_id",0);
+    }
+
+    private void initDate() {
+        Calendar calendar = Calendar.getInstance();
+        this.current_year = calendar.get(Calendar.YEAR);
+        this.current_month = calendar.get(Calendar.MONTH);
+        this.current_date = calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                et_invalidetime.setText(new StringBuffer().append(year).append("-").append(month+1).append("-").append(dayOfMonth));
+            }
+        };
+        dpd = new DatePickerDialog(AddCourseActivity.this,listener,current_year,current_month,current_date);
     }
 
     /**
@@ -301,6 +325,8 @@ public class AddCourseActivity
         et_max_num = (EditText)findViewById(R.id.et_maxbooknum_a_addNewCourse);
         et_max_times = (EditText)findViewById(R.id.et_Personal_maxbooknum_a_addNewCourse);
         et_invalidetime = (EditText)findViewById(R.id.et_Personal_invaliddate_a_addNewCourse);
+        et_invalidetime.setInputType(InputType.TYPE_NULL);
+        et_invalidetime.setOnFocusChangeListener(this);
         et_actual_cost = (EditText)findViewById(R.id.et_Personal_actual_cost_a_addNewCourse);
     }
 
@@ -328,7 +354,7 @@ public class AddCourseActivity
     private void initButtons() {
         btn = (Button)findViewById(R.id.btn_addNewCourse);
         btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
-        btn.setOnClickListener(this);
+        btn.setOnFocusChangeListener(this);
         btn_person.setOnClickListener(this);
     }
 
@@ -350,6 +376,20 @@ public class AddCourseActivity
         switch (requestCode) {
             case REQEST_CODE_ADD:
                 AddCourseActivity.this.finish();
+                break;
+            default:break;
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()) {
+            case R.id.et_Personal_invaliddate_a_addNewCourse:
+                if (hasFocus) {
+                    dpd.show();
+                }else {
+
+                }
                 break;
             default:break;
         }
@@ -432,8 +472,9 @@ public class AddCourseActivity
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_DATA:
                         MethodTool.showToast(AddCourseActivity.this,Ref.OP_ADD_SUCCESS);
+                        AddCourseActivity.this.finish();
                         break;
-                    case RESP_MAPLIST:
+                    case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case EXE_FAIL:
                                 MethodTool.showToast(AddCourseActivity.this, Ref.OP_ADD_FAIL);

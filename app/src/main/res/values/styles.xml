@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -144,6 +144,7 @@
 
     <style name="plain_text_hint">
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">right</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginTop">@dimen/distance16</item>
@@ -197,7 +198,7 @@
     </style>
 
     <style name="rl_normal">
-        <item name="android:background">#ffff</item>
+        <item name="android:background">#fff</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/distance1</item>
@@ -222,6 +223,10 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#000</item>
         <item name="android:layout_centerVertical">true</item>
+        <item name="android:buttonTint" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">@color/colorPrimary
+        </item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">@color/colorPrimary</item>
     </style>
 
 </resources>

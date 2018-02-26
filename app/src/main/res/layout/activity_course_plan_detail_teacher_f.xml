@@ -10,12 +10,22 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btn_save_f_course_plan_detail_teacher"
-        style="@style/plain_button"
-        android:layout_alignParentBottom="true"
+    <LinearLayout
+        android:background="#fff"
+        android:layout_below="@id/rv_f_course_plan_detail_teacher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="保存"/>
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_save_f_course_plan_detail_teacher"
+            style="@style/plain_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="保  存"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
+
+

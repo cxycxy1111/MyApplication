@@ -21,6 +21,7 @@ import java.util.Date;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -45,7 +46,7 @@ public class AddNewMemberActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_member_add);
+        setContentView(R.layout.activity_member_add);
         initToolbar();
         initDate();
         initDatePicker();
@@ -54,14 +55,14 @@ public class AddNewMemberActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_add_new_member,menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_member,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.save_member_list:
+            case R.id.save_member_list:
                 saveMember();
                 break;
             case android.R.id.home:
@@ -74,19 +75,19 @@ public class AddNewMemberActivity
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_activity_add_new_member);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_add_new_member);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initEditext() {
-        et_name = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_name_activity_add_new_member);
-        et_birthday = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_birthday_activity_add_new_member);
-        et_phone = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_phone_activity_add_new_member);
-        et_im = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_im_activity_add_new_member);
-        et_login_name = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_login_name_activity_add_new_member);
-        et_password = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.edittext_password_activity_add_new_member);
+        et_name = (EditText)findViewById(R.id.edittext_name_activity_add_new_member);
+        et_birthday = (EditText)findViewById(R.id.edittext_birthday_activity_add_new_member);
+        et_phone = (EditText)findViewById(R.id.edittext_phone_activity_add_new_member);
+        et_im = (EditText)findViewById(R.id.edittext_im_activity_add_new_member);
+        et_login_name = (EditText)findViewById(R.id.edittext_login_name_activity_add_new_member);
+        et_password = (EditText)findViewById(R.id.edittext_password_activity_add_new_member);
 
         et_birthday.setInputType(InputType.TYPE_NULL);
         et_birthday.setOnClickListener(this);
@@ -134,7 +135,7 @@ public class AddNewMemberActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.edittext_birthday_activity_add_new_member:
+            case R.id.edittext_birthday_activity_add_new_member:
                 dpd_birthday.show();
                 break;
             default:
@@ -146,7 +147,7 @@ public class AddNewMemberActivity
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.edittext_birthday_activity_add_new_member:
+            case R.id.edittext_birthday_activity_add_new_member:
                 if (hasFocus) {
                     dpd_birthday.show();
                 }else {

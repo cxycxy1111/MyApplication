@@ -20,6 +20,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVPureCheckBoxAdapter;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -68,9 +69,9 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(xyz.example.dengweixiong.myapplication.R.layout.activity_course_plan_detail_teacher_f, container, false);
-        recyclerView = (RecyclerView)view.findViewById(xyz.example.dengweixiong.myapplication.R.id.rv_f_course_plan_detail_teacher);
-        btn_save = (Button)view.findViewById(xyz.example.dengweixiong.myapplication.R.id.btn_save_f_course_plan_detail_teacher);
+        View view = inflater.inflate(R.layout.activity_course_plan_detail_teacher_f, container, false);
+        recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_course_plan_detail_teacher);
+        btn_save = (Button)view.findViewById(R.id.btn_save_f_course_plan_detail_teacher);
         btn_save.setOnClickListener(this);
         initCoursePlanTeacher();
         return view;
@@ -102,7 +103,7 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.btn_save_f_course_plan_detail_teacher:
+            case R.id.btn_save_f_course_plan_detail_teacher:
                 saveCoursePlanTeacherModify();
                 break;
             default:break;

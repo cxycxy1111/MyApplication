@@ -34,6 +34,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -67,7 +68,7 @@ public class AddCoursePlanActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_course_plan_add);
+        setContentView(R.layout.activity_course_plan_add);
         initData();
         initToolbar();
         initWidgets();
@@ -80,13 +81,13 @@ public class AddCoursePlanActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.btn_next_step_add_new_courseplan:
+            case R.id.btn_next_step_add_new_courseplan:
                 saveCoursePlan();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.et_date_add_new_coursepalan:
+            case R.id.et_date_add_new_coursepalan:
                 dpd_date.show();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.et_time_add_new_coursepalan:
+            case R.id.et_time_add_new_coursepalan:
                 tpd_time.show();
                 break;
             default:break;
@@ -96,12 +97,12 @@ public class AddCoursePlanActivity
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         switch (v.getId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.et_date_add_new_coursepalan:
+            case R.id.et_date_add_new_coursepalan:
                 if (hasFocus) {
                     dpd_date.show();
                 }
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.et_time_add_new_coursepalan:
+            case R.id.et_time_add_new_coursepalan:
                 if (hasFocus) {
                     tpd_time.show();
                 }
@@ -111,16 +112,16 @@ public class AddCoursePlanActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_add_new_course_plan,menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_course_plan,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.quit_send_new_trend:
+            case R.id.quit_send_new_trend:
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.send_add_new_trend:
+            case R.id.send_add_new_trend:
                 break;
             case android.R.id.home:
                 finish();
@@ -158,20 +159,20 @@ public class AddCoursePlanActivity
     }
 
     private void initToolbar () {
-        Toolbar toolbar = (Toolbar) findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_general);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("添加排课");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initWidgets() {
-        btn_next = (Button)findViewById(xyz.example.dengweixiong.myapplication.R.id.btn_next_step_add_new_courseplan);
+        btn_next = (Button)findViewById(R.id.btn_next_step_add_new_courseplan);
 //        sp_teacher = (Spinner)findViewById(R.id.sp_tea_add_new_courseplan);
-        sp_classroom = (Spinner)findViewById(xyz.example.dengweixiong.myapplication.R.id.sp_classroom_add_new_courseplan);
-        sp_course = (Spinner)findViewById(xyz.example.dengweixiong.myapplication.R.id.sp_course_add_new_courseplan);
-        et_date = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_date_add_new_coursepalan);
-        et_time = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_time_add_new_coursepalan);
-        et_last_time = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_last_time_add_new_coursepalan);
+        sp_classroom = (Spinner)findViewById(R.id.sp_classroom_add_new_courseplan);
+        sp_course = (Spinner)findViewById(R.id.sp_course_add_new_courseplan);
+        et_date = (EditText)findViewById(R.id.et_date_add_new_coursepalan);
+        et_time = (EditText)findViewById(R.id.et_time_add_new_coursepalan);
+        et_last_time = (EditText)findViewById(R.id.et_last_time_add_new_coursepalan);
 
         btn_next.setOnClickListener(this);
         //设置开始日期的输入框的属性
@@ -400,7 +401,7 @@ public class AddCoursePlanActivity
                         String resp = response.body().string();
                         EnumRespType respType = EnumRespType.dealWithResponse(resp);
                         switch (respType) {
-                            case RESP_MAP:
+                            case RESP_DATA:
                                 Map<String,String> map = new HashMap<>();
                                 map = JsonHandler.strToMap(resp);
                                 current_courseplan = String.valueOf(map.get(Ref.DATA));

@@ -21,6 +21,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVSimpleAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
@@ -49,7 +50,7 @@ public class MemberListActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_member_list);
+        setContentView(R.layout.activity_member_list);
         initToolbar();
         initData();
     }
@@ -104,7 +105,7 @@ public class MemberListActivity
      * 初始化toolbar
      */
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_activity_member_list);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_member_list);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,7 +116,7 @@ public class MemberListActivity
      * @param context
      */
     private void initRecyclerView(Context context) {
-        recyclerView = (RecyclerView)findViewById(xyz.example.dengweixiong.myapplication.R.id.recyclerview_activity_member_list);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerview_activity_member_list);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         adapter = new RVSimpleAdapter(name_list);
         adapter.setOnItemClickListener(this);
@@ -142,6 +143,7 @@ public class MemberListActivity
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_ERROR:
+                        MethodTool.showToast(MemberListActivity.this,Ref.UNKNOWN_ERROR);
                         break;
                     case RESP_MAPLIST:
                         String [] keys = new String[] {"id","name"};
@@ -190,8 +192,8 @@ public class MemberListActivity
     //创建菜单
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_member_list,menu);
-        MenuItem menuItem = menu.findItem(xyz.example.dengweixiong.myapplication.R.id.search_main);
+        getMenuInflater().inflate(R.menu.menu_member_list,menu);
+        MenuItem menuItem = menu.findItem(R.id.search_main);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         MenuItemCompat.setOnActionExpandListener(menuItem,expandListener);
         return true;

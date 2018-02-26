@@ -53,7 +53,7 @@ public class MethodTool{
         targetActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(targetActivity.getApplicationContext(),string,Toast.LENGTH_LONG).show();
+                Toast.makeText(targetActivity,string,Toast.LENGTH_LONG).show();
             }
         });
     }

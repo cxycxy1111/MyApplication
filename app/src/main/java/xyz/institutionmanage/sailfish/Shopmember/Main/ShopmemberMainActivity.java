@@ -9,15 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.MainActivityPagerAdapter;
-import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
-import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 
 public class ShopmemberMainActivity
@@ -33,6 +31,7 @@ public class ShopmemberMainActivity
     private List<Fragment> fragments = new ArrayList<>();
     private Toolbar toolbar;
     private ViewPager viewPager;
+
     private BottomNavigationView bottomNavigationView;
     private MainActivityPagerAdapter adapter;
     private static final int REQUEST_ADD_NEW_COURSE = 1;
@@ -43,7 +42,7 @@ public class ShopmemberMainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         initToolBar();
         initViewPager();
         initBottomNavigationBar();
@@ -51,30 +50,30 @@ public class ShopmemberMainActivity
 
     //toolbar初始化
     private void initToolBar() {
-        toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_main);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title[0]);
     }
 
     //BottomNavigationBar初始化
     private void initBottomNavigationBar() {
-        bottomNavigationView = (BottomNavigationView)findViewById(xyz.example.dengweixiong.myapplication.R.id.bnb_a_main);
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bnb_a_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case xyz.example.dengweixiong.myapplication.R.id.member_a_main:
+                    case R.id.member_a_main:
                         viewPager.setCurrentItem(0);
  //                       getSupportActionBar().setTitle(title[0]);
                         selected_position = 0;
                         break;
-                    case xyz.example.dengweixiong.myapplication.R.id.course_a_main:
+                    case R.id.course_a_main:
                         viewPager.setCurrentItem(1);
  //                       getSupportActionBar().setTitle(title[1]);
                         selected_position = 1;
                         break;
-                    case xyz.example.dengweixiong.myapplication.R.id.person_a_main:
+                    case R.id.person_a_main:
                         viewPager.setCurrentItem(2);
  //                       getSupportActionBar().setTitle(title[2]);
                         selected_position = 2;
@@ -102,7 +101,7 @@ public class ShopmemberMainActivity
     private void initViewPager() {
         fragments = initFragments();
         if (viewPager == null) {
-            viewPager = (ViewPager)findViewById(xyz.example.dengweixiong.myapplication.R.id.vp_a_main);
+            viewPager = (ViewPager)findViewById(R.id.vp_a_main);
         }
         if (adapter == null) {
             adapter = new MainActivityPagerAdapter(fm,fragments);
@@ -134,22 +133,24 @@ public class ShopmemberMainActivity
             }
         });
     }
-
+/**
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_main,menu);
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         Intent intent;
         switch (item.getItemId()) {
-            case xyz.example.dengweixiong.myapplication.R.id.add_new_course_main:
+            case R.id.add_new_course_main:
                 intent = new Intent(ShopmemberMainActivity.this,AddCourseActivity.class);
                 startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.add_new_courseplan_main:
+            case R.id.add_new_courseplan_main:
                 intent = new Intent(ShopmemberMainActivity.this,AddCoursePlanActivity.class);
                 startActivity(intent);
                 break;
@@ -157,7 +158,7 @@ public class ShopmemberMainActivity
         }
         return true;
     }
-
+**/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

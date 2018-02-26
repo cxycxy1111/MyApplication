@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import xyz.institutionmanage.sailfish.R;
+
 /**
  * Created by dengweixiong on 2017/10/20.
  */
@@ -35,10 +37,10 @@ public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnCli
         LayoutInflater inflater = LayoutInflater.from(context);
         switch (viewType) {
             case TYPE_HEADER:
-                ViewGroup vgHeader = (ViewGroup)inflater.inflate(xyz.example.dengweixiong.myapplication.R.layout.tile_recyclerview_header,parent,false);
+                ViewGroup vgHeader = (ViewGroup)inflater.inflate(R.layout.tile_recyclerview_header,parent,false);
                 return new HeaderViewHolder(vgHeader);
             case TYPE_CONTENT:
-                ViewGroup vgContent = (ViewGroup)inflater.inflate(xyz.example.dengweixiong.myapplication.R.layout.tile_simple_list_view_no_icon,parent,false);
+                ViewGroup vgContent = (ViewGroup)inflater.inflate(R.layout.tile_simple_list_view_no_icon,parent,false);
                 vgContent.setOnClickListener(this);
                 return new ContentViewHolder(vgContent);
             default:return null;
@@ -79,7 +81,7 @@ public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnCli
         TextView textView;
         private HeaderViewHolder(View view) {
             super(view);
-            textView = (TextView)itemView.findViewById(xyz.example.dengweixiong.myapplication.R.id.tv_header_name_t_rv_header);
+            textView = (TextView)itemView.findViewById(R.id.tv_header_name_t_rv_header);
         }
     }
 
@@ -87,7 +89,7 @@ public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnCli
         TextView tv;
         private ContentViewHolder(View view) {
             super(view);
-            tv = (TextView)itemView.findViewById(xyz.example.dengweixiong.myapplication.R.id.simple_list_view_with_icon_text);
+            tv = (TextView)itemView.findViewById(R.id.simple_list_view_with_icon_text);
         }
     }
 

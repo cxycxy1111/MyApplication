@@ -3,6 +3,7 @@ package xyz.institutionmanage.sailfish.Util;
 import android.app.Activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,7 +27,9 @@ public class ActivityManager{
     }
 
     public static void removeAllActivity() {
-        for (Activity activity:activityList) {
+        Iterator<Activity> iterator = activityList.iterator();
+        while (iterator.hasNext()) {
+            Activity activity = iterator.next();
             if (!activity.isFinishing()) {
                 activity.finish();
             }

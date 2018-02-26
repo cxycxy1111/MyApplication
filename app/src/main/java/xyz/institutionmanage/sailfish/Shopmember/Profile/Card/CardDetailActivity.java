@@ -27,6 +27,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -53,7 +54,7 @@ public class CardDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_card_detail);
+        setContentView(R.layout.activity_card_detail);
         initData();
         initToolbar();
         initEditText();
@@ -62,7 +63,7 @@ public class CardDetailActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_card_detail,menu);
+        getMenuInflater().inflate(R.menu.menu_card_detail,menu);
         return true;
     }
 
@@ -73,10 +74,10 @@ public class CardDetailActivity extends BaseActivity {
                 setResult(Ref.RESULTCODE_NULL,null);
                 finish();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.remove_card_detail:
+            case R.id.remove_card_detail:
                 deleteCardTypeExe();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.save_card_detail:
+            case R.id.save_card_detail:
                 saveChange();
                 break;
             default:
@@ -98,21 +99,21 @@ public class CardDetailActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.tb_a_card_detail);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_a_card_detail);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(c_name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initEditText() {
-        rl_balance = (RelativeLayout)findViewById(xyz.example.dengweixiong.myapplication.R.id.rl_balance_a_card_detail);
-        rl_times = (RelativeLayout)findViewById(xyz.example.dengweixiong.myapplication.R.id.rl_times_a_card_detail);
-        et_name = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_name_a_card_detail);
-        et_price = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_price_a_card_detail);
-        et_balance = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_balance_a_card_detail);
-        et_times = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_times_a_card_detail);
-        et_starttime = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_starttime_a_card_detail);
-        et_invalidtime = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_invalidtime_activity_card_detail);
+        rl_balance = (RelativeLayout)findViewById(R.id.rl_balance_a_card_detail);
+        rl_times = (RelativeLayout)findViewById(R.id.rl_times_a_card_detail);
+        et_name = (EditText)findViewById(R.id.et_name_a_card_detail);
+        et_price = (EditText)findViewById(R.id.et_price_a_card_detail);
+        et_balance = (EditText)findViewById(R.id.et_balance_a_card_detail);
+        et_times = (EditText)findViewById(R.id.et_times_a_card_detail);
+        et_starttime = (EditText)findViewById(R.id.et_starttime_a_card_detail);
+        et_invalidtime = (EditText)findViewById(R.id.et_invalidtime_activity_card_detail);
         switch (type) {
             case 1:
                 rl_times.setVisibility(View.GONE);

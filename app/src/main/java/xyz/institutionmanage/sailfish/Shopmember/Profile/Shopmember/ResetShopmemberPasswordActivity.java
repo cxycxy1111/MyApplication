@@ -15,6 +15,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -33,11 +34,11 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_reset_shopmember_password);
+        setContentView(R.layout.activity_reset_shopmember_password);
         initData();
-        Toolbar toolbar = (Toolbar) findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_general);
-        et_password = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_newpwd_a_reset_shopmember_password);
-        et_password_repeat = (EditText)findViewById(xyz.example.dengweixiong.myapplication.R.id.et_repeat_newpwd_a_reset_shopmember_password);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
+        et_password = (EditText)findViewById(R.id.et_newpwd_a_reset_shopmember_password);
+        et_password_repeat = (EditText)findViewById(R.id.et_repeat_newpwd_a_reset_shopmember_password);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("重设密码");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,7 +46,7 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_reset_shopmember_password,menu);
+        getMenuInflater().inflate(R.menu.menu_reset_shopmember_password,menu);
         return true;
     }
 
@@ -55,7 +56,7 @@ public class ResetShopmemberPasswordActivity extends BaseActivity {
             case android.R.id.home:
                 ResetShopmemberPasswordActivity.this.finish();
                 break;
-            case xyz.example.dengweixiong.myapplication.R.id.modify_reset_shopmember_password:
+            case R.id.modify_reset_shopmember_password:
                 dealWithRequestParamater();
                 break;
             default:break;

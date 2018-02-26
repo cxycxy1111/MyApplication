@@ -21,7 +21,7 @@ public class SharePreferenceManager {
             case 2:
                 return String.valueOf(preferences.getLong(key,0));
             case 3:
-                return String.valueOf(preferences.getString(key,null));
+                return String.valueOf(preferences.getString(key,""));
             default:return null;
         }
     }

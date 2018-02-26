@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.institutionmanage.sailfish.Member.Main.MemberMainActivity">
+
+    <include
+        android:id="@+id/tb_a_m_main"
+        layout="@layout/tile_toolbar">
+    </include>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_m_main_vp"
+        android:layout_below="@id/tb_a_m_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/bottomNavigationbarBackgroundColor"
+        app:itemTextColor="@color/colorPrimary"
+        app:itemIconTint="@color/colorPrimaryDark"
+        android:background="@color/bottomNavigationbarBackgroundColor"
+        app:menu="@menu/navigation" />
+
+</RelativeLayout>

@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/simple_list_view_img"
-        android:src="@mipmap/icon"
+        android:src="@mipmap/ic_bnb_courses_hdpi"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_centerVertical="true"

@@ -11,9 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,8 +25,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVCourseListAdapter;
-import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
-import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Course.Course.CourseDetailActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -88,6 +84,7 @@ public class CourseListFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+        setHasOptionsMenu(false);
     }
 
     @Override
@@ -97,28 +94,6 @@ public class CourseListFragment extends Fragment {
         initShopData();
         initRecyclerView();
         return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_fragment_course,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_fragment_course_add_new_course:
-                Intent intent1 = new Intent(getParentFragment().getActivity(), AddCourseActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.menu_fragment_course_add_new_course_plan:
-                Intent intent = new Intent(getParentFragment().getActivity(), AddCoursePlanActivity.class);
-                startActivity(intent);
-                break;
-            default:break;
-        }
-        return true;
     }
 
     /**
@@ -147,6 +122,7 @@ public class CourseListFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
+                Log.d(TAG, "onResponse: " + resp);
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
@@ -158,14 +134,8 @@ public class CourseListFragment extends Fragment {
                             new_map.put("id",temp_map.get("id"));
                             new_map.put("name",temp_map.get("name"));
                             new_map.put("last_time",String.valueOf(temp_map.get("last_time")));
-                            Log.d(TAG, "onResponse: " + String.valueOf(temp_map.get("last_time")));
                             new_map.put("type",temp_map.get("type"));
-                            if (supportedcard.equals("") | supportedcard.equals(null)) {
-                                new_map.put("supportedcard","未设置所支持的卡");
-                            }else {
-                                supportedcard = supportedcard.substring(0,supportedcard.length()-1);
-                                new_map.put("supportedcard","支持" + supportedcard);
-                            }
+                            new_map.put("supportedcard",temp_map.get("supportedcard"));
                             recyclerviewdata.add(new_map);
                         }
                         getParentFragment().getActivity().runOnUiThread(new Runnable() {
@@ -206,6 +176,17 @@ public class CourseListFragment extends Fragment {
      */
     private void initRecyclerView (View view) {
         adapter = new RVCourseListAdapter(recyclerviewdata,getParentFragment().getActivity());
+        adapter.setOnItemClickListener(new RVCourseListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Map<String,String> map = recyclerviewdata.get(position);
+                Intent intent = new Intent(getParentFragment().getActivity(), CourseDetailActivity.class);
+                intent.putExtra("name",map.get("name"));
+                intent.putExtra("id",String.valueOf(map.get("id")));
+                intent.putExtra("type",String.valueOf(map.get("type")));
+                getParentFragment().getActivity().startActivityForResult(intent,1);
+            }
+        });
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
@@ -253,5 +234,16 @@ public class CourseListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerviewdata.clear();
+        regional_list.clear();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+        initRecyclerView();
     }
 }

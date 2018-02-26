@@ -169,7 +169,7 @@ public class CardTypeListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(CardTypeListActivity.this,"暂无会员卡类型，请新增");
+                                MethodTool.showToast(CardTypeListActivity.this,"暂无余额卡");
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(CardTypeListActivity.this);
@@ -236,7 +236,7 @@ public class CardTypeListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                MethodTool.showToast(CardTypeListActivity.this,"暂无次卡");
                                 break;
                             case AUTHORIZE_FAIL:
                                 MethodTool.exitAcitivityDueToAuthorizeFail(CardTypeListActivity.this);
@@ -286,7 +286,7 @@ public class CardTypeListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(CardTypeListActivity.this,Ref.OP_NSR);
+                                MethodTool.showToast(CardTypeListActivity.this,"暂无有效期卡");
                                 break;
                             case AUTHORIZE_FAIL:
                                 MethodTool.exitAcitivityDueToAuthorizeFail(CardTypeListActivity.this);

@@ -41,7 +41,7 @@ public class MemberCardListActivity extends BaseActivity{
     private String s_id,sm_id;
     private String str_selected_mc_id;
     private String [] strs_keys_member = {"id","name"};
-    private String [] strs_keys_membercard = {"id","name","balance"};
+    private String [] strs_keys_membercard = {"id","name","balance","card_id"};
 
     private List<String> list_member_name = new ArrayList<>();
     private List<Map<String,String>> maplist_member_origin = new ArrayList<>();

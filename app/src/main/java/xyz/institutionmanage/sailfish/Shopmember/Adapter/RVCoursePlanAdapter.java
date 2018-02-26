@@ -1,7 +1,6 @@
 package xyz.institutionmanage.sailfish.Shopmember.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +15,16 @@ import java.util.List;
 import java.util.Map;
 
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
-import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity;
 
 /**
  * Created by dengweixiong on 2017/12/2.
  */
 
-public class RVCoursePlanAdapter extends RecyclerView.Adapter{
+public class RVCoursePlanAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
     private List<Map<String,String>> mapList = new ArrayList<>();
     private Context context;
+    private RVCoursePlanAdapter.OnItemClickListener onItemClickListener = null;
 
     public RVCoursePlanAdapter(List<Map<String,String>> mapList,Context context) {
         this.mapList = mapList;
@@ -37,28 +35,8 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.tile_course_plan,parent,false);
+        view.setOnClickListener(this);
         final VH viewHolder = new VH(view);
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int p = viewHolder.getAdapterPosition();
-                Map<String,String> map = mapList.get(p);
-                String course_type = String.valueOf(map.get("course_type"));
-                Intent intent;
-                switch (course_type) {
-                    case "4":
-                        intent = new Intent(parent.getContext(), CoursePlanDetailPrivateActivity.class);
-                        break;
-                    default:
-                        intent = new Intent(parent.getContext(), CoursePlanDetailActivity.class);
-                        break;
-                }
-                intent.putExtra("cp_id",String.valueOf(map.get("courseplan_id")));
-                intent.putExtra("course_name",map.get("course_name"));
-                intent.putExtra("time",map.get("start_time"));
-                context.startActivity(intent);
-            }
-        });
         return viewHolder;
     }
 
@@ -108,5 +86,19 @@ public class RVCoursePlanAdapter extends RecyclerView.Adapter{
             tv_last_time = (TextView)view.findViewById(R.id.tv_last_time_t_course_plan);
         }
 
+    }
+
+    //内部接口
+    public interface OnItemClickListener {
+        void onItemClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(RVCoursePlanAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        onItemClickListener.onItemClick(v,(int)v.getTag());
     }
 }

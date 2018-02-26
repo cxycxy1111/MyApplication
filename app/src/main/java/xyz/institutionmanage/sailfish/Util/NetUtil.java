@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
 public class NetUtil {
 
     //使用家里网络进行调试
-    private static final String LOCAL_PREFIX = "http://10.0.0.2:8080/Sailfish";
+    private static final String LOCAL_PREFIX = "http://10.0.0.4:8080/Sailfish";
     //使用冯静霞家的网络进行调试
     private static final String FJX_PREFIX = "http://192.168.1.112:8080/Sailfish";
     //使用省移动网络进行调试
@@ -36,6 +36,7 @@ public class NetUtil {
 
     private static final String FY_PREFIX = "http://192.168.0.107:8080/Sailfish";
 
+    private static final String SELECTED_HOST = LOCAL_PREFIX;
 
     private static OkHttpClient client;
 
@@ -46,7 +47,7 @@ public class NetUtil {
      * @param callback 回调
      */
     public static void sendHttpRequest(Context context,String address,Callback callback) {
-        String str = REMOTE_PREFIX + address;
+        String str = SELECTED_HOST + address;
         initOkHttpClient(context);
         Request request = new Request.Builder().url(str).method("GET",null).build();
         Call call = client.newCall(request);
@@ -59,7 +60,7 @@ public class NetUtil {
         for (Map.Entry<String,Object> entry:map.entrySet()) {
             builder.add(entry.getKey(),String.valueOf(entry.getValue()));
         }
-        String str = REMOTE_PREFIX + url;
+        String str = SELECTED_HOST + url;
         RequestBody body = builder.build();
         Request request = new Request.Builder().url(str).post(body).build();
         Call call = client.newCall(request);
@@ -73,7 +74,7 @@ public class NetUtil {
     private static void initOkHttpClient(Context context) {
         final Map<String,List<Cookie>> cookieStore = new HashMap<>();
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(120, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS).cookieJar(new CookiesManager(context));
         client = builder.build();

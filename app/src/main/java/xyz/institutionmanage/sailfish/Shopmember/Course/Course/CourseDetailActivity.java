@@ -47,7 +47,7 @@ public class CourseDetailActivity
     private int int_current_year,int_current_month,int_current_date;
     private String str_courseId,str_shopId,sm_id,str_type,str_courseName;
     private String [] strs_cardKeys = new String[] {"id","name","type"};
-    private String [] strs_supportCardKeys = new String[] {"c_id","card_name","course_name","cs_price"};
+    private String [] strs_supportCardKeys = new String[] {"c_id","card_name","course_name","cs_price","type"};
     private String [] strs_courseKeys = new String[] {"id","type","name","last_time","max_book_num"};
     private String [] strs_coursePrivateKeys = new String[] {"id","type","course_name","shopmember_name","member_name","total_times","rest_times","expired_time","actual_cost"};
     private ScrollView scrollView;

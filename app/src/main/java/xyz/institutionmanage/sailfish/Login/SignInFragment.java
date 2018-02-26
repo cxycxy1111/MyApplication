@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class SignInFragment
     private EditText et_loginname_a_regist_admin,et_password_a_regist_admin;
     private String loginname,password;
     private Button btn_submit_a_regist_admin;
+    private CheckBox cb_is_remember_password;
 
     private OnFragmentInteractionListener mListener;
 
@@ -130,6 +132,17 @@ public class SignInFragment
         et_loginname_a_regist_admin = (EditText)view.findViewById(R.id.et_loginname_a_signin_admin);
         et_password_a_regist_admin = (EditText)view.findViewById(R.id.et_password_a_signin_admin);
         btn_submit_a_regist_admin = (Button)view.findViewById(R.id.btn_submit_a_signin_admin);
+        cb_is_remember_password = (CheckBox)view.findViewById(R.id.cb_is_remember_password_a_signin_admin);
+        String is_remember = SharePreferenceManager.getSharePreferenceValue(getActivity(),"login_data","is_remember_password",1);
+        if (is_remember.equals("1")) {
+            cb_is_remember_password.setChecked(true);
+            String login_name = SharePreferenceManager.getSharePreferenceValue(getActivity(),"login_data","login_name",3);
+            String password = SharePreferenceManager.getSharePreferenceValue(getActivity(),"login_data","password",3);
+            et_loginname_a_regist_admin.setText(login_name);
+            et_password_a_regist_admin.setText(password);
+        }else {
+            cb_is_remember_password.setChecked(false);
+        }
         btn_submit_a_regist_admin.setOnClickListener(this);
     }
 
@@ -236,8 +249,13 @@ public class SignInFragment
         SharePreferenceManager.storeSharePreferenceInt(getActivity(),"sasm","sm_type",Integer.valueOf(String.valueOf(map.get("type"))));
         SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","sm_id",Integer.valueOf(String.valueOf(map.get("id"))));
         SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
-        SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","login_name",loginname);
-        SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","password",password);
+        if (cb_is_remember_password.isChecked()) {
+            SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",1);
+            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","login_name",loginname);
+            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","password",password);
+        }else {
+            //SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",0);
+        }
 
         jumpTo();
     }

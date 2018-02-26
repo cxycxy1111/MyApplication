@@ -22,6 +22,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.CourseViewPagerAdapter;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -47,7 +48,7 @@ public class CoursePlanDetailActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(xyz.example.dengweixiong.myapplication.R.layout.activity_course_plan_detail);
+        setContentView(R.layout.activity_course_plan_detail);
         initData();
         initToolBar();
         initTabLayout();
@@ -56,7 +57,7 @@ public class CoursePlanDetailActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(xyz.example.dengweixiong.myapplication.R.menu.menu_courseplan_detail,menu);
+        getMenuInflater().inflate(R.menu.menu_courseplan_detail,menu);
         return true;
     }
 
@@ -70,7 +71,7 @@ public class CoursePlanDetailActivity
     }
 
     private void initToolBar() {
-        Toolbar toolbar = (Toolbar)findViewById(xyz.example.dengweixiong.myapplication.R.id.toolbar_general);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(str_course_name);
         String subtitle = str_time;
@@ -80,7 +81,7 @@ public class CoursePlanDetailActivity
     }
 
     private void initTabLayout() {
-        tabLayout = (TabLayout)findViewById(xyz.example.dengweixiong.myapplication.R.id.tl_a_courseplan_detail);
+        tabLayout = (TabLayout)findViewById(R.id.tl_a_courseplan_detail);
         tabLayout.addTab(tabLayout.newTab().setText("排课详情"));
         tabLayout.addTab(tabLayout.newTab().setText("教授教师"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -102,7 +103,7 @@ public class CoursePlanDetailActivity
     }
 
     private void initViewPager() {
-        viewPager = (ViewPager)findViewById(xyz.example.dengweixiong.myapplication.R.id.vp_a_courseplan_detail);
+        viewPager = (ViewPager)findViewById(R.id.vp_a_courseplan_detail);
         initFragments();
         adapter = new CourseViewPagerAdapter(fm,strs_title,fragments);
         viewPager.setAdapter(adapter);
@@ -129,7 +130,7 @@ public class CoursePlanDetailActivity
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();break;
-            case xyz.example.dengweixiong.myapplication.R.id.delete_courseplan_detail:
+            case R.id.delete_courseplan_detail:
                 showRemoveAlert();
                 break;
             default:break;

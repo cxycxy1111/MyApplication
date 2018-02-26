@@ -44,7 +44,8 @@ public class LoginActivity
         extends BaseActivity
         implements TabLayout.OnTabSelectedListener,
         RegistShopFragment.OnFragmentInteractionListener,
-        SignInFragment.OnFragmentInteractionListener {
+        SignInFragment.OnFragmentInteractionListener,
+        MemberSignInFragment.OnFragmentInteractionListener {
 
     private String sm_type;
     private String sm_id, s_id;
@@ -56,7 +57,8 @@ public class LoginActivity
     private List<Fragment> fragments = new ArrayList<>();
     private FragmentManager manager;
     private CourseViewPagerAdapter adapter_vp;
-    private String[] str_title = {"注册新机构", "登录"};
+    private String[] str_title = {"注册新机构", "教师登录","会员登录"};
+    private String[] str_title_2 = {"注册新机构", "教师登录"};
     private String login_name, password;
     private ProgressBar progressBar;
 
@@ -101,15 +103,14 @@ public class LoginActivity
         sm_id = SharePreferenceManager.getSharePreferenceValue(this, "sasm", "sm_id", 2);
         login_name = SharePreferenceManager.getSharePreferenceValue(this, "login_data", "login_name", 3);
         password = SharePreferenceManager.getSharePreferenceValue(this, "login_data", "password", 3);
-
     }
 
     private void initView() {
         initToolbar();
         initTabLayout();
         initViewPager();
-        createProgressBar();
-        checkInfoIsPrepared();
+        //createProgressBar();
+        //checkInfoIsPrepared();
     }
 
     private void initToolbar() {
@@ -121,7 +122,8 @@ public class LoginActivity
     private void initTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tl_a_login);
         tabLayout.addTab(tabLayout.newTab().setText("注册新机构"));
-        tabLayout.addTab(tabLayout.newTab().setText("登录"));
+        tabLayout.addTab(tabLayout.newTab().setText("教师登录"));
+        tabLayout.addTab(tabLayout.newTab().setText("会员登录"));
         tabLayout.addOnTabSelectedListener(this);
     }
 
@@ -134,7 +136,8 @@ public class LoginActivity
 
     private void initFragments() {
         fragments.add(RegistShopFragment.newInstance("注册新机构"));
-        fragments.add(SignInFragment.newInstance("登录"));
+        fragments.add(SignInFragment.newInstance("教师登录"));
+        fragments.add(MemberSignInFragment.newInstance("会员登录"));
     }
 
     /**
@@ -165,7 +168,6 @@ public class LoginActivity
         String deviceBrand = Build.BRAND;
         String systemVersion = Build.VERSION.RELEASE;
         String systemModel = Build.MODEL;
-        Context context = getApplicationContext();
         HashMap<String,Object> map_1 = new HashMap<>();
         map_1.put("user_name",login_name);
         map_1.put("password",password);
@@ -238,6 +240,7 @@ public class LoginActivity
     private void storeLoginMessage() {
         SharedPreferences.Editor editor_sasm = getSharedPreferences("sasm",Context.MODE_PRIVATE).edit();
         editor_sasm.clear().apply();
+        String int_tmp_is_remember_password = SharePreferenceManager.getSharePreferenceValue(this,"login_data","is_remember_password",1);
         SharedPreferences.Editor editor_login_data = getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
         editor_login_data.clear().apply();
 
@@ -246,5 +249,10 @@ public class LoginActivity
         SharePreferenceManager.storeSharePreferenceLong(this,"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
         SharePreferenceManager.storeSharePreferenceString(this,"login_data","login_name",login_name);
         SharePreferenceManager.storeSharePreferenceString(this,"login_data","password",password);
+        if (int_tmp_is_remember_password.equals("0")) {
+            SharePreferenceManager.storeSharePreferenceInt(this,"login_data","is_remember_password",0);
+        }else {
+            SharePreferenceManager.storeSharePreferenceInt(this,"login_data","is_remember_password",1);
+        }
     }
 }

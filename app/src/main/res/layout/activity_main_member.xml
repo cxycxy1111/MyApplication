@@ -19,7 +19,6 @@
                 android:id="@+id/rl_add_member_f_member"
                 style="@style/rl_first_widget"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="88dp"
                 android:background="#fff">
 
                 <ImageView

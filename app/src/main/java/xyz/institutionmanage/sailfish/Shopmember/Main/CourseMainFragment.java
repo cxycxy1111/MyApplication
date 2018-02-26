@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.CourseViewPagerAdapter;
+import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 
 public class CourseMainFragment
         extends Fragment
@@ -60,11 +65,12 @@ public class CourseMainFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(xyz.example.dengweixiong.myapplication.R.layout.activity_main_course,container,false);
+        View view = inflater.inflate(R.layout.activity_main_course,container,false);
         initView(view);
         return view;
     }
@@ -96,7 +102,7 @@ public class CourseMainFragment
 
     private void initTabLayout(View view) {
         if (tabLayout == null) {
-            tabLayout = (TabLayout)view.findViewById(xyz.example.dengweixiong.myapplication.R.id.tl_f_courseMain);
+            tabLayout = (TabLayout)view.findViewById(R.id.tl_f_courseMain);
             tabLayout.addTab(tabLayout.newTab().setText("课程列表"));
             tabLayout.addTab(tabLayout.newTab().setText("排课列表"));
             tabLayout.addOnTabSelectedListener(this);
@@ -106,7 +112,7 @@ public class CourseMainFragment
     private void initViewPager(View view) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         if (viewPager == null) {
-            viewPager = (ViewPager) view.findViewById(xyz.example.dengweixiong.myapplication.R.id.vp_f_courseMain);
+            viewPager = (ViewPager) view.findViewById(R.id.vp_f_courseMain);
         }
         if (adapter_vp == null) {
             adapter_vp = new CourseViewPagerAdapter(manager, str_title, fragments);
@@ -176,4 +182,27 @@ public class CourseMainFragment
         return false;
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu,inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_main,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.add_new_course_main:
+                intent = new Intent(getActivity(),AddCourseActivity.class);
+                startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
+                return true;
+            case R.id.add_new_courseplan_main:
+                intent = new Intent(getActivity(),AddCoursePlanActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return false;
+    }
 }

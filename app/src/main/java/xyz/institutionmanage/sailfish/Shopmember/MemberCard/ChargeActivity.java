@@ -55,7 +55,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
     private static final String TOOLBAR_TITLE = "充值";
 
     private String[] keys_member = new String[] {"id","name"};
-    private String[] keys_member_card = new String[] {"id","name","balance","type"};
+    private String[] keys_member_card = new String[] {"id","name","balance","type","card_id"};
     private List<String> list_member_name = new ArrayList<>();
     private List<String> list_member_card_name = new ArrayList<>();
     private List<Map<String,String>>  maplist_member = new ArrayList<>();

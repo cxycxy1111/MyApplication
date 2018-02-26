@@ -47,6 +47,7 @@ public class MemberFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
+        setHasOptionsMenu(false);
     }
 
     @Override
