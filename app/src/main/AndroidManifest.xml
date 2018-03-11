@@ -84,7 +84,9 @@
             android:label="@string/title_activity_mcourse_plan_list"
             android:theme="@style/AppTheme" />
         <activity android:name=".Member.CoursePlan.MCoursePlanDetailPrivateActivity" />
-        <activity android:name=".Member.CoursePlan.MCoursePlanDetailActivity"></activity>
+        <activity android:name=".Member.CoursePlan.MCoursePlanDetailActivity" />
+        <activity android:name=".Member.MemberCard.MMemberCardListActivity" />
+        <activity android:name=".Member.MemberCard.MMemberCardDetailActivity"></activity>
     </application>
 
 </manifest>

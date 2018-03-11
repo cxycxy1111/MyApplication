@@ -1,9 +1,16 @@
 package xyz.institutionmanage.sailfish.Util;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
@@ -11,6 +18,8 @@ import android.widget.Toast;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    private ProgressBar progressBar;
 
     public BaseActivity() {
         super();
@@ -37,4 +46,25 @@ public class BaseActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    private void createProgressBar(Activity activity) {
+        Context context = activity;
+        FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER;
+        progressBar = new ProgressBar(context);
+        progressBar.setLayoutParams(layoutParams);
+        progressBar.setVisibility(View.GONE);
+        rootFrameLayout.addView(progressBar);
+    }
+
+    public ProgressBar getProgressBar(Activity activity) {
+        if (progressBar == null) {
+            createProgressBar(activity);
+        }
+        return progressBar;
+    }
+
+    public void setProgressBar(ProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
 }

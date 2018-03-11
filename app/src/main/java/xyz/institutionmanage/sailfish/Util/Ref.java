@@ -31,6 +31,9 @@ public abstract class Ref {
     public static final String ALERT_SESSION_EXPIRED = "登录已过期，请重新登录";
     public static final String OP_VIEW_AUTHORIZE_FAIL = "你没有权限查看，请联系管理员";
     public static final String OP_MANAGE_AUTHORIZE_FAIL = "你没有权限管理，请联系管理员";
+    public static final String OP_MEMBER_CARD_EXPIRED = "会员卡已过期，无法签到";
+    public static final String OP_REST_TIMES_NOT_ENOUGH = "剩余次数不足，无法签到";
+    public static final String OP_BALANCE_NOT_ENOUGH = "余额不足，无法签到";
 
     /**
      * 结果码
@@ -57,6 +60,9 @@ public abstract class Ref {
     public static final String SESSION_EXPIRED = "session_expired";
     public static final String AUTHORIZE_FAIL = "authorize_fail";
     public static final String BALANCE_NOT_ENOUGH = "balance_not_enough";
+    public static final String COURSEPLAN_EXPIRED = "courseplan_expired";
+    public static final String MEMBER_CARD_EXPIRED = "member_card_expired";
+    public static final String REST_TIMES_NOT_ENOUGH = "rest_times_not_enough";
 
     /**
      * 操作类型

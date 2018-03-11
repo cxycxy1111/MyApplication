@@ -12,11 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -60,7 +55,6 @@ public class LoginActivity
     private String[] str_title = {"注册新机构", "教师登录","会员登录"};
     private String[] str_title_2 = {"注册新机构", "教师登录"};
     private String login_name, password;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,25 +134,9 @@ public class LoginActivity
         fragments.add(MemberSignInFragment.newInstance("会员登录"));
     }
 
-    /**
-     * 创建进度条
-     */
-
-    private void createProgressBar() {
-        context = this;
-        FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
-        progressBar = new ProgressBar(context);
-        progressBar.setLayoutParams(layoutParams);
-        progressBar.setVisibility(View.VISIBLE);
-        rootFrameLayout.addView(progressBar);
-    }
-
     private void checkInfoIsPrepared() {
         if (sm_type.equals("") || s_id.equals("") || sm_id.equals("") || login_name.equals("") || password.equals("")) {
             Toast.makeText(this, "自动登录失败", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
         } else {
             autoLogin();
         }
@@ -183,7 +161,6 @@ public class LoginActivity
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.hideView(LoginActivity.this,progressBar);
                 MethodTool.showToast(LoginActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
@@ -196,11 +173,9 @@ public class LoginActivity
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NOT_MATCH:
-                                MethodTool.hideView(LoginActivity.this,progressBar);
                                 MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
                                 break;
                             case NSR:
-                                MethodTool.hideView(LoginActivity.this,progressBar);
                                 MethodTool.showToast(LoginActivity.this,"登录名与密码不匹配");
                                 break;
                             case SESSION_EXPIRED:
@@ -217,14 +192,12 @@ public class LoginActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                progressBar.setVisibility(View.GONE);
                                 Intent intent = new Intent(LoginActivity.this,ShopmemberMainActivity.class);
                                 startActivity(intent);
                             }
                         });
                         break;
                     case RESP_ERROR:
-                        MethodTool.hideView(LoginActivity.this,progressBar);
                         MethodTool.showToast(LoginActivity.this,Ref.UNKNOWN_ERROR);
                         break;
                     default:break;

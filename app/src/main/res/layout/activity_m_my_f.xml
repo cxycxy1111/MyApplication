@@ -31,20 +31,33 @@
                     android:text="我的资料" />
             </RelativeLayout>
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/rl_all_courseplan_f_m_my"
-                style="@style/rl_first_widget"
-                android:layout_alignParentTop="true"
+                android:id="@+id/rl_my_membercard_f_m_my"
+                style="@style/rl_normal"
                 android:background="#fff">
 
                 <ImageView
-                    android:id="@+id/img_all_courseplan_f_m_my"
+                    android:id="@+id/img_my_membercard_f_m_my"
                     android:src="@mipmap/ic_member_addhdpi"
                     style="@style/plain_img" />
                 <TextView
-                    android:id="@+id/tv_all_courseplan_f_m_my"
-                    android:layout_toRightOf="@id/img_all_courseplan_f_m_my"
+                    android:id="@+id/tv_my_membercard_f_m_my"
+                    android:layout_toRightOf="@id/img_my_membercard_f_m_my"
                     style="@style/plain_text"
                     android:text="我的会员卡" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_logout_f_m_my"
+                style="@style/rl_first_widget">
+
+                <ImageView
+                    android:id="@+id/img_logout_f_m_my"
+                    android:src="@mipmap/ic_logouthdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_logout_f_m_my"
+                    android:layout_toRightOf="@id/img_logout_f_m_my"
+                    style="@style/plain_text"
+                    android:text="退出登录" />
             </RelativeLayout>
         </LinearLayout>
 

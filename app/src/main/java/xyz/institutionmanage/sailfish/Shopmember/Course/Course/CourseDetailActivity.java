@@ -613,17 +613,23 @@ public class CourseDetailActivity
             }
             //删除会员卡
             else if (map_before.get("checked").equals("1") && !map_after.get("checked").equals("1")) {
-                builder.append("2").append("_").
-                        append(str_courseId).append("_").
-                        append(map_after.get("id")).append("_").
-                        append(map_after.get("balance")).append("-");
+                builder.append("2").append("_").append(str_courseId).append("_").append(map_after.get("id")).append("_");
+                if (map_after.get("type").equals("3")) {
+                    builder.append("0").append("-");
+                }else {
+                    builder.append(map_after.get("balance")).append("-");
+                }
             }
             //新增会员卡
             else if (!map_before.get("checked").equals("1") && map_after.get("checked").equals("1")) {
                 builder.append("1").append("_").
                         append(str_courseId).append("_").
-                        append(map_after.get("id")).append("_").
-                        append(map_after.get("balance")).append("-");
+                        append(map_after.get("id")).append("_");
+                if (map_after.get("type").equals("3")) {
+                    builder.append("0").append("-");
+                }else {
+                    builder.append(map_after.get("balance")).append("-");
+                }
             }else {
             }
         }

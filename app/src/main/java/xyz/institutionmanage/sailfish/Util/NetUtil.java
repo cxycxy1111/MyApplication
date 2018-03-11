@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
 public class NetUtil {
 
     //使用家里网络进行调试
-    private static final String LOCAL_PREFIX = "http://10.0.0.4:8080/Sailfish";
+    private static final String LOCAL_PREFIX = "http://10.0.0.3:8080/Sailfish";
     //使用冯静霞家的网络进行调试
     private static final String FJX_PREFIX = "http://192.168.1.112:8080/Sailfish";
     //使用省移动网络进行调试

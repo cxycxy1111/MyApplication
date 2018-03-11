@@ -122,8 +122,8 @@ public class MCourseDetailInfoFragment extends Fragment {
                                     tv_type.setText("集训课");
                                 }
                                 tv_course_name.setText(map.get(keys[2]));
-                                tv_last_time.setText(String.valueOf(map.get(keys[3])));
-                                tv_max_book_num.setText(String.valueOf(map.get(keys[4])));
+                                tv_last_time.setText(String.valueOf(map.get(keys[3]))+"分钟");
+                                tv_max_book_num.setText(String.valueOf(map.get(keys[4]))+"人");
                             }
                         });
                         break;

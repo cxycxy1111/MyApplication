@@ -1,7 +1,6 @@
 package xyz.institutionmanage.sailfish.Member.Course;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.ActivityManager;
+import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -23,7 +23,7 @@ import xyz.institutionmanage.sailfish.Util.MethodTool;
 import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 
-public class MCourseDetailPrivateActivity extends AppCompatActivity {
+public class MCourseDetailPrivateActivity extends BaseActivity {
 
     private long c_id;
     private String c_name;
@@ -100,12 +100,12 @@ public class MCourseDetailPrivateActivity extends AppCompatActivity {
                                 tv_course_name.setText(map.get(keys[2]));
                                 tv_teacher.setText(map.get(keys[3]));
                                 tv_student.setText(map.get(keys[4]));
-                                tv_total_times.setText(String.valueOf(map.get(keys[5])));
-                                tv_rest_times.setText(String.valueOf(map.get(keys[6])));
+                                tv_total_times.setText(String.valueOf(map.get(keys[5]))+"次");
+                                tv_rest_times.setText(String.valueOf(map.get(keys[6]))+"次");
                                 String expired_time = map.get(keys[7]);
-                                expired_time = expired_time.substring(0,expired_time.length()-9);
+                                expired_time = expired_time.substring(0,expired_time.length()-11);
                                 tv_expired_time.setText(expired_time);
-                                tv_actual_cost.setText(String.valueOf(map.get(keys[8])));
+                                tv_actual_cost.setText(String.valueOf(map.get(keys[8]))+"元");
                             }
                         });
                 }

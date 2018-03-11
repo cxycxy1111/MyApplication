@@ -18,7 +18,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVCoursePlanAdapter;
+import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
+import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
 import xyz.institutionmanage.sailfish.Util.MethodTool;
@@ -30,6 +32,7 @@ public class MCoursePlanListActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private ArrayList<Map<String,String>> mapArrayList;
     private LinearLayoutManager linearLayoutManager;
+    private RVCoursePlanAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class MCoursePlanListActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = (RecyclerView)findViewById(R.id.rv_a_m_courseplan_list);
+        linearLayoutManager = new LinearLayoutManager(MCoursePlanListActivity.this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void initDatas() {
@@ -65,6 +70,16 @@ public class MCoursePlanListActivity extends BaseActivity {
                         initRecyclerView();
                         break;
                     case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case SESSION_EXPIRED:
+                                MethodTool.showToast(MCoursePlanListActivity.this,Ref.ALERT_SESSION_EXPIRED);
+                                ActivityManager.removeAllActivity();
+                                break;
+                            case EMPTY_RESULT:
+                                MethodTool.showToast(MCoursePlanListActivity.this,"暂无排课");
+                                break;
+                            default:break;
+                        }
                         break;
                     case RESP_ERROR:
                         MethodTool.showToast(MCoursePlanListActivity.this,Ref.UNKNOWN_ERROR);
@@ -80,33 +95,33 @@ public class MCoursePlanListActivity extends BaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                linearLayoutManager = new LinearLayoutManager(MCoursePlanListActivity.this,LinearLayoutManager.VERTICAL,false);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                RVCoursePlanAdapter adapter = new RVCoursePlanAdapter(mapArrayList,MCoursePlanListActivity.this);
-                adapter.setOnItemClickListener(new RVCoursePlanAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent;
-                        switch (String.valueOf(mapArrayList.get(position).get("course_type"))) {
-                            case "4":
-                                intent = new Intent(MCoursePlanListActivity.this,MCoursePlanDetailPrivateActivity.class);
-                                intent.putExtra("cp_id",String.valueOf(mapArrayList.get(position).get("courseplan_id")));
-                                intent.putExtra("c_name",String.valueOf(mapArrayList.get(position).get("course_name")));
-                                intent.putExtra("start_time",String.valueOf(mapArrayList.get(position).get("start_time")));
-                                startActivity(intent);
-                                break;
-                            default:
-                                intent = new Intent(MCoursePlanListActivity.this,MCoursePlanDetailActivity.class);
-                                intent.putExtra("cp_id",String.valueOf(mapArrayList.get(position).get("courseplan_id")));
-                                intent.putExtra("c_name",String.valueOf(mapArrayList.get(position).get("course_name")));
-                                intent.putExtra("start_time",String.valueOf(mapArrayList.get(position).get("start_time")));
-                                startActivity(intent);
-                                break;
+
+                if (adapter == null) {
+                    adapter = new RVCoursePlanAdapter(mapArrayList,MCoursePlanListActivity.this);
+                    adapter.setOnItemClickListener(new RVCoursePlanAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Intent intent;
+                            switch (String.valueOf(mapArrayList.get(position).get("course_type"))) {
+                                case "4":
+                                    intent = new Intent(MCoursePlanListActivity.this,MCoursePlanDetailPrivateActivity.class);
+                                    intent.putExtra("cp_id",String.valueOf(mapArrayList.get(position).get("courseplan_id")));
+                                    intent.putExtra("c_name",String.valueOf(mapArrayList.get(position).get("course_name")));
+                                    intent.putExtra("start_time",String.valueOf(mapArrayList.get(position).get("start_time")));
+                                    startActivity(intent);
+                                    break;
+                                default:
+                                    intent = new Intent(MCoursePlanListActivity.this,MCoursePlanDetailActivity.class);
+                                    intent.putExtra("cp_id",String.valueOf(mapArrayList.get(position).get("courseplan_id")));
+                                    intent.putExtra("c_name",String.valueOf(mapArrayList.get(position).get("course_name")));
+                                    intent.putExtra("start_time",String.valueOf(mapArrayList.get(position).get("start_time")));
+                                    startActivity(intent);
+                                    break;
+                            }
                         }
-                    }
-                });
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setAdapter(adapter);
+                    });
+                    recyclerView.setAdapter(adapter);
+                }
             }
         });
     }
@@ -126,4 +141,16 @@ public class MCoursePlanListActivity extends BaseActivity {
         }
         return true;
     }
+/**
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mapArrayList != null) {
+            mapArrayList.clear();
+            adapter.notifyDataSetChanged();
+            initDatas();
+        }
+    }
+
+    **/
 }

@@ -20,7 +20,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVWithHintAdapter;
+import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVMemberCardListtAdapter;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -119,7 +119,7 @@ public class MCourseDetailSupportCardFragment extends Fragment {
             }
             arrayList.add(hashMap);
         }
-        RVWithHintAdapter adapter = new RVWithHintAdapter(getActivity(),arrayList);
+        RVMemberCardListtAdapter adapter = new RVMemberCardListtAdapter(getActivity(),arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);

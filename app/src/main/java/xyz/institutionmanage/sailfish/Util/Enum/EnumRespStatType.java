@@ -23,7 +23,10 @@ public enum EnumRespStatType {
     NOT_MATCH("not_match"),
     SESSION_EXPIRED("session_expired"),
     AUTHORIZE_FAIL("authorize_fail"),
-    BALANCE_NOT_ENOUGH("balance_not_enough");
+    BALANCE_NOT_ENOUGH("balance_not_enough"),
+    COURSEPLAN_EXPIRED("courseplan_expired"),
+    MEMBERCARD_EXPIRED("member_card_expired"),
+    REST_TIMES_NOT_ENOUGH("rest_times_not_enough");
 
     private String type;
 
@@ -61,6 +64,12 @@ public enum EnumRespStatType {
             return EnumRespStatType.AUTHORIZE_FAIL;
         } else if (value.equals(Ref.BALANCE_NOT_ENOUGH)){
             return EnumRespStatType.BALANCE_NOT_ENOUGH;
+        } else if (value.equals(Ref.COURSEPLAN_EXPIRED)) {
+            return EnumRespStatType.COURSEPLAN_EXPIRED;
+        } else if (value.equals(Ref.MEMBER_CARD_EXPIRED)){
+            return EnumRespStatType.MEMBERCARD_EXPIRED;
+        } else if (value.equals(Ref.REST_TIMES_NOT_ENOUGH)) {
+            return EnumRespStatType.REST_TIMES_NOT_ENOUGH;
         }else {
             return null;
         }

@@ -21,7 +21,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVWithHintAdapter;
+import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVMemberCardListtAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -54,7 +54,7 @@ public class MemberCardListActivity extends BaseActivity{
     private ArrayAdapter<String> adapter;
     private LinearLayoutManager linearLayoutManager;
 
-    private RVWithHintAdapter rvWithHintAdapter;
+    private RVMemberCardListtAdapter RVMemberCardListtAdapter;
 
 
     @Override
@@ -96,7 +96,7 @@ public class MemberCardListActivity extends BaseActivity{
                         Map<String,String> map = maplist_membercard_origin.get(int_clicked_position);
                         map.put("balance",String.valueOf(data.getIntExtra("balance",0)));
                         maplist_membercard_origin.set(int_clicked_position,map);
-                        rvWithHintAdapter.notifyDataSetChanged();
+                        RVMemberCardListtAdapter.notifyDataSetChanged();
                         break;
                     default:break;
                 }
@@ -242,8 +242,8 @@ public class MemberCardListActivity extends BaseActivity{
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                rvWithHintAdapter = new RVWithHintAdapter(MemberCardListActivity.this,maplist_membercard_origin);
-                                rvWithHintAdapter.setOnItemClickListener(new RVWithHintAdapter.OnItemClickListener() {
+                                RVMemberCardListtAdapter = new RVMemberCardListtAdapter(MemberCardListActivity.this,maplist_membercard_origin);
+                                RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListtAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(View view, int position) {
                                         Intent intent = new Intent(MemberCardListActivity.this,MemberCardDetailActivity.class);
@@ -251,7 +251,7 @@ public class MemberCardListActivity extends BaseActivity{
                                         MemberCardListActivity.this.startActivity(intent);
                                     }
                                 });
-                                recyclerView.setAdapter(rvWithHintAdapter);
+                                recyclerView.setAdapter(RVMemberCardListtAdapter);
                                 isFirstTimeToThisPage = false;
                             }
                         });
@@ -305,9 +305,9 @@ public class MemberCardListActivity extends BaseActivity{
                                     recyclerView.setLayoutManager(linearLayoutManager);
                                 }
                                 if (recyclerView.getAdapter() == null) {
-                                    rvWithHintAdapter = new RVWithHintAdapter(MemberCardListActivity.this,maplist_membercard_origin);
-                                    if (rvWithHintAdapter.getOnItemClickListener() == null) {
-                                        rvWithHintAdapter.setOnItemClickListener(new RVWithHintAdapter.OnItemClickListener() {
+                                    RVMemberCardListtAdapter = new RVMemberCardListtAdapter(MemberCardListActivity.this,maplist_membercard_origin);
+                                    if (RVMemberCardListtAdapter.getOnItemClickListener() == null) {
+                                        RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListtAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(View view, int position) {
                                                 int_clicked_position = position;
@@ -320,11 +320,11 @@ public class MemberCardListActivity extends BaseActivity{
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            recyclerView.setAdapter(rvWithHintAdapter);
+                                            recyclerView.setAdapter(RVMemberCardListtAdapter);
                                         }
                                     });
                                 }else {
-                                    rvWithHintAdapter.notifyDataSetChanged();
+                                    RVMemberCardListtAdapter.notifyDataSetChanged();
                                 }
                             }
                         });
@@ -338,7 +338,7 @@ public class MemberCardListActivity extends BaseActivity{
                                     @Override
                                     public void run() {
                                         maplist_membercard_origin.clear();
-                                        rvWithHintAdapter.notifyDataSetChanged();
+                                        RVMemberCardListtAdapter.notifyDataSetChanged();
                                     }
                                 });
                                 break;

@@ -69,6 +69,8 @@ public class AddCourseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_add);
         initData();
+        initDate();
+        initDatePicker();
         initViews();
     }
 

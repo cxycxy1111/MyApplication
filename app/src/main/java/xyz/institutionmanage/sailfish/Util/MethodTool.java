@@ -68,6 +68,11 @@ public class MethodTool{
         targetActivity.finish();
     }
 
+    public static void dealWithWebRequestFailure(BaseActivity activity) {
+        MethodTool.hideProgressBar(activity,activity.getProgressBar(activity));
+        MethodTool.showToast(activity,Ref.CANT_CONNECT_INTERNET);
+    }
+
     /**
      * 显示提示框
      * @param targetActivity

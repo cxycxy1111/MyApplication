@@ -1,7 +1,6 @@
 package xyz.institutionmanage.sailfish.Shopmember.Profile;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
+import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -24,7 +24,7 @@ import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 import xyz.institutionmanage.sailfish.Util.SharePreferenceManager;
 
-public class ShopConfigActivity extends AppCompatActivity {
+public class ShopConfigActivity extends BaseActivity {
 
     private String s_id;
     private String[] key = new String[]{"",""};

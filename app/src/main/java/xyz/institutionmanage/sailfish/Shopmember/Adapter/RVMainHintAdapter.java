@@ -1,5 +1,6 @@
 package xyz.institutionmanage.sailfish.Shopmember.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,17 +18,18 @@ import xyz.institutionmanage.sailfish.R;
  * Created by dengweixiong on 2017/11/22.
  */
 
-public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class RVMainHintAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
-    private static final String TAG = "RVWithHintAdapter";
+    private static final String TAG = "RVMemberCardListtAdapter";
     private List<Map<String,String>> mapList;
     private Context context;
     private OnItemClickListener onItemClickListener;
 
-    public RVWithHintAdapter(Context context,List<Map<String,String>> mapList) {
+    @SuppressLint("LongLogTag")
+    public RVMainHintAdapter(Context context, List<Map<String,String>> mapList) {
         this.context = context;
         this.mapList = mapList;
-        Log.d(TAG, "RVWithHintAdapter: " + mapList.toString());
+        Log.d(TAG, "RVMemberCardListtAdapter: " + mapList.toString());
     }
 
     @Override
@@ -41,9 +43,10 @@ public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnCl
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final VH vh = (VH)holder;
+        Map<String,String> map = mapList.get(position);
         vh.itemView.setTag(position);
-        vh.tv_main.setText(mapList.get(position).get("name"));
-        vh.tv_hint.setText(String.valueOf(mapList.get(position).get("balance")));
+        vh.tv_main.setText(map.get("name"));
+        vh.tv_hint.setText(String.valueOf(map.get("balance")));
     }
 
     @Override
@@ -63,10 +66,10 @@ public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnCl
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view,int position);
+        void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(RVWithHintAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(RVMainHintAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -76,6 +79,8 @@ public class RVWithHintAdapter extends RecyclerView.Adapter implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        onItemClickListener.onItemClick(v,(int)v.getTag());
+        if (onItemClickListener != null) {
+            onItemClickListener.onItemClick(v,(int)v.getTag());
+        }
     }
 }
