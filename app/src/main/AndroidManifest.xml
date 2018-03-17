@@ -49,44 +49,30 @@
         <activity android:name=".Shopmember.Profile.Classroom.ClassroomDetailActivity" />
         <activity android:name=".Shopmember.Profile.Classroom.AddNewClassroomActivity" />
         <activity android:name=".Shopmember.Profile.Shopmember.ShopmemberListActivity" />
-        <activity
-            android:name=".Shopmember.Profile.Shopmember.ShopmemberDetailActivity"
-            android:label="@string/title_activity_shopmember_detail"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".Shopmember.Profile.Shopmember.ShopmemberDetailActivity" />
         <activity android:name=".Shopmember.Profile.Shopmember.AddNewShopmemberActivity" />
         <activity android:name=".Shopmember.Course.Course.AddSupportedCardActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanDetailActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanTeacherActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity" />
-        <activity
-            android:name=".Shopmember.Profile.HelpActivity"
-            android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Shopmember.Profile.Shopmember.ResetShopmemberPasswordActivity"
-            android:label="@string/title_activity_reset_shopmember_password"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Shopmember.Profile.ShopConfigActivity"
-            android:label="@string/title_activity_shop_config"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Member.Main.MemberMainActivity"
-            android:label="@string/title_activity_member_main" />
-        <activity android:name=".Member.Course.MCourseListActivity" />
-        <activity android:name=".Member.Course.MCourseDetailActivity" />
-        <activity
-            android:name=".Member.Course.MCourseDetailPrivateActivity"
-            android:label="@string/title_activity_mcourse_detail_private"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Member.CoursePlan.MCoursePlanListActivity"
-            android:label="@string/title_activity_mcourse_plan_list"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".Member.CoursePlan.MCoursePlanDetailPrivateActivity" />
-        <activity android:name=".Member.CoursePlan.MCoursePlanDetailActivity" />
-        <activity android:name=".Member.MemberCard.MMemberCardListActivity" />
-        <activity android:name=".Member.MemberCard.MMemberCardDetailActivity"></activity>
+        <activity android:name=".Shopmember.Profile.HelpActivity" />
+        <activity android:name=".Shopmember.Profile.Shopmember.ResetShopmemberPasswordActivity" />
+        <activity android:name=".Shopmember.Profile.ShopConfigActivity" />
+        <activity android:name=".Member.Main.MemberMainActivity" />
+        <activity android:name=".Member.Discovery.Course.MCourseListActivity" />
+        <activity android:name=".Member.Discovery.Course.MCourseDetailActivity" />
+        <activity android:name=".Member.Discovery.Course.MCourseDetailPrivateActivity" />
+        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanListActivity" />
+        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanDetailPrivateActivity" />
+        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanDetailActivity" />
+        <activity android:name=".Member.Profile.MemberCard.MMemberCardListActivity" />
+        <activity android:name=".Member.Profile.MemberCard.MMemberCardDetailActivity" />
+        <activity android:name=".Member.Book.MBookDetailActivity" />
+        <activity android:name=".Member.Book.MBookDetailPrivateActivity" />
+        <activity android:name=".Member.Profile.MyProfile.MMemberDetailActivity" />
+        <activity android:name=".Member.Profile.MyProfile.MResetMemberPwdActivity" />
+        <activity android:name=".Member.Profile.MemberCard.MMemberCardConsumeLogActivity" />
+        <activity android:name=".Shopmember.Profile.ShopInfoActivity"></activity>
     </application>
 
 </manifest>

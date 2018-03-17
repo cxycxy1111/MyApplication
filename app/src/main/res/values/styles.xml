@@ -82,6 +82,18 @@
         <item name="android:textColor">#000</item>
     </style>
 
+    <style name="plain_text_empty">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance16</item>
+        <item name="android:layout_marginBottom">@dimen/distance16</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">#999</item>
+    </style>
+
     <style name="plain_text2">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_width">wrap_content</item>
@@ -103,6 +115,20 @@
         <item name="android:layout_marginBottom">@dimen/distance8</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="h2">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:layout_marginTop">@dimen/distance8</item>
+        <item name="android:layout_marginBottom">@dimen/distance8</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">#000</item>
         <item name="android:textStyle">bold</item>
 

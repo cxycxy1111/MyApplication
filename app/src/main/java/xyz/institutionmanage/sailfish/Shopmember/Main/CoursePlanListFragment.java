@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.Adapter.RVCoursePlanAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVCoursePlanAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -68,8 +67,14 @@ public class CoursePlanListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         initData();
-        view = inflater.inflate(R.layout.activity_main_course_plan_list, container, false);
-        initCoursePlanData();
+        if (view == null) {
+            view = inflater.inflate(R.layout.activity_main_course_plan_list, container, false);
+            initCoursePlanData();
+        }
+        ViewGroup viewGroup = (ViewGroup)view.getParent();
+        if (viewGroup != null) {
+            viewGroup.removeView(view);
+        }
         return view;
     }
 
@@ -115,7 +120,6 @@ public class CoursePlanListFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Log.d(TAG, "onResponse: ");
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
@@ -188,5 +192,11 @@ public class CoursePlanListFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
         initCoursePlanData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 }

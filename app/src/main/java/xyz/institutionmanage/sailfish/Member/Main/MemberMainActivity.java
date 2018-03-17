@@ -9,12 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import xyz.institutionmanage.sailfish.Adapter.MainActivityPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.MainActivityPagerAdapter;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 
 public class MemberMainActivity
@@ -135,12 +134,16 @@ public class MemberMainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        /*
         getMenuInflater().inflate(R.menu.menu_m_main,menu);
         return true;
+         */
+        return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /*
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.sumbit_m_main:
@@ -149,5 +152,7 @@ public class MemberMainActivity
             default:
                 return false;
         }
+        */
+        return false;
     }
 }

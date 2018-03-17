@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.LVAdapter;
+import xyz.institutionmanage.sailfish.Adapter.LVAdapter;
 
 /**
  * Created by dengweixiong on 2017/9/9.

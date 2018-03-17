@@ -102,6 +102,7 @@ public class RegistAdministraotrActivity
                                 MethodTool.showToast(RegistAdministraotrActivity.this,"注册成功，请前往登录页面登录");
                                 Intent intent = new Intent(RegistAdministraotrActivity.this,LoginActivity.class);
                                 startActivity(intent);
+                                RegistAdministraotrActivity.this.finish();
                                 break;
                             case EXE_FAIL:
                                 MethodTool.showToast(RegistAdministraotrActivity.this,Ref.OP_FAIL);

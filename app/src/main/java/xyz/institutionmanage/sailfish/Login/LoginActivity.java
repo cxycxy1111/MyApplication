@@ -23,8 +23,8 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.Adapter.ViewPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.CourseViewPagerAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -51,7 +51,7 @@ public class LoginActivity
     private ViewPager viewPager;
     private List<Fragment> fragments = new ArrayList<>();
     private FragmentManager manager;
-    private CourseViewPagerAdapter adapter_vp;
+    private ViewPagerAdapter adapter_vp;
     private String[] str_title = {"注册新机构", "教师登录","会员登录"};
     private String[] str_title_2 = {"注册新机构", "教师登录"};
     private String login_name, password;
@@ -123,7 +123,7 @@ public class LoginActivity
 
     private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.vp_a_login);
-        adapter_vp = new CourseViewPagerAdapter(manager, str_title, fragments);
+        adapter_vp = new ViewPagerAdapter(manager, str_title, fragments);
         viewPager.setAdapter(adapter_vp);
         tabLayout.setupWithViewPager(viewPager);
     }

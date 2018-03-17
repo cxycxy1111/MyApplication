@@ -20,8 +20,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.institutionmanage.sailfish.Adapter.ViewPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.CourseViewPagerAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
 
@@ -36,7 +36,7 @@ public class CourseMainFragment
     private static final String TAG = "Nothing to Tell";
     private OnFragmentInteractionListener mListener;
     private ViewPager viewPager;
-    private CourseViewPagerAdapter adapter_vp;
+    private ViewPagerAdapter adapter_vp;
     private static final int REQUEST_ADD_NEW_COURSE = 1;
     private List<Fragment> fragments = new ArrayList<>();
     private View view1,view2;
@@ -113,7 +113,7 @@ public class CourseMainFragment
             viewPager = (ViewPager) view.findViewById(R.id.vp_f_courseMain);
         }
         if (adapter_vp == null) {
-            adapter_vp = new CourseViewPagerAdapter(manager, str_title, fragments);
+            adapter_vp = new ViewPagerAdapter(manager, str_title, fragments);
         }
         if (viewPager.getAdapter() == null) {
             viewPager.setAdapter(adapter_vp);

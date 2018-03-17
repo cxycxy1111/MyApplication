@@ -1,6 +1,8 @@
 package xyz.institutionmanage.sailfish.Member.Main;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +16,8 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import xyz.institutionmanage.sailfish.Member.MemberCard.MMemberCardListActivity;
+import xyz.institutionmanage.sailfish.Member.Profile.MemberCard.MMemberCardListActivity;
+import xyz.institutionmanage.sailfish.Member.Profile.MyProfile.MMemberDetailActivity;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseFragment;
@@ -29,8 +32,9 @@ public class MMyFragment extends BaseFragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
 
     private String mParam1;
-    private RelativeLayout rl_logout,rl_my_membercard;
+    private RelativeLayout rl_logout,rl_my_membercard,rl_my_profile;
     private View view;
+    private AlertDialog dialog_logout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,6 +62,9 @@ public class MMyFragment extends BaseFragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.activity_m_my_f, container, false);
         rl_logout = (RelativeLayout)view.findViewById(R.id.rl_logout_f_m_my);
         rl_my_membercard = (RelativeLayout)view.findViewById(R.id.rl_my_membercard_f_m_my);
+        rl_my_profile = (RelativeLayout)view.findViewById(R.id.rl_my_profile_f_m_my);
+        initAlert();
+        rl_my_profile.setOnClickListener(this);
         rl_logout.setOnClickListener(this);
         rl_my_membercard.setOnClickListener(this);
         return view;
@@ -67,6 +74,29 @@ public class MMyFragment extends BaseFragment implements View.OnClickListener{
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void initAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("退出登录");
+        builder.setMessage("退出登录后，程序将自动退出，你需要重新打开程序。");
+        builder.setPositiveButton("退出登录", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getProgressBar(getActivity()).setVisibility(View.VISIBLE);
+                logout();
+                dialog_logout.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getProgressBar(getActivity()).setVisibility(View.GONE);
+                dialog_logout.dismiss();
+            }
+        });
+        dialog_logout = builder.create();
+        dialog_logout.hide();
     }
 
     @Override
@@ -93,9 +123,12 @@ public class MMyFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_my_profile_f_m_my:
+                Intent intent_1 = new Intent(getActivity(), MMemberDetailActivity.class);
+                startActivity(intent_1);
+                break;
             case R.id.rl_logout_f_m_my:
-                getProgressBar(getActivity()).setVisibility(View.VISIBLE);
-                logout();
+                dialog_logout.show();
                 break;
             case R.id.rl_my_membercard_f_m_my:
                 Intent intent = new Intent(getActivity(), MMemberCardListActivity.class);

@@ -566,7 +566,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                                                 break;
                                             case "2":
                                                 intent.putExtra("type","2");
-                                                intent.putExtra("balance",et_balance.getText().toString());
+                                                intent.putExtra("balance",et_num.getText().toString());
                                                 intent.putExtra("invalid_time",str_invalid_date);
                                                 break;
                                             case "3":

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanage.sailfish.Member.CoursePlan.MCoursePlanDetailPrivateActivity">
+    tools:context=".Member.Discovery.CoursePlan.MCoursePlanDetailPrivateActivity">
     
     <include 
         android:id="@+id/tb_a_m_course_plan_detail_private"

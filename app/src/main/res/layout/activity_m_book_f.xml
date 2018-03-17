@@ -5,9 +5,13 @@
     tools:context="xyz.institutionmanage.sailfish.Member.Main.MBookFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_a_m_book_f"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+    <include
+        layout="@layout/tile_text_empty" />
 
 </FrameLayout>

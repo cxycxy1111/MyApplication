@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Profile.ShopInfoActivity">
+
+    <include
+        android:id="@+id/tb_a_shop_info"
+        layout="@layout/tile_toolbar"/>
+    <RelativeLayout
+        android:id="@+id/rl_shop_name_a_shop_info"
+        android:layout_below="@id/tb_a_shop_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/rl_first_widget">
+        <TextView
+            android:id="@+id/tv_shop_name_a_shop_info"
+            style="@style/tv_input_area"
+            android:layout_width="@dimen/distance64"
+            android:text="机构名称"
+            android:layout_alignParentLeft="true" />
+        <EditText
+            android:id="@+id/et_hint_shop_name_a_shop_info"
+            android:layout_toRightOf="@id/tv_shop_name_a_shop_info"
+            style="@style/plain_editText"
+            android:maxLines="1" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/rl_shop_name_a_shop_info"
+        android:id="@+id/rl_remark_a_shop_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/rl_normal">
+        <EditText
+            android:id="@+id/et_hint_remark_a_shop_info"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="false"
+            style="@style/plain_editText"
+            android:hint="简介"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:maxLines="3" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@mipmap/ic_bnb_courses_hdpi"
         android:title="我的预订" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@mipmap/ic_bnb_discoveryhdpi"
         android:title="发现" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@mipmap/ic_bnb_person_hdpi"
         android:title="我" />
 
 </menu>

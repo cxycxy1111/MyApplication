@@ -15,7 +15,7 @@
             android:layout_height="match_parent">
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/rl_all_course_f_m_my"
+                android:id="@+id/rl_my_profile_f_m_my"
                 style="@style/rl_first_widget"
                 android:layout_alignParentTop="true"
                 android:background="#fff">

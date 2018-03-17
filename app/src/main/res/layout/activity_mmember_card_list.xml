@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanage.sailfish.Member.MemberCard.MMemberCardListActivity">
+    tools:context=".Member.Profile.MemberCard.MMemberCardListActivity">
 
     <include
         android:id="@+id/tb_a_m_membercard_list"

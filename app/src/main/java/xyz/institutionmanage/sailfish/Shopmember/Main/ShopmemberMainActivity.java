@@ -14,8 +14,8 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.institutionmanage.sailfish.Adapter.MainActivityPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.MainActivityPagerAdapter;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 
 public class ShopmemberMainActivity

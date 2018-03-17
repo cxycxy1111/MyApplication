@@ -33,7 +33,7 @@
             </RelativeLayout>
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/rl_all_courseplan_f_m_discovery"
-                style="@style/rl_first_widget"
+                style="@style/rl_normal"
                 android:layout_alignParentTop="true">
 
                 <ImageView

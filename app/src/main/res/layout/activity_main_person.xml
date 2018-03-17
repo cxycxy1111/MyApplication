@@ -15,6 +15,23 @@
             android:layout_height="match_parent">
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_shop_info_f_person"
+                style="@style/rl_first_widget"
+                android:layout_alignParentTop="true"
+                android:background="#fff">
+
+                <ImageView
+                    android:id="@+id/img_shop_info_f_person"
+                    android:src="@mipmap/ic_shop_infohdpi"
+                    style="@style/plain_img" />
+                <TextView
+                    android:id="@+id/tv_shop_info_f_person"
+                    android:layout_toRightOf="@id/img_shop_info_f_person"
+                    style="@style/plain_text"
+                    android:text="机构信息" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/rl_card_type_f_person"
                 style="@style/rl_first_widget"
                 android:layout_alignParentTop="true"
@@ -100,6 +117,7 @@
                 android:layout_below="@id/rl_logout_f_person"
                 android:id="@+id/rl_help_f_person"
                 style="@style/rl_first_widget"
+                android:layout_marginBottom="@dimen/distance32"
                 android:background="#fff">
 
                 <ImageView

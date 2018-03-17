@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,10 @@ import xyz.institutionmanage.sailfish.Shopmember.Profile.Card.CardTypeListActivi
 import xyz.institutionmanage.sailfish.Shopmember.Profile.Classroom.ClassroomListActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Profile.HelpActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Profile.ShopConfigActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Profile.ShopInfoActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Profile.Shopmember.ShopmemberListActivity;
 import xyz.institutionmanage.sailfish.Util.ActivityManager;
+import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.MethodTool;
@@ -36,12 +37,12 @@ import xyz.institutionmanage.sailfish.Util.Ref;
 import xyz.institutionmanage.sailfish.Util.SharePreferenceManager;
 
 public class PersonFragment
-        extends Fragment implements View.OnClickListener{
+        extends BaseFragment implements View.OnClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String TAG = "Nothing to Tell";
     private String sm_type;
     private String mParam1;
-    private RelativeLayout rl_card_type,rl_teacher,rl_classroom,rl_general_settings,rl_logout,rl_help;
+    private RelativeLayout rl_shop_info,rl_card_type,rl_teacher,rl_classroom,rl_general_settings,rl_logout,rl_help;
     private ScrollView scrollView;
     private Dialog dialog_logout;
     private OnFragmentInteractionListener mListener;
@@ -80,6 +81,10 @@ public class PersonFragment
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.rl_shop_info_f_person:
+                intent = new Intent(getActivity(), ShopInfoActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rl_card_type_f_person:
                 intent = new Intent(getActivity(),CardTypeListActivity.class);
                 startActivity(intent);
@@ -128,7 +133,7 @@ public class PersonFragment
 
     private void initViews(View view) {
         sm_type = SharePreferenceManager.getSharePreferenceValue(getActivity(),"sasm","sm_type",1);
-
+        rl_shop_info = (RelativeLayout)view.findViewById(R.id.rl_shop_info_f_person);
         rl_card_type = (RelativeLayout)view.findViewById(R.id.rl_card_type_f_person);
         rl_teacher = (RelativeLayout)view.findViewById(R.id.rl_teacher_f_person);
         rl_classroom = (RelativeLayout)view.findViewById(R.id.rl_classroom_f_person);
@@ -138,6 +143,7 @@ public class PersonFragment
         scrollView = (ScrollView)view.findViewById(R.id.sv_f_person);
         scrollView.setVerticalScrollBarEnabled(false);
 
+        rl_shop_info.setOnClickListener(this);
         rl_card_type.setOnClickListener(this);
         rl_teacher.setOnClickListener(this);
         rl_classroom.setOnClickListener(this);

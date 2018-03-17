@@ -20,8 +20,8 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.Adapter.RVMemberCardListAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.RVMemberCardListtAdapter;
 import xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -54,7 +54,7 @@ public class MemberCardListActivity extends BaseActivity{
     private ArrayAdapter<String> adapter;
     private LinearLayoutManager linearLayoutManager;
 
-    private RVMemberCardListtAdapter RVMemberCardListtAdapter;
+    private RVMemberCardListAdapter RVMemberCardListtAdapter;
 
 
     @Override
@@ -242,8 +242,8 @@ public class MemberCardListActivity extends BaseActivity{
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                RVMemberCardListtAdapter = new RVMemberCardListtAdapter(MemberCardListActivity.this,maplist_membercard_origin);
-                                RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListtAdapter.OnItemClickListener() {
+                                RVMemberCardListtAdapter = new RVMemberCardListAdapter(MemberCardListActivity.this,maplist_membercard_origin);
+                                RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(View view, int position) {
                                         Intent intent = new Intent(MemberCardListActivity.this,MemberCardDetailActivity.class);
@@ -305,9 +305,9 @@ public class MemberCardListActivity extends BaseActivity{
                                     recyclerView.setLayoutManager(linearLayoutManager);
                                 }
                                 if (recyclerView.getAdapter() == null) {
-                                    RVMemberCardListtAdapter = new RVMemberCardListtAdapter(MemberCardListActivity.this,maplist_membercard_origin);
+                                    RVMemberCardListtAdapter = new RVMemberCardListAdapter(MemberCardListActivity.this,maplist_membercard_origin);
                                     if (RVMemberCardListtAdapter.getOnItemClickListener() == null) {
-                                        RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListtAdapter.OnItemClickListener() {
+                                        RVMemberCardListtAdapter.setOnItemClickListener(new RVMemberCardListAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(View view, int position) {
                                                 int_clicked_position = position;

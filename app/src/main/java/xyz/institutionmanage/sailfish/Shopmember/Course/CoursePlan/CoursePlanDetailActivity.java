@@ -22,8 +22,8 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import xyz.institutionmanage.sailfish.Adapter.ViewPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Shopmember.Adapter.CourseViewPagerAdapter;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -39,7 +39,7 @@ public class CoursePlanDetailActivity
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private CourseViewPagerAdapter adapter;
+    private ViewPagerAdapter adapter;
     private FragmentManager fm = this.getSupportFragmentManager();
     private String str_sm_id,str_s_id,str_course_name,str_time,str_cp_id;
     private String[] strs_title = new String[]{"排课详情","教授教师"};
@@ -105,7 +105,7 @@ public class CoursePlanDetailActivity
     private void initViewPager() {
         viewPager = (ViewPager)findViewById(R.id.vp_a_courseplan_detail);
         initFragments();
-        adapter = new CourseViewPagerAdapter(fm,strs_title,fragments);
+        adapter = new ViewPagerAdapter(fm,strs_title,fragments);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

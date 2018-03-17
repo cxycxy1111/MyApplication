@@ -158,7 +158,7 @@ public class RegistShopFragment
                             }
                             break;
                         case RESP_DATA:
-                            long id = Long.parseLong(String.valueOf(JsonHandler.strToMap(resp).get("id")));
+                            long id = Long.parseLong(String.valueOf(JsonHandler.strToMap(resp).get("data")));
                             Intent intent = new Intent(getActivity(), RegistAdministraotrActivity.class);
                             intent.putExtra("s_id",id);
                             getActivity().startActivity(intent);

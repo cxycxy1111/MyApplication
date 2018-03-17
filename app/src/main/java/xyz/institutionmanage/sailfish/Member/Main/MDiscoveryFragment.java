@@ -10,34 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import xyz.institutionmanage.sailfish.Member.Course.MCourseListActivity;
-import xyz.institutionmanage.sailfish.Member.CoursePlan.MCoursePlanListActivity;
+import xyz.institutionmanage.sailfish.Member.Discovery.Course.MCourseListActivity;
+import xyz.institutionmanage.sailfish.Member.Discovery.CoursePlan.MCoursePlanListActivity;
 import xyz.institutionmanage.sailfish.R;
 
 public class MDiscoveryFragment
         extends Fragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private RelativeLayout ll_all_courses,ll_all_courseplan;
     private OnFragmentInteractionListener mListener;
 
     public MDiscoveryFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment MDiscoveryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MDiscoveryFragment newInstance(String param1) {
         MDiscoveryFragment fragment = new MDiscoveryFragment();
         Bundle args = new Bundle();
