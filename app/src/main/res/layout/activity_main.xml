@@ -32,6 +32,7 @@
         app:itemBackground="@color/bottomNavigationbarBackgroundColor"
         app:itemTextColor="@color/colorPrimary"
         app:itemIconTint="@color/colorPrimaryDark"
+        android:background="@color/bottomNavigationbarBackgroundColor"
         app:menu="@menu/menu_bnb">
     </android.support.design.widget.BottomNavigationView>
 

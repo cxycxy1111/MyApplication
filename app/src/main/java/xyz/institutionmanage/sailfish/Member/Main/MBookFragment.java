@@ -42,7 +42,6 @@ public class MBookFragment extends BaseFragment {
     private String mParam1;
     private String[] keys = new String[]{"id","courseplan_id","c_name","start_time","end_time","type","name","cr_name"};
     private String[] keys_cards= new String[]{"mc_id","c_name","balance","type"};
-
     private View view;
     private RecyclerView recyclerView;
     private RelativeLayout rl_empty;
@@ -53,7 +52,6 @@ public class MBookFragment extends BaseFragment {
     private List<Map<String,String>> list_book = new ArrayList<>();
     private List<String> list_card = new ArrayList<>();
     private ArrayList<Map<String,String>> mapList_card = new ArrayList<>();
-
     private OnFragmentInteractionListener mListener;
 
     public MBookFragment() {
@@ -106,6 +104,7 @@ public class MBookFragment extends BaseFragment {
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_MAPLIST:
                         list_book = JsonHandler.strToListMap(resp,keys);
+                        MethodTool.sortListMap(list_book,"start_time");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -283,7 +282,12 @@ public class MBookFragment extends BaseFragment {
     }
 
     private void attend() {
-        String url = "/mAttend?cp_id="+ String.valueOf(list_book.get(book_selected_position).get("courseplan_id")) + "&mc_id="+String.valueOf(mapList_card.get(card_selected_position).get("mc_id"));
+        String url = "";
+        if (String.valueOf(list_book.get(book_selected_position).get("type")).equals("4")) {
+            url = "/mAttend?cp_id="+ String.valueOf(list_book.get(book_selected_position).get("courseplan_id")) + "&mc_id=0";
+        }else {
+            url = "/mAttend?cp_id="+ String.valueOf(list_book.get(book_selected_position).get("courseplan_id")) + "&mc_id="+String.valueOf(mapList_card.get(card_selected_position).get("mc_id"));
+        }
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -293,7 +297,12 @@ public class MBookFragment extends BaseFragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                MethodTool.hideProgressBar(getActivity(),getProgressBar(getActivity()));
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MethodTool.hideProgressBar(getActivity(),getProgressBar(getActivity()));
+                    }
+                });
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_ERROR:
                         MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);

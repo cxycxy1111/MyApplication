@@ -22,7 +22,7 @@
 
                 <ImageView
                     android:id="@+id/img_all_course_f_m_my"
-                    android:src="@mipmap/ic_member_addhdpi"
+                    android:src="@mipmap/ic_my_profilehdpi"
                     style="@style/plain_img" />
                 <TextView
                     android:id="@+id/tv_all_course_f_m_my"
@@ -37,7 +37,7 @@
 
                 <ImageView
                     android:id="@+id/img_my_membercard_f_m_my"
-                    android:src="@mipmap/ic_member_addhdpi"
+                    android:src="@mipmap/ic_card_type_managehdpi"
                     style="@style/plain_img" />
                 <TextView
                     android:id="@+id/tv_my_membercard_f_m_my"

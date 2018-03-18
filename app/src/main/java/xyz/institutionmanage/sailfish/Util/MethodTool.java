@@ -217,7 +217,7 @@ public class MethodTool{
                 @Override
                 public int compare(Map o1, Map o2) {
                     Collator collator = Collator.getInstance();
-                    return collator.getCollationKey(o1.get(key).toString()).compareTo(collator.getCollationKey(o2.get("name").toString()));
+                    return collator.getCollationKey(o1.get(key).toString()).compareTo(collator.getCollationKey(o2.get(key).toString()));
                 }
             });
         }

@@ -23,7 +23,7 @@
 
                 <ImageView
                     android:id="@+id/img_all_course_f_m_discovery"
-                    android:src="@mipmap/ic_member_addhdpi"
+                    android:src="@mipmap/ic_classroom_managehdpi"
                     style="@style/plain_img" />
                 <TextView
                     android:id="@+id/tv_all_course_f_m_discovery"
@@ -38,7 +38,7 @@
 
                 <ImageView
                     android:id="@+id/img_all_courseplan_f_m_discovery"
-                    android:src="@mipmap/ic_member_addhdpi"
+                    android:src="@mipmap/ic_bnb_courses_hdpi"
                     style="@style/plain_img" />
                 <TextView
                     android:id="@+id/tv_all_courseplan_f_m_discovery"

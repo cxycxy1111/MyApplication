@@ -275,6 +275,7 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
                                 initCourseplanDetailView();
                             }
                         });
+                        break;
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:

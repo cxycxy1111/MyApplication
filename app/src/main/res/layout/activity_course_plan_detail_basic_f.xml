@@ -5,9 +5,9 @@
     android:orientation="vertical"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailBasicFragment">
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -15,10 +15,9 @@
                 android:id="@+id/ll_f_course_plan_detail_basic"
                 android:orientation="vertical"
                 android:background="#fff"
-                android:layout_marginTop="@dimen/distance16"
-                android:layout_marginBottom="@dimen/distance16"
+                android:layout_marginTop="@dimen/distance32"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -117,11 +116,12 @@
 
             <Button
                 android:id="@+id/btn_save_f_course_plan_detail_basic"
+                android:layout_below="@id/ll_f_course_plan_detail_basic"
                 style="@style/plain_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="保存"/>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>
