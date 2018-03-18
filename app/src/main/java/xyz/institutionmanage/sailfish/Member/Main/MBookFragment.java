@@ -40,7 +40,7 @@ public class MBookFragment extends BaseFragment {
     private int status = 0;
     private static final String ARG_PARAM1 = "param1";
     private String mParam1;
-    private String[] keys = new String[]{"id","courseplan_id","c_name","start_time","end_time","type","name","cr_name"};
+    private String[] keys = new String[]{"id","courseplan_id","c_name","start_time","end_time","type","name","cr_name","teacher"};
     private String[] keys_cards= new String[]{"mc_id","c_name","balance","type"};
     private View view;
     private RecyclerView recyclerView;

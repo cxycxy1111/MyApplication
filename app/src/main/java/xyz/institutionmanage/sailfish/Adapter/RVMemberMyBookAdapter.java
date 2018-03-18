@@ -70,6 +70,7 @@ public class RVMemberMyBookAdapter extends RecyclerView.Adapter implements View.
         end_time = end_time.substring(0,end_time.length()-3);
         start_time = start_time.substring(0,start_time.length()-3);
         vh.tv_start_time.setText(start_time);
+        vh.tv_teachers.setText(map.get("teacher"));
     }
 
     @Override

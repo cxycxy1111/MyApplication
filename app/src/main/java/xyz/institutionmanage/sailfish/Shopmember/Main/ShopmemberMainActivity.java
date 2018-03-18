@@ -25,7 +25,8 @@ public class ShopmemberMainActivity
             CourseMainFragment.OnFragmentInteractionListener,
             PersonFragment.OnFragmentInteractionListener,
             CourseListFragment.OnFragmentInteractionListener,
-            CoursePlanListFragment.OnFragmentInteractionListener{
+            CoursePlanListFragment.OnFragmentInteractionListener,
+            MyCoursePlanListFragment.OnFragmentInteractionListener{
 
     private String [] title = new String[] {"会员","课程","个人中心"};
     private List<Fragment> fragments = new ArrayList<>();

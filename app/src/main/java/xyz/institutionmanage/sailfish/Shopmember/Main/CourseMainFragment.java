@@ -41,7 +41,7 @@ public class CourseMainFragment
     private List<Fragment> fragments = new ArrayList<>();
     private View view1,view2;
     private List<View> viewList = new ArrayList<>();
-    private String [] str_title = {"课程列表","排课列表"};
+    private String [] str_title = {"课程列表","排课列表","我的排课"};
     private TabLayout tabLayout = null;
     private FragmentManager manager;
     private static ShopmemberMainActivity context;
@@ -93,6 +93,7 @@ public class CourseMainFragment
     private void initFragments() {
         fragments.add(CourseListFragment.newInstance("课程列表"));
         fragments.add(CoursePlanListFragment.newInstance("排课列表"));
+        fragments.add(MyCoursePlanListFragment.newInstance("我的排课"));
     }
 
     private void initFragmentManager() {
@@ -104,6 +105,7 @@ public class CourseMainFragment
             tabLayout = (TabLayout)view.findViewById(R.id.tl_f_courseMain);
             tabLayout.addTab(tabLayout.newTab().setText("课程列表"));
             tabLayout.addTab(tabLayout.newTab().setText("排课列表"));
+            tabLayout.addTab(tabLayout.newTab().setText("我的排课"));
             tabLayout.addOnTabSelectedListener(this);
         }
     }

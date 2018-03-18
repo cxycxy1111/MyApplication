@@ -33,20 +33,9 @@ import xyz.institutionmanage.sailfish.Util.MethodTool;
 import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CourseListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CourseListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CourseListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private static final String TAG = "CourseListFragment:";
     private OnFragmentInteractionListener mListener;
@@ -59,17 +48,8 @@ public class CourseListFragment extends Fragment {
     private List<Map<String,String>> regional_list = new ArrayList<>();
 
     public CourseListFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment CourseDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CourseListFragment newInstance(String param1) {
         CourseListFragment fragment = new CourseListFragment();
         Bundle args = new Bundle();
@@ -81,6 +61,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
@@ -90,6 +71,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.activity_main_course_list,container,false);
         initShopData();
         initRecyclerView();
@@ -217,6 +199,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -228,6 +211,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d(TAG, "onDetach: ");
         mListener = null;
     }
 
@@ -239,6 +223,7 @@ public class CourseListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: ");
         recyclerviewdata.clear();
         regional_list.clear();
         if (adapter != null) {
