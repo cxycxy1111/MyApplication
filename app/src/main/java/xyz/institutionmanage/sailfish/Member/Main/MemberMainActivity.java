@@ -76,6 +76,7 @@ public class MemberMainActivity
         if (viewPager.getAdapter() == null) {
             viewPager.setAdapter(adapter);
         }
+        viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(this);
     }
 

@@ -18,7 +18,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import xyz.institutionmanage.sailfish.Adapter.RVMemberCardListAdapter;
+import xyz.institutionmanage.sailfish.Adapter.RVMainHintAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -46,7 +46,7 @@ public class MemberCardDetailActivity
     private RecyclerView rv_member_card_detail;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MemberCardDetailActivity.this,LinearLayoutManager.VERTICAL,false);
 
-    private RVMemberCardListAdapter rv_member_card_adapter;
+    private RVMainHintAdapter rv_member_card_adapter;
 
 
     @Override
@@ -291,7 +291,13 @@ public class MemberCardDetailActivity
             maplist_member_card_detail_after.add(map_invalid_time);
         }
 
-        rv_member_card_adapter = new RVMemberCardListAdapter(MemberCardDetailActivity.this,maplist_member_card_detail_after);
+        rv_member_card_adapter = new RVMainHintAdapter(MemberCardDetailActivity.this,maplist_member_card_detail_after);
+        rv_member_card_adapter.setOnItemClickListener(new RVMainHintAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        });
         rv_member_card_detail.setLayoutManager(linearLayoutManager);
         rv_member_card_detail.setAdapter(rv_member_card_adapter);
     }

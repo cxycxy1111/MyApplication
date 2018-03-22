@@ -30,6 +30,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVCourseDetailAdapter;
 import xyz.institutionmanage.sailfish.R;
+import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanListActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -233,11 +234,9 @@ public class CourseDetailActivity
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case NSR:
                                 MethodTool.showToast(CourseDetailActivity.this,Ref.OP_NSR);
                                 break;
@@ -457,6 +456,12 @@ public class CourseDetailActivity
                 break;
             case R.id.delete_a_course_detail:
                 deleteCourse();
+                break;
+            case R.id.view_courseplan_a_course_detail:
+                Intent intent = new Intent(CourseDetailActivity.this, CoursePlanListActivity.class);
+                intent.putExtra("c_id",str_courseId);
+                intent.putExtra("c_name",str_courseName);
+                startActivity(intent);
                 break;
             default:break;
         }

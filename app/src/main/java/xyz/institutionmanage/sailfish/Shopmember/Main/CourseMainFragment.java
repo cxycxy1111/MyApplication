@@ -121,6 +121,7 @@ public class CourseMainFragment
             viewPager.setAdapter(adapter_vp);
             tabLayout.setupWithViewPager(viewPager,true);
         }
+        viewPager.setOffscreenPageLimit(3);
     }
 
 

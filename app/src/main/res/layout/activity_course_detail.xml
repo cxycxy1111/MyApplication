@@ -27,9 +27,7 @@
             android:layout_height="match_parent">
             <RelativeLayout
                 android:id="@+id/rl_type_a_course_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff">
+                style="@style/rl_normal">
                 <TextView
                     android:id="@+id/tv_main_type_a_course_detail"
                     style="@style/plain_text"
@@ -45,10 +43,7 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_name_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_type_a_course_detail"
-                android:background="#fff">
+                style="@style/rl_normal">
                 <TextView
                     android:id="@+id/tv_main_course_name_a_course_detail"
                     style="@style/plain_text"
@@ -64,10 +59,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_teacher_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_name_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_name_a_course_detial">
                 <TextView
                     android:id="@+id/tv_main_teacher_a_course_detail"
                     style="@style/plain_text"
@@ -82,10 +75,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_student_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_teacher_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_teacher_a_course_detial">
                 <TextView
                     android:id="@+id/tv_main_student_a_course_detail"
                     style="@style/plain_text"
@@ -100,10 +91,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_total_times_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_student_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_student_a_course_detial">
                 <TextView
                     android:id="@+id/tv_main_total_times_a_course_detail"
                     style="@style/plain_text"
@@ -120,10 +109,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_rest_times_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_total_times_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_total_times_a_course_detial">
                 <TextView
                     android:id="@+id/tv_rest_times_a_course_detail"
                     style="@style/plain_text"
@@ -140,10 +127,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_invalidtime_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_rest_times_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_rest_times_a_course_detial">
                 <TextView
                     android:id="@+id/tv_invalidtime_a_course_detail"
                     style="@style/plain_text"
@@ -160,10 +145,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_total_cost_a_course_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_invalidtime_a_course_detial"
-                android:background="#fff">
+                style="@style/rl_normal"
+                android:layout_below="@id/rl_invalidtime_a_course_detial">
                 <TextView
                     android:id="@+id/tv_total_cost_a_course_detail"
                     style="@style/plain_text"

@@ -72,7 +72,8 @@
         <activity android:name=".Member.Profile.MyProfile.MMemberDetailActivity" />
         <activity android:name=".Member.Profile.MyProfile.MResetMemberPwdActivity" />
         <activity android:name=".Member.Profile.MemberCard.MMemberCardConsumeLogActivity" />
-        <activity android:name=".Shopmember.Profile.ShopInfoActivity"></activity>
+        <activity android:name=".Shopmember.Profile.ShopInfoActivity" />
+        <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanListActivity"></activity>
     </application>
 
 </manifest>

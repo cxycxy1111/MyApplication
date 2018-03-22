@@ -257,7 +257,10 @@ public class CoursePlanDetailBasicFragment extends Fragment implements View.OnCl
                                         dpd_date.show();
                                     }
                                 });
-                                et_start_time.setText(str_start_time.split(" ")[1]);
+
+                                String start_time = str_start_time.split(" ")[1];
+                                start_time = start_time.substring(0,start_time.length()-5);
+                                et_start_time.setText(start_time);
                                 et_start_time.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

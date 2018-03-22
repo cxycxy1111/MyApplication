@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import xyz.institutionmanage.sailfish.Util.Ref;
 
 public class MyCoursePlanListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    private static final String TAG = "MyCoursePlanList";
     private String[] keys = new String[]{"courseplan_id","course_name","classroom_name","start_time","end_time"};
     private String mParam1;
     private View view;
@@ -55,6 +57,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
@@ -63,6 +66,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.fragment_my_course_plan_list, container, false);
         initDataFromPreviousActivity();
         initComponent();
@@ -79,6 +83,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -90,6 +95,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d(TAG, "onDetach: ");
         mListener = null;
     }
 

@@ -110,6 +110,7 @@ public class ShopmemberMainActivity
         if (viewPager.getAdapter() == null) {
             viewPager.setAdapter(adapter);
         }
+        viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

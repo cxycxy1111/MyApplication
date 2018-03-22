@@ -82,8 +82,11 @@
                     android:text="上课时长"/>
                 <EditText
                     android:id="@+id/et_last_time_a_course_plan_detail_private"
+                    android:layout_marginLeft="@dimen/distance128"
                     android:layout_toRightOf="@id/tv_last_time_a_course_plan_detail_private"
+                    android:layout_toLeftOf="@id/tv_minute_a_course_plan_detail_private"
                     android:inputType="number"
+                    android:gravity="center"
                     style="@style/plain_editText" />
                 <TextView
                     android:id="@+id/tv_minute_a_course_plan_detail_private"

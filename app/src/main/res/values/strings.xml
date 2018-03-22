@@ -34,6 +34,7 @@
     <string name="modify">修改</string>
     <string name="submit">提交</string>
     <string name="title_activity_help">HelpActivity</string>
+    <string name="view_courseplan">查看所有排课</string>
 
     <string name="text_h_intro">简介</string>
     <string name="text_p_intro_1">该应用设计用于舞蹈馆，瑜伽馆，跆拳道馆等具有会员体系的机构管理工具。</string>
