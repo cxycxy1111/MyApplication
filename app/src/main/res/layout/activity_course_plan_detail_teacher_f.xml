@@ -14,6 +14,8 @@
     <LinearLayout
         android:id="@+id/ll_f_course_plan_detail_teacher"
         android:background="#fff"
+        android:elevation="@dimen/distance4"
+        android:translationZ="@dimen/distance4"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">

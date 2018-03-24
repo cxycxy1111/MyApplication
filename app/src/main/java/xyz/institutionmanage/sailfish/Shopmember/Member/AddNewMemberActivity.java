@@ -40,7 +40,6 @@ public class AddNewMemberActivity
     private EditText et_name,et_birthday,et_phone,et_login_name,et_password,et_im;
     private String name,phone,im,login_name,password,birthday;
     private DatePickerDialog dpd_birthday;
-    private long s_id,sm_id;
     private static final String TAG = "ADD NEW MEMBER PRINT:";
 
     @Override
@@ -63,7 +62,7 @@ public class AddNewMemberActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_member_list:
-                saveMember();
+                checkBeforeSave();
                 break;
             case android.R.id.home:
                 finish();
@@ -158,70 +157,80 @@ public class AddNewMemberActivity
         }
     }
 
-    private void saveMember() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        s_id = MethodTool.preGetLong(getApplicationContext(),"sasm","s_id");
-        sm_id = MethodTool.preGetLong(getApplicationContext(),"sasm","sm_id");
+    private void checkBeforeSave() {
         name = et_name.getText().toString();
         phone = et_phone.getText().toString();
         im = et_im.getText().toString();
         login_name = et_login_name.getText().toString();
         password = et_password.getText().toString();
         birthday = et_birthday.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (birthday.equals("")) {
             birthday = sdf.format(new Date());
         }
-        if (name.equals("") || login_name.equals("") || password.equals("")) {
+        if (name.equals("") || login_name.equals("") || password.equals("") || name.length() >20) {
             initAlertDialog("必填字段为空","姓名、登录名或密码为空，请补充完整","确定","取消");
+        }else if (name.length()>20){
+            initAlertDialog("姓名过长","姓名限于20字以内","确定","取消");
+        }else if (phone.length()>11 ) {
+            initAlertDialog("电话号码过长","电话号码需为11位数字","确定","取消");
+        }else if (im.length()>32) {
+            initAlertDialog("即时通讯过长","即时通讯过长","确定","取消");
+        }else if(login_name.length() > 25) {
+            initAlertDialog("登录名过长","登录名过长","确定","取消");
         }else {
-            String address = "/AddNewMember?name=" + name +
-                    "&login_name=" +login_name +
-                    "&password=" +password +
-                    "&phone=" +phone +
-                    "&im=" + im +
-                    "&birthday=" + birthday;
-            Callback callback = new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    MethodTool.showToast(AddNewMemberActivity.this, Ref.CANT_CONNECT_INTERNET);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String resp = response.body().string();
-                    Log.d(TAG, "onResponse: " + resp);
-                    EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                    switch (respType) {
-                        case RESP_ERROR:
-                            MethodTool.showToast(AddNewMemberActivity.this,Ref.UNKNOWN_ERROR);
-                            break;
-                        case RESP_STAT:
-                            EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                            switch (respStatType) {
-                                case EXE_SUC:
-                                    MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
-                                    finish();
-                                    break;
-                                case EXE_FAIL:
-                                    MethodTool.showToast(AddNewMemberActivity.this,"新增失败");
-                                    break;
-                                case DUPLICATE:
-                                    MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
-                                    break;
-                                case SESSION_EXPIRED:
-                                    MethodTool.showExitAppAlert(AddNewMemberActivity.this);
-                                    break;
-                                case AUTHORIZE_FAIL:
-                                    MethodTool.showAuthorizeFailToast(AddNewMemberActivity.this);
-                                    break;
-                                default:break;
-                            }
-                            break;
-                        default:break;
-                    }
-                }
-            };
-            NetUtil.sendHttpRequest(AddNewMemberActivity.this,address,callback);
+            saveMember(login_name,password,birthday,im,name,phone);
         }
+    }
+
+    private void saveMember(String login_name,String password,String birthday,String im,String name,String phone) {
+        String address = "/AddNewMember?name=" + name +
+                "&login_name=" +login_name +
+                "&password=" +password +
+                "&phone=" +phone +
+                "&im=" + im +
+                "&birthday=" + birthday;
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(AddNewMemberActivity.this, Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                Log.d(TAG, "onResponse: " + resp);
+                EnumRespType respType = EnumRespType.dealWithResponse(resp);
+                switch (respType) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(AddNewMemberActivity.this,Ref.UNKNOWN_ERROR);
+                        break;
+                    case RESP_STAT:
+                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
+                        switch (respStatType) {
+                            case EXE_SUC:
+                                MethodTool.showToast(AddNewMemberActivity.this,"新增成功");
+                                finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddNewMemberActivity.this,"新增失败");
+                                break;
+                            case DUPLICATE:
+                                MethodTool.showToast(AddNewMemberActivity.this,"登录名重复");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(AddNewMemberActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.showAuthorizeFailToast(AddNewMemberActivity.this);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendHttpRequest(AddNewMemberActivity.this,address,callback);
     }
 }

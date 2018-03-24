@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVMainHintAdapter;
+import xyz.institutionmanage.sailfish.Member.Profile.MemberCard.MMemberCardConsumeLogActivity;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -60,6 +62,12 @@ public class MemberCardDetailActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_member_card_detail,menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -68,6 +76,10 @@ public class MemberCardDetailActivity
                 setResult(1,intent);
                 this.finish();
                 break;
+            case R.id.view_consume_log_member_card_detail:
+                Intent intent1 = new Intent(MemberCardDetailActivity.this, MMemberCardConsumeLogActivity.class);
+                intent1.putExtra("mc_id",seletec_mc_id);
+                startActivity(intent1);
             default:
                 break;
         }

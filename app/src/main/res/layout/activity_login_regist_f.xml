@@ -24,7 +24,7 @@
             <EditText
                 android:id="@+id/et_name_f_regist"
                 style="@style/plain_editText"
-                android:hint="机构名字"
+                android:hint="最多输入20字"
                 android:maxLines="1"
                 android:layout_toRightOf="@id/tv_name_f_regist" />
         </RelativeLayout>
@@ -41,7 +41,7 @@
             <EditText
                 android:id="@+id/et_intro_f_regist"
                 style="@style/plain_editText"
-                android:hint="简介"
+                android:hint="最多输入200字"
                 android:maxLines="3"
                 android:layout_toRightOf="@id/tv_intro_f_regist" />
         </RelativeLayout>

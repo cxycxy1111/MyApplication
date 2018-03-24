@@ -133,6 +133,11 @@ public class CoursePlanDetailActivity
             case R.id.delete_courseplan_detail:
                 showRemoveAlert();
                 break;
+            case R.id.view_book_and_attend_courseplan_detail:
+                Intent intent = new Intent(CoursePlanDetailActivity.this,CoursePlanBookAndAttendActivity.class);
+                intent.putExtra("cp_id",str_cp_id);
+                intent.putExtra("c_name",str_course_name);
+                startActivity(intent);
             default:break;
         }
         return true;

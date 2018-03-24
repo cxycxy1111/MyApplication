@@ -4,5 +4,9 @@
     <item
         android:id="@+id/delete_courseplan_detail"
         android:title="@string/delete"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/view_book_and_attend_courseplan_detail"
+        android:title="查看预订及签到记录"
+        app:showAsAction="never" />
 </menu>

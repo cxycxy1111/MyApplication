@@ -321,6 +321,9 @@ public class MCoursePlanDetailInfoFragment extends BaseFragment implements View.
                                     }
                                 });
                                 break;
+                            case BALANCE_NOT_ENOUGH:
+                                MethodTool.showToast(getActivity(),"课程已满人，你暂时不能再预订");
+                                break;
                             default:break;
                         }
                         break;

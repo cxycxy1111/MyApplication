@@ -114,16 +114,28 @@ public class RegistShopFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit_f_regist :
-                request();
+                checkBeforeRequest();
                 break;
             default:
                 break;
         }
     }
 
-    private void request() {
+    private void checkBeforeRequest() {
         String name = et_name.getText().toString();
         String intro = et_intro.getText().toString();
+        if (name.length() == 0) {
+            Toast.makeText(getActivity(),"机构名不能为空",Toast.LENGTH_SHORT).show();
+        }else {
+            if (name.length()>20 || name.length()==0 || intro.length()>200) {
+                Toast.makeText(getActivity(),"机构名或简介太长",Toast.LENGTH_SHORT).show();
+            }else {
+                request(name,intro);
+            }
+        }
+    }
+
+    private void request(String name,String intro) {
 
         String url_add_shop = "/RegisterShop?name=" + name + "&intro=" + intro;
         Log.d(TAG, url_add_shop);
