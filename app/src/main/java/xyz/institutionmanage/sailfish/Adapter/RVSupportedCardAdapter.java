@@ -126,12 +126,14 @@ public class RVSupportedCardAdapter extends RecyclerView.Adapter implements View
             case CARD_TYPE_BALANCE:
                 BalanceVH balanceVH = (BalanceVH)holder;
                 balanceVH.checkBox.setText(map.get("name"));
+                balanceVH.checkBox.setTag(position);
                 balanceVH.itemView.setTag(position);
+                balanceVH.editText_balance.setTag(position);
                 balanceVH.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        checkStatusMap.remove(position);
-                        checkStatusMap.put(position,isChecked);
+                        checkStatusMap.remove((int)buttonView.getTag());
+                        checkStatusMap.put((int)buttonView.getTag(),isChecked);
                     }
                 });
                 balanceVH.editText_balance.addTextChangedListener(new TextWatcher() {
@@ -157,12 +159,14 @@ public class RVSupportedCardAdapter extends RecyclerView.Adapter implements View
             case CARD_TYPE_TIMES:
                 TimesVH timesVH = (TimesVH)holder;
                 timesVH.checkBox.setText(map.get("name"));
+                timesVH.checkBox.setTag(position);
+                timesVH.editText_times.setTag(position);
                 timesVH.itemView.setTag(position);
                 timesVH.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        checkStatusMap.remove(position);
-                        checkStatusMap.put(position,isChecked);
+                        checkStatusMap.remove((int)buttonView.getTag());
+                        checkStatusMap.put((int)buttonView.getTag(),isChecked);
                     }
                 });
                 timesVH.editText_times.addTextChangedListener(new TextWatcher() {
@@ -184,14 +188,15 @@ public class RVSupportedCardAdapter extends RecyclerView.Adapter implements View
                 });
                 break;
             case CARD_TYPE_TIME:
-                TimeVH timeVH = (TimeVH)holder;
+                final TimeVH timeVH = (TimeVH)holder;
                 timeVH.checkBox.setText(map.get("name"));
+                timeVH.checkBox.setTag(position);
                 timeVH.itemView.setTag(position);
                 timeVH.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        checkStatusMap.remove(position);
-                        checkStatusMap.put(position,isChecked);
+                        checkStatusMap.remove((int)buttonView.getTag());
+                        checkStatusMap.put((int)buttonView.getTag(),isChecked);
                     }
                 });
                 break;

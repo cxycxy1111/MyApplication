@@ -153,6 +153,15 @@ public class MethodTool{
         });
     }
 
+    public static void showProgressBar(final Activity activity, final ProgressBar progressBar) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
     /**
      * 获取long类型的preferenceShare
      * @param context

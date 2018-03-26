@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanBatchDateActivity">
+
+    <include
+        android:id="@+id/tb_a_add_course_plan_batch_date"
+        layout="@layout/tile_toolbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_a_add_course_plan_batch_date"
+        android:layout_below="@id/tb_a_add_course_plan_batch_date"
+        android:layout_above="@id/rl_btn_next_a_add_course_plan_batch_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/rl_btn_next_a_add_course_plan_batch_date"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/distance4"
+        android:translationZ="@dimen/distance4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_next_a_add_course_plan_batch_date"
+            android:text="下一步"
+            style="@style/plain_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

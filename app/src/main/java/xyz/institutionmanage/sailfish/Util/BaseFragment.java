@@ -1,6 +1,7 @@
 package xyz.institutionmanage.sailfish.Util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,10 +31,11 @@ public class BaseFragment extends Fragment {
     public void createProgressBar(FragmentActivity activity) {
         context = activity;
         FrameLayout rootFrameLayout = (FrameLayout) activity.findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(128, 128);
         layoutParams.gravity = Gravity.CENTER;
         progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);
+        progressBar.setBackgroundColor(Color.WHITE);
         progressBar.setVisibility(View.GONE);
         rootFrameLayout.addView(progressBar);
     }

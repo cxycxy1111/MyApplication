@@ -2,13 +2,13 @@ package xyz.institutionmanage.sailfish.Util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,10 +49,11 @@ public class BaseActivity extends AppCompatActivity {
     private void createProgressBar(Activity activity) {
         Context context = activity;
         FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(128, 128);
         layoutParams.gravity = Gravity.CENTER;
         progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);
+        progressBar.setBackgroundColor(Color.WHITE);
         progressBar.setVisibility(View.GONE);
         rootFrameLayout.addView(progressBar);
     }

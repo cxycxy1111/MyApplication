@@ -43,6 +43,7 @@ public class CardTypeListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_type_list);
+        getProgressBar(this).setVisibility(View.VISIBLE);
         initToolBar();
         initData();
         initBalanceCard();
@@ -156,12 +157,14 @@ public class CardTypeListActivity extends BaseActivity {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
                 CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 String resp = response.body().string();
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
@@ -204,16 +207,19 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initTimesCard() {
+        MethodTool.showProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
         String url_times = "/QueryCardList?type=2";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
                 CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 String resp = response.body().string();
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
@@ -257,16 +263,19 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initTimeCard() {
+        MethodTool.showProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
         String url_times = "/QueryCardList?type=3";
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 MethodTool.showToast(CardTypeListActivity.this,Ref.CANT_CONNECT_INTERNET);
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 CardTypeListActivity.this.finish();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 String resp = response.body().string();
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {

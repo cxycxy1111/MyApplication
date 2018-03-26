@@ -89,6 +89,7 @@ public class CoursePlanBookAndAttendActivity extends BaseActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+
     }
 
     @Override

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanBatchActivity">
+
+    <include
+        android:id="@+id/tb_a_add_course_plan_batch"
+        layout="@layout/tile_toolbar" />
+    <ScrollView
+        android:layout_below="@id/tb_a_add_course_plan_batch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/rl_non_person"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tb_a_add_course_plan_batch">
+        <RelativeLayout
+            android:id="@+id/rl_course_a_add_course_plan_batch"
+            style="@style/rl_first_widget"
+            android:layout_marginTop="@dimen/distance16">
+            <TextView
+                android:id="@+id/tv_course_a_add_course_plan_batch"
+                style="@style/tv_input_area"
+                android:text="课程"/>
+            <Spinner
+                android:id="@+id/sp_course_a_add_course_plan_batch"
+                android:layout_toRightOf="@id/tv_course_a_add_course_plan_batch"
+                style="@style/plain_spinner">
+            </Spinner>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_time_a_add_course_plan_batch"
+            style="@style/rl_normal"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <TextView
+                android:id="@+id/tv_time_a_add_course_plan_batch"
+                style="@style/tv_input_area"
+                android:text="上课时间"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_time_a_add_course_plan_batch"
+                style="@style/plain_editText"
+                android:layout_marginLeft="@dimen/distance64"
+                android:hint="上课时间"
+                android:inputType="text"
+                android:layout_toRightOf="@id/tv_time_a_add_course_plan_batch" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_last_time_a_add_course_plan_batch"
+            style="@style/rl_normal">
+            <TextView
+                android:id="@+id/tv_last_time_a_add_course_plan_batch"
+                style="@style/tv_input_area"
+                android:text="时长"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_last_time_a_add_course_plan_batch"
+                style="@style/plain_editText"
+                android:layout_marginLeft="@dimen/distance64"
+                android:hint="分钟"
+                android:inputType="number"
+                android:layout_toRightOf="@id/tv_last_time_a_add_course_plan_batch" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_classroom_a_add_course_plan_batch"
+            style="@style/rl_normal">
+            <TextView
+                android:id="@+id/tv_classroom_a_add_course_plan_batch"
+                style="@style/tv_input_area"
+                android:text="课室"/>
+            <Spinner
+                android:id="@+id/sp_classroom_a_add_course_plan_batch"
+                android:layout_toRightOf="@id/tv_classroom_a_add_course_plan_batch"
+                style="@style/plain_spinner">
+            </Spinner>
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_next_step_a_add_course_plan_batch"
+            style="@style/plain_button"
+            android:text="下一步"/>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

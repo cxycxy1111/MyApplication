@@ -166,6 +166,8 @@ public class CoursePlanBookFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, int position) {
                 selected_m_id_position = position;
+                Log.d(TAG, "onItemClick: " + selected_m_id_position);
+                unregisterForContextMenu(view);
                 registerForContextMenu(view);
                 view.showContextMenu();
             }
@@ -182,21 +184,24 @@ public class CoursePlanBookFragment extends BaseFragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.attend_context_courseplan_book_list:
-                initDialogData();
-                break;
-            case R.id.unbook_context_courseplan_book_list:
-                unbook();
-                break;
-            default:break;
+        if (getUserVisibleHint()) {
+            switch (item.getItemId()) {
+                case R.id.attend_context_courseplan_book_list:
+                    initDialogData();
+                    break;
+                case R.id.unbook_context_courseplan_book_list:
+                    unbook();
+                    break;
+                default:break;
+            }
+            return true;
         }
-        return true;
+        return false;
+
     }
 
     private void initDialogData() {
         list_member_card.clear();
-        list_name.clear();
         selected_mc_id_positon = 0;
         String m_id = String.valueOf(mapList_member.get(selected_m_id_position).get("id"));
         String url = "/memberCardAttendList?cp_id=" + mParam1 + "&m_id=" +m_id ;
@@ -326,6 +331,7 @@ public class CoursePlanBookFragment extends BaseFragment {
                                     @Override
                                     public void run() {
                                         mapList_member.remove(selected_m_id_position);
+                                        list_name.remove(selected_m_id_position);
                                         adapter.notifyDataSetChanged();
                                     }
                                 });
@@ -352,7 +358,12 @@ public class CoursePlanBookFragment extends BaseFragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                MethodTool.hideProgressBar(getActivity(),getProgressBar(getActivity()));
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MethodTool.hideProgressBar(getActivity(),getProgressBar(getActivity()));
+                    }
+                });
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_ERROR:
                         MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
@@ -374,6 +385,9 @@ public class CoursePlanBookFragment extends BaseFragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        mapList_member.remove(selected_m_id_position);
+                                        list_name.remove(selected_m_id_position);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 });
                                 break;

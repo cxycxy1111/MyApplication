@@ -482,11 +482,13 @@ public class CourseDetailActivity
         if (!NumberUtils.isNumber(str_total_times) || !NumberUtils.isNumber(str_total_cost)) {
             Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
         }else {
-            String url = "/CoursePrivateModify?c_id=" + str_courseId +
-                    "&total_times=" + int_total_times +
-                    "&name=" + str_name +
-                    "&invalid_time=" + str_invalid_time +
-                    "&total_cost=" + int_total_cost;
+            String url = "/CoursePrivateModify";
+            HashMap<String,Object> hashMap = new HashMap<>();
+            hashMap.put("c_id",str_courseId);
+            hashMap.put("total_times",int_total_times);
+            hashMap.put("name",str_name);
+            hashMap.put("invalid_time",str_invalid_time);
+            hashMap.put("total_cost",int_total_cost);
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -527,7 +529,7 @@ public class CourseDetailActivity
                     }
                 }
             };
-            NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
+            NetUtil.sendPostHttpRequest(this,url,hashMap,callback);
         }
     }
 
@@ -545,11 +547,13 @@ public class CourseDetailActivity
         if (!NumberUtils.isNumber(str_last_time) || !NumberUtils.isNumber(str_max_book_num)) {
             Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_LONG).show();
         }else {
-            String url = "/CourseModify?c_id=" + str_courseId +
-                    "&name=" + str_name +
-                    "&last_time=" + str_last_time +
-                    "&max_book_num=" + str_max_book_num +
-                    "&summary=";
+            String url = "/CourseModify";
+            HashMap<String,Object> hashMap = new HashMap<>();
+            hashMap.put("c_id",str_courseId);
+            hashMap.put("name",str_name);
+            hashMap.put("last_time",str_last_time);
+            hashMap.put("max_book_num",str_max_book_num);
+            hashMap.put("summary","");
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -587,7 +591,7 @@ public class CourseDetailActivity
                     }
                 }
             };
-            NetUtil.sendHttpRequest(CourseDetailActivity.this,url,callback);
+            NetUtil.sendPostHttpRequest(this,url,hashMap,callback);
         }
     }
 

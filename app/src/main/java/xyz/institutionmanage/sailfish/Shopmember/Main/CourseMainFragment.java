@@ -24,9 +24,11 @@ import xyz.institutionmanage.sailfish.Adapter.ViewPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanBatchActivity;
+import xyz.institutionmanage.sailfish.Util.BaseFragment;
 
 public class CourseMainFragment
-        extends Fragment
+        extends BaseFragment
         implements
                 Toolbar.OnMenuItemClickListener,
                 TabLayout.OnTabSelectedListener{
@@ -203,7 +205,11 @@ public class CourseMainFragment
                 intent = new Intent(getActivity(),AddCoursePlanActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.add_new_courseplan_batch_main:
+                intent = new Intent(getActivity(), AddCoursePlanBatchActivity.class);
+                startActivity(intent);
+                return true;
+            default:return true;
         }
-        return false;
     }
 }

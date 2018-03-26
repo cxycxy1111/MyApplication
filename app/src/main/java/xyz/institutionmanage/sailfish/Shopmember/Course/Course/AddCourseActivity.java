@@ -356,7 +356,7 @@ public class AddCourseActivity
     private void initButtons() {
         btn = (Button)findViewById(R.id.btn_addNewCourse);
         btn_person = (Button)findViewById(R.id.btn_person_addNewCourse);
-        btn.setOnFocusChangeListener(this);
+        btn.setOnClickListener(this);
         btn_person.setOnClickListener(this);
     }
 
@@ -401,7 +401,6 @@ public class AddCourseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_addNewCourse:
-                Intent intent = new Intent(AddCourseActivity.this,AddSupportedCardActivity.class);
                 course_name = et_course_name.getText().toString();
                 last_time = et_last_time.getText().toString();
                 max_book_num = et_max_num.getText().toString();

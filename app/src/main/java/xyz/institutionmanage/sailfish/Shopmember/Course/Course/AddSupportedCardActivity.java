@@ -141,30 +141,28 @@ public class AddSupportedCardActivity extends BaseActivity {
             case R.id.save_add_support_card:
                 StringBuilder builder = new StringBuilder();
                 Map<Integer,String> values = adapter.getValueMap();
-                Map<Integer,Boolean> c = adapter.getCheckStatusMap();
+                Map<Integer,Boolean> checkStatusMap = adapter.getCheckStatusMap();
                 Iterator iterator_v = values.entrySet().iterator();
-                Iterator iterator_c = c.entrySet().iterator();
+                Iterator iterator_c = checkStatusMap.entrySet().iterator();
                 while (iterator_c.hasNext()) {
                     Map.Entry entry = (Map.Entry)iterator_c.next();
                     Integer position = (Integer)entry.getKey();
                     Boolean isChecked = (Boolean)entry.getValue();
-                    if (isChecked == true) {
+                    if (isChecked) {
                         String value = values.get(position);
                         Map<String,String> map = origin_cards.get(position);
                         int t = Integer.parseInt(String.valueOf(map.get("type")));
-                        if (t != 4) {
+                        if (t != 3) {
                             builder.append("1_")
                                     .append(ce_id).append("_")
                                     .append(String.valueOf(origin_cards.get(position).get("id"))).append("_")
                                     .append(value).append("-");
 
                         }else {
-                            if (!value.equals("")) {
-                                builder.append("1_")
-                                        .append(ce_id).append("_")
-                                        .append(String.valueOf(origin_cards.get(position).get("id"))).append("_")
-                                        .append(value).append("-");
-                            }
+                            builder.append("1_")
+                                    .append(ce_id).append("_")
+                                    .append(String.valueOf(origin_cards.get(position).get("id"))).append("_")
+                                    .append("0").append("-");
                         }
                     }
                 }

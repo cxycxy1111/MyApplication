@@ -10,4 +10,8 @@
         android:id="@+id/add_new_courseplan_main"
         android:title="新增排课"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/add_new_courseplan_batch_main"
+        android:title="批量新增排课"
+        app:showAsAction="never"/>
 </menu>

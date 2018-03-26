@@ -3,7 +3,6 @@ package xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -23,6 +22,7 @@ import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVSimpleAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.ActivityManager;
+import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -30,12 +30,15 @@ import xyz.institutionmanage.sailfish.Util.MethodTool;
 import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 
-public class CoursePlanAttendanceFragment extends Fragment {
+public class CoursePlanAttendanceFragment extends BaseFragment {
 
     private static final String ARG_PARAM1 = "cp_id";
+    private static final String TAG = "CoursePlanAttenF:";
     private String [] keys = new String[] {"id","name"};
-    private List<Map<String,String>> mapList = new ArrayList<>();
+    private List<Map<String,String>> mapList_member = new ArrayList<>();
     private List<String> list_name = new ArrayList<>();
+    private int int_selected_m_position;
+    private OnUnattendListener onUnattendListener;
 
     private String mParam1;
     private View view;
@@ -100,6 +103,18 @@ public class CoursePlanAttendanceFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public interface OnUnattendListener {
+        void onAttend();
+    }
+
+    public OnUnattendListener getOnUnttendListener() {
+        return onUnattendListener;
+    }
+
+    public void setOnunattendListener(OnUnattendListener onUnattendListener) {
+        this.onUnattendListener = onUnattendListener;
+    }
+
     private void initDataFromWeb() {
         String url = "/coursePlanAttendanceListQueryByCoursePlanId?cp_id=" + mParam1;
         Callback callback = new Callback() {
@@ -128,9 +143,9 @@ public class CoursePlanAttendanceFragment extends Fragment {
                         MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
                         break;
                     case RESP_MAPLIST:
-                        mapList = JsonHandler.strToListMap(resp,keys);
-                        for (int i = 0;i<mapList.size();i++) {
-                            list_name.add(mapList.get(i).get("name"));
+                        mapList_member = JsonHandler.strToListMap(resp,keys);
+                        for (int i = 0;i<mapList_member.size();i++) {
+                            list_name.add(mapList_member.get(i).get("name"));
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -154,6 +169,8 @@ public class CoursePlanAttendanceFragment extends Fragment {
         adapter.setOnItemClickListener(new RVSimpleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                int_selected_m_position = position;
+                unregisterForContextMenu(view);
                 registerForContextMenu(view);
                 view.showContextMenu();
             }
@@ -164,21 +181,27 @@ public class CoursePlanAttendanceFragment extends Fragment {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
         getActivity().getMenuInflater().inflate(R.menu.menu_context_courseplan_attend_list,menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.unattend_context_courseplan_attend_list:
-                break;
-            default:break;
+        if (getUserVisibleHint()) {
+            switch (item.getItemId()) {
+                case R.id.unattend_context_courseplan_attend_list:
+                    unattend();
+                    break;
+                default:break;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public void unbook() {
-        String url = "";
+    public void unattend() {
+        String m_id = String.valueOf(mapList_member.get(int_selected_m_position).get("id"));
+        String url = "/unattend?cp_id=" + mParam1 + "&m_id=" + m_id;
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -196,8 +219,29 @@ public class CoursePlanAttendanceFragment extends Fragment {
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
                                 MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
+                                ActivityManager.removeAllActivity();
                                 break;
+                            case NSR:
+                                MethodTool.showToast(getActivity(),"你暂未签到该课程");
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(getActivity(),Ref.OP_SUCCESS);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mapList_member.remove(int_selected_m_position);
+                                        list_name.remove(int_selected_m_position);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                });
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(getActivity(),Ref.OP_FAIL);
+                                break;
+                            default:break;
                         }
+                        break;
+                    default:break;
                 }
             }
         };

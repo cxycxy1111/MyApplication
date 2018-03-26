@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +25,7 @@ import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVCourseListAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Course.Course.CourseDetailActivity;
+import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
 import xyz.institutionmanage.sailfish.Util.JsonHandler;
@@ -33,7 +33,7 @@ import xyz.institutionmanage.sailfish.Util.MethodTool;
 import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 
-public class CourseListFragment extends Fragment {
+public class CourseListFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
 
     private String mParam1;
@@ -73,6 +73,7 @@ public class CourseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.activity_main_course_list,container,false);
+        getProgressBar(getActivity()).setVisibility(View.VISIBLE);
         initShopData();
         initRecyclerView();
         return view;
@@ -98,11 +99,14 @@ public class CourseListFragment extends Fragment {
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                MethodTool.hideProgressBar(getParentFragment().getActivity(),getProgressBar(getParentFragment().getActivity()));
                 MethodTool.showToast(getParentFragment().getActivity(), Ref.CANT_CONNECT_INTERNET);
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                MethodTool.hideProgressBar(getParentFragment().getActivity(),getProgressBar(getParentFragment().getActivity()));
                 String resp = response.body().string();
                 Log.d(TAG, "onResponse: " + resp);
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);

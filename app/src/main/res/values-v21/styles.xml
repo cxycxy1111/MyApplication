@@ -5,6 +5,8 @@
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowBackgroundCoclor</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+
     </style>
 
     <style name="plain_checkbox">
@@ -18,5 +20,17 @@
         <item name="android:colorActivatedHighlight"></item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="plain_editText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginTop">@dimen/distance8</item>
+        <item name="android:layout_marginBottom">@dimen/distance8</item>
+        <item name="android:layout_marginRight">@dimen/distance8</item>
+        <item name="android:layout_marginLeft">@dimen/distance16</item>
+        <item name="android:colorControlActivated">@color/colorPrimary</item>
     </style>
 </resources>
