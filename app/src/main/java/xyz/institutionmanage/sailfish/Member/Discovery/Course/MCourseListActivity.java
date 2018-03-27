@@ -18,7 +18,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVCourseListAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -78,8 +77,7 @@ public class MCourseListActivity extends BaseActivity {
                                 MethodTool.showToast(MCourseListActivity.this,Ref.OP_NSR);
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(MCourseListActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(MCourseListActivity.this);
                             default:break;
                         }
                         break;

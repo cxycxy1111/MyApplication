@@ -206,6 +206,7 @@ public class AddCoursePlanBatchDateActivity extends BaseActivity implements View
                         str_cp_id = builder.toString();
                         if (c_type.equals("4")) {
                             setResult(Ref.RESULTCODE_ADD);
+                            AddCoursePlanBatchDateActivity.this.finish();
                         }else {
                             Intent intent = new Intent(AddCoursePlanBatchDateActivity.this,AddCoursePlanBatchTeacherActivity.class);
                             intent.putExtra("c_id",c_id)

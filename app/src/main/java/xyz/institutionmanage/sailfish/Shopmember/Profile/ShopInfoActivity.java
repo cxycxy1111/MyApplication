@@ -98,8 +98,7 @@ public class ShopInfoActivity extends BaseActivity {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(ShopInfoActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(ShopInfoActivity.this);
                                 break;
                             case EMPTY_RESULT:
                                 MethodTool.showToast(ShopInfoActivity.this,"该机构已被删除");
@@ -146,8 +145,7 @@ public class ShopInfoActivity extends BaseActivity {
                                 MethodTool.showToast(ShopInfoActivity.this,"修改失败，请重试");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(ShopInfoActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(ShopInfoActivity.this);
                                 break;
                             default:break;
                         }

@@ -476,19 +476,17 @@ public class CourseDetailActivity
         String str_total_cost = et_total_cost.getText().toString();
 
         int int_total_times = Integer.parseInt(str_total_times);
-        String str_name = et_name.getText().toString();
+        final String str_name = et_name.getText().toString();
         String str_invalid_time = et_invalid_date.getText().toString();
         int int_total_cost = Integer.parseInt(str_total_cost);
         if (!NumberUtils.isNumber(str_total_times) || !NumberUtils.isNumber(str_total_cost)) {
             Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_SHORT).show();
         }else {
-            String url = "/CoursePrivateModify";
-            HashMap<String,Object> hashMap = new HashMap<>();
-            hashMap.put("c_id",str_courseId);
-            hashMap.put("total_times",int_total_times);
-            hashMap.put("name",str_name);
-            hashMap.put("invalid_time",str_invalid_time);
-            hashMap.put("total_cost",int_total_cost);
+            String url = "/CoursePrivateModify?c_id=" + str_courseId +
+                    "&total_times=" + int_total_times +
+                    "&name=" + str_name +
+                    "&invalid_time=" + str_invalid_time +
+                    "&total_cost=" + int_total_cost;
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -510,7 +508,12 @@ public class CourseDetailActivity
                                     break;
                                 case EXE_SUC:
                                     MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
-                                    CourseDetailActivity.this.finish();
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getSupportActionBar().setTitle(str_name);
+                                        }
+                                    });
                                     break;
                                 case EXE_FAIL:
                                     MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_FAIL);
@@ -529,7 +532,7 @@ public class CourseDetailActivity
                     }
                 }
             };
-            NetUtil.sendPostHttpRequest(this,url,hashMap,callback);
+            NetUtil.sendHttpRequest(this,url,callback);
         }
     }
 
@@ -541,19 +544,17 @@ public class CourseDetailActivity
         Map<String,String> map_name = maplist_after_modified.get(0);
         final Map<String,String> map_last_time = maplist_after_modified.get(1);
         Map<String,String> map_max_book_num = maplist_after_modified.get(2);
-        String str_name = map_name.get("hint");
+        final String str_name = map_name.get("hint");
         String str_last_time = String.valueOf(map_last_time.get("hint"));
         String str_max_book_num = String.valueOf(map_max_book_num.get("hint"));
         if (!NumberUtils.isNumber(str_last_time) || !NumberUtils.isNumber(str_max_book_num)) {
             Toast.makeText(CourseDetailActivity.this,Ref.OP_WRONG_NUMBER_FORMAT,Toast.LENGTH_LONG).show();
         }else {
-            String url = "/CourseModify";
-            HashMap<String,Object> hashMap = new HashMap<>();
-            hashMap.put("c_id",str_courseId);
-            hashMap.put("name",str_name);
-            hashMap.put("last_time",str_last_time);
-            hashMap.put("max_book_num",str_max_book_num);
-            hashMap.put("summary","");
+            String url = "/CourseModify?c_id=" + str_courseId +
+                    "&name=" + str_name +
+                    "&last_time=" + str_last_time +
+                    "&max_book_num=" + str_max_book_num +
+                    "&summary=";
             Callback callback = new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -571,6 +572,12 @@ public class CourseDetailActivity
                                     break;
                                 case EXE_SUC:
                                     MethodTool.showToast(CourseDetailActivity.this,Ref.OP_MODIFY_SUCCESS);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getSupportActionBar().setTitle(str_name);
+                                        }
+                                    });
                                     saveSupportCardModifation();
                                     break;
                                 case EXE_FAIL:
@@ -591,7 +598,7 @@ public class CourseDetailActivity
                     }
                 }
             };
-            NetUtil.sendPostHttpRequest(this,url,hashMap,callback);
+            NetUtil.sendHttpRequest(this,url,callback);
         }
     }
 

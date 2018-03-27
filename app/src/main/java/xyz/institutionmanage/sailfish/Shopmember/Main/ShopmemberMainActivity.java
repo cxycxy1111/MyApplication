@@ -51,7 +51,7 @@ public class ShopmemberMainActivity
 
     //toolbar初始化
     private void initToolBar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_main);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title[0]);
     }

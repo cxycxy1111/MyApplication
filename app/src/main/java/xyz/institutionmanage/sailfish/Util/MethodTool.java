@@ -68,6 +68,10 @@ public class MethodTool{
         targetActivity.finish();
     }
 
+    /**
+     * 处理网络请求失败时的显示逻辑
+     * @param activity
+     */
     public static void dealWithWebRequestFailure(BaseActivity activity) {
         MethodTool.hideProgressBar(activity,activity.getProgressBar(activity));
         MethodTool.showToast(activity,Ref.CANT_CONNECT_INTERNET);
@@ -125,6 +129,10 @@ public class MethodTool{
         });
     }
 
+    /**
+     * 鉴权失败时退出界面
+     * @param targetActivity
+     */
     public static void exitAcitivityDueToAuthorizeFail(final Activity targetActivity) {
         targetActivity.runOnUiThread(new Runnable() {
             @Override

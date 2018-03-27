@@ -24,7 +24,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVSimpleAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -126,8 +125,7 @@ public class CoursePlanBookFragment extends BaseFragment {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case EMPTY_RESULT:
                                 MethodTool.showToast(getActivity(),"暂无会员预订排课");
@@ -316,8 +314,7 @@ public class CoursePlanBookFragment extends BaseFragment {
                                 MethodTool.showToast(getActivity(),"签到失败");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case MEMBERCARD_EXPIRED:
                                 MethodTool.showToast(getActivity(),Ref.OP_MEMBER_CARD_EXPIRED);
@@ -377,8 +374,7 @@ public class CoursePlanBookFragment extends BaseFragment {
                                 MethodTool.showToast(getActivity(),"退订失败");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case EXE_SUC:
                                 MethodTool.showToast(getActivity(),"退订成功");

@@ -90,6 +90,7 @@ public class MCourseDetailSupportCardFragment extends Fragment {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             default:break;
                         }

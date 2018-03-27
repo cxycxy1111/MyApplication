@@ -19,7 +19,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.Adapter.RVCoursePlanAdapter;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -82,8 +81,7 @@ public class CoursePlanListActivity extends BaseActivity {
                                 MethodTool.showToast(CoursePlanListActivity.this,"暂无排课");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(CoursePlanListActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(CoursePlanListActivity.this);
                                 break;
                             default:break;
                         }

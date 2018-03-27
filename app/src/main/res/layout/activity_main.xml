@@ -7,14 +7,9 @@
     android:layout_height="match_parent"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Main.ShopmemberMainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_alignParentTop="true"
+    <include
         android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:theme="@style/Toolbar"
-        app:popupTheme="@style/AlfredOverlay">
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/tile_toolbar"/>
 
     <android.support.v4.view.ViewPager
         android:layout_below="@id/toolbar_main"

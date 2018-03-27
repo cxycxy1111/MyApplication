@@ -14,7 +14,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -79,8 +78,7 @@ public class MCourseDetailPrivateActivity extends BaseActivity {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(MCourseDetailPrivateActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(MCourseDetailPrivateActivity.this);
                                 break;
                             case NSR:
                                 MethodTool.showToast(MCourseDetailPrivateActivity.this,"暂无该课程");

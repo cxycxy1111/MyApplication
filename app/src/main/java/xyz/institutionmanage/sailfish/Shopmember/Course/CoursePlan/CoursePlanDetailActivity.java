@@ -198,7 +198,7 @@ public class CoursePlanDetailActivity
                                 CoursePlanDetailActivity.this.finish();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showAuthorizeFailToast(CoursePlanDetailActivity.this);
+                                MethodTool.showExitAppAlert(CoursePlanDetailActivity.this);
                                 break;
                             case AUTHORIZE_FAIL:
                                 MethodTool.exitAcitivityDueToAuthorizeFail(CoursePlanDetailActivity.this);

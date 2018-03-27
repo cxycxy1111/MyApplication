@@ -2,7 +2,6 @@ package xyz.institutionmanage.sailfish.Util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -49,11 +48,10 @@ public class BaseActivity extends AppCompatActivity {
     private void createProgressBar(Activity activity) {
         Context context = activity;
         FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(128, 128);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         layoutParams.gravity = Gravity.CENTER;
         progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);
-        progressBar.setBackgroundColor(Color.WHITE);
         progressBar.setVisibility(View.GONE);
         rootFrameLayout.addView(progressBar);
     }

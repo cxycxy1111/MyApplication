@@ -23,7 +23,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -299,8 +298,7 @@ public class MCoursePlanDetailInfoFragment extends BaseFragment implements View.
                                 MethodTool.showToast(getActivity(),"你尚未办理所该课程需要的会员卡，暂无法预订");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                             case COURSEPLAN_EXPIRED:
                                 MethodTool.showToast(getActivity(),"排课已过期，无法预订");
                                 break;
@@ -359,8 +357,7 @@ public class MCoursePlanDetailInfoFragment extends BaseFragment implements View.
                                 MethodTool.showToast(getActivity(),"退订失败");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case EXE_SUC:
                                 MethodTool.showToast(getActivity(),"退订成功");
@@ -429,8 +426,7 @@ public class MCoursePlanDetailInfoFragment extends BaseFragment implements View.
                                 MethodTool.showToast(getActivity(),"签到失败");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case MEMBERCARD_EXPIRED:
                                 MethodTool.showToast(getActivity(),Ref.OP_MEMBER_CARD_EXPIRED);

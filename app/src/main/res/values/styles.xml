@@ -1,10 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/windowBackgroundCoclor</item>
         <item name="android:colorAccent" tools:targetApi="lollipop">@color/colorPrimary</item>
-
     </style>
 
     <style name="GroupIndicatorText">
@@ -17,7 +16,8 @@
         <item name="android:textSize">@dimen/simple_list_view_text</item>
     </style>
 
-    <style name="Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Toolbar">
+        <item name="android:titleTextColor" tools:targetApi="m">#fff</item>
         <item name="android:subtitleTextColor" tools:targetApi="m">#f1f1f1</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
@@ -27,13 +27,14 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <style name="SpinnerDropdownTheme" parent="Theme.AppCompat.Light">
+    <style name="SpinnerDropdownTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:background">#fff</item>
     </style>
 
-    <style name="AlfredOverlay" parent="ThemeOverlay.AppCompat.Light">
+    <style name="AlfredOverlay">
+        <item name="overlapAnchor">false</item>
         <item name="android:background">@color/windowBackgroundCoclor</item>
     </style>
 

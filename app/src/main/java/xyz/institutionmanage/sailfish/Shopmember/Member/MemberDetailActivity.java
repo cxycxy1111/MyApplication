@@ -383,7 +383,9 @@ public class MemberDetailActivity
                                         MethodTool.showToast(MemberDetailActivity.this,"该会员已被删除");
                                         MemberDetailActivity.this.finish();
                                         break;
-                                    case SESSION_EXPIRED:MethodTool.showExitAppAlert(MemberDetailActivity.this);break;
+                                    case SESSION_EXPIRED:
+                                        MethodTool.showExitAppAlert(MemberDetailActivity.this);
+                                        break;
                                     default:break;
                                 }
                                 break;

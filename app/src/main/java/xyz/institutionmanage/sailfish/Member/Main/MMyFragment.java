@@ -155,8 +155,7 @@ public class MMyFragment extends BaseFragment implements View.OnClickListener{
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case EXE_SUC:
                                 MethodTool.showToast(getActivity(),"退出成功");

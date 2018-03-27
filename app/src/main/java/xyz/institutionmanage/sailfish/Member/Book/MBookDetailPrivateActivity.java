@@ -19,7 +19,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -120,8 +119,7 @@ public class MBookDetailPrivateActivity extends BaseActivity implements View.OnC
                                 MBookDetailPrivateActivity.this.finish();
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(MBookDetailPrivateActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(MBookDetailPrivateActivity.this);
                                 break;
                             default:break;
                         }
@@ -189,8 +187,7 @@ public class MBookDetailPrivateActivity extends BaseActivity implements View.OnC
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(MBookDetailPrivateActivity.this,Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(MBookDetailPrivateActivity.this);
                                 break;
                             case AUTHORIZE_FAIL:
                                 MethodTool.showToast(MBookDetailPrivateActivity.this,"你尚未办理所该课程需要的会员卡，暂无法预订");

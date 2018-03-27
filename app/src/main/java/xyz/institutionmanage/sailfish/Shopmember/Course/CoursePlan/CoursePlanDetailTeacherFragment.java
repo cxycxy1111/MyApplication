@@ -136,11 +136,15 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                         EnumRespStatType enumRespStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (enumRespStatType) {
                             case NSR:MethodTool.showToast(getActivity(),Ref.STAT_NSR);break;
-                            case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(getActivity());
+                                break;
                             case AUTHORIZE_FAIL:
                                 MethodTool.exitAcitivityDueToAuthorizeFail(getActivity());
                                 break;
-                            default:MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);break;
+                            default:
+                                MethodTool.showToast(getActivity(),Ref.UNKNOWN_ERROR);
+                            break;
                         }
                         break;
                     case RESP_ERROR:
@@ -274,7 +278,8 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                                 case PARTYLY_FAIL:
                                     MethodTool.showToast(getActivity(),Ref.OP_PARTLY_FAIL);
                                     break;
-                                case SESSION_EXPIRED:MethodTool.showExitAppAlert(getActivity());break;
+                                case SESSION_EXPIRED:
+                                    MethodTool.showExitAppAlert(getActivity());break;
                                 case AUTHORIZE_FAIL:
                                     MethodTool.showAuthorizeFailToast(getActivity());
                                     break;

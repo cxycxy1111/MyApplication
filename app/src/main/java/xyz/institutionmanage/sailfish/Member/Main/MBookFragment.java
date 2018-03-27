@@ -25,7 +25,6 @@ import xyz.institutionmanage.sailfish.Adapter.RVMemberMyBookAdapter;
 import xyz.institutionmanage.sailfish.Member.Book.MBookDetailActivity;
 import xyz.institutionmanage.sailfish.Member.Book.MBookDetailPrivateActivity;
 import xyz.institutionmanage.sailfish.R;
-import xyz.institutionmanage.sailfish.Util.ActivityManager;
 import xyz.institutionmanage.sailfish.Util.BaseFragment;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespType;
@@ -214,8 +213,7 @@ public class MBookFragment extends BaseFragment {
                                 break;
                             case SESSION_EXPIRED:
                                 rl_empty.setVisibility(View.VISIBLE);
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                             default:break;
                         }
                         break;
@@ -331,8 +329,7 @@ public class MBookFragment extends BaseFragment {
                                 MethodTool.showToast(getActivity(),"签到失败");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getActivity(),Ref.ALERT_SESSION_EXPIRED);
-                                ActivityManager.removeAllActivity();
+                                MethodTool.showExitAppAlert(getActivity());
                                 break;
                             case MEMBERCARD_EXPIRED:
                                 MethodTool.showToast(getActivity(),Ref.OP_MEMBER_CARD_EXPIRED);

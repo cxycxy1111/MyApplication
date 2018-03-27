@@ -164,13 +164,11 @@ public class CardTypeListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
                 String resp = response.body().string();
-                EnumRespType respType = EnumRespType.dealWithResponse(resp);
-                switch (respType) {
+                MethodTool.hideProgressBar(CardTypeListActivity.this,getProgressBar(CardTypeListActivity.this));
+                switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
-                        EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
-                        switch (respStatType) {
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case NSR:
                                 MethodTool.showToast(CardTypeListActivity.this,"暂无余额卡");
                                 break;

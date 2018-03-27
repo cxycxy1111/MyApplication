@@ -108,7 +108,7 @@ public class LoginActivity
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_a_login);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_a_login);
     }

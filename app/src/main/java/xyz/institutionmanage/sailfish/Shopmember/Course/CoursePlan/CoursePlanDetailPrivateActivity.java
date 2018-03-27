@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,9 @@ import xyz.institutionmanage.sailfish.Util.Ref;
 import xyz.institutionmanage.sailfish.Util.SharePreferenceManager;
 
 
-public class CoursePlanDetailPrivateActivity extends BaseActivity implements View.OnFocusChangeListener,View.OnClickListener{
+public class CoursePlanDetailPrivateActivity
+        extends BaseActivity
+        implements View.OnFocusChangeListener,View.OnClickListener{
 
     private String str_s_id,str_sm_id;
     private String str_c_name,str_cp_id,str_start_time,str_end_time,str_current_cr_id,str_selected_cr_id;
@@ -107,6 +110,9 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+            case R.id.delete_courseplan_detail_private:
+                delete();
+                break;
             default:break;
         }
         return true;
@@ -414,5 +420,52 @@ public class CoursePlanDetailPrivateActivity extends BaseActivity implements Vie
             }
         };
         NetUtil.sendHttpRequest(CoursePlanDetailPrivateActivity.this,url,callback);
+    }
+
+    private void delete() {
+        String url = "/CoursePlanRemove";
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("id",str_cp_id);
+        Callback callback = new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.CANT_CONNECT_INTERNET);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                switch (EnumRespType.dealWithResponse(resp)) {
+                    case RESP_ERROR:
+                        MethodTool.showToast(CoursePlanDetailPrivateActivity.this,Ref.UNKNOWN_ERROR);
+                    case RESP_STAT:
+                        switch (EnumRespStatType.dealWithRespStat(resp)) {
+                            case EXE_SUC:
+                                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,"删除成功");
+                                CoursePlanDetailPrivateActivity.this.finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,"删除失败");
+                                break;
+                            case NST_NOT_MATCH:
+                                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,"无法匹配");
+                                break;
+                            case NSR:
+                                MethodTool.showToast(CoursePlanDetailPrivateActivity.this,"暂无记录");
+                                break;
+                            case SESSION_EXPIRED:
+                                MethodTool.showExitAppAlert(CoursePlanDetailPrivateActivity.this);
+                                break;
+                            case AUTHORIZE_FAIL:
+                                MethodTool.exitAcitivityDueToAuthorizeFail(CoursePlanDetailPrivateActivity.this);
+                                break;
+                            default:break;
+                        }
+                        break;
+                    default:break;
+                }
+            }
+        };
+        NetUtil.sendPostHttpRequest(this,url,hashMap,callback);
     }
 }

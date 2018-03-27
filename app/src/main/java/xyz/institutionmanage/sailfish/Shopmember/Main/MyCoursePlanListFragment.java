@@ -138,7 +138,7 @@ public class MyCoursePlanListFragment extends Fragment {
                                 MethodTool.showToast(getParentFragment().getActivity(),"你暂没有排课");
                                 break;
                             case SESSION_EXPIRED:
-                                MethodTool.showToast(getParentFragment().getActivity(),Ref.ALERT_SESSION_EXPIRED);
+                                MethodTool.showExitAppAlert(getParentFragment().getActivity());
                                 break;
                             default:break;
                         }
