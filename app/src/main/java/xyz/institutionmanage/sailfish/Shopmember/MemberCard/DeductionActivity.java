@@ -175,7 +175,7 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initToolbar(){
-        toolbar = (Toolbar)findViewById(R.id.tb_a_deduction);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

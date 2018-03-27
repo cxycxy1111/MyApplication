@@ -41,7 +41,7 @@ public class ResetMemberPwdActivity
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.tb_activity_reset_pwd_member);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_a_reset_member_pwd);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

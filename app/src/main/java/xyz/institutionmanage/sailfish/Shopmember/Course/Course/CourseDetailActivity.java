@@ -88,7 +88,7 @@ public class CourseDetailActivity
      * 初始化Toolbar
      */
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_a_course_detail);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getIntent().getStringExtra("name"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/windowBackgroundCoclor</item>
         <item name="android:colorAccent" tools:targetApi="lollipop">@color/colorPrimary</item>
     </style>
@@ -36,6 +36,8 @@
     <style name="AlfredOverlay">
         <item name="overlapAnchor">false</item>
         <item name="android:background">@color/windowBackgroundCoclor</item>
+        <item name="android:textColorPrimary">#222</item>
+        <item name="android:textColorSecondary">#222</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -67,10 +69,6 @@
         <item name="android:textSize">20dp</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="plain_text">
         <item name="android:layout_centerVertical">true</item>
@@ -163,7 +161,7 @@
     <style name="plain_spinner">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:popupBackground">#fff</item>
-        <item name="android:popupAnimationStyle">@style/AppTheme.PopupOverlay</item>
+        <item name="android:popupAnimationStyle">@style/AlfredOverlay</item>
         <item name="android:layout_margin">@dimen/distance16</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -189,6 +187,11 @@
         <item name="tabIndicatorHeight">2dp</item>
         <item name="android:layout_height">@dimen/tabbar_height</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="tabTextAppearance">@style/TabLyout.TextCustomApearance</item>
+    </style>
+
+    <style name="TabLyout.TextCustomApearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 
     <style name="plain_button">
@@ -212,6 +215,8 @@
     </style>
 
     <style name="plain_editText">
+        <item name="android:textColorPrimary">#222</item>
+        <item name="android:textColorSecondary">#222</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

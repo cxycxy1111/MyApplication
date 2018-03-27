@@ -3,16 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Profile.Card.CardTypeListActivity">
 
-    <android.support.v7.widget.Toolbar
+    <include
         android:id="@+id/tb_a_cardtype_list"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:theme="@style/Toolbar"
-        app:popupTheme="@style/AlfredOverlay">
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/tile_toolbar">
+    </include>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_a_cardtype_list"

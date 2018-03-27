@@ -105,7 +105,7 @@ public class MemberListActivity
      * 初始化toolbar
      */
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_member_list);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

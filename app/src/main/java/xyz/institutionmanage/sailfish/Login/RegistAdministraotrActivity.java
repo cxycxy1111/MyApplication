@@ -36,7 +36,7 @@ public class RegistAdministraotrActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_regist_administrator);
+        setContentView(R.layout.tile_toolbar);
         initView();
         dealWithIntent();
     }

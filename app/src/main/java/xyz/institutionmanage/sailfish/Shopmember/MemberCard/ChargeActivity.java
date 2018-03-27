@@ -176,7 +176,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initToolbar(){
-        toolbar = (Toolbar)findViewById(R.id.tb_a_charge);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

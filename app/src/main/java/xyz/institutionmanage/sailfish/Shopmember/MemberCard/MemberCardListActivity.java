@@ -106,7 +106,7 @@ public class MemberCardListActivity extends BaseActivity{
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_a_member_card_list);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("会员卡管理");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

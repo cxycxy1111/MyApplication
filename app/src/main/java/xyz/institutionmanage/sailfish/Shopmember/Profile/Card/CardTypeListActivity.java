@@ -141,7 +141,7 @@ public class CardTypeListActivity extends BaseActivity {
     }
 
     private void initToolBar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_a_cardtype_list);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("会员卡类型");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

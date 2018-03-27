@@ -73,7 +73,7 @@ public class MemberDetailActivity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         toolbar_title = (String)bundle.get("toolbar_title");
-        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_member_detail);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

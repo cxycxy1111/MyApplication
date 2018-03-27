@@ -99,7 +99,7 @@ public class CardDetailActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_a_card_detail);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(c_name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

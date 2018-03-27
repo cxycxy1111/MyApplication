@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Member.MemberDetailActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_activity_member_detail"
-        android:theme="@style/Toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        app:popupTheme="@style/AlfredOverlay">
-    </android.support.v7.widget.Toolbar>
+    <include
+        layout="@layout/tile_toolbar"
+        android:id="@+id/toolbar_activity_member_detail">
+    </include>
 
     <ScrollView
         android:id="@+id/scrollview_activity_member_detail"

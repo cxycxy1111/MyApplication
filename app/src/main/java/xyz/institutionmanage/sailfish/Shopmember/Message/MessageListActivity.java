@@ -20,7 +20,7 @@ public class MessageListActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_message_list);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("消息");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

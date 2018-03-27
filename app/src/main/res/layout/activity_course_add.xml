@@ -8,10 +8,7 @@
 
     <include
         android:id="@+id/toolbar_a_addNewCourse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/tile_toolbar"
-        android:layout_alignParentTop="true"/>
+        layout="@layout/tile_toolbar" />
 
     <ScrollView
         android:layout_below="@id/toolbar_a_addNewCourse"

@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Course.Course.CourseDetailActivity">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_alignParentTop="true"
+    <include
         android:id="@+id/tb_a_course_detail"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:theme="@style/Toolbar"
-        app:popupTheme="@style/AlfredOverlay">
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/tile_toolbar">
+    </include>
 
     <ScrollView
         android:id="@+id/sv_a_course_detail"

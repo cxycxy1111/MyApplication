@@ -180,7 +180,7 @@ public class MemberCardDetailActivity
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.tb_a_member_card_detail);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
