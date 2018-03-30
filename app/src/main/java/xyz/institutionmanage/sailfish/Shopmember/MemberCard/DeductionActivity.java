@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,9 +49,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
     private String source;
     private String selected_m_id,selected_c_id,selected_mc_id,selected_m_name,selected_c_name,str_selected_type;
 
-    private LinearLayout linearLayout_balance;
-    private LinearLayout linearLayout_num;
-    private LinearLayout linearLayout_time;
+    private RelativeLayout linearLayout_balance;
+    private RelativeLayout linearLayout_num;
+    private RelativeLayout linearLayout_time;
     private static final String TOOLBAR_TITLE = "扣费";
 
     private String[] keys_member = new String[] {"id","name"};
@@ -243,9 +243,9 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
         spinner_member_card = (Spinner)findViewById(R.id.sp_card_a_deduction);
         spinner_member = (Spinner)findViewById(R.id.sp_member_a_deduction);
 
-        linearLayout_balance = (LinearLayout)findViewById(R.id.ll_balance_a_deduction);
-        linearLayout_num = (LinearLayout)findViewById(R.id.ll_num_a_deduction);
-        linearLayout_time = (LinearLayout)findViewById(R.id.ll_time_a_deduction);
+        linearLayout_balance = (RelativeLayout)findViewById(R.id.ll_balance_a_deduction);
+        linearLayout_num = (RelativeLayout) findViewById(R.id.ll_num_a_deduction);
+        linearLayout_time = (RelativeLayout)findViewById(R.id.ll_time_a_deduction);
         initDatePickerDialog();
     }
 

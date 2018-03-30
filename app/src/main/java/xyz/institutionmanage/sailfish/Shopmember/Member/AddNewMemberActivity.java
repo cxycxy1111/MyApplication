@@ -35,7 +35,7 @@ public class AddNewMemberActivity
             EditText.OnFocusChangeListener{
 
     private Toolbar toolbar;
-    private static final String TOOLBAR_TITLE = "新增会员";
+    private static final String TOOLBAR_TITLE = "注册会员";
     private int current_year,current_month,current_date;
     private EditText et_name,et_birthday,et_phone,et_login_name,et_password,et_im;
     private String name,phone,im,login_name,password,birthday;
@@ -74,7 +74,7 @@ public class AddNewMemberActivity
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_add_new_member);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(TOOLBAR_TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -68,7 +68,7 @@ public class MMemberDetailActivity
     }
 
     private void initToolBar () {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_activity_m_member_detail);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         toolbar.setTitle("我的资料");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

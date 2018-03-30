@@ -44,8 +44,7 @@ public class AddNewMemberCardActivity
     private long s_id,sm_id;
     private String selected_m_id,selected_c_id;
     private String source;
-    private static final String TOOLBAR_TITLE_NEW = "新增会员卡";
-    private static final String TOOLBAR_TITLE_ORIGIN = "会员卡详情";
+    private static final String TOOLBAR_TITLE_NEW = "办理会员卡";
 
     private List<Map<String,String>> full_name_list = new ArrayList<>();
     private List<Map<String,String>> card_full_list = new ArrayList<>();

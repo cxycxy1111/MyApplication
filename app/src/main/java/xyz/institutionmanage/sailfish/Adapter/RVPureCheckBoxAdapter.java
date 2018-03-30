@@ -44,8 +44,9 @@ public class RVPureCheckBoxAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ContentViewHolder contentViewHolder = (ContentViewHolder)holder;
         ((ContentViewHolder) holder).checkBox.setTag(position);
-        contentViewHolder.checkBox.setText(listmap_original.get(position).get("teacherName"));
-        if (listmap_original.get(position).get("isChecked").equals("0")) {
+        holder.itemView.setTag(position);
+        contentViewHolder.checkBox.setText(listmap_after.get(position).get("teacherName"));
+        if (listmap_after.get(position).get("isChecked").equals("0")) {
             contentViewHolder.checkBox.setChecked(false);
         }else {
             contentViewHolder.checkBox.setChecked(true);
@@ -54,14 +55,13 @@ public class RVPureCheckBoxAdapter extends RecyclerView.Adapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int pos= (int)buttonView.getTag();
-                Map<String,String> map_temp = listmap_original.get(pos);
+                Map<String,String> map_temp = listmap_after.get(pos);
                 if (isChecked) {
                     map_temp.put("isChecked","1");
                 }else {
                     map_temp.put("isChecked","0");
                 }
                 listmap_after.set(pos,map_temp);
-                listmap_original.set(pos,map_temp);
             }
         });
     }

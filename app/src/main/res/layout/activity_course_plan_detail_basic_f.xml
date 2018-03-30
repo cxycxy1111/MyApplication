@@ -1,10 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailBasicFragment">
     <ScrollView
+        android:id="@+id/sv_f_course_plan_detail_basic"
+        android:layout_above="@id/rl_save_f_course_plan_detail_basic"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -113,15 +115,23 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_save_f_course_plan_detail_basic"
-                android:layout_below="@id/ll_f_course_plan_detail_basic"
-                style="@style/plain_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="保存"/>
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_save_f_course_plan_detail_basic"
+        android:background="#fff"
+        android:elevation="@dimen/distance4"
+        android:translationZ="@dimen/distance4"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_save_f_course_plan_detail_basic"
+            style="@style/plain_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="保存"/>
+    </RelativeLayout>
+
+</RelativeLayout>

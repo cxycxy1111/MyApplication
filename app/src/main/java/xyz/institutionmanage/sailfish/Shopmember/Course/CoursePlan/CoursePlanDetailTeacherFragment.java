@@ -233,17 +233,18 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
         StringBuilder builder = new StringBuilder();
         for (int i = 0;i < mapList_recyclerview_data.size();i++) {
             Map<String,String> map_temp_before = new HashMap<>();
-            Map<String,String> map_temp_after = new HashMap<>();
             map_temp_before = mapList_recyclerview_data.get(i);
-            map_temp_after = mapList_after.get(i);
-            if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("0")) {
+            for (int j = 0;j < mapList_after.size();j++) {
+                Map<String,String> map_temp_after = new HashMap<>();
+                map_temp_after = mapList_after.get(i);
+                if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("0")) {
+                }else if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("1")) {
+                    builder.append("1").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
+                }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("0")) {
+                    builder.append("2").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
+                }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("1")) {
 
-            }else if (map_temp_before.get("isChecked").equals("0") && map_temp_after.get("isChecked").equals("1")) {
-                builder.append("1").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
-            }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("0")) {
-                builder.append("2").append("_").append(cp_id).append("_").append(String.valueOf(map_temp_after.get("teacherId"))).append("-");
-            }else if (map_temp_before.get("isChecked").equals("1") && map_temp_after.get("isChecked").equals("1")) {
-
+                }
             }
         }
         String req = builder.toString();
@@ -285,7 +286,6 @@ public class CoursePlanDetailTeacherFragment extends Fragment implements View.On
                                     break;
                                 default:break;
                             }
-                            getActivity().finish();
                             break;
                         default:break;
                     }

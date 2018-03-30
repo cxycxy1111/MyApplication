@@ -100,13 +100,13 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case HEADER:
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder)holder;
                 headerViewHolder.itemView.setTag(position);
-                headerViewHolder.textView.setText(mapList.get(position).get("header"));
+                headerViewHolder.textView.setText(list_after_operate.get(position).get("header"));
                 break;
             case COURSE_CONTENT:
                 CourseViewHolder courseViewHolder = (CourseViewHolder)holder;
                 courseViewHolder.itemView.setTag(position);
-                courseViewHolder.textView_main.setText(mapList.get(position).get("main"));
-                courseViewHolder.editText_hint.setText(String.valueOf(mapList.get(position).get("hint")));
+                courseViewHolder.textView_main.setText(list_after_operate.get(position).get("main"));
+                courseViewHolder.editText_hint.setText(String.valueOf(list_after_operate.get(position).get("hint")));
                 courseViewHolder.editText_hint.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -130,8 +130,10 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_BALANCE:
                 BalanceViewHolder balanceViewHolder = (BalanceViewHolder)holder;
                 balanceViewHolder.itemView.setTag(position);
+                balanceViewHolder.checkBox.setTag(position);
+                balanceViewHolder.editText.setTag(position);
                 Map<String,String> map = new HashMap<>();
-                map = mapList.get(position);
+                map = list_after_operate.get(position);
                 if (map.get("checked").equals("1")) {
                     balanceViewHolder.checkBox.setChecked(true);
                 }else {
@@ -145,10 +147,15 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
                 balanceViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Map<String,String> temp_map = list_after_operate.get(position);
-                        temp_map.put("checked",String.valueOf(isChecked));
-                        list_after_operate.remove(position);
-                        list_after_operate.add(position,temp_map);
+                        int pos = (int)buttonView.getTag();
+                        Map<String,String> temp_map = list_after_operate.get(pos);
+                        if (isChecked) {
+                            temp_map.put("checked","1");
+                        }else {
+                            temp_map.put("checked","0");
+                        }
+                        list_after_operate.remove(pos);
+                        list_after_operate.add(pos,temp_map);
                     }
                 });
                 balanceViewHolder.editText.addTextChangedListener(new TextWatcher() {
@@ -174,22 +181,28 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_TIMES:
                 TimesViewHolder timesViewHolder = (TimesViewHolder)holder;
                 timesViewHolder.itemView.setTag(position);
-                timesViewHolder.checkBox.setText(mapList.get(position).get("name"));
-                if (mapList.get(position).get("checked").equals("1")) {
+                timesViewHolder.checkBox.setTag(position);
+                timesViewHolder.checkBox.setText(list_after_operate.get(position).get("name"));
+                if (list_after_operate.get(position).get("checked").equals("1")) {
                     timesViewHolder.checkBox.setChecked(true);
                 }else {
                     timesViewHolder.checkBox.setChecked(false);
                 }
-                if (!mapList.get(position).get("balance").equals("n")) {
-                    timesViewHolder.editText.setText(mapList.get(position).get("balance"));
+                if (!list_after_operate.get(position).get("balance").equals("n")) {
+                    timesViewHolder.editText.setText(list_after_operate.get(position).get("balance"));
                 }
                 timesViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Map<String,String> temp_map = list_after_operate.get(position);
-                        temp_map.put("checked",String.valueOf(isChecked));
-                        list_after_operate.remove(position);
-                        list_after_operate.add(position,temp_map);
+                        int pos = (int)buttonView.getTag();
+                        Map<String,String> temp_map = list_after_operate.get(pos);
+                        if (isChecked) {
+                            temp_map.put("checked","1");
+                        }else {
+                            temp_map.put("checked","0");
+                        }
+                        list_after_operate.remove(pos);
+                        list_after_operate.add(pos,temp_map);
                     }
                 });
                 timesViewHolder.editText.addTextChangedListener(new TextWatcher() {
@@ -216,8 +229,9 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
             case SUPPORTEDCARD_TIME:
                 TimeViewHolder timeViewHolder = (TimeViewHolder)holder;
                 timeViewHolder.itemView.setTag(position);
-                timeViewHolder.checkBox.setText(mapList.get(position).get("name"));
-                if (mapList.get(position).get("checked").equals("1")) {
+                timeViewHolder.checkBox.setTag(position);
+                timeViewHolder.checkBox.setText(list_after_operate.get(position).get("name"));
+                if (list_after_operate.get(position).get("checked").equals("1")) {
                     timeViewHolder.checkBox.setChecked(true);
                 }else {
                     timeViewHolder.checkBox.setChecked(false);
@@ -225,10 +239,15 @@ public class RVCourseDetailAdapter extends RecyclerView.Adapter{
                 timeViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Map<String,String> temp_map = list_after_operate.get(position);
-                        temp_map.put("checked",String.valueOf(isChecked));
-                        list_after_operate.remove(position);
-                        list_after_operate.add(position,temp_map);
+                        int pos = (int)buttonView.getTag();
+                        Map<String,String> temp_map = list_after_operate.get(pos);
+                        if (isChecked) {
+                            temp_map.put("checked","1");
+                        }else {
+                            temp_map.put("checked","0");
+                        }
+                        list_after_operate.remove(pos);
+                        list_after_operate.add(pos,temp_map);
                     }
                 });
                 break;

@@ -29,7 +29,7 @@
                     android:id="@+id/tv_card_type_f_member"
                     android:layout_toRightOf="@id/img_add_member_f_member"
                     style="@style/plain_text"
-                    android:text="新增会员" />
+                    android:text="注册会员" />
             </RelativeLayout>
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_below="@id/rl_add_member_f_member"
@@ -62,7 +62,7 @@
                     android:id="@+id/tv_member_manage_f_member"
                     android:layout_toRightOf="@id/img_member_manage_f_member"
                     style="@style/plain_text"
-                    android:text="新增会员卡" />
+                    android:text="办理会员卡" />
             </RelativeLayout>
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_below="@id/rl_add_member_card_f_member"

@@ -9,148 +9,158 @@
         android:id="@+id/tb_a_add_new_card"
         layout="@layout/tile_toolbar" />
 
-    <RelativeLayout
-        android:id="@+id/rl_cardtype_a_add_new_card"
+    <ScrollView
         android:layout_below="@id/tb_a_add_new_card"
-        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance16">
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_cardtype_a_add_new_card"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance16">
 
-        <TextView
-            android:id="@+id/tv2_a_add_new_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance16"
-            android:layout_marginTop="@dimen/distance16"
-            style="@style/tv_input_area"
-            android:text="类型"/>
+                <TextView
+                    android:id="@+id/tv2_a_add_new_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/distance16"
+                    android:layout_marginTop="@dimen/distance16"
+                    style="@style/tv_input_area"
+                    android:text="类型"/>
 
-        <Spinner
-            android:id="@+id/sp_type_a_add_new_card"
-            android:layout_toRightOf="@id/tv2_a_add_new_card"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/distance16"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:dropDownWidth="130dp">
-        </Spinner>
-    </RelativeLayout>
+                <Spinner
+                    android:id="@+id/sp_type_a_add_new_card"
+                    android:layout_toRightOf="@id/tv2_a_add_new_card"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/distance16"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:dropDownWidth="130dp">
+                </Spinner>
+            </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_below="@id/rl_cardtype_a_add_new_card"
-        android:background="#fff"
-        android:layout_marginTop="@dimen/distance16"
-        android:layout_marginBottom="@dimen/distance16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_below="@id/rl_cardtype_a_add_new_card"
+                android:background="#fff"
+                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginBottom="@dimen/distance16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_name_a_add_new_card"
-                style="@style/tv_input_area"
-                android:text="卡名"
-                android:layout_alignParentLeft="true"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/et_name_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="卡名"
-                android:inputType="text"
-                android:layout_toRightOf="@id/tv_name_a_add_new_card" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:text="卡名"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_name_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="卡名"
+                        android:inputType="text"
+                        android:layout_toRightOf="@id/tv_name_a_add_new_card" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_price_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:text="售价"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/et_price_a_add_new_card"
+                        android:layout_toRightOf="@id/tv_price_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="售价"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_balance_a_add_new_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_balance_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:text="卡内金额"
+                        android:layout_alignParentLeft="true" />
+                    <EditText
+                        android:id="@+id/et_balance_a_add_new_card"
+                        android:layout_toRightOf="@id/tv_balance_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="卡内金额"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_times_a_add_new_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_times_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:layout_width="@dimen/distance64"
+                        android:text="卡内次数"
+                        android:layout_alignParentLeft="true" />
+                    <EditText
+                        android:id="@+id/et_times_a_add_new_card"
+                        android:layout_toRightOf="@id/tv_times_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="卡内次数"
+                        android:maxLines="1"
+                        android:inputType="number" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_starttime_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:text="生效时间"
+                        android:layout_alignParentLeft="true" />
+                    <EditText
+                        android:id="@+id/et_starttime_a_add_new_card"
+                        android:layout_toRightOf="@id/tv_starttime_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="生效时间"
+                        android:maxLines="1"
+                        android:inputType="date"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp">
+                    <TextView
+                        android:id="@+id/tv_invalidtime_a_add_new_card"
+                        style="@style/tv_input_area"
+                        android:layout_alignParentLeft="true"
+                        android:text="有效期至" />
+                    <EditText
+                        android:id="@+id/et_invalidtime_a_add_new_card"
+                        android:layout_toRightOf="@id/tv_invalidtime_a_add_new_card"
+                        style="@style/plain_editText"
+                        android:hint="有效期至"
+                        android:maxLines="1"
+                        android:inputType="date" />
+                </RelativeLayout>
+            </LinearLayout>
+
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_price_a_add_new_card"
-                style="@style/tv_input_area"
-                android:text="售价"
-                android:layout_alignParentLeft="true"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/et_price_a_add_new_card"
-                android:layout_toRightOf="@id/tv_price_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="售价"
-                android:maxLines="1"
-                android:inputType="number" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_balance_a_add_new_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
-            <TextView
-                android:id="@+id/tv_balance_a_add_new_card"
-                style="@style/tv_input_area"
-                android:text="卡内金额"
-                android:layout_alignParentLeft="true" />
-            <EditText
-                android:id="@+id/et_balance_a_add_new_card"
-                android:layout_toRightOf="@id/tv_balance_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="卡内金额"
-                android:maxLines="1"
-                android:inputType="number" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_times_a_add_new_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
-            <TextView
-                android:id="@+id/tv_times_a_add_new_card"
-                style="@style/tv_input_area"
-                android:layout_width="@dimen/distance64"
-                android:text="卡内次数"
-                android:layout_alignParentLeft="true" />
-            <EditText
-                android:id="@+id/et_times_a_add_new_card"
-                android:layout_toRightOf="@id/tv_times_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="卡内次数"
-                android:maxLines="1"
-                android:inputType="number" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
-            <TextView
-                android:id="@+id/tv_starttime_a_add_new_card"
-                style="@style/tv_input_area"
-                android:text="生效时间"
-                android:layout_alignParentLeft="true" />
-            <EditText
-                android:id="@+id/et_starttime_a_add_new_card"
-                android:layout_toRightOf="@id/tv_starttime_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="生效时间"
-                android:maxLines="1"
-                android:inputType="date"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
-            <TextView
-                android:id="@+id/tv_invalidtime_a_add_new_card"
-                style="@style/tv_input_area"
-                android:layout_alignParentLeft="true"
-                android:text="有效期至" />
-            <EditText
-                android:id="@+id/et_invalidtime_a_add_new_card"
-                android:layout_toRightOf="@id/tv_invalidtime_a_add_new_card"
-                style="@style/plain_editText"
-                android:hint="有效期至"
-                android:maxLines="1"
-                android:inputType="date" />
-        </RelativeLayout>
-    </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

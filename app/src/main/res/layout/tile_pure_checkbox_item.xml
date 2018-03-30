@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     <CheckBox
         android:id="@+id/cb_t_pure_checkbox_item"
-        style="@style/plain_text"
+        android:theme="@style/plain_checkbox"
         android:layout_marginLeft="@dimen/distance16"
         android:layout_marginTop="@dimen/distance16"
         android:layout_marginBottom="@dimen/distance16"

@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,9 +49,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
     private String source;
     private String selected_m_id,selected_c_id,selected_mc_id,selected_m_name,selected_c_name,str_selected_type;
 
-    private LinearLayout linearLayout_balance;
-    private LinearLayout linearLayout_num;
-    private LinearLayout linearLayout_time;
+    private RelativeLayout linearLayout_balance,linearLayout_num,linearLayout_time;
     private static final String TOOLBAR_TITLE = "充值";
 
     private String[] keys_member = new String[] {"id","name"};
@@ -244,9 +242,9 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
         spinner_member_card = (Spinner)findViewById(R.id.sp_card_a_charge);
         spinner_member = (Spinner)findViewById(R.id.sp_member_a_charge);
 
-        linearLayout_balance = (LinearLayout)findViewById(R.id.ll_balance_a_charge);
-        linearLayout_num = (LinearLayout)findViewById(R.id.ll_num_a_charge);
-        linearLayout_time = (LinearLayout)findViewById(R.id.ll_time_a_charge);
+        linearLayout_balance = (RelativeLayout)findViewById(R.id.ll_balance_a_charge);
+        linearLayout_num = (RelativeLayout)findViewById(R.id.ll_num_a_charge);
+        linearLayout_time = (RelativeLayout)findViewById(R.id.ll_time_a_charge);
         initDatePickerDialog();
     }
 

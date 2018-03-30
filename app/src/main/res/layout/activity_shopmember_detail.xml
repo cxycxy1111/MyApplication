@@ -19,10 +19,7 @@
             <RelativeLayout
                 android:id="@+id/rl_type_shopmember_detail"
                 android:layout_below="@id/tb_a_shopmember_detail"
-                android:background="#fff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distance16">
+                style="@style/rl_first_widget">
 
                 <TextView
                     android:id="@+id/tv2_shopmember_detail"
@@ -41,7 +38,7 @@
                 android:orientation="vertical"
                 android:layout_below="@id/rl_type_shopmember_detail"
                 android:background="#fff"
-                android:layout_marginTop="@dimen/distance16"
+                android:layout_marginTop="@dimen/distance32"
                 android:layout_marginBottom="@dimen/distance16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -63,6 +60,7 @@
                         android:layout_toRightOf="@id/tv_name_a_shopmember_detail" />
                 </RelativeLayout>
                 <RelativeLayout
+                    style="@style/rl_normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView

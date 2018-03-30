@@ -1,4 +1,4 @@
-package xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan;
+package xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.Batch;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

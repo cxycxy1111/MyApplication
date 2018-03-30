@@ -72,9 +72,9 @@
         <activity android:name=".Shopmember.Profile.ShopInfoActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanListActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanBookAndAttendActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanBatchActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanBatchDateActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanBatchTeacherActivity" />
+        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchActivity" />
+        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchDateActivity" />
+        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchTeacherActivity" />
     </application>
 
 </manifest>

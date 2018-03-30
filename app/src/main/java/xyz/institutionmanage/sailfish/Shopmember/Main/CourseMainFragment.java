@@ -24,7 +24,7 @@ import xyz.institutionmanage.sailfish.Adapter.ViewPagerAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Course.Course.AddCourseActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity;
-import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanBatchActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchActivity;
 import xyz.institutionmanage.sailfish.Util.BaseFragment;
 
 public class CourseMainFragment
