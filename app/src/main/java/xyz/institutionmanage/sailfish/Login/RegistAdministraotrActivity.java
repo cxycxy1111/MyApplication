@@ -36,7 +36,7 @@ public class RegistAdministraotrActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tile_toolbar);
+        setContentView(R.layout.activity_login_regist_administrator);
         initView();
         dealWithIntent();
     }
@@ -47,9 +47,9 @@ public class RegistAdministraotrActivity
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_a_regist_admin);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
+        toolbar.setTitle(TITLE_BAR);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(TITLE_BAR);
     }
 
     private void initWidgets() {

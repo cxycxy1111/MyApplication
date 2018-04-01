@@ -23,6 +23,8 @@ public class NetUtil {
 
     //使用家里网络进行调试
     private static final String LOCAL_PREFIX = "http://10.0.0.3:8080/Sailfish";
+    //使用家里LINUX机器网络进行调试
+    private static final String LOCAL_LINUX_PREFIX = "http://10.0.0.8:8080/Sailfish";
     //使用冯静霞家的网络进行调试
     private static final String FJX_PREFIX = "http://192.168.1.112:8080/Sailfish";
     //使用省移动网络进行调试
@@ -36,7 +38,7 @@ public class NetUtil {
 
     private static final String FY_PREFIX = "http://192.168.0.107:8080/Sailfish";
 
-        private static final String SELECTED_HOST = LOCAL_PREFIX;
+        private static final String SELECTED_HOST = LOCAL_LINUX_PREFIX;
 
     private static OkHttpClient client;
 
