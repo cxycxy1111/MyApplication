@@ -114,22 +114,28 @@ public class CardTypeListActivity extends BaseActivity {
                     }
                     list.clear();
                     Map<String,String> b_map = new HashMap<>();
-                    b_map.put("type","余额卡");
-                    list.add(b_map);
-                    for (int i = 0;i < balanceList.size();i++) {
-                        list.add(balanceList.get(i));
+                    if(balanceList.size()>0) {
+                        b_map.put("type","余额卡");
+                        list.add(b_map);
+                        for (int i = 0;i < balanceList.size();i++) {
+                            list.add(balanceList.get(i));
+                        }
                     }
-                    Map<String,String> ts_map = new HashMap<>();
-                    ts_map.put("type","次卡");
-                    list.add(ts_map);
-                    for (int i = 0;i < timesList.size();i++) {
-                        list.add(timesList.get(i));
+                    if (timesList.size()>0) {
+                        Map<String,String> ts_map = new HashMap<>();
+                        ts_map.put("type","次卡");
+                        list.add(ts_map);
+                        for (int i = 0;i < timesList.size();i++) {
+                            list.add(timesList.get(i));
+                        }
                     }
-                    Map<String,String> t_map = new HashMap<>();
-                    t_map.put("type","有效期卡");
-                    list.add(t_map);
-                    for (int i = 0;i < timeList.size();i++) {
-                        list.add(timeList.get(i));
+                    if (timeList.size()>0) {
+                        Map<String,String> t_map = new HashMap<>();
+                        t_map.put("type","有效期卡");
+                        list.add(t_map);
+                        for (int i = 0;i < timeList.size();i++) {
+                            list.add(timeList.get(i));
+                        }
                     }
                 }
                 break;

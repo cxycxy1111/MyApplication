@@ -73,7 +73,7 @@ public class MethodTool{
      * @param activity
      */
     public static void dealWithWebRequestFailure(BaseActivity activity) {
-        MethodTool.hideProgressBar(activity,activity.getProgressBar(activity));
+        MethodTool.hideProgressBar(activity);
         MethodTool.showToast(activity,Ref.CANT_CONNECT_INTERNET);
     }
 
@@ -152,7 +152,16 @@ public class MethodTool{
         });
     }
 
-    public static void hideProgressBar(final Activity activity, final ProgressBar progressBar) {
+    public static void hideProgressBar(final BaseActivity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.getProgressBar(activity).setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public static void hideProgressBar(final Activity activity,final ProgressBar progressBar) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

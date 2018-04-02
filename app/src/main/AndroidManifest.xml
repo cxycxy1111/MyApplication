@@ -21,12 +21,15 @@
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Shopmember.Main.ShopmemberMainActivity" />
         <activity android:name=".Login.RegistAdministraotrActivity" />
-        <activity android:name=".Shopmember.Course.Course.AddCourseActivity" android:exported="true" />
+        <activity
+            android:name=".Shopmember.Course.Course.AddCourseActivity"
+            android:exported="true" />
         <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanActivity" />
         <activity android:name=".Shopmember.Member.AddNewMemberActivity" />
         <activity android:name=".Shopmember.Member.MemberListActivity" />
@@ -75,6 +78,11 @@
         <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchDateActivity" />
         <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchTeacherActivity" />
+        <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchActivity" />
+        <activity
+            android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchSelectCardActivity"
+            android:label="@string/title_activity_add_new_member_card_batch_select_card"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

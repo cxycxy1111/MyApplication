@@ -48,7 +48,7 @@ public class BaseActivity extends AppCompatActivity {
     private void createProgressBar(Activity activity) {
         Context context = activity;
         FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);

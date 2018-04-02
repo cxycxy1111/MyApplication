@@ -6,13 +6,9 @@
     android:layout_height="match_parent"
     tools:context="xyz.institutionmanage.sailfish.Shopmember.Member.MemberDetailActivity">
 
-    <android.support.v7.widget.Toolbar
+    <include
         android:id="@+id/toolbar_activity_m_member_detail"
-        android:theme="@style/Toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        app:popupTheme="@style/AlfredOverlay">
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/tile_toolbar" />
 
     <ScrollView
         android:id="@+id/scrollview_activity_m_member_detail"

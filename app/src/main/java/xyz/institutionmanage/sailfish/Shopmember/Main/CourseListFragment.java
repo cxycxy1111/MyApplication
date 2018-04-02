@@ -39,7 +39,6 @@ public class CourseListFragment extends BaseFragment {
     private String mParam1;
     private static final String TAG = "CourseListFragment:";
     private OnFragmentInteractionListener mListener;
-    private long s_id,sm_id;
     private String [] keys = {"id","name","last_time","supportedcard"};
     private View view;
     private RecyclerView recyclerView;
@@ -61,7 +60,6 @@ public class CourseListFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
@@ -71,11 +69,10 @@ public class CourseListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.activity_main_course_list,container,false);
         getProgressBar(getActivity()).setVisibility(View.VISIBLE);
         initShopData();
-        initRecyclerView();
+        //initRecyclerView();
         return view;
     }
 
@@ -83,11 +80,7 @@ public class CourseListFragment extends BaseFragment {
      * 初始化舞馆及当前登陆者的ID
      */
     private void initShopData() {
-        SharedPreferences preferences = getParentFragment().getActivity().getSharedPreferences("sasm", Activity.MODE_PRIVATE);
-        s_id = preferences.getLong("s_id",0);
-        sm_id = preferences.getLong("sm_id",0);
     }
-
 
     /**
      * 获取recyclerview的数据模型
@@ -95,6 +88,8 @@ public class CourseListFragment extends BaseFragment {
      */
     private void initRecyclerView() {
         recyclerviewdata = new ArrayList<>();
+        recyclerviewdata.clear();
+        regional_list.clear();
         String url = "/CourseListQuery";
         Callback callback = new Callback() {
             @Override
@@ -108,7 +103,6 @@ public class CourseListFragment extends BaseFragment {
             public void onResponse(Call call, Response response) throws IOException {
                 MethodTool.hideProgressBar(getParentFragment().getActivity(),getProgressBar(getParentFragment().getActivity()));
                 String resp = response.body().string();
-                Log.d(TAG, "onResponse: " + resp);
                 EnumRespType respType = EnumRespType.dealWithResponse(resp);
                 switch (respType) {
                     case RESP_MAPLIST:
@@ -203,7 +197,6 @@ public class CourseListFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -215,7 +208,6 @@ public class CourseListFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "onDetach: ");
         mListener = null;
     }
 
@@ -227,7 +219,6 @@ public class CourseListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
         recyclerviewdata.clear();
         regional_list.clear();
         if (adapter != null) {

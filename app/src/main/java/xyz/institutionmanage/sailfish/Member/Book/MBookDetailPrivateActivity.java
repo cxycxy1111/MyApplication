@@ -182,7 +182,7 @@ public class MBookDetailPrivateActivity extends BaseActivity implements View.OnC
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                MethodTool.hideProgressBar(MBookDetailPrivateActivity.this,MBookDetailPrivateActivity.this.getProgressBar(MBookDetailPrivateActivity.this));
+                MethodTool.hideProgressBar(MBookDetailPrivateActivity.this);
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {

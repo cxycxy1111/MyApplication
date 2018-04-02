@@ -58,5 +58,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_mcourse_detail_private">MCourseDetailPrivateActivity</string>
     <string name="title_activity_mcourse_plan_list">MCoursePlanListActivity</string>
+    <string name="title_activity_add_new_member_card_batch_select_card">
+        AddNewMemberCardBatchSelectCardActivity
+    </string>
 
 </resources>

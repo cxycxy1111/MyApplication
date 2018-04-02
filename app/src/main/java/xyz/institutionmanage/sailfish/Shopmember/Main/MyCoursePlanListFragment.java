@@ -1,5 +1,6 @@
 package xyz.institutionmanage.sailfish.Shopmember.Main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,9 +36,9 @@ public class MyCoursePlanListFragment extends Fragment {
     private static final String TAG = "MyCoursePlanList";
     private String[] keys = new String[]{"courseplan_id","course_name","classroom_name","start_time","end_time"};
     private String mParam1;
+    private static final int FIRST_TIME=1;
+    private static final int SECOND_TIME=2;
     private View view;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
     private RVCoursePlanAdapter adapter;
     private List<Map<String,String>> list = new ArrayList<>();
 
@@ -57,7 +58,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
+        Log.i(TAG, "onCreate: ");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
@@ -66,9 +67,9 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
+        Log.i(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.fragment_my_course_plan_list, container, false);
-        initDataFromPreviousActivity();
+        initData();
         initComponent();
         initDataFromWeb();
         return view;
@@ -83,7 +84,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
+        Log.i(TAG, "onAttach: ");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -95,7 +96,7 @@ public class MyCoursePlanListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "onDetach: ");
+        Log.i(TAG, "onDetach: ");
         mListener = null;
     }
 
@@ -103,12 +104,11 @@ public class MyCoursePlanListFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void initDataFromPreviousActivity() {
-
+    private void initData() {
     }
 
     private void initComponent() {
-        recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_my_course_plan);
+
     }
 
     private void initDataFromWeb() {
@@ -154,8 +154,9 @@ public class MyCoursePlanListFragment extends Fragment {
     }
 
     private void updateComponent() {
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.rv_f_my_course_plan);
         adapter = new RVCoursePlanAdapter(list,getParentFragment().getActivity());
-        linearLayoutManager = new LinearLayoutManager(getParentFragment().getActivity(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getParentFragment().getActivity(),LinearLayoutManager.VERTICAL,false);
         adapter.setOnItemClickListener(new RVCoursePlanAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -182,5 +183,36 @@ public class MyCoursePlanListFragment extends Fragment {
         if (recyclerView.getLayoutManager() == null) {
             recyclerView.setLayoutManager(linearLayoutManager);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: list.size=" + list.size());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: list.size=" + list.size());
+        if (list != null) {
+            list.clear();
+        }
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+        initDataFromWeb();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i(TAG, "onDestroyView: ");
     }
 }

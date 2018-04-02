@@ -182,7 +182,7 @@ public class MCoursePlanDetailPrivateActivity extends BaseActivity implements Vi
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                MethodTool.hideProgressBar(MCoursePlanDetailPrivateActivity.this,MCoursePlanDetailPrivateActivity.this.getProgressBar(MCoursePlanDetailPrivateActivity.this));
+                MethodTool.hideProgressBar(MCoursePlanDetailPrivateActivity.this);
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {

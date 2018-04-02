@@ -126,7 +126,6 @@ public class CourseMainFragment
         viewPager.setOffscreenPageLimit(3);
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

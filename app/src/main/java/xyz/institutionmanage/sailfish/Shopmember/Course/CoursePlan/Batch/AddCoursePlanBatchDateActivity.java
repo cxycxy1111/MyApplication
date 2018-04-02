@@ -103,7 +103,7 @@ public class AddCoursePlanBatchDateActivity extends BaseActivity implements View
         adapter = new RVPureCheckBoxAdapter(maplist_rv_data,AddCoursePlanBatchDateActivity.this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
-        MethodTool.hideProgressBar(this,getProgressBar(this));
+        MethodTool.hideProgressBar(this);
     }
 
     @Override
@@ -181,13 +181,13 @@ public class AddCoursePlanBatchDateActivity extends BaseActivity implements View
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.hideProgressBar(AddCoursePlanBatchDateActivity.this,getProgressBar(AddCoursePlanBatchDateActivity.this));
+                MethodTool.hideProgressBar(AddCoursePlanBatchDateActivity.this);
                 MethodTool.showToast(AddCoursePlanBatchDateActivity.this, Ref.CANT_CONNECT_INTERNET);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                MethodTool.hideProgressBar(AddCoursePlanBatchDateActivity.this,getProgressBar(AddCoursePlanBatchDateActivity.this));
+                MethodTool.hideProgressBar(AddCoursePlanBatchDateActivity.this);
                 String resp = response.body().string();
                 Log.d(TAG, "onResponse: " + resp);
                 if (!resp.contains("{")) {

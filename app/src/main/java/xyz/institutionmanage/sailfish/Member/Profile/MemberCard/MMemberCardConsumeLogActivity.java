@@ -64,13 +64,13 @@ public class MMemberCardConsumeLogActivity extends BaseActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 MethodTool.showToast(MMemberCardConsumeLogActivity.this, Ref.UNKNOWN_ERROR);
-                MethodTool.hideProgressBar(MMemberCardConsumeLogActivity.this,getProgressBar(MMemberCardConsumeLogActivity.this));
+                MethodTool.hideProgressBar(MMemberCardConsumeLogActivity.this);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                MethodTool.hideProgressBar(MMemberCardConsumeLogActivity.this,getProgressBar(MMemberCardConsumeLogActivity.this));
+                MethodTool.hideProgressBar(MMemberCardConsumeLogActivity.this);
                 switch (EnumRespType.dealWithResponse(resp)) {
                     case RESP_MAPLIST:
                         mapList = JsonHandler.strToListMap(resp,keys_consume_log);

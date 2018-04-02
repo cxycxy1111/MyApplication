@@ -166,6 +166,9 @@ public class ClassroomListActivity extends BaseActivity {
             default:
                 break;
         }
+        if (adapter==null) {
+            adapter = new RVSimpleAdapter(strings);
+        }
         adapter.notifyDataSetChanged();
     }
 
