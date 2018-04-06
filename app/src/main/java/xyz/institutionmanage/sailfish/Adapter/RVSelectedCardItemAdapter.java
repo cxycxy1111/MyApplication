@@ -18,7 +18,7 @@ import java.util.Map;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.MethodTool;
 
-public class RVASelectedCardItemAdapter extends RecyclerView.Adapter implements View.OnClickListener{
+public class RVSelectedCardItemAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
     private int int_selected_pos =  -1;
     private Context context;
@@ -26,7 +26,7 @@ public class RVASelectedCardItemAdapter extends RecyclerView.Adapter implements 
     private List<Map<String,String>> mapList = new ArrayList<>();
     private List<Map<String,String>> mapList_after = new ArrayList<>();
 
-    public RVASelectedCardItemAdapter(Context context, List<Map<String, String>> mapList) {
+    public RVSelectedCardItemAdapter(Context context, List<Map<String, String>> mapList) {
         this.context = context;
         this.mapList = mapList;
         this.mapList_after = this.mapList;

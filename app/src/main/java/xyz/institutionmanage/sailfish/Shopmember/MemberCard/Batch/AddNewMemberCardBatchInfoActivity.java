@@ -7,7 +7,6 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,7 +26,7 @@ import xyz.institutionmanage.sailfish.Util.MethodTool;
 import xyz.institutionmanage.sailfish.Util.NetUtil;
 import xyz.institutionmanage.sailfish.Util.Ref;
 
-public class AddNewMemberCardMemberCardInfoActivity
+public class AddNewMemberCardBatchInfoActivity
         extends BaseActivity
         implements View.OnClickListener,EditText.OnFocusChangeListener{
 
@@ -116,7 +115,7 @@ public class AddNewMemberCardMemberCardInfoActivity
 
     private void initComponent() {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
-        toolbar.setTitle("请输入会员卡资料");
+        toolbar.setTitle("填写会员卡信息");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btn_done = (Button)findViewById(R.id.btn_done_a_add_new_member_card_mc_info);
@@ -179,11 +178,27 @@ public class AddNewMemberCardMemberCardInfoActivity
     }
 
     private void submit() {
-        String url = "";
+        StringBuilder builder = new StringBuilder();
+        String balance = "";
+        String start_time = et_start_time.getText().toString() + " 00:00:00";
+        String expired_time = et_expired_time.getText().toString() + " 00:00:00";
+        if (Integer.parseInt(str_type) == Ref.TYPE_CARD_BALANCE) {
+            balance = et_balance.getText().toString();
+        }else if (Integer.parseInt(str_type) == Ref.TYPE_CARD_NUM) {
+            balance = et_num.getText().toString();
+        }else if (Integer.parseInt(str_type) == Ref.TYPE_CARD_TIME) {
+            balance = "0";
+        }
+        builder.append("/MemberCardAddBatch?m_id=").append(str_m_id)
+                .append("&c_id=").append(str_c_id)
+                .append("&balance=").append(balance)
+                .append("&start_time=").append(start_time)
+                .append("&expired_time=").append(expired_time);
+        String url = builder.toString();
         Callback callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                MethodTool.dealWithWebRequestFailure(AddNewMemberCardMemberCardInfoActivity.this);
+                MethodTool.dealWithWebRequestFailure(AddNewMemberCardBatchInfoActivity.this);
             }
 
             @Override
@@ -193,22 +208,38 @@ public class AddNewMemberCardMemberCardInfoActivity
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case SESSION_EXPIRED:
-                                MethodTool.showExitAppAlert(AddNewMemberCardMemberCardInfoActivity.this);
+                                MethodTool.showExitAppAlert(AddNewMemberCardBatchInfoActivity.this);
                                 break;
                             case AUTHORIZE_FAIL:
-                                MethodTool.showAuthorizeFailToast(AddNewMemberCardMemberCardInfoActivity.this);
-                                AddNewMemberCardMemberCardInfoActivity.this.setResult(Ref.RESULTCODE_CANCEL);
+                                MethodTool.showAuthorizeFailToast(AddNewMemberCardBatchInfoActivity.this);
+                                setResult(Ref.RESULTCODE_DONE);
+                                finish();
+                                break;
+                            case NSR:
+                                MethodTool.showToast(AddNewMemberCardBatchInfoActivity.this,"无此记录，请重试");
+                                break;
+                            case PARTYLY_FAIL:
+                                MethodTool.showToast(AddNewMemberCardBatchInfoActivity.this,"部分会员卡办理失败");
+                                setResult(Ref.RESULTCODE_DONE);finish();
+                                break;
+                            case EXE_SUC:
+                                MethodTool.showToast(AddNewMemberCardBatchInfoActivity.this,"会员卡办理成功");
+                                setResult(Ref.RESULTCODE_DONE);finish();
+                                break;
+                            case EXE_FAIL:
+                                MethodTool.showToast(AddNewMemberCardBatchInfoActivity.this,"会员卡办理失败");
+                                setResult(Ref.RESULTCODE_DONE);finish();
                                 break;
                             default:break;
                         }
                         break;
                     case RESP_ERROR:
-                        MethodTool.showToast(AddNewMemberCardMemberCardInfoActivity.this,Ref.CANT_CONNECT_INTERNET);
+                        MethodTool.showToast(AddNewMemberCardBatchInfoActivity.this,Ref.CANT_CONNECT_INTERNET);
                         break;
                     default:break;
                 }
             }
         };
-        NetUtil.sendHttpRequest(AddNewMemberCardMemberCardInfoActivity.this,url,callback);
+        NetUtil.sendHttpRequest(AddNewMemberCardBatchInfoActivity.this,url,callback);
     }
 }

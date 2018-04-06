@@ -51,6 +51,8 @@ dependencies {
     compile 'org.litepal.android:core:1.6.0'
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:location:latest.integration'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:1.0.1'
 }

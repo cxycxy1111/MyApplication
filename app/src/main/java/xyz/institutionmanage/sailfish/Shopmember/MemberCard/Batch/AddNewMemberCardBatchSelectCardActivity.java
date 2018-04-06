@@ -2,14 +2,9 @@ package xyz.institutionmanage.sailfish.Shopmember.MemberCard.Batch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +20,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import xyz.institutionmanage.sailfish.Adapter.RVASelectedCardItemAdapter;
+import xyz.institutionmanage.sailfish.Adapter.RVSelectedCardItemAdapter;
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
 import xyz.institutionmanage.sailfish.Util.Enum.EnumRespStatType;
@@ -40,7 +35,7 @@ public class AddNewMemberCardBatchSelectCardActivity extends BaseActivity implem
     private String m_id;
     private String[] keys_original = new String[]{"id","name","balance","price","start_time","expired_time"};
     private List<Map<String,String>> mapList_original = new ArrayList<>();
-    private RVASelectedCardItemAdapter adapter;
+    private RVSelectedCardItemAdapter adapter;
     private int int_selected = -1;
 
     @Override
@@ -60,7 +55,7 @@ public class AddNewMemberCardBatchSelectCardActivity extends BaseActivity implem
         Toolbar tb = (Toolbar)findViewById(R.id.toolbar_general);
         Button btn_next = (Button)findViewById(R.id.btn_next_a_add_new_member_card_batch_select_card);
         MethodTool.showProgressBar(AddNewMemberCardBatchSelectCardActivity.this);
-        tb.setTitle("选择需要新增的会员卡");
+        tb.setTitle("选择会员卡类型");
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btn_next.setOnClickListener(this);
@@ -121,8 +116,8 @@ public class AddNewMemberCardBatchSelectCardActivity extends BaseActivity implem
 
     private void updateComponent() {
         RecyclerView rv = (RecyclerView)findViewById(R.id.rv_a_add_new_member_card_batch_select_card);
-        adapter = new RVASelectedCardItemAdapter(this,mapList_original);
-        RVASelectedCardItemAdapter.OnItemClickListener onItemClickListener = new RVASelectedCardItemAdapter.OnItemClickListener() {
+        adapter = new RVSelectedCardItemAdapter(this,mapList_original);
+        RVSelectedCardItemAdapter.OnItemClickListener onItemClickListener = new RVSelectedCardItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 int_selected = position;
@@ -154,7 +149,7 @@ public class AddNewMemberCardBatchSelectCardActivity extends BaseActivity implem
                 if (int_selected_pos == -1) {
                     Toast.makeText(this,"你暂未选择会员卡",Toast.LENGTH_SHORT).show();
                 }else {
-                    Intent intent = new Intent(this,AddNewMemberCardMemberCardInfoActivity.class);
+                    Intent intent = new Intent(this,AddNewMemberCardBatchInfoActivity.class);
                     Map<String,String> map = new HashMap<>();
                     map = mapList_original.get(int_selected_pos);
                     intent.putExtra("c_name",map.get("name"));
@@ -196,7 +191,8 @@ public class AddNewMemberCardBatchSelectCardActivity extends BaseActivity implem
             case Ref.REQCODE_ADD:
                 switch (resultCode) {
                     case Ref.RESULTCODE_DONE:
-                        AddNewMemberCardBatchSelectCardActivity.this.finish();
+                        setResult(Ref.RESULTCODE_DONE);
+                        this.finish();
                         break;
                     case Ref.RESULTCODE_CANCEL:
                         break;

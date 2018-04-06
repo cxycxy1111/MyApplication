@@ -83,7 +83,8 @@
             android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchSelectCardActivity"
             android:label="@string/title_activity_add_new_member_card_batch_select_card"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardMemberCardInfoActivity"></activity>
+        <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity" />
+        <activity android:name=".Shopmember.Member.ImportMemberActivity"></activity>
     </application>
 
 </manifest>

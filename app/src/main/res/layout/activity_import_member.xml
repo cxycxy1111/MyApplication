@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Shopmember.Member.ImportMemberActivity">
+
+    <include
+        android:id="@+id/tb_a_import_member"
+        layout="@layout/tile_toolbar"/>
+
+    <LinearLayout
+        android:layout_below="@id/tb_a_import_member"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl_path_a_import_member"
+            style="@style/rl_first_widget">
+            <TextView
+                android:id="@+id/tv_hint_path_a_import_member"
+                android:layout_width="wrap_content"
+                android:text="文件路径"
+                android:layout_alignParentLeft="true"
+                style="@style/plain_text" />
+            <TextView
+                android:id="@+id/tv_main_path_a_import_member"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:text="您暂未选择文件"
+                android:layout_toRightOf="@id/tv_hint_path_a_import_member"
+                style="@style/plain_text_hint" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_name_a_import_member"
+            android:layout_below="@id/rl_path_a_import_member"
+            style="@style/rl_normal">
+            <TextView
+                android:id="@+id/tv_hint_name_a_import_member"
+                android:layout_alignParentLeft="true"
+                android:text="文件名"
+                android:layout_width="wrap_content"
+                style="@style/plain_text" />
+            <TextView
+                android:id="@+id/tv_main_name_a_import_member"
+                android:ellipsize="marquee"
+                android:layout_toRightOf="@id/tv_hint_name_a_import_member"
+                android:text="您暂未选择文件"
+                style="@style/plain_text_hint" />
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_select_a_import_member"
+            android:layout_below="@id/rl_name_a_import_member"
+            android:text="选择"
+            style="@style/plain_button" />
+        <Button
+            android:id="@+id/btn_import_a_import_member"
+            android:layout_below="@id/btn_select_a_import_member"
+            android:text="导入"
+            style="@style/plain_button" />
+    </LinearLayout>
+
+</RelativeLayout>

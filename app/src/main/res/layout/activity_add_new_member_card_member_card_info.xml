@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shopmember.MemberCard.Batch.AddNewMemberCardMemberCardInfoActivity">
+    tools:context=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity">
 
     <include
         android:id="@+id/tb_a_add_new_member_card_mc_info"
@@ -110,6 +110,7 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/btn_done_a_add_new_member_card_mc_info"
+            android:layout_centerVertical="true"
             android:text="完成"
             style="@style/plain_button" />
     </RelativeLayout>

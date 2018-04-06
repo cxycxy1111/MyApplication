@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Shopmember.Member.AddNewMemberActivity;
+import xyz.institutionmanage.sailfish.Shopmember.Member.ImportMemberActivity;
 import xyz.institutionmanage.sailfish.Shopmember.Member.MemberListActivity;
 import xyz.institutionmanage.sailfish.Shopmember.MemberCard.AddNewMemberCardActivity;
 import xyz.institutionmanage.sailfish.Shopmember.MemberCard.Batch.AddNewMemberCardBatchActivity;
@@ -134,16 +135,23 @@ public class MemberFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.batch_import_member_menu_main_member:
+                Intent intent_1 = new Intent(getActivity(),ImportMemberActivity.class);
+                startActivity(intent_1);
                 break;
+            /**
             case R.id.export_member_menu_main_member:
                 break;
+             **/
             case R.id.batch_add_member_card_menu_main_member:
                 Intent intent = new Intent(getActivity(),AddNewMemberCardBatchActivity.class);
                 startActivity(intent);
                 break;
+                /**
             case R.id.export_member_card_menu_main_member:
                 break;
+                 **/
             default:break;
         }
         return true;

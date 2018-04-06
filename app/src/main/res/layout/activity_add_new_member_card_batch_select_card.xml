@@ -24,6 +24,7 @@
         style="@style/rl_normal">
         <Button
             android:id="@+id/btn_next_a_add_new_member_card_batch_select_card"
+            android:layout_centerVertical="true"
             android:text="下一步"
             style="@style/plain_button"/>
     </RelativeLayout>

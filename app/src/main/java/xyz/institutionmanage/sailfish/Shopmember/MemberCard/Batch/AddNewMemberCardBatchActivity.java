@@ -57,7 +57,7 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
         toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         btn_next = (Button)findViewById(R.id.btn_next_a_add_new_member_card_batch);
         btn_next.setOnClickListener(this);
-        toolbar.setTitle("批量办理会员卡");
+        toolbar.setTitle("选择会员");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -163,7 +163,7 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
                 switch (resultCode) {
                     case Ref.RESULTCODE_DONE:
                         setResult(Ref.RESULTCODE_DONE);
-                        AddNewMemberCardBatchActivity.this.finish();
+                        finish();
                         break;
                     case Ref.RESULTCODE_CANCEL:
                         break;
@@ -195,7 +195,7 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
                         s = s.substring(0,s.length()-1);
                         Intent intent = new Intent(this,AddNewMemberCardBatchSelectCardActivity.class);
                         intent.putExtra("m_id",s);
-                        startActivity(intent);
+                        startActivityForResult(intent,Ref.REQCODE_ADD);
                     }
                 }
                 break;
