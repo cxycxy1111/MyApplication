@@ -143,6 +143,7 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(Ref.RESULTCODE_CANCEL);
                 this.finish();
                 break;
             default:break;
@@ -153,6 +154,23 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Ref.REQCODE_ADD:
+                switch (resultCode) {
+                    case Ref.RESULTCODE_DONE:
+                        setResult(Ref.RESULTCODE_DONE);
+                        AddNewMemberCardBatchActivity.this.finish();
+                        break;
+                    case Ref.RESULTCODE_CANCEL:
+                        break;
+                }
+                break;
+            default:break;
+        }
     }
 
     @Override
@@ -167,14 +185,18 @@ public class AddNewMemberCardBatchActivity extends BaseActivity implements View.
                     StringBuilder builder = new StringBuilder();
                     for (int i = 0;i < mapList.size();i++) {
                         if (mapList.get(i).get("isChecked").equals("1")) {
-                            builder.append(mapList.get(i).get("id")).append("_");
+                            builder.append(String.valueOf(mapList.get(i).get("id"))).append("_");
                         }
                     }
                     String s = builder.toString();
-                    s = s.substring(0,s.length()-1);
-                    Intent intent = new Intent(this,AddNewMemberCardBatchSelectCardActivity.class);
-                    intent.putExtra("m_id",s);
-                    startActivity(intent);
+                    if (s.length()== 0) {
+                        Toast.makeText(this,"您暂未选取会员",Toast.LENGTH_SHORT).show();
+                    }else {
+                        s = s.substring(0,s.length()-1);
+                        Intent intent = new Intent(this,AddNewMemberCardBatchSelectCardActivity.class);
+                        intent.putExtra("m_id",s);
+                        startActivity(intent);
+                    }
                 }
                 break;
             default:break;

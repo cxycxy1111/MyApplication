@@ -38,13 +38,16 @@ public abstract class Ref {
     /**
      * 结果码
      */
+    public static final int RESULTCODE_NULL = 0;
     public static final int RESULTCODE_UPDATE = 1;
     public static final int RESULTCODE_DELETE = 2;
     public static final int RESULTCODE_ADD = 3;
-    public static final int RESULTCODE_NULL = 0;
+    public static final int RESULTCODE_CANCEL = 4;
+    public static final int RESULTCODE_DONE = 5;
 
     public static final int REQCODE_QUERYDETAIL = 1;
     public static final int REQCODE_ADD = 2;
+    public static final int REQCODE_DELETE = 3;
 
     /**
      * 从服务器中返回的stat的值类型
@@ -76,9 +79,13 @@ public abstract class Ref {
      * 教师类型
      * 1管理者，2普通教师，3外聘
      */
-    public static final String TEACHER_ADMIN = "1";
-    public static final String TEACHER_INNER = "2";
-    public static final String TEACHER_OUTER = "3";
+    public static final int TEACHER_ADMIN = 1;
+    public static final int TEACHER_INNER = 2;
+    public static final int TEACHER_OUTER = 3;
+
+    public static final int TYPE_CARD_BALANCE=1;
+    public static final int TYPE_CARD_NUM=2;
+    public static final int TYPE_CARD_TIME=3;
 
     public static final int RESP_TYPE_MAPLIST = 1;
     public static final int RESP_TYPE_MAP = 2;

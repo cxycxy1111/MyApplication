@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchSelectCardActivity">
 
+    <include
+        android:id="@+id/tb_a_add_new_member_card_batch_select_card"
+        layout="@layout/tile_toolbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_a_add_new_member_card_batch_select_card"
+        android:layout_above="@id/rl_a_add_new_member_card_batch_select_card"
+        android:layout_below="@id/tb_a_add_new_member_card_batch_select_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/rl_a_add_new_member_card_batch_select_card"
+        android:layout_alignParentBottom="true"
+        style="@style/rl_normal">
+        <Button
+            android:id="@+id/btn_next_a_add_new_member_card_batch_select_card"
+            android:text="下一步"
+            style="@style/plain_button"/>
+    </RelativeLayout>
+
 </RelativeLayout>

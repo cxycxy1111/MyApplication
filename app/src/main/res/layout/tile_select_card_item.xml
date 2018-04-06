@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_parent_t_select_card_item"
+    style="@style/rl_normal"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/distance128">
+    <RadioButton
+        android:id="@+id/rb_t_select_card_item"
+        android:layout_marginTop="@dimen/distance8"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/distance16"
+        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:id="@+id/rl_t_select_card_item"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_card_name_t_select_card_item"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/distance8"
+            android:text="卡名"
+            android:layout_width="match_parent"
+            style="@style/h2" />
+        <TextView
+            android:id="@+id/tv_price_t_select_card_item"
+            style="@style/plain_text"
+            android:layout_below="@id/tv_card_name_t_select_card_item"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/distance4"
+            android:layout_marginBottom="@dimen/distance8"
+            android:gravity="left"
+            android:text="售价" />
+        <TextView
+            android:id="@+id/tv_start_time_t_select_card_item"
+            style="@style/plain_text"
+            android:layout_below="@id/tv_card_name_t_select_card_item"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/distance4"
+            android:layout_marginBottom="@dimen/distance8"
+            android:layout_marginRight="@dimen/distance4"
+            android:gravity="left"
+            android:text="生效时间" />
+        <TextView
+            android:id="@+id/tv_balance_t_select_card_item"
+            style="@style/plain_text"
+            android:layout_below="@id/tv_price_t_select_card_item"
+            android:layout_marginTop="@dimen/distance4"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/distance8"
+            android:gravity="left"
+            android:text="余额" />
+
+        <TextView
+            android:id="@+id/tv_expired_time_t_select_card_item"
+            style="@style/plain_text"
+            android:layout_below="@id/tv_start_time_t_select_card_item"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/distance8"
+            android:layout_marginRight="@dimen/distance8"
+            android:layout_marginTop="@dimen/distance4"
+            android:gravity="left"
+            android:text="失效时间" />
+    </RelativeLayout>
+
+</RelativeLayout>
