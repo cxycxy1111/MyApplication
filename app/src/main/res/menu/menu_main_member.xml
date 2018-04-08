@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<!--
     <item
         android:id="@+id/batch_import_member_menu_main_member"
         android:title="导入会员"
         app:showAsAction="never" />
+        -->
     <!--
     <item
         android:id="@+id/export_member_menu_main_member"

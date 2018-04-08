@@ -1,28 +1,50 @@
 package xyz.institutionmanage.sailfish.Shopmember.Member;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import xyz.institutionmanage.sailfish.R;
 import xyz.institutionmanage.sailfish.Util.BaseActivity;
@@ -30,6 +52,7 @@ import xyz.institutionmanage.sailfish.Util.Ref;
 
 public class ImportMemberActivity extends BaseActivity implements View.OnClickListener{
 
+    private static final String TAG="IMemberActivity:";
     private String str_path;
     private File file;
     private TextView tv_name,tv_path;
@@ -68,14 +91,26 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
                         if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                             str_path = uri.getPath();
                             tv_path.setText(str_path);
+                            if (str_path.length()>1) {
+                                String[] str = str_path.split("/");
+                                tv_name.setText(str[str.length-1]);
+                            }
                             break;
                         }
                         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                             str_path = getPath(this, uri);
                             tv_path.setText(str_path);
+                            if (str_path.length()>1) {
+                                String[] str = str_path.split("/");
+                                tv_name.setText(str[str.length-1]);
+                            }
                         } else {//4.4以下下系统调用方法
                             str_path = getRealPathFromURI(uri);
                             tv_path.setText(str_path);
+                            if (str_path.length()>1) {
+                                String[] str = str_path.split("/");
+                                tv_name.setText(str[str.length-1]);
+                            }
                         }
                         break;
                     default:break;
@@ -91,14 +126,20 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
             case R.id.btn_select_a_import_member:
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 //intent.setType(“image/*”);//选择图片
-                intent.setType("*/*");//无类型限制
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("application/vnd.ms-excel");//无类型限制
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
                 startActivityForResult(intent, Ref.REQCODE_ADD);
                 select();
                 break;
+                /**
             case R.id.btn_import_a_import_member:
-                importt();
+                if ("".equals(str_path)) {
+                    Toast.makeText(this,"你暂未选择文件",Toast.LENGTH_SHORT).show();
+                }else {
+                    beforeImport();
+                }
                 break;
+                 **/
             default:break;
         }
     }
@@ -115,15 +156,156 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
 
         btn_import.setOnClickListener(this);
         btn_select.setOnClickListener(this);
-        btn_import.setClickable(false);
     }
 
     private void select() {
 
     }
 
-    private void importt() {
+    @Override
+    public int checkSelfPermission(String permission) {
+        return super.checkSelfPermission(permission);
+    }
 
+    @Override
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+        return super.shouldShowRequestPermissionRationale(permission);
+    }
+
+    private List<Map<String,String>> beforeImport() {
+        List<Map<String,String>> list = new ArrayList<>();
+        file = new File(str_path);
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            byte[] b = new byte[inputStream.available()];
+            System.out.println(b);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.print(inputStream.available());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /**
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            }
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+        }else {
+            if (file.exists()) {
+                InputStream inputStream = null;
+                try {
+                    inputStream = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (file.getName().endsWith(".xls")) {
+                    list = dealWithXls(inputStream);
+                }else if (file.getName().endsWith(".xlsx")){
+                    list = dealWithXlsx(inputStream);
+                }
+            }
+
+        }
+         **/
+        return list;
+    }
+
+    private List<Map<String,String>> dealWithXls(InputStream inputStream) {
+        List<Map<String,String>> list = new ArrayList<>();
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = new HSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        for (int i = 1;i < sheet.getLastRowNum();i++) {
+            HSSFRow row = sheet.getRow(i);
+            Map<String,String> map = new HashMap<>();
+            for (int j = 0;j < 6;j++) {
+                HSSFCell cell = row.getCell(j);
+                switch (j) {
+                    case 0:
+                        map.put("name",cell.getStringCellValue());
+                        break;
+                    case 1:
+                        map.put("login_name",cell.getStringCellValue());
+                        break;
+                    case 2:
+                        map.put("password",cell.getStringCellValue());
+                        break;
+                    case 3:
+                        map.put("birthday",cell.getStringCellValue());
+                        break;
+                    case 4:
+                        map.put("phone",cell.getStringCellValue());
+                        break;
+                    case 5:
+                        map.put("im",cell.getStringCellValue());
+                        break;
+                    default:break;
+                }
+            }
+            list.add(map);
+        }
+        try {
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    private List<Map<String,String>> dealWithXlsx(InputStream inputStream) {
+        List<Map<String,String>> list = new ArrayList<>();
+        XSSFWorkbook workbook = null;
+        try {
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        for (int i = 0;i < sheet.getLastRowNum();i++) {
+            Map<String,String> map = new HashMap<>();
+            XSSFRow row = sheet.getRow(i);
+            for (int j = 0;j < 6;j++) {
+                XSSFCell cell = row.getCell(j);
+                switch (j) {
+                    case 0:
+                        map.put("name",cell.getStringCellValue());
+                        break;
+                    case 1:
+                        map.put("login_name",cell.getStringCellValue());
+                        break;
+                    case 2:
+                        map.put("password",cell.getStringCellValue());
+                        break;
+                    case 3:
+                        map.put("birthday",cell.getStringCellValue());
+                        break;
+                    case 4:
+                        map.put("phone",cell.getStringCellValue());
+                        break;
+                    case 5:
+                        map.put("im",cell.getStringCellValue());
+                        break;
+                    default:break;
+                }
+            }
+            list.add(map);
+        }
+        try {
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public String getRealPathFromURI(Uri contentUri) {

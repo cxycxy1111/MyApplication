@@ -1,6 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackgroundCoclor"
@@ -11,6 +10,7 @@
         layout="@layout/tile_toolbar"/>
 
     <android.support.design.widget.TabLayout
+        android:layout_below="@id/tb_a_login"
         android:id="@+id/tl_a_login"
         style="@style/TabLyout"
         android:layout_width="match_parent"
@@ -19,8 +19,39 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_a_login"
+        android:layout_below="@id/tl_a_login"
+        android:layout_above="@id/rl_demo_a_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v4.view.ViewPager>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_demo_a_login"
+        android:layout_alignParentBottom="true"
+        style="@style/rl_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_info_a_login"
+            android:layout_alignParentTop="true"
+            style="@style/plain_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="您可以使用演示帐号登录体验。" />
+        <TextView
+            android:id="@+id/tv_tea_info_a_login"
+            android:layout_below="@id/tv_info_a_login"
+            style="@style/plain_text"
+            android:layout_marginTop="@dimen/distance1"
+            android:text="教师演示帐号登录名:demo，密码:111;会员演示帐号登录名:demo，密码:111。" />
+        <TextView
+            android:id="@+id/tv_memo_a_login"
+            android:layout_below="@id/tv_tea_info_a_login"
+            android:layout_marginTop="@dimen/distance2"
+            style="@style/plain_text_hint"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:text="体验完毕后，点击“我-退出登录”退出应用。" />
+    </RelativeLayout>
+
+</RelativeLayout>

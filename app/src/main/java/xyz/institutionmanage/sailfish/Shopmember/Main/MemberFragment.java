@@ -135,12 +135,11 @@ public class MemberFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
+/**
             case R.id.batch_import_member_menu_main_member:
                 Intent intent_1 = new Intent(getActivity(),ImportMemberActivity.class);
                 startActivity(intent_1);
                 break;
-            /**
             case R.id.export_member_menu_main_member:
                 break;
              **/

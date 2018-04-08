@@ -52,7 +52,12 @@ dependencies {
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:location:latest.integration'
     compile group: 'org.apache.poi', name: 'poi', version: '3.17'
-
+    compile (group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'){
+        exclude group: 'stat', module:'stax-api'
+    }
+    compile ('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
+        exclude group: 'com.msopentech.odatajclient', module: 'odatajclient-engine-xml'
+    }
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:1.0.1'
 }
