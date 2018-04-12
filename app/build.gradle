@@ -19,9 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dexOptions {
-        incremental false
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -39,25 +36,25 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v4:25.4.0'
     implementation 'com.android.support:support-vector-drawable:25.4.0'
-    testCompile 'com.android.support.test.espresso:espresso-core:2.2'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile('com.android.support:appcompat-v7:25.3.1') {
+    testImplementation 'com.android.support.test.espresso:espresso-core:2.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation('com.android.support:appcompat-v7:25.3.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
-    compile 'com.android.support:design:25.4.0'
-    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
-    compile 'org.litepal.android:core:1.6.0'
-    compile 'com.amap.api:map2d:latest.integration'
-    compile 'com.amap.api:location:latest.integration'
-    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
-    compile (group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'){
+    implementation 'com.android.support:design:25.4.0'
+    implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
+    implementation 'org.litepal.android:core:1.6.0'
+    implementation 'com.amap.api:map2d:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
+    implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
+    implementation (group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'){
         exclude group: 'stat', module:'stax-api'
     }
-    compile ('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
+    implementation ('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
         exclude group: 'com.msopentech.odatajclient', module: 'odatajclient-engine-xml'
     }
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
-    androidTestCompile 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
 }

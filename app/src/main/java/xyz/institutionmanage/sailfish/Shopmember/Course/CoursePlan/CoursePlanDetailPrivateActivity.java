@@ -110,6 +110,7 @@ public class CoursePlanDetailPrivateActivity
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                break;
             case R.id.delete_courseplan_detail_private:
                 delete();
                 break;
