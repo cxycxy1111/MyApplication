@@ -33,6 +33,7 @@ configurations {
 }
 
 dependencies {
+    implementation 'com.huawei.android.hms:push:2.6.0.301'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v4:25.4.0'
     implementation 'com.android.support:support-vector-drawable:25.4.0'
@@ -48,11 +49,11 @@ dependencies {
     implementation 'org.litepal.android:core:1.6.0'
     implementation 'com.amap.api:map2d:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
-    implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
-    implementation (group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'){
-        exclude group: 'stat', module:'stax-api'
+    implementation 'org.apache.poi:poi:3.17'
+    implementation(group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14') {
+        exclude group: 'stat', module: 'stax-api'
     }
-    implementation ('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
+    implementation('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
         exclude group: 'com.msopentech.odatajclient', module: 'odatajclient-engine-xml'
     }
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

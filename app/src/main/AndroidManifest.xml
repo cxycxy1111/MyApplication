@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -85,7 +85,9 @@
             android:label="@string/title_activity_add_new_member_card_batch_select_card"
             android:theme="@style/AppTheme" />
         <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity" />
-        <activity android:name=".Shopmember.Member.ImportMemberActivity"></activity>
+        <activity android:name=".Shopmember.Member.ImportMemberActivity" />
+        <activity android:name=".Login.UserAgreementActivity" />
+        <activity android:name=".Login.WhatIsSailfishActivity"></activity>
     </application>
 
 </manifest>

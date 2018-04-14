@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class RegistShopFragment
     private static final String TAG = "RegisF:";
     private static final String ARG_PARAM1 = "param1";
     private Button btn_register;
+    private TextView tv_user_agreement,tv_what_is_sailfish;
     private EditText et_name,et_intro;
 
     // TODO: Rename and change types of parameters
@@ -73,6 +75,10 @@ public class RegistShopFragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login_regist_f, container, false);
         btn_register = (Button)view.findViewById(R.id.btn_submit_f_regist);
+        tv_user_agreement = (TextView)view.findViewById(R.id.tv_user_agreement_f_regist);
+        tv_user_agreement.setOnClickListener(this);
+        tv_what_is_sailfish = (TextView)view.findViewById(R.id.tv_what_is_sailfish_f_regist);
+        tv_what_is_sailfish.setOnClickListener(this);
         et_name = (EditText) view.findViewById(R.id.et_name_f_regist);
         et_intro = (EditText) view.findViewById(R.id.et_intro_f_regist);
         btn_register.setOnClickListener(this);
@@ -115,6 +121,14 @@ public class RegistShopFragment
         switch (v.getId()) {
             case R.id.btn_submit_f_regist :
                 checkBeforeRequest();
+                break;
+            case R.id.tv_user_agreement_f_regist:
+                Intent intent = new Intent(getActivity(),UserAgreementActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_what_is_sailfish_f_regist:
+                Intent intent1 = new Intent(getActivity(),WhatIsSailfishActivity.class);
+                startActivity(intent1);
                 break;
             default:
                 break;

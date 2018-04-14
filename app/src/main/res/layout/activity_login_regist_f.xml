@@ -52,5 +52,33 @@
         android:text="注册"
         style="@style/plain_button"
         android:layout_below="@id/rl_nameblock_f_regist"/>
-
+    <RelativeLayout
+        android:id="@+id/rl_user_agreement_f_regist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_below="@id/btn_submit_f_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="注册即表示你同意"
+            android:id="@+id/tv_1_f_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_user_agreement_f_regist"
+            android:textColor="@color/colorPrimary"
+            android:layout_toRightOf="@id/tv_1_f_regist"
+            android:text="《管馆易用户注册协议》"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/distance16"
+        android:layout_below="@id/rl_user_agreement_f_regist"
+        android:text="什么是管馆易？"
+        android:textAlignment="center"
+        android:id="@+id/tv_what_is_sailfish_f_regist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
