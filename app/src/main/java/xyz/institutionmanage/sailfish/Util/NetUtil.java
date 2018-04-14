@@ -38,7 +38,7 @@ public class NetUtil {
 
     private static final String FENGYUAN_HOME = "http://192.168.0.107:8080/Sailfish";
 
-    public static final String SELECTED_HOST = LOCAL_LINUX;
+    public static final String SELECTED_HOST = REMOTE;
 
     private static OkHttpClient client;
 

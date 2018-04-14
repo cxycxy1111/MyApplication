@@ -25,17 +25,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,7 +51,7 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_member);
-        initComponent();
+//        initComponent();
     }
 
     @Override
@@ -98,14 +87,14 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
                             break;
                         }
                         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
-                            str_path = getPath(this, uri);
+                            //str_path = getPath(this, uri);
                             tv_path.setText(str_path);
                             if (str_path.length()>1) {
                                 String[] str = str_path.split("/");
                                 tv_name.setText(str[str.length-1]);
                             }
                         } else {//4.4以下下系统调用方法
-                            str_path = getRealPathFromURI(uri);
+                            //str_path = getRealPathFromURI(uri);
                             tv_path.setText(str_path);
                             if (str_path.length()>1) {
                                 String[] str = str_path.split("/");
@@ -215,7 +204,7 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
          **/
         return list;
     }
-
+/**
     private List<Map<String,String>> dealWithXls(InputStream inputStream) {
         List<Map<String,String>> list = new ArrayList<>();
         HSSFWorkbook workbook = null;
@@ -391,4 +380,5 @@ public class ImportMemberActivity extends BaseActivity implements View.OnClickLi
     public boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+    **/
 }

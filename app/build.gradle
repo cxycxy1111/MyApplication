@@ -7,10 +7,10 @@ android {
         applicationId "xyz.institutionmanage.sailfish"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
-        versionName "2.1.0"
+        versionCode 6
+        versionName "2.1.1"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
-
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -49,10 +49,6 @@ dependencies {
     implementation 'org.litepal.android:core:1.6.0'
     implementation 'com.amap.api:map2d:latest.integration'
     implementation 'com.amap.api:location:latest.integration'
-    implementation 'org.apache.poi:poi:3.17'
-    implementation(group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14') {
-        exclude group: 'stat', module: 'stax-api'
-    }
     implementation('com.msopentech.odatajclient:odatajclient-engine:0.9.0') {
         exclude group: 'com.msopentech.odatajclient', module: 'odatajclient-engine-xml'
     }
