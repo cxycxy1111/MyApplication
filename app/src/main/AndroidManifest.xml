@@ -89,5 +89,4 @@
         <activity android:name=".Login.UserAgreementActivity" />
         <activity android:name=".Login.WhatIsSailfishActivity"></activity>
     </application>
-
 </manifest>

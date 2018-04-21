@@ -43,7 +43,7 @@ public class NetUtil {
     private static OkHttpClient client;
 
     /**
-     *
+     * 发送请求
      * @param context Activity
      * @param address URL
      * @param callback 回调
@@ -56,6 +56,13 @@ public class NetUtil {
         call.enqueue(callback);
     }
 
+    /**
+     * 发送post请求
+     * @param context
+     * @param url
+     * @param map
+     * @param callback
+     */
     public static void sendPostHttpRequest(Context context, String url,HashMap<String,Object> map,Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         initOkHttpClient(context);
@@ -69,6 +76,13 @@ public class NetUtil {
         call.enqueue(callback);
     }
 
+    /**
+     * 发送post请求
+     * @param context
+     * @param url
+     * @param map
+     * @param callback
+     */
     public static void sendPost(Context context, String url,HashMap<String,String> map,Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         initOkHttpClient(context);
