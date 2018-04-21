@@ -94,7 +94,7 @@ public class ShopmemberListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(ShopmemberListActivity.this,"暂无管理员");
+                                //MethodTool.showToast(ShopmemberListActivity.this,"暂无管理员");
                                 initInnerList();
                                 break;
                             case SESSION_EXPIRED:
@@ -145,7 +145,7 @@ public class ShopmemberListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(ShopmemberListActivity.this,"暂无内部教师");
+                                //MethodTool.showToast(ShopmemberListActivity.this,"暂无内部教师");
                                 initOuterList();
                                 break;
                             case SESSION_EXPIRED:
@@ -193,7 +193,7 @@ public class ShopmemberListActivity extends BaseActivity {
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case NSR:
-                                MethodTool.showToast(ShopmemberListActivity.this,"暂无外聘教师");
+                                //MethodTool.showToast(ShopmemberListActivity.this,"暂无外聘教师");
                                 initRecyclerView();
                                 break;
                             case SESSION_EXPIRED:
