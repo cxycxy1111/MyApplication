@@ -32,7 +32,7 @@ public class NetUtil {
     //使用iPhone手机网络进行调试
     private static final String ALFRED_IPHONE = "http://172.20.10.3:8080/Sailfish";
     //使用正式服务器进行调试
-    private static final String REMOTE = "http://39.104.72.97:8080/Sailfish";
+    private static final String REMOTE = "http://39.104.72.97";
 
     private static final String JINYE_HOTEL = "http://192.168.27.195:8080/Sailfish";
 
