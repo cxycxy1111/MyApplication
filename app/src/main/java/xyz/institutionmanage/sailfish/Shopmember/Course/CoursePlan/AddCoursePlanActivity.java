@@ -161,7 +161,7 @@ public class AddCoursePlanActivity
     private void initToolbar () {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("添加排课");
+        getSupportActionBar().setTitle("新增排课");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
