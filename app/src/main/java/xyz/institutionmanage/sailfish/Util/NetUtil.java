@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
 public class NetUtil {
 
     //使用家里网络进行调试
-    private static final String LOCAL = "http://10.0.0.3:8080/Sailfish";
+    private static final String LOCAL = "http://10.0.0.7:8080";
     //使用家里LINUX机器网络进行调试
     private static final String LOCAL_LINUX= "http://10.0.0.8:8080/Sailfish";
     //使用冯静霞家的网络进行调试
@@ -38,7 +38,7 @@ public class NetUtil {
 
     private static final String FENGYUAN_HOME = "http://192.168.0.107:8080/Sailfish";
 
-        private static final String SELECTED_HOST = LOCAL_LINUX;
+        private static final String SELECTED_HOST = REMOTE;
 
     private static OkHttpClient client;
 

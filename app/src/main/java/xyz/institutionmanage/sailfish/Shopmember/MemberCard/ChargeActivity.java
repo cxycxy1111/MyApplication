@@ -48,6 +48,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
     private String selected_main_sc_id;
     private String source;
     private String selected_m_id,selected_c_id,selected_mc_id,selected_m_name,selected_c_name,str_selected_type;
+    private static final String STR_NO_MEMBER_CARD= "该会员暂未办理会员卡";
 
     private RelativeLayout linearLayout_balance,linearLayout_num,linearLayout_time;
     private static final String TOOLBAR_TITLE = "充值";
@@ -384,7 +385,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EMPTY_RESULT:
-                                MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
+                                MethodTool.showToast(ChargeActivity.this,STR_NO_MEMBER_CARD);
                                 selected_main_type = 0;
                                 setLinearLayoutVisibility(0);
                                 break;
@@ -443,7 +444,7 @@ public class ChargeActivity extends BaseActivity implements View.OnClickListener
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EMPTY_RESULT:
-                                MethodTool.showToast(ChargeActivity.this,Ref.STAT_EMPTY_RESULT);
+                                MethodTool.showToast(ChargeActivity.this,STR_NO_MEMBER_CARD);
                                 selected_main_type = 0;
                                 setLinearLayoutVisibility(selected_main_type);
                                 list_member_card_name.clear();

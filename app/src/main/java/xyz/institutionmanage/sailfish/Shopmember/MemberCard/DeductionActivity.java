@@ -43,6 +43,7 @@ import xyz.institutionmanage.sailfish.Util.SharePreferenceManager;
 public class DeductionActivity extends BaseActivity implements View.OnClickListener,EditText.OnFocusChangeListener{
 
     private boolean isLoaded = false;
+    private static final String STR_NO_MEMBER_CARD= "该会员暂未办理会员卡";
     private int selected_main_type;
     private String str_s_id,str_sm_id;
     private String selected_main_sc_id;
@@ -383,9 +384,14 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                     case RESP_STAT:
                         switch (EnumRespStatType.dealWithRespStat(resp)) {
                             case EMPTY_RESULT:
-                                MethodTool.showToast(DeductionActivity.this,Ref.STAT_EMPTY_RESULT);
+                                MethodTool.showToast(DeductionActivity.this,STR_NO_MEMBER_CARD);
                                 selected_main_type = 0;
-                                setLinearLayoutVisibility(0);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setLinearLayoutVisibility(0);
+                                    }
+                                });
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
@@ -440,9 +446,14 @@ public class DeductionActivity extends BaseActivity implements View.OnClickListe
                         EnumRespStatType respStatType = EnumRespStatType.dealWithRespStat(resp);
                         switch (respStatType) {
                             case EMPTY_RESULT:
-                                MethodTool.showToast(DeductionActivity.this,Ref.STAT_EMPTY_RESULT);
+                                MethodTool.showToast(DeductionActivity.this,STR_NO_MEMBER_CARD);
                                 selected_main_type = 0;
-                                setLinearLayoutVisibility(0);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setLinearLayoutVisibility(selected_main_type);
+                                    }
+                                });
                                 break;
                             case SESSION_EXPIRED:
                                 MethodTool.showExitAppAlert(DeductionActivity.this);
