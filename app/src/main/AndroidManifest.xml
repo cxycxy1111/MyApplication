@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-sdk tools:overrideLibrary="com.example.alfredtools"/>
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -18,7 +19,8 @@
         android:roundIcon="@mipmap/logohdpi"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="label">
+        tools:replace="label"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,6 +89,6 @@
         <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity" />
         <activity android:name=".Shopmember.Member.ImportMemberActivity" />
         <activity android:name=".Login.UserAgreementActivity" />
-        <activity android:name=".Login.WhatIsSailfishActivity"></activity>
+        <activity android:name=".Login.WhatIsSailfishActivity" />
     </application>
 </manifest>

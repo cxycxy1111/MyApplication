@@ -53,7 +53,7 @@ public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnCli
             case TYPE_HEADER:
                 final HeaderViewHolder headerViewHolder = (HeaderViewHolder)holder;
                 headerViewHolder.itemView.setTag(position);
-                headerViewHolder.textView.setText(list.get(position).get("type"));
+                headerViewHolder.tv.setText(list.get(position).get("name"));
                 break;
             case TYPE_CONTENT:
                 final ContentViewHolder contentViewHolder = (ContentViewHolder)holder;
@@ -78,10 +78,10 @@ public class RVSectionAdapter extends RecyclerView.Adapter implements View.OnCli
     }
 
     private static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView tv;
         private HeaderViewHolder(View view) {
             super(view);
-            textView = (TextView)itemView.findViewById(R.id.tv_header_name_t_rv_header);
+            tv = (TextView)itemView.findViewById(R.id.tv_header_name_t_rv_header);
         }
     }
 

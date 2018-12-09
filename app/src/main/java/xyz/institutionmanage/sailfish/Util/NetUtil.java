@@ -34,11 +34,7 @@ public class NetUtil {
     //使用正式服务器进行调试
     private static final String REMOTE = "http://39.104.72.97:8080/Sailfish";
 
-    private static final String JINYE_HOTEL = "http://192.168.27.195:8080/Sailfish";
-
-    private static final String FENGYUAN_HOME = "http://192.168.0.107:8080/Sailfish";
-
-        private static final String SELECTED_HOST = REMOTE;
+    public static final String SELECTED_HOST = REMOTE;
 
     private static OkHttpClient client;
 
