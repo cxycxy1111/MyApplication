@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="xyz.institutionmanage.sailfish">
+    package="xyz.institutionmanager.sailfish">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-sdk tools:overrideLibrary="com.example.alfredtools"/>
+    <uses-sdk tools:overrideLibrary="com.alfred.alfredtools"/>
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -21,74 +21,74 @@
         android:theme="@style/AppTheme"
         tools:replace="label"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name="xyz.institutionmanager.sailfish.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Shopmember.Main.ShopmemberMainActivity" />
-        <activity android:name=".Login.RegistAdministraotrActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Main.ShopmemberMainActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Login.RegistAdministraotrActivity" />
         <activity
-            android:name=".Shopmember.Course.Course.AddCourseActivity"
+            android:name="xyz.institutionmanager.sailfish.Shopmember.Course.Course.AddCourseActivity"
             android:exported="true" />
-        <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanActivity" />
-        <activity android:name=".Shopmember.Member.AddNewMemberActivity" />
-        <activity android:name=".Shopmember.Member.MemberListActivity" />
-        <activity android:name=".Shopmember.Member.MemberDetailActivity" />
-        <activity android:name=".Shopmember.Member.ResetMemberPwdActivity" />
-        <activity android:name=".Shopmember.Message.MessageListActivity" />
-        <activity android:name=".Shopmember.MemberCard.AddNewMemberCardActivity" />
-        <activity android:name=".Shopmember.MemberCard.MemberCardListActivity" />
-        <activity android:name=".Shopmember.MemberCard.MemberCardDetailActivity" />
-        <activity android:name=".Shopmember.MemberCard.ChargeActivity" />
-        <activity android:name=".Shopmember.MemberCard.DeductionActivity" />
-        <activity android:name=".Shopmember.Course.Course.CourseDetailActivity" />
-        <activity android:name=".Shopmember.Profile.Card.CardTypeListActivity" />
-        <activity android:name=".Shopmember.Profile.Card.AddNewCardActivity" />
-        <activity android:name=".Shopmember.Profile.Card.CardDetailActivity" />
-        <activity android:name=".Shopmember.Profile.Classroom.ClassroomListActivity" />
-        <activity android:name=".Shopmember.Profile.Classroom.ClassroomDetailActivity" />
-        <activity android:name=".Shopmember.Profile.Classroom.AddNewClassroomActivity" />
-        <activity android:name=".Shopmember.Profile.Shopmember.ShopmemberListActivity" />
-        <activity android:name=".Shopmember.Profile.Shopmember.ShopmemberDetailActivity" />
-        <activity android:name=".Shopmember.Profile.Shopmember.AddNewShopmemberActivity" />
-        <activity android:name=".Shopmember.Course.Course.AddSupportedCardActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanDetailActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.AddCoursePlanTeacherActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity" />
-        <activity android:name=".Shopmember.Profile.HelpActivity" />
-        <activity android:name=".Shopmember.Profile.Shopmember.ResetShopmemberPasswordActivity" />
-        <activity android:name=".Shopmember.Profile.ShopConfigActivity" />
-        <activity android:name=".Member.Main.MemberMainActivity" />
-        <activity android:name=".Member.Discovery.Course.MCourseListActivity" />
-        <activity android:name=".Member.Discovery.Course.MCourseDetailActivity" />
-        <activity android:name=".Member.Discovery.Course.MCourseDetailPrivateActivity" />
-        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanListActivity" />
-        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanDetailPrivateActivity" />
-        <activity android:name=".Member.Discovery.CoursePlan.MCoursePlanDetailActivity" />
-        <activity android:name=".Member.Profile.MemberCard.MMemberCardListActivity" />
-        <activity android:name=".Member.Profile.MemberCard.MMemberCardDetailActivity" />
-        <activity android:name=".Member.Book.MBookDetailActivity" />
-        <activity android:name=".Member.Book.MBookDetailPrivateActivity" />
-        <activity android:name=".Member.Profile.MyProfile.MMemberDetailActivity" />
-        <activity android:name=".Member.Profile.MyProfile.MResetMemberPwdActivity" />
-        <activity android:name=".Member.Profile.MemberCard.MMemberCardConsumeLogActivity" />
-        <activity android:name=".Shopmember.Profile.ShopInfoActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanListActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.CoursePlanBookAndAttendActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchDateActivity" />
-        <activity android:name=".Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchTeacherActivity" />
-        <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Member.AddNewMemberActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Member.MemberListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Member.MemberDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Member.ResetMemberPwdActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Message.MessageListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.AddNewMemberCardActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.MemberCardListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.MemberCardDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.ChargeActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.DeductionActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.Course.CourseDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Card.CardTypeListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Card.AddNewCardActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Card.CardDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Classroom.ClassroomListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Classroom.ClassroomDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Classroom.AddNewClassroomActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Shopmember.ShopmemberListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Shopmember.ShopmemberDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Shopmember.AddNewShopmemberActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.Course.AddSupportedCardActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanTeacherActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailPrivateActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.HelpActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.Shopmember.ResetShopmemberPasswordActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.ShopConfigActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Main.MemberMainActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.Course.MCourseListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.Course.MCourseDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.Course.MCourseDetailPrivateActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.CoursePlan.MCoursePlanListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.CoursePlan.MCoursePlanDetailPrivateActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Discovery.CoursePlan.MCoursePlanDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Profile.MemberCard.MMemberCardListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Profile.MemberCard.MMemberCardDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Book.MBookDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Book.MBookDetailPrivateActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Profile.MyProfile.MMemberDetailActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Profile.MyProfile.MResetMemberPwdActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Member.Profile.MemberCard.MMemberCardConsumeLogActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Profile.ShopInfoActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanListActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanBookAndAttendActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchDateActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.Batch.AddCoursePlanBatchTeacherActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.Batch.AddNewMemberCardBatchActivity" />
         <activity
-            android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchSelectCardActivity"
+            android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.Batch.AddNewMemberCardBatchSelectCardActivity"
             android:label="@string/title_activity_add_new_member_card_batch_select_card"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity" />
-        <activity android:name=".Shopmember.Member.ImportMemberActivity" />
-        <activity android:name=".Login.UserAgreementActivity" />
-        <activity android:name=".Login.WhatIsSailfishActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.MemberCard.Batch.AddNewMemberCardBatchInfoActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Shopmember.Member.ImportMemberActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Login.UserAgreementActivity" />
+        <activity android:name="xyz.institutionmanager.sailfish.Login.WhatIsSailfishActivity" />
     </application>
 </manifest>

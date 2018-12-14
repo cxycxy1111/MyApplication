@@ -3,8 +3,8 @@
     <dbname value="main"></dbname>
     <version value = "5"></version>
     <list>
-        <mapping class="com.example.dengweixiong.Bean.Country"></mapping>
-        <mapping class="com.example.dengweixiong.Bean.Province"></mapping>
-        <mapping class="com.example.dengweixiong.Bean.City"></mapping>
+        <mapping class="com.alfred.dengweixiong.Bean.Country"></mapping>
+        <mapping class="com.alfred.dengweixiong.Bean.Province"></mapping>
+        <mapping class="com.alfred.dengweixiong.Bean.City"></mapping>
     </list>
 </litepal>

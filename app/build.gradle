@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "xyz.institutionmanage.sailfish"
+        applicationId "xyz.institutionmanager.sailfish"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 8
@@ -57,4 +57,5 @@ dependencies {
     }
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    implementation project(':alfredtools')
 }

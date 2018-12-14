@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackgroundCoclor"
-    tools:context="xyz.institutionmanage.sailfish.Login.LoginActivity">
+    tools:context="xyz.institutionmanager.sailfish.Login.LoginActivity">
 
     <include
         android:id="@+id/tb_a_login"

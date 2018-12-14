@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanage.sailfish.Shopmember.MemberCard.ChargeActivity">
+    tools:context="xyz.institutionmanager.sailfish.Shopmember.MemberCard.ChargeActivity">
 
     <include
         android:id="@+id/tb_a_charge"
