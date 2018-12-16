@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Course.CoursePlan.AddCoursePlanActivity">
 
     <include
         android:id="@+id/tb_a_add_new_courseplan"

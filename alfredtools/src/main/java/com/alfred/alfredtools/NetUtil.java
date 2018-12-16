@@ -38,7 +38,7 @@ public class NetUtil {
     public static final String STATUS_PARTYLY_FAIL = "exe_partly_fail";
     static final String STATUS_NOT_MATCH = "not_match";
     static final String STATUS_SESSION_EXPIRED = "session_expired";
-    static final String STATUS_STATUS_AUTHORIZE_FAIL = "STATUS_AUTHORIZE_FAIL";
+    static final String STATUS_AUTHORIZE_FAIL = "authorize_fail";
 
     //使用家里网络进行调试
     private static final String SERVER_SQ = "http://10.0.0.7:8080";

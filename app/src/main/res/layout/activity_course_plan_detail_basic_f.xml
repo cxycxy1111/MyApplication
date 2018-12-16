@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailBasicFragment">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Course.CoursePlan.CoursePlanDetailBasicFragment">
     <ScrollView
         android:id="@+id/sv_f_course_plan_detail_basic"
         android:layout_above="@id/rl_save_f_course_plan_detail_basic"

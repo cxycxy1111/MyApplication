@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Member.ResetMemberPwdActivity">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Member.ResetMemberPwdActivity">
 
     <include
         android:id="@+id/tb_activity_reset_pwd_member"

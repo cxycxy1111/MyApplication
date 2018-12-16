@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Course.CoursePlan.CoursePlanBookFragment">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Course.CoursePlan.CoursePlanBookFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_f_course_plan_book"

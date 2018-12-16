@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanager.sailfish.Member.Main.MemberMainActivity">
+    tools:context="xyz.instmgr.sailfish.Member.Main.MemberMainActivity">
 
     <include
         android:id="@+id/tb_a_m_main"

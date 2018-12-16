@@ -106,6 +106,7 @@ public class BaseActivity extends AppCompatActivity implements HttpResultListene
         layoutParams.gravity = Gravity.CENTER;
         progressBar = new ProgressBar(context);
         progressBar.setLayoutParams(layoutParams);
+        progressBar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progressbar));
         progressBar.setVisibility(View.GONE);
         rootFrameLayout.addView(progressBar);
     }

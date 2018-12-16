@@ -7,11 +7,16 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class ViewHandler {
+
+    private static final String TAG ="ViewHandler";
 
     /**
      * 显示Toast
@@ -19,12 +24,7 @@ public class ViewHandler {
      * @param string
      */
     public static void toastShow(final Activity targetActivity, final String string) {
-        targetActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(targetActivity,string,Toast.LENGTH_LONG).show();
-            }
-        });
+        Toast.makeText(targetActivity,string,Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -53,26 +53,21 @@ public class ViewHandler {
      * @param content
      */
     public static void alertShow(final Activity targetActivity, final String title,final String content) {
-        targetActivity.runOnUiThread(new Runnable() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
+        dialog.setTitle(title);
+        dialog.setCancelable(false);
+        dialog.setMessage(content);
+        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
-                dialog.setTitle(title);
-                dialog.setCancelable(false);
-                dialog.setMessage(content);
-                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                dialog.show();
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dialog.show();
     }
 
     /**
@@ -80,67 +75,38 @@ public class ViewHandler {
      * @param targetActivity
      */
     public static void alertShowAndExitApp(final Activity targetActivity) {
-        targetActivity.runOnUiThread(new Runnable() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
+        dialog.setTitle("登录过期提示");
+        dialog.setCancelable(false);
+        dialog.setMessage(BaseActivity.ALERT_STATUS_SESSION_EXPIRED);
+        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(targetActivity);
-                dialog.setTitle("登录过期提示");
-                dialog.setCancelable(false);
-                dialog.setMessage(BaseActivity.ALERT_STATUS_SESSION_EXPIRED);
-                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityMgr.removeAllActivity();
-                    }
-                });
-                dialog.show();
+            public void onClick(DialogInterface dialog, int which) {
+                ActivityMgr.removeAllActivity();
             }
         });
+        dialog.show();
     }
 
     public static void toastShowAuthorizeFail(final Activity targetActivity) {
-        targetActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(targetActivity,BaseActivity.OPERATE_MANAGE_STATUS_STATUS_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
-            }
-        });
+        Toast.makeText(targetActivity,BaseActivity.OPERATE_MANAGE_STATUS_STATUS_AUTHORIZE_FAIL,Toast.LENGTH_SHORT)
+                .show();
     }
 
     public static void progressBarHide(final BaseActivity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.getProgressBar(activity).setVisibility(View.GONE);
-            }
-        });
+        activity.getProgressBar(activity).setVisibility(View.GONE);
     }
 
     public static void progressBarHide(final Activity activity,final ProgressBar progressBar) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+        progressBar.setVisibility(View.GONE);
     }
 
     public static void progressBarShow(final Activity activity, final ProgressBar progressBar) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public static void progressBarShow(final BaseActivity activity) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.getProgressBar(activity).setVisibility(View.VISIBLE);
-            }
-        });
+        activity.getProgressBar(activity).setVisibility(View.VISIBLE);
     }
 
 
@@ -192,12 +158,7 @@ public class ViewHandler {
      * @param targetActivity
      */
     public static void exitAcitivityDueToAuthorizeFail(final Activity targetActivity) {
-        targetActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(targetActivity,BaseActivity.OPERATE_VIEW_STATUS_STATUS_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
-            }
-        });
+        Toast.makeText(targetActivity,BaseActivity.OPERATE_VIEW_STATUS_STATUS_AUTHORIZE_FAIL,Toast.LENGTH_SHORT).show();
         targetActivity.finish();
     }
 
@@ -211,12 +172,19 @@ public class ViewHandler {
         }
     }
 
-    public static void snackbarShowLong(View view,String str) {
-        Snackbar.make(view,str,Snackbar.LENGTH_LONG).show();
+    public static void snackbarShowTall(Context context,View view,String str) {
+        Snackbar snackbar = Snackbar.make(view,str,Snackbar.LENGTH_SHORT);
+        snackbarDeal(context,snackbar,true);
     }
 
-    public static void snackbarShowShort(View view,String str) {
-        Snackbar.make(view,str,Snackbar.LENGTH_SHORT).show();
+    public static void snackbarShowLow(Context context,View view,String str) {
+        Snackbar snackbar = Snackbar.make(view,str,Snackbar.LENGTH_LONG);
+        snackbarDeal(context,snackbar,false);
+    }
+
+    private static void snackbarDeal(Context context,Snackbar snackbar,boolean isTall) {
+        SnackBarHandler.config(context,snackbar,isTall);
+        snackbar.show();
     }
 
 }

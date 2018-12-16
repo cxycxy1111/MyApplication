@@ -60,7 +60,7 @@ public enum  NetRespStatType {
                 return STATUS_NOT_MATCH;
             case NetUtil.STATUS_SESSION_EXPIRED:
                 return STATUS_SESSION_EXPIRED;
-            case NetUtil.STATUS_STATUS_AUTHORIZE_FAIL:
+            case NetUtil.STATUS_AUTHORIZE_FAIL:
                 return STATUS_AUTHORIZE_FAIL;
             default:
                 return null;

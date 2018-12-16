@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackgroundCoclor"
-    tools:context="xyz.institutionmanager.sailfish.Login.SignInFragment">
+    tools:context="xyz.instmgr.sailfish.Login.SignInFragment">
 
     <RelativeLayout
         android:id="@+id/rl_nameblock_a_signin_member"

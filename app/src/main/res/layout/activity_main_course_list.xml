@@ -1,10 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/distance16"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Main.CourseListFragment">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Main.CourseListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_f_course_list"
@@ -12,4 +12,4 @@
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.institutionmanager.sailfish.Shopmember.Message.MessageListActivity">
+    tools:context="xyz.instmgr.sailfish.Shopmember.Message.MessageListActivity">
 
     <include
         android:id="@+id/toolbar_activity_message_list"

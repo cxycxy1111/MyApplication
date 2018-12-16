@@ -38,7 +38,6 @@ public class HttpCallback implements Callback {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "run: onFailure: 无法连接服务器！");
                 HttpResultListener.onReqFailure(new HttpExtException(0,"无法连接服务器，请检查网络"),source);
             }
         });
@@ -57,7 +56,6 @@ public class HttpCallback implements Callback {
     }
 
     private void handleResponse(final String body) {
-        Log.d(TAG, "handleResponse: body: " + body);
         if (body == null || body.toString().trim().equals("")) {
             HttpResultListener.onReqFailure(new HttpExtException(-1,"请求结果为空"),source);
             return;
