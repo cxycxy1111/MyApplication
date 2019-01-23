@@ -18,7 +18,7 @@ public class ShopInfoActivity extends BaseActivity implements HttpResultListener
 
     private static final int REQUEST_shopDetailQuery = 1;
     private static final int REQUEST_shopDetailModify = 2;
-    private String[] keys = new String[]{"name","del","introductioon","id"};
+    private String[] keys = new String[]{"name","del","introduction","id"};
     private EditText et_name,et_remark;
 
     @Override

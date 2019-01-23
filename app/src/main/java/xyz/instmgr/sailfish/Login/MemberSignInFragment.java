@@ -131,7 +131,8 @@ public class MemberSignInFragment extends Fragment implements HttpResultListener
         }
         if (!user_name.equals(null) && !password.equals(null)) {
             HttpCallback callback = new HttpCallback(this,getActivity(),1);
-            NetUtil.reqSendGet(getActivity(),"/memberLogin",callback);
+            //NetUtil.reqSendGet(getActivity(),"/memberLogin",callback);
+            NetUtil.reqSendPost(getActivity(),"/memberLogin",map_1,callback);
         }else {
             Toast.makeText(getActivity(), Ref.OP_EMPTY_ESSENTIAL_INFO,Toast.LENGTH_SHORT).show();
         }
@@ -141,7 +142,7 @@ public class MemberSignInFragment extends Fragment implements HttpResultListener
     public void onRespStatus(String body, int source) {
         switch (NetRespStatType.dealWithRespStat(body)) {
             case STATUS_NOT_MATCH:
-                ViewHandler.toastShow(getActivity(),"登录名与密码不匹配");
+                ViewHandler.snackbarShowLow(getActivity(),getView(),"登录名与密码不匹配");
                 break;
             default:break;
         }
@@ -154,12 +155,12 @@ public class MemberSignInFragment extends Fragment implements HttpResultListener
 
     @Override
     public void onRespError(int source) {
-        ViewHandler.toastShow(getActivity(),Ref.UNKNOWN_ERROR);
+        ViewHandler.snackbarShowLow(getActivity(),getView(),Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-        ViewHandler.toastShow(getActivity(),Ref.CANT_CONNECT_INTERNET);
+        ViewHandler.snackbarShowLow(getActivity(),getView(),Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override

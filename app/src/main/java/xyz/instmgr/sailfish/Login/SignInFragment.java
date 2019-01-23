@@ -175,37 +175,6 @@ public class SignInFragment
     }
 
     /**
-     * 跳至主界面
-     */
-    private void jumpTo() {
-        Intent intent = new Intent(getActivity(), ShopmemberMainActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * 储存登录信息
-     */
-    private void storeLoginMessage() {
-        SharedPreferences.Editor editor_sasm = getActivity().getSharedPreferences("sasm",Context.MODE_PRIVATE).edit();
-        editor_sasm.clear().apply();
-        SharedPreferences.Editor editor_login_data = getActivity().getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
-        editor_login_data.clear().apply();
-
-        SharePreferenceManager.storeSharePreferenceInt(getActivity(),"sasm","sm_type",Integer.valueOf(String.valueOf(map.get("type"))));
-        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","sm_id",Integer.valueOf(String.valueOf(map.get("id"))));
-        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
-        if (cb_is_remember_password.isChecked()) {
-            SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",1);
-            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","login_name",loginname);
-            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","password",password);
-        }else {
-            //SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",0);
-        }
-
-        jumpTo();
-    }
-
-    /**
      *
      */
     public interface OnFragmentInteractionListener {
@@ -225,6 +194,7 @@ public class SignInFragment
 
     @Override
     public void onRespMapList(String body, int source) throws IOException {
+        ViewHandler.snackbarShowTall(getActivity(),getView(),"登录成功");
         String[] keys = new String[] {"id","shop_id","type","user_name"};
         List<Map<String,String>> mapList = null;
         try {
@@ -233,7 +203,25 @@ public class SignInFragment
             e.printStackTrace();
         }
         map = mapList.get(0);
-        storeLoginMessage();
+
+        SharedPreferences.Editor editor_sasm = getActivity().getSharedPreferences("sasm",Context.MODE_PRIVATE).edit();
+        editor_sasm.clear().apply();
+        SharedPreferences.Editor editor_login_data = getActivity().getSharedPreferences("login_data",Context.MODE_PRIVATE).edit();
+        editor_login_data.clear().apply();
+
+        SharePreferenceManager.storeSharePreferenceInt(getActivity(),"sasm","sm_type",Integer.valueOf(String.valueOf(map.get("type"))));
+        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","sm_id",Integer.valueOf(String.valueOf(map.get("id"))));
+        SharePreferenceManager.storeSharePreferenceLong(getActivity(),"sasm","s_id",Integer.valueOf(String.valueOf(map.get("shop_id"))));
+        if (cb_is_remember_password.isChecked()) {
+            SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",1);
+            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","login_name",loginname);
+            SharePreferenceManager.storeSharePreferenceString(getActivity(),"login_data","password",password);
+        }else {
+            //SharePreferenceManager.storeSharePreferenceInt(getActivity(),"login_data","is_remember_password",0);
+        }
+
+        Intent intent = new Intent(getActivity(), ShopmemberMainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -245,13 +233,13 @@ public class SignInFragment
     public void onRespStatus(String body, int source) {
         switch (NetRespStatType.dealWithRespStat(body)) {
             case STATUS_NOT_MATCH:
-                ViewHandler.toastShow(getActivity(),"登录名与密码不匹配");
+                ViewHandler.snackbarShowTall(getActivity(),getView(),"登录名与密码不匹配");
                 break;
             case NSR:
-                ViewHandler.toastShow(getActivity(),"登录名与密码不匹配");
+                ViewHandler.snackbarShowTall(getActivity(),getView(),"登录名与密码不匹配");
                 break;
             default:
-                ViewHandler.toastShow(getActivity(), Ref.UNKNOWN_ERROR);
+                ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.UNKNOWN_ERROR);
                 break;
         }
     }

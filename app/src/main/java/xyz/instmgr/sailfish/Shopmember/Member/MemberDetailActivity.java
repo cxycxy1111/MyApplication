@@ -236,26 +236,6 @@ public class MemberDetailActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                /**
-                builder = new AlertDialog.Builder(MemberDetailActivity.this);
-                builder.setTitle("提示");
-                builder.setMessage("是否保存更改？");
-                builder.setCancelable(false);
-                builder.setNegativeButton("不保存", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setResult(Ref.RESULTCODE_NULL,null);
-                        finish();
-                    }
-                });
-                builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(MemberDetailActivity.this,"请点击\"保存\"按钮保存更改",Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.show();
-                 **/
                 MemberDetailActivity.this.finish();
                 break;
             case R.id.save_member_detail:

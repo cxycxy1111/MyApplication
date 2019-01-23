@@ -16,6 +16,7 @@
     <dimen name="distance96">96dp</dimen>
     <dimen name="distance108">108dp</dimen>
     <dimen name="distance128">128dp</dimen>
+    <dimen name="distance192">192dp</dimen>
     <dimen name="group_text">10sp</dimen>
     <dimen name="simple_list_view_text">16sp</dimen>
 

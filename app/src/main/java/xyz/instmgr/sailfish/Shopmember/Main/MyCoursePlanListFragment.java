@@ -106,7 +106,7 @@ public class MyCoursePlanListFragment extends BaseFragment implements HttpResult
     public void onRespStatus(String body, int source) {
         switch (NetRespStatType.dealWithRespStat(body)) {
             case EMPTY:
-                ViewHandler.snackbarShowTall(getActivity(),getView(),"你暂没有排课");
+                ViewHandler.toastShow(getParentFragment().getActivity(),"你暂没有排课");
                 break;
             default:break;
         }
@@ -139,12 +139,12 @@ public class MyCoursePlanListFragment extends BaseFragment implements HttpResult
 
     @Override
     public void onRespError(int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.UNKNOWN_ERROR);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.CANT_CONNECT_INTERNET);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override

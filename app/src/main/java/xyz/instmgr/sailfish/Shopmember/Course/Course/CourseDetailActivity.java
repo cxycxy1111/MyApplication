@@ -124,6 +124,7 @@ public class CourseDetailActivity
      * 初始化会员课、集训课
      */
     private void initCourseDetail() {
+        ViewHandler.progressBarShow(this);
         String url = "/CourseDetailQuery?c_id=" + str_courseId;
         HttpCallback callback = new HttpCallback(this,this,REQUEST_CourseDetailQuery);
         NetUtil.reqSendGet(this,url,callback);
@@ -429,6 +430,7 @@ public class CourseDetailActivity
 
     @Override
     public void onRespStatus(String body, int source) {
+        ViewHandler.progressBarHide(this);
         if (source == REQUEST_CourseDetailQuery) {
             NetRespStatType respStatType = NetRespStatType.dealWithRespStat(body);
             switch (respStatType) {
@@ -554,6 +556,7 @@ public class CourseDetailActivity
                 recyclerView.setVisibility(View.GONE);
                 maplist_courseDetail = JsonUtil.strToListMap(body,strs_coursePrivateKeys);
                 initPrivateCourse();
+                ViewHandler.progressBarHide(this);
             }else if (str_type.equals("1") || str_type.equals("2") || str_type.equals("3")) {
                 scrollView.setVisibility(View.GONE);
                 maplist_courseDetail = JsonUtil.strToListMap(body,strs_courseKeys);
@@ -566,6 +569,7 @@ public class CourseDetailActivity
             }
         }else if (source == REQUEST_SupportedCardQuery) {
             maplist_supportedCard = JsonUtil.strToListMap(body,strs_supportCardKeys);
+            ViewHandler.progressBarHide(this);
             reorgnizeData();
         }else if (source == REQUEST_CoursePrivateModify) {
 

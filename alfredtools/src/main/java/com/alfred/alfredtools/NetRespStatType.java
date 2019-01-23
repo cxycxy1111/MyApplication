@@ -4,13 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.alfred.alfredtools.NetUtil.STATUS;
-import static com.alfred.alfredtools.NetUtil.STATUS_DUPLICATE;
-import static com.alfred.alfredtools.NetUtil.EMPTY;
-import static com.alfred.alfredtools.NetUtil.STATUS_FAIL;
-import static com.alfred.alfredtools.NetUtil.STATUS_NO_SUCH_RESULT;
-import static com.alfred.alfredtools.NetUtil.STATUS_PARTYLY_FAIL;
-import static com.alfred.alfredtools.NetUtil.STATUS_SUCCESS;
+import static com.alfred.alfredtools.NetUtil.*;
 
 public enum  NetRespStatType {
 
@@ -35,7 +29,7 @@ public enum  NetRespStatType {
         this.type = string;
     }
 
-    public static NetRespStatType dealWithRespStat(String resp) {
+    public static NetRespStatType dealWithRespStat(String resp){
         Map<String,String> map = new HashMap<>();
         try {
             map = JsonUtil.strToMap(resp);

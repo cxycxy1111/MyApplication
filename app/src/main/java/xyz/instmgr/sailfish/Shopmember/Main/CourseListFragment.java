@@ -69,13 +69,13 @@ public class CourseListFragment
     public void onRespStatus(String body, int source) {
         switch (NetRespStatType.dealWithRespStat(body)) {
             case NSR:
-                ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.OP_NSR);
+                ViewHandler.toastShow(getParentFragment().getActivity(),Ref.OP_NSR);
                 break;
             case STATUS_AUTHORIZE_FAIL:
                 ViewHandler.exitAcitivityDueToAuthorizeFail(getParentFragment().getActivity());
                 break;
             case EMPTY:
-                ViewHandler.snackbarShowTall(getActivity(),getView(),"暂时没有课程");
+                ViewHandler.toastShow(getParentFragment().getActivity(),"暂时没有课程");
                 break;
             default:break;
         }
@@ -111,12 +111,12 @@ public class CourseListFragment
 
     @Override
     public void onRespError(int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.UNKNOWN_ERROR);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.CANT_CONNECT_INTERNET);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override

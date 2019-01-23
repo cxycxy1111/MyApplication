@@ -77,7 +77,7 @@ public class MBookFragment extends BaseFragment implements HttpResultListener {
             linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
             rl_empty = (RelativeLayout)view.findViewById(R.id.rl_t_text_empty);
             initAlertDialog("签到","课程签到","确定","取消");
-            initBookList();
+            //initBookList();
         }
 
         return view;
@@ -241,7 +241,7 @@ public class MBookFragment extends BaseFragment implements HttpResultListener {
     }
 
     @Override
-    public void onRespStatus(String body, int source) {
+    public void onRespStatus(String body, int source) throws IOException{
         ViewHandler.progressBarHide(getActivity(),getProgressBar(getActivity()));
         if (source == REQUEST_BookListQuery) {
             switch (NetRespStatType.dealWithRespStat(body)) {

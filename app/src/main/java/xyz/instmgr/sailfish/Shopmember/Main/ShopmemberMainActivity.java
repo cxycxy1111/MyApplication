@@ -5,12 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import com.alfred.alfredtools.BaseActivity;
 import com.alfred.alfredtools.ViewHandler;
@@ -20,9 +18,7 @@ import xyz.instmgr.sailfish.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopmemberMainActivity
-        extends
-        BaseActivity
+public class ShopmemberMainActivity extends BaseActivity
         implements MemberFragment.OnFragmentInteractionListener,
             CourseMainFragment.OnFragmentInteractionListener,
             PersonFragment.OnFragmentInteractionListener,
@@ -56,7 +52,6 @@ public class ShopmemberMainActivity
         initToolBar();
         initViewPager();
         initBottomNavigationBar();
-        Snackbar.make(toolbar,"",Snackbar.LENGTH_LONG).show();
     }
 
     //toolbar初始化
@@ -99,32 +94,7 @@ public class ShopmemberMainActivity
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(this);
     }
-/**
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.add_new_course_main:
-                intent = new Intent(ShopmemberMainActivity.this,AddCourseActivity.class);
-                startActivityForResult(intent,this.REQUEST_ADD_NEW_COURSE);
-                break;
-            case R.id.add_new_courseplan_main:
-                intent = new Intent(ShopmemberMainActivity.this,AddCoursePlanActivity.class);
-                startActivity(intent);
-                break;
-            default:break;
-        }
-        return true;
-    }
-**/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -143,10 +113,7 @@ public class ShopmemberMainActivity
     @Override
     public void onDataFirstTimeLoad(int source) {
         count ++;
-        Log.d(TAG, "onDataFirstTimeLoad: count: " + count);
-        Log.d(TAG, "onDataFirstTimeLoad: source: " + source);
         if (count >=3) {
-
             ViewHandler.progressBarHide(this);
         }
     }

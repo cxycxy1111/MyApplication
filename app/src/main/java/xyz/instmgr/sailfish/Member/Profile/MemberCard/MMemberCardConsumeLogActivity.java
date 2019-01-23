@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import com.alfred.alfredtools.*;
 import xyz.instmgr.sailfish.Adapter.RVMemberCardConsumeLogAdapter;
 import xyz.instmgr.sailfish.R;
@@ -25,6 +24,7 @@ public class MMemberCardConsumeLogActivity extends BaseActivity implements HttpR
     private RVMemberCardConsumeLogAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
     private List<Map<String,String>> mapList = new ArrayList<>();
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MMemberCardConsumeLogActivity extends BaseActivity implements HttpR
         setContentView(R.layout.activity_mmember_card_consume_log);
         initData();
         initViews();
-        getProgressBar(MMemberCardConsumeLogActivity.this).setVisibility(View.VISIBLE);
+        ViewHandler.progressBarShow(this);
         initRecyclerViewDataFromWeb();
     }
 
@@ -41,7 +41,7 @@ public class MMemberCardConsumeLogActivity extends BaseActivity implements HttpR
     }
 
     private void initViews() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_general);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_general);
         toolbar.setTitle("消费记录");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,6 +80,7 @@ public class MMemberCardConsumeLogActivity extends BaseActivity implements HttpR
 
     @Override
     public void onRespStatus(String body, int source) {
+        ViewHandler.progressBarHide(this);
         switch (NetRespStatType.dealWithRespStat(body)) {
             case EMPTY:
                 ViewHandler.toastShow(MMemberCardConsumeLogActivity.this,"该卡暂未消费");
@@ -90,22 +91,26 @@ public class MMemberCardConsumeLogActivity extends BaseActivity implements HttpR
 
     @Override
     public void onRespMapList(String body, int source) throws IOException {
+        ViewHandler.progressBarHide(this);
         mapList = JsonUtil.strToListMap(body,keys_consume_log);
         initRecyclerView();
     }
 
     @Override
     public void onRespError(int source) {
-        ViewHandler.toastShow(MMemberCardConsumeLogActivity.this,Ref.UNKNOWN_ERROR);
+        ViewHandler.progressBarHide(this);
+        ViewHandler.snackbarShowLow(this,toolbar,Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-
+        ViewHandler.progressBarHide(this);
+        ViewHandler.snackbarShowLow(this,toolbar,Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override
     public void onRespSessionExpired(int source) {
+        ViewHandler.progressBarHide(this);
         ViewHandler.alertShowAndExitApp(this);
     }
 }

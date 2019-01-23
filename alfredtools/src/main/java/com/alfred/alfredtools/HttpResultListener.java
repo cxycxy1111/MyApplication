@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface HttpResultListener {
 
-    public void onRespStatus(String body,int source);
+    public void onRespStatus(String body,int source) throws IOException;
 
     public void onRespMapList(String body,int source) throws IOException;
 

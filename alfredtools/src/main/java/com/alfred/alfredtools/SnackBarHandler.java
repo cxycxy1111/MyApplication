@@ -24,14 +24,15 @@ public class SnackBarHandler {
         }else {
             height = 12*density;
         }
-        addMargins(snack,height);
+        addMargins(snack,height,density);
         setRoundBordersBg(context, snack);
         ViewCompat.setElevation(snack.getView(), 6f);
     }
 
-    private static void addMargins(Snackbar snack,float height) {
+    private static void addMargins(Snackbar snack, float height, float density) {
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snack.getView().getLayoutParams();
-        params.setMargins(12, 12, 12, (int)height);
+        int edge = (int) (12*density);
+        params.setMargins(edge, edge, edge, (int)height);
         snack.getView().setLayoutParams(params);
     }
 

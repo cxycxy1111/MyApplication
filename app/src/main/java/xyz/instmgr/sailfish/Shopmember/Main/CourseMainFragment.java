@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.*;
 import com.alfred.alfredtools.BaseFragment;
 import xyz.instmgr.sailfish.Adapter.ViewPagerAdapter;
@@ -217,36 +216,30 @@ public class CourseMainFragment
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: ");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: ");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG, "onDestroyView: ");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
     }
 }

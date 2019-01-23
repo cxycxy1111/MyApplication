@@ -23,9 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MemberListActivity
-        extends BaseActivity
-        implements RVSimpleAdapter.OnItemClickListener,HttpResultListener {
+public class MemberListActivity extends BaseActivity
+        implements RVSimpleAdapter.OnItemClickListener,
+            HttpResultListener {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
@@ -41,7 +41,10 @@ public class MemberListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_list);
         initToolbar();
-        initData();
+        String url = "/QueryMemberList";
+        ViewHandler.progressBarShow(this);
+        HttpCallback callback = new HttpCallback(this,this,0);
+        NetUtil.reqSendGet(this,url,callback);
     }
 
     @Override
@@ -82,6 +85,7 @@ public class MemberListActivity
         }
         //处理来自AddNewMemberActivity的调用
         else if (requestCode == 2) {
+
         }
 
         else {
@@ -92,9 +96,10 @@ public class MemberListActivity
 
     @Override
     public void onRespStatus(String body, int source) {
+        ViewHandler.progressBarHide(this);
         switch (NetRespStatType.dealWithRespStat(body)) {
             case EMPTY:
-                ViewHandler.toastShow(MemberListActivity.this,"暂无会员，请新增");
+                ViewHandler.snackbarShowTall(this,toolbar,"暂无会员，请新增");
                 break;
             case STATUS_AUTHORIZE_FAIL:
                 ViewHandler.exitAcitivityDueToAuthorizeFail(MemberListActivity.this);
@@ -105,6 +110,7 @@ public class MemberListActivity
 
     @Override
     public void onRespMapList(String body, int source) throws IOException {
+        ViewHandler.progressBarHide(this);
         String [] keys = new String[] {"id","name"};
         list = JsonUtil.strToListMap(body,keys);
         Tool.sortListMapAsc(list,"name");
@@ -116,16 +122,19 @@ public class MemberListActivity
 
     @Override
     public void onRespError(int source) {
+        ViewHandler.progressBarHide(this);
         ViewHandler.toastShow(MemberListActivity.this,Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-        ViewHandler.toastShow(MemberListActivity.this,Ref.CANT_CONNECT_INTERNET);
+        ViewHandler.progressBarHide(this);
+        ViewHandler.snackbarShowTall(this,toolbar,Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override
     public void onRespSessionExpired(int source) {
+        ViewHandler.progressBarHide(this);
         ViewHandler.alertShowAndExitApp(this);
     }
 
@@ -152,14 +161,6 @@ public class MemberListActivity
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-        String url = "/QueryMemberList";
-        HttpCallback callback = new HttpCallback(this,this,0);
-        NetUtil.reqSendGet(this,url,callback);
-    }
 
     @Override
     public void onItemClick(View view, int position) {

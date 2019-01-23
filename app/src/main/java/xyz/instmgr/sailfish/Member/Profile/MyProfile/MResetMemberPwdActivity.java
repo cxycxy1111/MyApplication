@@ -38,8 +38,8 @@ public class MResetMemberPwdActivity
 
     private void initToolbar() {
         toolbar = (Toolbar)findViewById(R.id.toolbar_general);
+        toolbar.setTitle(R.string.title_a_reset_member_pwd);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.title_a_reset_member_pwd);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

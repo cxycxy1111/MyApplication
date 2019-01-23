@@ -2,19 +2,12 @@ package com.alfred.alfredtools;
 
 import android.content.Context;
 import android.util.Log;
+import okhttp3.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Cookie;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 public class NetUtil {
 
@@ -45,7 +38,7 @@ public class NetUtil {
     //使用家里LINUX机器网络进行调试
     private static final String SERVER_SQ_LINUX= "http://10.0.0.8:8080";
     //使用冯静霞家的网络进行调试
-    private static final String SERVER_FJX_HOME = "http://192.168.0.106:8080";
+    private static final String SERVER_FJX_HOME = "http://192.168.0.107:8070";
     //使用省移动网络进行调试
     private static final String SERVER_CHINA_MOBILE = "http://10.167.151.237:8080/Sailfish";
     //使用iPhone手机网络进行调试
@@ -53,7 +46,9 @@ public class NetUtil {
     //使用正式服务器进行调试
     private static final String SERVER_ALIYUN = "http://39.104.72.97:8080/Sailfish";
 
-    public static final String SELECTED_HOST = SERVER_ALIYUN;
+    private static final String SERVER_NATAPP = "https://instmgr.natapp4.cc";
+
+    public static final String SELECTED_HOST = SERVER_NATAPP;
 
     private static OkHttpClient client;
 

@@ -79,7 +79,7 @@ public class MMemberDetailActivity
 
     private void loadMemberDetail() {
         String url = "/mMemberDetailQuery";
-        HttpCallback callback = new HttpCallback(this,this,0);
+        HttpCallback callback = new HttpCallback(this,this,REQUEST_MemberDetailQuery);
         NetUtil.reqSendGet(this,url,callback);
     }
 
@@ -153,7 +153,7 @@ public class MMemberDetailActivity
                 break;
             case R.id.btn_view_reset_password_activity_m_member_detail:
                 Intent intent1;
-                intent1 = new Intent(MMemberDetailActivity.this,MResetMemberPwdActivity.class);
+                intent1 = new Intent(this,MResetMemberPwdActivity.class);
                 startActivity(intent1);
                 break;
             default:
@@ -239,7 +239,7 @@ public class MMemberDetailActivity
                 "&birthday=" + m_birthday +
                 "&phone=" + m_phone +
                 "&im=" + m_im;
-        HttpCallback callback = new HttpCallback(this,this,0);
+        HttpCallback callback = new HttpCallback(this,this,REQUEST_ModifyMember);
         NetUtil.reqSendGet(this,url,callback);
     }
 

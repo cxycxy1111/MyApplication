@@ -3,7 +3,6 @@ package xyz.instmgr.sailfish.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ public class RVMainHintAdapter extends RecyclerView.Adapter implements View.OnCl
     public RVMainHintAdapter(Context context, List<Map<String,String>> mapList) {
         this.context = context;
         this.mapList = mapList;
-        Log.d(TAG, "RVMemberCardListAdapter: " + mapList.toString());
     }
 
     @Override

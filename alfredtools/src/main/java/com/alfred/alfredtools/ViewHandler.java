@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.alfred.alfredtools.AlfredSnackBar.AlfredBaseTransientBottomBar;
 
 public class ViewHandler {
 
@@ -173,12 +172,12 @@ public class ViewHandler {
     }
 
     public static void snackbarShowTall(Context context,View view,String str) {
-        Snackbar snackbar = Snackbar.make(view,str,Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(view,str,AlfredBaseTransientBottomBar.LENGTH_SHORT);
         snackbarDeal(context,snackbar,true);
     }
 
     public static void snackbarShowLow(Context context,View view,String str) {
-        Snackbar snackbar = Snackbar.make(view,str,Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view,str,BaseTransientBottomBar.LENGTH_LONG);
         snackbarDeal(context,snackbar,false);
     }
 

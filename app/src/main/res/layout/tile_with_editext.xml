@@ -17,10 +17,10 @@
     <EditText
         android:id="@+id/et_t_with_text"
         style="@style/plain_editText"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/distance192"
+        android:layout_alignParentRight="true"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:layout_toRightOf="@id/tv_t_with_text"
         android:layout_marginBottom="@dimen/distance8"
         android:layout_marginRight="@dimen/distance16"
         android:layout_marginTop="@dimen/distance8"

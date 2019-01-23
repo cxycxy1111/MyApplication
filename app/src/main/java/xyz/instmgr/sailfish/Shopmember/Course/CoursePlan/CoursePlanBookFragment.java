@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.*;
 import com.alfred.alfredtools.*;
 import xyz.instmgr.sailfish.Adapter.RVSimpleAdapter;
@@ -19,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CoursePlanBookFragment extends BaseFragment implements HttpResultListener {
+public class CoursePlanBookFragment extends BaseFragment
+        implements HttpResultListener {
 
     private static final int REQUEST_coursePlanBookListQueryByCoursePlanId = 1;
     private static final int REQUEST_memberCardAttendList = 2;
@@ -116,7 +116,6 @@ public class CoursePlanBookFragment extends BaseFragment implements HttpResultLi
             @Override
             public void onItemClick(View view, int position) {
                 selected_m_id_position = position;
-                Log.d(TAG, "onItemClick: " + selected_m_id_position);
                 unregisterForContextMenu(view);
                 registerForContextMenu(view);
                 view.showContextMenu();

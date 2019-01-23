@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -110,8 +109,7 @@ public class CoursePlanListFragment
     public void onRespStatus(String body, int source) {
         switch (NetRespStatType.dealWithRespStat(body)) {
             case EMPTY:
-                Snackbar.make(getView(),"暂无排课",Snackbar.LENGTH_SHORT).show();
-                ViewHandler.snackbarShowTall(getActivity(),getView(),"暂时没有排课");
+                ViewHandler.toastShow(getParentFragment().getActivity(),"暂时没有排课");
                 break;
             case STATUS_AUTHORIZE_FAIL:
                 ViewHandler.exitAcitivityDueToAuthorizeFail(getParentFragment().getActivity());
@@ -127,12 +125,12 @@ public class CoursePlanListFragment
 
     @Override
     public void onRespError(int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.UNKNOWN_ERROR);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.UNKNOWN_ERROR);
     }
 
     @Override
     public void onReqFailure(Object object, int source) {
-        ViewHandler.snackbarShowTall(getActivity(),getView(),Ref.CANT_CONNECT_INTERNET);
+        ViewHandler.toastShow(getParentFragment().getActivity(),Ref.CANT_CONNECT_INTERNET);
     }
 
     @Override
